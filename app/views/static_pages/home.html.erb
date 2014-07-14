@@ -1,1 +1,40 @@
-<h1>Home</h1>
+<hr class="rule">
+
+<section class="section home" id="home">
+    <header>
+        <a href="/" class="site-logo giga"><%= image_tag('logo.svg', :alt => 'Kinmill logo') %>
+        <p class="tagline" id="tagline"><span class="headline no-wrap--desk">Web design & Development</span></p>
+    </header>
+</section>
+
+<hr class="rule">
+
+<section class="recent" id="recent">
+
+    <div class="horizontal-list hl--four">
+
+        <a data-icon="" href="/work/scarey">
+            <h2>Latest Work:</h2>
+            <p class="italic">S. Carey</p>
+        </a><!--
+
+            {% for post in site.posts limit:1 %}
+            --><a data-icon="" href="{{ post.url }}">
+                <h2>Latest Post:</h2>
+                <p class="italic">{{ post.title }}</p>
+            </a><!--
+            {% endfor %}
+
+
+        --><a data-icon="" xhref="#">
+            <h2>Latest Experiment:</h2>
+            <p class="italic">Coming soon...</p>
+        </a><!--
+
+        --><a data-icon="" href="/connect">
+            <h2>Connect</h2>
+        </a>
+
+    </div> <!-- End horizontal list -->
+
+</section>
