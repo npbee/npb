@@ -1,0 +1,20 @@
+<div class="nav-container" id="nav-container">
+    <nav class="nav" id="nav">
+        <div class="breadcrumbs" id="breadcrumb-hook">
+            <%= link_to image_tag('logo.svg', :alt => 'Kinmill logo', :class => 'site-logo--small'), root_path, :class => 'nav__logo' %>
+            <a class="nav__logo" href="/"><img class="site-logo--small" src="/assets/images/logo.svg" alt="kinmill logo"></a>
+            {% if page.alt_header %}
+                <a class="nav-fade" href="{{ page.alt_header_url }}">{{ page.alt_header }}</a>
+            {% endif %}
+            {% if page.breadcrumb %}
+                <a class="nav-fade" id="breadcrumb">{{ page.breadcrumb }}</a>
+            {% endif %}
+        </div>
+        <ul>
+            <li><a class="work-nav" href="/work" data-icon="">Work</a></li>
+            <li><a class="blog-nav" href="/blog" data-icon="">Blog</a></li>
+            <!-- <li><a class="lab-nav" href="/lab" data-icon="">Lab</a></li> -->
+            <li><a class="connect-nav" href="/connect" data-icon="">Connect</a></li>
+        </ul>
+    </nav>
+</div>
