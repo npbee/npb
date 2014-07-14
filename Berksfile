@@ -6,4 +6,4 @@ cookbook "ruby_build"
 cookbook 'rbenv', git: 'https://github.com/fnichol/chef-rbenv'
 cookbook "git"
 cookbook "nginx",      "= 1.1.2"
-cookbook "postgresql"
+cookbook "postgresql", github: 'opscode-cookbooks/postgresql'

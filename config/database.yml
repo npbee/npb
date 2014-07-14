@@ -6,7 +6,10 @@
 #
 default: &default
   adapter: postgresql
-  encoding: unicode
+  encoding: utf8
+  ctype: en_US.utf8
+  collation: en_US.utf8
+  template: template0
   pool: 5
   timeout: 5000
   host: localhost
@@ -15,7 +18,8 @@ default: &default
 development:
   <<: *default
   database: kinmill_development
-  username: nicholaspball
+  username: postgres
+  password: password
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -23,7 +27,8 @@ development:
 test:
   <<: *default
   database: kinmill_test
-  username: nicholaspball
+  username: postgres
+  password: password
 
 # production:
 #   <<: *default

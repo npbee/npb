@@ -7,6 +7,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Set locale
+  config.vm.provision :shell, inline: "cp /vagrant/shell/lang.sh /etc/profile.d/lang.sh"
 
   # Use [berkshelf](http://berkshelf.com/)
   config.berkshelf.enabled = true
@@ -23,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -97,7 +99,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "nginx"
     chef.add_recipe "rbenv::vagrant"
     chef.add_recipe "rbenv::user"
-    chef.add_recipe "postgresql"
+    chef.add_recipe "postgresql::server"
 
     # You may also specify custom JSON attributes:
     chef.json = {
@@ -112,6 +114,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             ]
           }
         }]
+      },
+      postgresql: {
+        password: {
+          postgres: 'password'
+        },
+        initdb_locale: "en_US.UTF_8"
       }
     }
   end

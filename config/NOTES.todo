@@ -30,4 +30,3 @@ MODELS:
   TagRelationship:
     belongs_to :post_or_project
     belongs_to :tag
-  Static Page:
