@@ -1,0 +1,33 @@
+MODELS:
+  User:
+    has_many :projects
+    has_many :posts
+  Project:
+    belongs_to User
+    has_many :tag_relationships, :foreign_key => :post_or_project
+    has_many :tags, :through => :tag_relationships
+    Columns:
+      Name
+      Role
+      URL
+      Date_completed
+      Tags
+      Screenshots
+      Body
+      Logo
+      Thumbnail
+  Post:
+    belongs_to User
+    has_many :tag_relationships, :foreign_key => :post_or_project
+    has_many :tags, :through => :tag_relationships
+    Columns:
+      Title
+      Tags
+      Body
+  Tag:
+    has_many :tag_relationships
+    has_many :associations, :through => :tag_relationships, :source => :tag
+  TagRelationship:
+    belongs_to :post_or_project
+    belongs_to :tag
+  Static Page:
