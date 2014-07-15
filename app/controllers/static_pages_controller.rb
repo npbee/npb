@@ -1,4 +1,5 @@
 class StaticPagesController < ApplicationController
+  before_filter :require_login, :only => [:admin]
 
   def home
     @body_class = 'homepage'
@@ -8,6 +9,10 @@ class StaticPagesController < ApplicationController
     @alt_header = "Connect"
     @alt_header_url = '/connect'
     @body_class = 'connect'
+  end
+
+  def admin
+    render :layout => 'admin'
   end
 
 end

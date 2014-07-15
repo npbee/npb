@@ -1,0 +1,16 @@
+<div class="nav-container" id="nav-container">
+    <nav class="nav" id="nav">
+        <div class="breadcrumbs" id="breadcrumb-hook">
+            <a class="nav__logo" href="/"><img class="site-logo--small" src="/assets/images/logo.svg" alt="kinmill logo">ADMIN</a>
+            <% if @alt_header %>
+                <%= link_to @alt_header, @alt_header_url, :class => 'nav-fade' %>
+            <% end %>
+            <% if @breadcrumb %>
+                <a class="nav-fade" id="breadcrumb"><%= @breadcrumb %></a>
+            <% end %>
+        </div>
+        <ul>
+            <li><a><%= link_to "Logout", :logout, method: :post %></a></li>
+        </ul>
+    </nav>
+</div>
