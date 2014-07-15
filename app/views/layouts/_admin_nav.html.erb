@@ -10,6 +10,7 @@
             <% end %>
         </div>
         <ul>
+            <li><a>Welcome, <%= current_user.name %></a></li>
             <li><a><%= link_to "Logout", :logout, method: :post %></a></li>
         </ul>
     </nav>
