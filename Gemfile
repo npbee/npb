@@ -5,7 +5,7 @@ gem 'sqlite3'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'pg'
-
+gem 'sorcery'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
