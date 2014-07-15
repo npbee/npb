@@ -23,15 +23,4 @@ describe "StaticPages" do
     end
 
   end
-
-  describe "#admin" do
-
-    describe "when not logged in" do
-      before { visit '/admin' }
-
-      it "should redirect to the login page" do
-        expect(current_path).to eq('/login')
-      end
-    end
-  end
 end
