@@ -1,5 +1,49 @@
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "Model" do
+
+    before do
+      @user = User.new(email: "nick@example.com", password: "foobar85", password_confirmation: "foobar85")
+    end
+
+    describe "proper attributes" do
+      it "should respond to the proper values" do
+        expect(@user).to respond_to(:email)
+        expect(@user).to respond_to(:password)
+        expect(@user).to respond_to(:password_confirmation)
+      end
+    end
+
+    describe "when email is empty" do
+      before do
+        @user.email = ""
+      end
+
+      it "should not be valid" do
+        expect(@user).to_not be_valid
+      end
+    end
+
+    describe "when password is empty" do
+      before { @user.password = '' }
+
+      it "should not be valid" do
+        expect(@user).to_not be_valid
+      end
+    end
+
+    describe "when passwords do not match" do
+      before do
+        @user.password = 'foobar85'
+        @user.password_confirmation = 'foobar86'
+      end
+
+      it 'should not be valid' do
+        expect(@user).to_not be_valid
+      end
+    end
+
+
+  end
 end
