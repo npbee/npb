@@ -19,6 +19,7 @@ describe "StaticPages" do
 
     it "Has the correct content" do
       expect(page).to have_content('Email Me')
+      expect(page).to have_content('Connect')
     end
 
   end
