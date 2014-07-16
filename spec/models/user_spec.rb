@@ -4,7 +4,7 @@ RSpec.describe User, :type => :model do
   describe "Model" do
 
     before do
-      @user = User.new(email: "nick@example.com", password: "foobar85", password_confirmation: "foobar85")
+      @user = FactoryGirl.create(:user)
     end
 
     describe "proper attributes" do
@@ -12,6 +12,7 @@ RSpec.describe User, :type => :model do
         expect(@user).to respond_to(:email)
         expect(@user).to respond_to(:password)
         expect(@user).to respond_to(:password_confirmation)
+        expect(@user).to respond_to(:accepting_projects)
       end
     end
 
@@ -44,6 +45,11 @@ RSpec.describe User, :type => :model do
       end
     end
 
-
+    describe "Accepting Projects" do
+      it "should be false by default" do
+        expect(@user.accepting_projects).to eq(false)
+      end
+    end
+    
   end
 end

@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140715203420) do
+ActiveRecord::Schema.define(version: 20140716194029) do
 
   create_table "users", force: true do |t|
-    t.string   "email",            null: false
-    t.string   "crypted_password", null: false
-    t.string   "salt",             null: false
+    t.string   "email",              null: false
+    t.string   "crypted_password",   null: false
+    t.string   "salt",               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.boolean  "accepting_projects"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
