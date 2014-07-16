@@ -29,7 +29,10 @@
        <%= f.label :password_confirmation %><br />
        <%= f.password_field :password_confirmation %>
     </div>
-
+    
+    <%= f.label :accepting_projects %>
+    <%= f.check_box :accepting_projects %>
+    
   <div class="actions">
     <%= f.submit %>
   </div>

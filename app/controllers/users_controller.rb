@@ -33,7 +33,13 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
+    if params[:user][:accepting_projects]
+      if @user.update_attribute(:accepting_projects, params[:user][:accepting_projects])
+        redirect_to admin_path, notice: 'Got it'
+      else
+        redirect_to admin_path, notice: 'Trouble'
+      end
+    elsif @user.update(user_params)
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render :edit
@@ -54,6 +60,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :accepting_projects)
     end
 end

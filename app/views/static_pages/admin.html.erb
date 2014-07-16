@@ -1,3 +1,14 @@
 <section class="section">
-
+  <p>You  
+  <% if current_user.accepting_projects %>
+    ARE
+  <% else %>
+    ARE NOT
+  <% end %>
+  currently accepting projects.</p>
+  <%= form_for(@user) do |f| %>
+    <%= f.label :accepting_projects, "Accepting Projects?" %>
+    <%= f.check_box :accepting_projects %>
+    <%= f.submit 'Save Changes', class: ''  %>
+  <% end %>
 </section>

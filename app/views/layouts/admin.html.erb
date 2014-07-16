@@ -23,7 +23,10 @@
             <%= render 'layouts/admin_nav' %>
 
             <div class="content" id="content">
-
+              <div class='flash'>
+                <%= flash[:notice] %>
+                <%= flash[:alert] %>
+              </div>
                 <%= yield %>
 
             </div><!-- End Content -->

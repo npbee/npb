@@ -4,7 +4,7 @@ require 'support/requests_spec_helper'
 describe "Admin pages" do
   include RequestsSpecHelper
 
-  describe "home page" do
+  describe "home page autorization" do
     describe "when not logged in" do
       before { visit '/admin' }
 
@@ -24,4 +24,32 @@ describe "Admin pages" do
       end
     end
   end
+
+  describe "Updating user accepting_projects attribute" do
+    before do
+      @user = FactoryGirl.create(:user)
+      login_user('test@test.com', 'foobar85')
+      visit '/admin'
+    end
+
+    it 'should default to false' do
+      expect(page).to have_content('You ARE NOT currently accepting projects.')
+    end
+
+    describe "when checked" do
+      before do 
+        check('user_accepting_projects')
+        click_on('Save Changes')
+      end
+
+      it "should update the user attribute" do
+        expect(page).to have_content('You ARE currently accepting projects.')
+      end
+    end
+
+    #it 'should update the user attributes' do
+     # expect(page).to have_content('You ARE currently accepting projects.')
+    #end
+  end
+
 end

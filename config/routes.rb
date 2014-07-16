@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   # Static Pages
   root 'static_pages#home'
   get '/connect' => 'static_pages#connect'
-  get '/admin' => 'static_pages#admin', :as => :admin_path
 
+  # ADMIN
+  get '/admin' => 'static_pages#admin', :as => :admin
   # USERS
   resources :user_sessions, :only => [:new, :create, :destroy]
   resources :users

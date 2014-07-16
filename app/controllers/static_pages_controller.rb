@@ -12,6 +12,7 @@ class StaticPagesController < ApplicationController
   end
 
   def admin
+    @user = current_user
     render :layout => 'admin'
   end
 

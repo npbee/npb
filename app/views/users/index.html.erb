@@ -4,9 +4,8 @@
   <thead>
     <tr>
       <th>Email</th>
-      <th>Crypted password</th>
-      <th>Salt</th>
-      <th>Session</th>
+      <th>Action</th>
+      <th>Accepting Projects?</th>
       <th>Logged in?</th>
     </tr>
   </thead>
@@ -15,9 +14,9 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.email %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user %> / <%= link_to 'Edit', edit_user_path(user) %> / 
+          <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= user.accepting_projects %></td>
         <td><%= logged_in? %></td>
       </tr>
     <% end %>

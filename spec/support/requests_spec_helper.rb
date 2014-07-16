@@ -4,6 +4,5 @@ module RequestsSpecHelper
     fill_in 'email', with: email
     fill_in 'password', with: password
     click_on 'Login'
-    visit '/admin'
   end
 end
