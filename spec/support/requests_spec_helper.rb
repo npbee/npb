@@ -1,0 +1,9 @@
+module RequestsSpecHelper
+  def login_user(email, password)
+    visit '/login'
+    fill_in 'email', with: email
+    fill_in 'password', with: password
+    click_on 'Login'
+    visit '/admin'
+  end
+end
