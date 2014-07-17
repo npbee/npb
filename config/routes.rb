@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   get '/connect' => 'static_pages#connect'
 
+  # POSTS
+  resources :posts
+  get '/blog' => 'posts#index'
+
   # ADMIN
   get '/admin' => 'static_pages#admin', :as => :admin
   # USERS
