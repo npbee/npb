@@ -1,43 +1,16 @@
-<h1>Listing projects</h1>
+<div class="work-thumbs" id="work-thumbs">
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Role</th>
-      <th>Url</th>
-      <th>Date completed</th>
-      <th>Body</th>
-      <th>Logo</th>
-      <th>Thumbnail</th>
-      <th>Small screen</th>
-      <th>Medium screen</th>
-      <th>Large screen</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <% @projects.each do |project| %>
+    <a data-target="<%= "projects/#{project.slug}" %>" title="<%= project.name %>" href="<%= "/projects/#{project.slug}" %>">
+      <img class="work-thumb__icon" src="<%= project.thumbnail %>" alt="<%= "#{project.name} thumb"%>">
+      <div class="work-thumb__caption" d data-icon="">
+        <h2 class="gamma"><%= "#{project.name} (#{project.date_completed.strftime('%Y')})" %></h2>
+        <p><%= project.role %></p>
+      </div>
+    </a>
+  <% end %>
+</div>
 
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= project.name %></td>
-        <td><%= project.role %></td>
-        <td><%= project.url %></td>
-        <td><%= project.date_completed %></td>
-        <td><%= project.body %></td>
-        <td><%= project.logo %></td>
-        <td><%= project.thumbnail %></td>
-        <td><%= project.small_screen %></td>
-        <td><%= project.medium_screen %></td>
-        <td><%= project.large_screen %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Project', new_project_path %>
+<section class="section">
+    <article class="work-item" id="work-item"></article>
+</section>

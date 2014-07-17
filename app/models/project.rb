@@ -10,6 +10,8 @@ class Project < ActiveRecord::Base
   has_many :tag_relationships, :foreign_key => "reference_id"
   has_many :tags, :through => :tag_relationships 
   
+  default_scope { order('created_at DESC') }
+
   def self.find(input)
     input.to_i == 0 ? find_by_slug(input) : super
   end

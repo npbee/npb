@@ -4,6 +4,7 @@ class StaticPagesController < ApplicationController
   def home
     @body_class = 'homepage'
     @post = Post.first
+    @project = Project.first
   end
 
   def connect

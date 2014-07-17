@@ -13,9 +13,9 @@
 
     <div class="horizontal-list hl--four">
 
-        <a data-icon="" href="/work/scarey">
+      <a data-icon="" href="<%= "/project/#{@project.slug}" %>">
             <h2>Latest Work:</h2>
-            <p class="italic">S. Carey</p>
+            <p class="italic"><%= @project.name %></p>
         </a><!--
 
             {% for post in site.posts limit:1 %}
