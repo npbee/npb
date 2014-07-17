@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # POSTS
   resources :posts
   get '/blog' => 'posts#index'
+  get '/blog/:id' => 'posts#show'
 
   # ADMIN
   get '/admin' => 'static_pages#admin', :as => :admin
