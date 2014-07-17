@@ -16,6 +16,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @tag_list = Tag.all
   end
 
   # GET /posts/1/edit
@@ -25,6 +26,10 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = current_user.posts.build(post_params)
+    @tag_list = params[:tags]
+    @tag_list.each do |tag|
+      @post.tags.build(name: tag)
+    end
 
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'

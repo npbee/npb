@@ -1,9 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-<strong>Name:</strong>
+<strong>Tag:</strong>
   <%= @tag.name %>
 </p>
+
+<h2>Post References</h2>
+<% @tag.post_references.each do |post_reference| %>
+  <%= link_to post_reference.title, post_path(post_reference) %>
+<% end %>
 
 
 <% if logged_in? %>

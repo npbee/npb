@@ -25,6 +25,10 @@
     <%= f.text_field :slug %>
   </div>
   
+    <% @tag_list.each do |tag_el| %>
+      <%= label_tag 'tags[]', tag_el.name %>
+      <%= check_box_tag 'tags[]', tag_el.name %>
+    <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -8,6 +8,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
   has_many :tag_relationships, :foreign_key => "reference_id"
   has_many :tags, :through => :tag_relationships
+  accepts_nested_attributes_for :tags
 
   default_scope { order('created_at DESC') }
   

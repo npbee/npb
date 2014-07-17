@@ -22,8 +22,7 @@ class TagsController < ApplicationController
 
   # POST /tags
   def create
-    @tag = current_user.tags.build(tag_params)
-
+    @tag = Tag.new(tag_params)
     if @tag.save
       redirect_to @tag, notice: 'Tag was successfully created.'
     else
@@ -54,7 +53,7 @@ class TagsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def tag_params
-      params.require(:post).permit(:name)
+      params.require(:tag).permit(:name)
     end
 end
 
