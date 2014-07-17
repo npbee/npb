@@ -10,6 +10,7 @@ RSpec.describe Post, :type => :model do
       expect(@post).to respond_to(:title)
       expect(@post).to respond_to(:body)
       expect(@post).to respond_to(:slug)
+      expect(@post).to respond_to(:tags)
     end
 
     describe "title validation" do
@@ -45,6 +46,17 @@ RSpec.describe Post, :type => :model do
         end
       end
 
+    end
+
+    describe "tag retrieval" do
+      before do
+        @tag = FactoryGirl.create(:tag)
+        @tag_relationship = FactoryGirl.create(:tag_relationship, { tag_id: @tag.id, reference_id: @post.id })
+      end
+
+      it "should retrive the right tags" do
+        expect(@post.tags).to include(@tag)
+      end
     end
   end
 end

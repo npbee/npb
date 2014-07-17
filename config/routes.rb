@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get '/blog' => 'posts#index'
   get '/blog/:id' => 'posts#show'
 
+  # TAGS
+  resources :tags
+
   # ADMIN
   get '/admin' => 'static_pages#admin', :as => :admin
   # USERS

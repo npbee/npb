@@ -1,0 +1,14 @@
+<section class="section">
+    <article>
+        <div class="page-nav">
+          <% @tags.each do |tag| %>
+            <a class="blog__excerpt" href="<%= "/blog/#{tag.slug}" %>">
+              <span class="tag-meta tag-date"><%= tag.created_at.strftime('%m.%d.%Y') %></span>
+              <h2 class="tag-meta"><%= tag.title %></h2>
+              <p class="tag-meta italic"><%= tag.body[0..4] %></p>
+            </a>
+          <% end %>
+        </div>
+    </article>
+</section>
+
