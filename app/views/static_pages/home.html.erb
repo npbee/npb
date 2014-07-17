@@ -19,9 +19,9 @@
         </a><!--
 
             {% for post in site.posts limit:1 %}
-            --><a data-icon="" href="{{ post.url }}">
+            --><a data-icon="" href="<%= "/blog/#{@post.slug}" %>">
                 <h2>Latest Post:</h2>
-                <p class="italic">{{ post.title }}</p>
+                <p class="italic"><%= @post.title %></p>
             </a><!--
             {% endfor %}
 

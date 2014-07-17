@@ -1,8 +1,9 @@
 class StaticPagesController < ApplicationController
   before_filter :require_login, :only => [:admin]
-
+  
   def home
     @body_class = 'homepage'
+    @post = Post.first
   end
 
   def connect

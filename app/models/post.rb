@@ -6,6 +6,8 @@ class Post < ActiveRecord::Base
                                         message: 'does not allow special characters'}
 
   belongs_to :user
+
+  default_scope { order('created_at DESC') }
   
 
   def self.find(input)
