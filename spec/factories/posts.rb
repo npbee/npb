@@ -5,5 +5,6 @@ FactoryGirl.define do
     title "MyString"
     body "MyText"
     slug "MySlug"
+    user_id 1
   end
 end

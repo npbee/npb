@@ -7,3 +7,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.delete_all
+Post.delete_all
+
+User.create(
+  name: "Nick",
+  email: "nick@nick.com",
+  password: "foobar85",
+  password_confirmation: "foobar85"
+)

@@ -7,7 +7,7 @@ RSpec.describe "Posts", :type => :request do
     end
 
     context "when not logged in" do
-      context "and accessing the post index page"
+      context "and accessing the post index page" do
         before { visit '/blog' }
         it "should allow for anyone to access it" do
           expect(page.current_path).to eq('/blog')
@@ -20,7 +20,7 @@ RSpec.describe "Posts", :type => :request do
           expect(page.current_path).to eq('/login')
         end
       end
-
+   
       context "and accessing a post edit page" do
         before do
           @post = FactoryGirl.create(:post)
@@ -33,5 +33,13 @@ RSpec.describe "Posts", :type => :request do
 
       end
     end
-
+    describe "associating a user to a post" do
+      before do
+        @post = FactoryGirl.create(:post, { user_id: @user.id })
+      end
+      it "should retrieve the user on a post" do
+        expect(@post.user).to eq(@user)
+      end
+    end
+  end
 end
