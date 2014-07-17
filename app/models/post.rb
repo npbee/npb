@@ -7,9 +7,6 @@ class Post < ActiveRecord::Base
 
   belongs_to :user
   
-  def to_param
-    slug
-  end
 
   def self.find(input)
     input.to_i == 0 ? find_by_slug(input) : super

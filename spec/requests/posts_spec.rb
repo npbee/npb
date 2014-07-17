@@ -1,6 +1,9 @@
 require 'rails_helper'
+require 'support/requests_spec_helper'
 
 RSpec.describe "Posts", :type => :request do
+  include RequestsSpecHelper
+  
   describe "Post requests" do
     before do
       @user = FactoryGirl.create(:user)
@@ -32,7 +35,29 @@ RSpec.describe "Posts", :type => :request do
         end
 
       end
+
+      context "and accessing a post show page" do
+        before do
+          @post = FactoryGirl.create(:post, { user_id: @user.id })
+          visit post_path(@post)
+        end
+        it "should not have an edit link" do
+          expect(page).to_not have_content('Edit')
+        end
+      end
     end
+
+    context "when logged in" do
+      before do
+        login_user("test@test.com", "foobar85")
+        @post = FactoryGirl.create(:post, { user_id: @user.id })
+        visit post_path(@post)
+      end
+      it "should display an edit link on a post page" do
+        expect(page).to have_content('Edit')
+      end
+    end
+
     describe "associating a user to a post" do
       before do
         @post = FactoryGirl.create(:post, { user_id: @user.id })
