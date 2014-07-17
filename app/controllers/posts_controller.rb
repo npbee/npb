@@ -10,7 +10,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
-    render :layout => 'post'
+    #render :layout => 'post'
   end
 
   # GET /posts/new
@@ -26,10 +26,7 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = current_user.posts.build(post_params)
-    @tag_list = params[:tags]
-    @tag_list.each do |tag|
-      @post.tags.build(name: tag)
-    end
+    @tag_list = params[:tag_list]
 
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'
@@ -61,6 +58,6 @@ class PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:title, :body, :slug)
+      params.require(:post).permit(:title, :body, :slug, :tag_list)
     end
 end

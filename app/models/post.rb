@@ -17,4 +17,13 @@ class Post < ActiveRecord::Base
     input.to_i == 0 ? find_by_slug(input) : super
   end
 
+  def tag_list
+    self.tags.map { |tag| tag.name }.join(', ')
+  end
+
+  def tag_list=(new_value)
+    tag_names = new_value.split(/,\s+/)
+    self.tags = tag_names.map { |name| Tag.where('name = ?', name).first or Tag.create(:name => name) }
+  end
+
 end

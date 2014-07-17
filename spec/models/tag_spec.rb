@@ -10,12 +10,12 @@ RSpec.describe Tag, :type => :model do
     
     it "should respond to the proper attributes" do
       expect(@tag).to respond_to(:name)
-      expect(@tag).to respond_to(:references)
+      expect(@tag).to respond_to(:post_references)
     end
 
     it "should populate the references" do
       expect(@post.tags).to include(@tag)
-      expect(@tag.references).to include(@post)
+      expect(@tag.post_references).to include(@post)
     end
   end
 end

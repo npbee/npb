@@ -8,6 +8,7 @@
 
 User.delete_all
 Post.delete_all
+Tag.delete_all
 
 User.create(
   name: "Nick",
