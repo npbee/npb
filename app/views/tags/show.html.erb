@@ -10,6 +10,11 @@
   <%= link_to post_reference.title, post_path(post_reference) %>
 <% end %>
 
+<h2>Project References</h2>
+<% @tag.project_references.each do |project_reference| %>
+  <%= link_to project_reference.name, project_path(project_reference) %>
+<% end %>
+
 
 <% if logged_in? %>
   <%= link_to 'Edit', edit_tag_path(@tag) %>

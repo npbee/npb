@@ -1,0 +1,87 @@
+<article id="<%= @project.name %>" class="work-item" title="<%= @project.name%>">
+
+  <h1 class="headline"><%= @project.name %></h1>
+
+  <div class="horizontal-list">
+    <div>
+      <h2>Role:</h2>
+      <p><%= @project.role %></p>
+    </div><!--
+
+                    --><div>
+      <h2>URL:</h2>
+      <p><a href="<%= @project.url %>" target="_blank"><%= @project.url %></a></p>
+    </div><!--
+
+                    --><div>
+      <h2>Completed:</h2>
+      <p><%= @project.date_completed.strftime('%B %d, %Y') %></p>
+    </div><!--
+
+                    --><div>
+      <h2>Tags:</h2>
+      <p>
+      <% @project.tags.each do |tag| %>
+          <%= link_to tag.name, tag_path(tag.name) %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+  <div class="carousel-container" id="carousel-container">
+    <div class="carousel" id="carousel">
+
+      {% for image in page.carousel_images %}
+      <span data-picture data-alt="{{ image.title }}" class="carousel__img {% cycle 'carousel__img--desk', 'carousel__img--tablet', 'carousel__img--mobile' %}">
+        <span data-src="{{ image.small }}"></span>
+        <span data-src="{{ image.big }}" data-media="(min-width: 940px)"></span>
+        <noscript>
+          <img src="{{ image.small }}" alt="{{ image.title }}">
+        </noscript>
+      </span>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  <div class="carousel__controls">
+    <a class="button" id="carousel__control" data-icon="">Rotate</a>
+  </div>
+
+  <hr class="rule">
+
+
+  <%= @project.body %>
+
+  <a class="project-logo" href="{{ page.site_url }}">
+    <img src="{{ page.project_logo }}" alt="{{ page.client }} logo">
+  </a>
+
+
+  <div class="horizontal-list">
+    <div>
+      <h2>Role:</h2>
+      <p><%= @project.role %></p>
+    </div><!--
+
+                    --><div>
+      <h2>URL:</h2>
+      <p><a href="<%= @project.url %>" target="_blank"><%= @project.url %></a></p>
+    </div><!--
+
+                    --><div>
+      <h2>Completed:</h2>
+      <p><%= @project.date_completed.strftime('%B %d, %Y') %></p>
+    </div><!--
+
+                    --><div>
+      <h2>Tags:</h2>
+      <p> 
+        <% @project.tags.each do |tag| %>
+          <%= link_to tag.name, tag_path(tag.name) %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+</article>

@@ -12,8 +12,12 @@ Rails.application.routes.draw do
   # TAGS
   resources :tags
 
+  # PROJECTS
+  resources :projects
+
   # ADMIN
   get '/admin' => 'static_pages#admin', :as => :admin
+  
   # USERS
   resources :user_sessions, :only => [:new, :create, :destroy]
   resources :users

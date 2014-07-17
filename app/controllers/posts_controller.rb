@@ -26,7 +26,6 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = current_user.posts.build(post_params)
-    @tag_list = params[:tag_list]
 
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'

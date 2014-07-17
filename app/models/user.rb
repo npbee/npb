@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true, presence: true
 
   has_many :posts
+  has_many :projects
 end
