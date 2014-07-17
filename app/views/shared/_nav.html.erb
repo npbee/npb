@@ -6,8 +6,8 @@
                 <%= link_to @alt_header, @alt_header_url, :class => 'nav-fade' %>
 
             <% end %>
-            <% if @breadcrumb %>
-                <a class="nav-fade" id="breadcrumb"><%= @breadcrumb %></a>
+            <% if @post && @post.slug %>
+                <a class="nav-fade" id="breadcrumb"><%= @post.slug %></a>
             <% end %>
         </div>
         <ul>

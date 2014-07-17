@@ -1,26 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" class="no-js new-visitor">
-    <head>
-        <meta http-equiv="Content-Type" content ="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, minimum-scale=1.0">
-
-        <title>Kinmill</title>
-
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <link rel="stylesheet" type="text/css" href="//cloud.typography.com/7821852/698262/css/fonts.css" />
-        <link rel="stylesheet" href="/assets/css/style.css">
-        <script src="/assets/js/libs/modernizr.js"></script>
-    </head>
+<%= render 'shared/head' %>
     <body class="<%= @body_class || '' %>">
 
         <body class="{{ page.body_class }}">
 
-        <%= render 'layouts/mobile_header' %>
+        <%= render 'shared/mobile_header' %>
 
         <div class="wrapper">
 
-            <%= render 'layouts/admin_nav' %>
+            <%= render 'shared/admin_nav' %>
 
             <div class="content" id="content">
               <div class='flash'>
@@ -33,6 +20,6 @@
 
         </div><!-- End Wrapper -->
 
-        <%= render 'layouts/footer' %>
+        <%= render 'shared/footer' %>
     </body>
 </html>

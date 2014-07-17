@@ -10,6 +10,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
+    render :layout => 'post'
   end
 
   # GET /posts/new
