@@ -20,10 +20,13 @@ gulp.task('sass', function() {
 
 // JSHINT
 gulp.task('jshint', function() {
-  return gulp.src('public/assets/js/**/*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(livereload(server));
+  return gulp.src([
+    'public/assets/js/modules/*.js',
+    'public/assets/js/main.js'
+  ])
+  .pipe(jshint())
+  .pipe(jshint.reporter('jshint-stylish'))
+  .pipe(livereload(server));
 });
 
 
