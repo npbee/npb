@@ -1,0 +1,116 @@
+/*------------------------------------*\
+    $BIG HORIZONTAL LIST
+    *
+    * In use on work pages and home pages
+    * Default width is 25% unless specified with another class, e.g. 'hl--three'
+    * Mark up like so:
+    <div class="horizontal-list">
+        <div>
+            <h2 class="delta">Role:</h2>
+            <p>Design & Development</p>
+        </div><!--
+
+        --><div>
+            <h2 class="delta">URL:</h2>
+            <p><a href="http://scarey.org">http://scarey.org</a></p>
+        </div><!--
+
+        --><div>
+            <h2 class="delta">Date completed:</h2>
+            <p>January 2014</p>
+        </div>
+
+    </div>
+\*------------------------------------*/
+
+.horizontal-list {
+    background: rgba($grey, 0.2);
+    text-align: center;
+    margin: $base-spacing-unit*2 0;
+    h2, p {
+        margin-bottom: 0;
+    }
+    > div, > a {
+        display: block;
+        position: relative;
+        width: 100%;
+        &:before {
+            font-size: $h1-size;
+        }
+        &:last-child:after {
+            display: none;
+        }
+        @include media-query(desk) {
+            display: inline-block;
+            vertical-align: top;
+            width: 25%;
+        }
+    }
+    > a,
+    > div {
+        padding: $base-spacing-unit 0;
+    }
+    > div:after, > a:after {
+        content: "";
+        display: block;
+        margin: $base-spacing-unit auto (-$base-spacing-unit);
+        width: 30%;
+        height: 1px;
+        background: $grey;
+        @include media-query(desk) {
+            position: absolute;
+            margin: 0;
+            width: 1px;
+            height: 70%;
+            right: 0;
+            top: 15%;
+        }
+    }
+    p {
+        //font-size: $milli-size;
+    }
+}
+
+.hl--four {
+    >div, >a {
+        @include media-query(desk) {
+            width: 25%;
+        }
+    }
+}
+
+.hl--three {
+    >div, >a {
+        @include media-query(desk) {
+            width: 33.33%;
+        }
+    }
+}
+
+.hl--two {
+    >div, >a {
+        @include media-query(desk) {
+            width: 50%;
+        }
+    }
+}
+
+.hl--one {
+    >div, >a {
+        width: 100%;
+        &:hover:after {
+            width: 25%;
+            background: $brand-main;
+        }
+        &:after {
+            @include transition(background $anim/2, width $anim/2);
+            position: static;
+            content: "";
+            display: block;
+            margin: $base-spacing-unit auto (-$base-spacing-unit);
+            width: 20%;
+            height: 1px;
+            background: $grey;
+        }
+    }
+}

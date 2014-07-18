@@ -1,0 +1,20 @@
+/*------------------------------------*\
+    $BREADCRUMBS
+\*------------------------------------*/
+.breadcrumbs {
+    a {
+        display: none;
+        @include media-query(desk) {
+            display: inline-block;
+        }
+        &:first-child {
+            display: inline-block;
+        }
+        &:after {
+            content: " /";
+            color: $black !important;
+            display: inline-block;
+            margin: 0 $base-spacing-unit/2;
+        }
+    }
+}

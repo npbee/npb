@@ -1,0 +1,39 @@
+/*------------------------------------*\
+    $BLOG STYLES
+\*------------------------------------*/
+
+
+
+
+/****
+* Individual post pages
+****/
+.post-date {
+    text-align: center;
+}
+
+
+
+/****
+* Post meta
+****/
+.post-meta {
+    display: block;
+    margin-bottom: $small-spacing-unit;
+}
+
+
+
+
+/****
+* Tags
+****/
+.post-tags a {
+    &:after {
+        content: ",";
+        margin-right: 5px;
+    }
+    &:last-child:after {
+        display: none;
+    }
+}

@@ -1,0 +1,77 @@
+/*------------------------------------*\
+    $FOOTER
+\*------------------------------------*/
+.footer-container {
+    height: $footer-height;
+    position: relative;
+    //background: $white;
+    @include media-query(desk) {
+        &:hover:before {
+            width: 80px;
+            background: $brand-main;
+        }
+        &:before {
+            @include transition(width $anim, background $anim);
+            content: "";
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            width: 50px;
+            height: 1px;
+            top: -12px;
+            background: $grey;
+        }
+    }
+}
+
+
+.footer {
+    @include clearfix;
+    max-width: 1600px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: $milli-size;
+    [data-icon]:before {
+        font-size: $h3-size;
+        display: block;
+        margin-bottom: $small-spacing-unit;
+        @include media-query(desk) {
+            display: inline-block;
+            margin-bottom: 0;
+            font-size: $h4-size;
+        }
+    }
+    a {
+        display: block;
+        padding: $base-spacing-unit;
+        background: $white;
+        border-top: 1px solid $grey;
+        line-height: $footer-height/2;
+        @include media-query(desk) {
+            background: none;
+            border: none;
+            padding: 0 $base-spacing-unit/2;
+        }
+    }
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-transform: uppercase;
+        @include media-query(desk) {
+            //float: right;
+            li {
+                display: inline-block;
+            }
+            a {
+                //padding: 0 0 0 $base-spacing-unit;
+            }
+        }
+    }
+    .footer__copyright {
+        @include media-query(desk) {
+            //padding: 0 $base-spacing-unit 0 0;
+            //float: left;
+        }
+    }
+}

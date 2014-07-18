@@ -1,0 +1,75 @@
+/*------------------------------------*\
+    $HELPERS
+\*------------------------------------*/
+.list-reset {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/****
+* For hiding text with icond
+****/
+.hide {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+}
+
+
+img.rounded,
+.rounded img {
+    border-radius: $brand-round;
+    border: 1px solid $black;
+}
+
+
+/****
+* Vertical align when display inline
+****/
+.vert-middle {
+    vertical-align: middle;
+}
+
+
+/****
+* For large errors or success statements
+****/
+.big-error,
+.big-success {
+    display: block;
+    padding: $base-spacing-unit/2;
+    border-radius: $brand-round;
+    color: $white;
+}
+
+.big-error {
+    background: $error;
+}
+
+.big-success {
+    background: $green;
+}
+
+
+
+/****
+* White space no-wrap
+* For headlines
+****/
+.no-wrap--desk {
+    @include media-query(desk) {
+        white-space: nowrap;
+    }
+}
+
+
+/****
+* Block and Center
+****/
+.block-center {
+    display: block;
+    margin: $base-spacing-unit/2 auto;
+
+}

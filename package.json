@@ -1,0 +1,26 @@
+{
+  "name": "Kinmill",
+  "version": "2.0.0",
+  "description": "Portfolio and blog for Nick Ball",
+  "main": "gulpfile.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "dependencies": {
+    "gulp": "~3.8.6"
+  },
+  "devDependencies": {
+    "gulp-sass": "^0.7.2",
+    "gulp-livereload": "^2.1.0",
+    "tiny-lr": "0.0.9",
+    "gulp-jshint": "^1.7.1",
+    "jshint-stylish": "^0.4.0",
+    "gulp-requirejs": "^0.1.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nick ball",
+  "license": "ISC"
+}

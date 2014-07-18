@@ -1,0 +1,79 @@
+/****
+* $TOOLTIPS
+* <a class="tooltip">
+* <span class="tooltip-tip">Tooltip</span>
+* </a>
+****/
+.tooltip {
+    position: relative;
+    line-height: 1 !important;
+    .tooltip-tip {
+        display: block;
+        @include media-query(desk) {
+            @include transition-property(transform, opacity);
+            @include transition-duration($anim, $anim);
+            @include transform(translateY(10px));
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            opacity: 0;
+            background: $black;
+            color: $white;
+            padding: $small-spacing-unit $base-spacing-unit/2;
+            border-radius: $brand-round;
+            font-family: $base-font-family;
+            text-transform: none;
+            &:after {
+                content: "";
+                position: absolute;
+                border-top: 10px solid $black;
+                border-bottom: 10px solid transparent;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                left: 10px;
+                bottom: -20px;
+            }
+        }
+    }
+    &:hover {
+        .tooltip-tip {
+            @include media-query(desk) {
+                @include transform(translateY(0));
+                left: 0;
+                top: -150%;
+                top: calc(-100% - 20px);
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.tooltip--bottom {
+    @extend .tooltip;
+    .tooltip-tip {
+        @include media-query(desk) {
+            @include transform(translateY(-10px));
+            &:after {
+                content: "";
+                position: absolute;
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid $black;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                top: -20px;
+                bottom: auto;
+            }
+        }
+    }
+    &:hover {
+        .tooltip-tip {
+            @include media-query(desk) {
+                @include transform(translateY(0));
+                top: auto;
+                bottom: -150%;
+                bottom: calc(-100% - 20px);
+                opacity: 1;
+            }
+        }
+    }
+}

@@ -1,0 +1,65 @@
+/*------------------------------------*\
+    $KEYFRAMES
+\*------------------------------------*/
+
+
+/****
+* Slide in from left
+* Used in mobile navigation
+****/
+@include keyframes(slide-in-from-left) {
+    0% {
+        @include transform(translate3d(-100%,0,0));
+    }
+    100% {
+        @include transform(translate3d(0,0,0));
+    }
+}
+
+
+
+/****
+* Small slide in
+****/
+@include keyframes(small-slide-in-from-left) {
+    0% {
+        left: -9999px;
+    }
+    50% {
+        left: -10px;
+        opacity: 0.8;
+    }
+    100% {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+
+
+/****
+* Slide Down
+****/
+@include keyframes(slide-down) {
+    0% {
+        @include transform(translateY(-100%));
+    }
+    100% {
+        @include transform(translateY(0%));
+        position: fixed;
+    }
+}
+
+
+/****
+* Slide up
+****/
+@include keyframes(slide-up) {
+    0% {
+        @include transform(translateY(0%));
+        position: fixed;
+    }
+    100% {
+        @include transform(translateY(-100%));
+    }
+}

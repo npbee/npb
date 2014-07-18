@@ -1,0 +1,19 @@
+/*------------------------------------*\
+    $RULES
+\*------------------------------------*/
+
+/****
+* Modifies Intuit CSS rules
+****/
+.rule {
+    color: $grey;
+    margin-bottom: $base-spacing-unit;
+}
+
+.rule--small {
+    background: $black;
+    border: none;
+    margin-bottom: $base-spacing-unit*2;
+    height: 1px;
+    width: $base-spacing-unit;
+}

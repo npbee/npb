@@ -1,0 +1,56 @@
+/*------------------------------------*\
+    $CODE HIGHLIGHTING
+\*------------------------------------*/
+.highlight {
+    display: block;
+    padding: $base-spacing-unit/2;
+    margin-bottom: $base-spacing-unit;
+    font-size: $base-font-size - 5;
+    border-radius: $brand-round;
+    background: #2d2d2d;
+    color: $white;
+    @include media-query(desk) {
+        padding: $base-spacing-unit;
+        font-size: $base-font-size;
+    }
+}
+
+
+/****
+* Functions, vars
+****/
+.kd {
+    color: #bf90c7;
+}
+
+
+.nx {
+    //color: #7095cd;
+    + .o +.c1 {
+        color: $white;
+    }
+}
+
+
+/****
+* Comments
+****/
+.c1 {
+    color: #7c7c7c;
+}
+
+
+/****
+* Between quotes
+****/
+.s1 {
+    color: #98c28b;
+}
+
+
+/****
+* Keywords?
+****/
+.nt {
+    color: #cc99cc;
+}

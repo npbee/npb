@@ -1,0 +1,112 @@
+/*------------------------------------*\
+    $WORK
+\*------------------------------------*/
+
+/****
+* Work Thumbs
+****/
+.work-thumbs > a {
+    display: block;
+    float: left;
+    position: relative;
+    min-height: 400px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid $grey;
+    &:first-child {
+        border-top: 1px solid $grey;
+    }
+    @include media-query(desk) {
+        width: 50%;
+        min-height: 500px;
+        border-bottom: none;
+        border-right: 1px solid $grey;
+        border-top: 1px solid $grey;
+        &:nth-child(even) {
+            border-right: none;
+        }
+        &:nth-child(-n + 2) {
+            border-top: none;
+        }
+        &:nth-child(2n+1):last-child {
+            border-right: none;
+            width: 100%;
+        }
+    }
+    &:hover {
+        .work-thumb__caption {
+            opacity: 1;
+            //right: -100%;
+        }
+        .work-thumb__icon {
+            opacity: 0.3;
+        }
+    }
+    img {
+        max-width: 100%;
+        max-height: 80%;
+    }
+}
+
+.work-thumb__icon {
+    @include transition(opacity $anim);
+    opacity: 0.3;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    @include media-query(desk) {
+        opacity: 1;
+        height: 80%;
+    }
+}
+
+.work-thumb__caption {
+    @include transition(opacity $anim);
+    padding: 0 $base-spacing-unit;
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    //right: -50%;
+    right: 0;
+    left: 0;
+    bottom:0;
+    width: 100%;
+    height: 50%;
+    margin: auto;
+    color: $black;
+    text-align: center;
+    @include media-query(desk) {
+        opacity: 0;
+        width: 80%;
+    }
+    h2 {
+        background: rgba($white, 0.9);
+        box-shadow: 0 0 60px 50px rgba($white, 0.9);
+    }
+    &:before {
+        display: block;
+        font-size: $mega-size;
+        margin: $base-spacing-unit/2 0;
+    }
+}
+
+
+
+/****
+* For project logos
+****/
+.project-logo {
+    display: block;
+    width: 100%;
+    //border-top: 1px solid $grey;
+    border-bottom: none !important;
+    img {
+        display: block;
+        margin: 0 auto;
+    }
+}

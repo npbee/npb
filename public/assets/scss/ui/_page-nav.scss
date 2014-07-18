@@ -1,0 +1,38 @@
+/*------------------------------------*\
+    $PAGE NAVIGATION
+\*------------------------------------*/
+/****
+* Use this for large lists of things ( blog, labs )
+* <div class="page-nav">
+    <a href="#"></a>
+    <a href="#"></a>
+* </div>
+****/
+.page-nav {
+    //background: rgba($grey, 0.2);
+    text-align: center;
+    h2 {
+        margin-bottom: $small-spacing-unit;
+    }
+    a {
+        display: block;
+        padding: $base-spacing-unit 0;
+        &:after {
+            @include transition(background $anim, width $anim, max-width $anim);
+            content: "";
+            display: block;
+            margin: $base-spacing-unit auto (-$base-spacing-unit);
+            width: 30%;
+            max-width: 100px;
+            height: 1px;
+            background: $grey;
+        }
+        &:hover {
+            &:after {
+                width: 33%;
+                max-width: 150px;
+                background: $brand-main;
+            }
+        }
+    }
+}

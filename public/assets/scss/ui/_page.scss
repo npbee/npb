@@ -1,0 +1,111 @@
+/*------------------------------------*\
+    $PAGE
+\*------------------------------------*/
+
+html, body {
+    height: 100%;
+}
+
+
+html{
+    background: url('/assets/images/bg.jpg');
+    color:#444;
+    font-weight: 300;
+    font-style: normal;
+    font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B';
+}
+
+
+body{
+    -webkit-font-smoothing:antialiased;
+}
+
+.wrapper {
+    overflow: hidden;
+    margin: 0 auto (-$footer-height); // margin-bottom = footer height
+    min-height: 100%;
+    max-width: $max-width;
+    &:after {
+        display: block;
+        height: $footer-height;
+        content: "";
+    }
+    @include media-query(desk) {
+        //padding:0 $base-spacing-unit;
+    }
+}
+
+.content {
+    position: relative; //For mobile transitions
+    @include transition(all 200ms $ease-out-quad);
+    margin-top: $base-spacing-unit*4;
+    padding: 0 $base-spacing-unit/2;
+    @include media-query(desk) {
+        margin-top: $base-spacing-unit/2 + $nav-height-small;
+        padding: 0 $base-spacing-unit;
+    }
+}
+
+
+.section {
+    clear: both;
+    margin-bottom: $base-spacing-unit*10;
+    > article {
+        //padding: 0 $base-spacing-unit/2;
+    }
+}
+
+    .section__header {
+        @extend .alpha;
+        position: relative;
+        border-top: 1px solid $grey;
+        border-bottom: 1px solid $grey;
+        margin-bottom: $base-spacing-unit;
+        padding: $base-spacing-unit/2;
+        text-align: center;
+        @include clearfix;
+        h1 {
+            display: inline-block;
+            margin: 0;
+        }
+        @include media-query(desk) {
+            background: none;
+        }
+    }
+
+
+/****
+* Use this class for any group of content that is not
+* intended to be full width
+****/
+.padded-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 $base-spacing-unit/2;
+}
+
+
+/****
+* ACTIVE CLASSES
+****/
+.work .work-nav,
+.blog .blog-nav,
+.connect .connect-nav,
+.about .about-nav,
+.lab .lab-nav {
+    color: $brand-main;
+    position: relative;
+    &:after {
+        content: "";
+        width: 2px;
+        height: 100%;
+        display: block;
+        background: $brand-main;
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include media-query(desk) {
+            display: none;
+        }
+    }
+}

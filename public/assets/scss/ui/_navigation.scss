@@ -1,0 +1,289 @@
+/*------------------------------------*\
+    $NAVIGATION
+\*------------------------------------*/
+
+/****
+* The main header displayed on small devices
+****/
+.mobile-header {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    a {
+        border-bottom: none;
+        display: block;
+        padding: $base-spacing-unit/2;
+        &:first-child {
+            float: left;
+        }
+    }
+    .site-logo--small {
+        float: left;
+        @include media-query(desk) {
+            display: none;
+        }
+    }
+    .toggle-container {
+        float: right;
+    }
+}
+
+
+
+/****
+* The menu toggle for small devices
+****/
+.toggle-container {
+    padding: $base-spacing-unit/2;
+}
+
+.menu-toggle {
+    display:inline-block;
+    position: relative;
+    padding: 0 !important;
+    width: 30px;
+    height: 4px;
+    background: $black;
+    border-radius: $brand-round;
+    @include transition(all $anim $ease-out-quart);
+    &:before, &:after {
+        @include transition-property(top, transform, width);
+        @include transition-duration($anim/2, $anim/2, $anim/2);
+        @include transition-delay(0, $anim/2, $anim/2);
+        content: "";
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        height: 4px;
+        background: $black;
+        border-radius: $brand-round;
+    }
+    &:before {
+        top: -8px;
+        width: 34px;
+    }
+    &:after {
+        top: 8px;
+        width: 40px;
+    }
+    @include media-query(desk) {
+        display: none;
+    }
+}
+
+.no-js .menu-toggle {
+    display: none;
+}
+
+
+
+/****
+* When nav is toggled
+****/
+.nav--open {
+    .menu-toggle {
+        background: transparent;
+        &:before, &:after {
+            top: 0;
+            width: 30px;
+        }
+        &:before {
+            @include transform(rotate(45deg));
+        }
+        &:after {
+            @include transform(rotate(-45deg));
+        }
+    }
+}
+
+.nav--closed {
+    .menu-toggle {
+        &:before, &:after {
+            @include transition-property(top, transform, width);
+            @include transition-duration($anim/2, $anim/2, $anim/2);
+            @include transition-delay($anim/2, 0, $anim/2);
+        }
+    }
+}
+
+
+
+/****
+* Navigation Container
+****/
+.nav-container {
+    position: fixed;
+    width: 70%;
+    height: 100%;
+    background: $white;
+    z-index: 101;
+    text-transform: uppercase;
+    border-right: 2px solid $grey;
+    @include transform(translate3d(-100%,0,0));
+    @include transition-property(transform);
+    @include transition-duration($anim);
+    a {
+        border-bottom: none;
+    }
+    &.nav--open {
+        @include transform(translate3d(0, 0, 0));
+    }
+    &.nav--closed {
+        @include transform(translate3d(-100%,0,0));
+        @include media-query(desk) {
+            @include transform(translate3d(0, 0, 0));
+            left: 0;
+            height: auto;
+        }
+    }
+    @include media-query(desk) {
+        @include transform(none);
+        @include transition-property(transform);
+        @include transition-duration($anim);
+        position: absolute;
+        border-right: none;
+        width: 100%;
+        left: 0;
+        height: $nav-height-small;
+        background: none;
+    }
+}
+
+
+
+/****
+* Inner navigation container
+****/
+.nav {
+    @include clearfix;
+    a {
+        @extend .epsilon;
+        padding: $base-spacing-unit/2;
+        font-size: $base-font-size*1.2;
+        @include media-query(desk) {
+            padding: 0;
+            line-height: $nav-height-small;
+        }
+        &:before {
+            //font-size: $base-font-size*2;
+            padding-right: 5px;
+        }
+    }
+    .breadcrumbs {
+        width: 100%;
+        background: darken($white, 3%);
+        @include media-query(desk) {
+            background: none;
+            float: left;
+            width: auto;
+        }
+    }
+    .nav__logo {
+        &:after {
+            content: "";
+        }
+    }
+    @include media-query(desk) {
+        padding: 0 $base-spacing-unit;
+        margin: 0 auto;
+        max-width: $max-width;
+    }
+}
+
+
+.nav ul {
+    list-style: none;
+    margin: 0;
+    @include media-query(desk) {
+        float: right;
+        margin: 0 auto;
+        text-align: right;
+    }
+}
+
+.nav li {
+    &:first-child a {
+        border-top: 1px solid $grey;
+        @include media-query(desk) {
+            border-top: none;
+        }
+    }
+    @include media-query(desk) {
+        display: inline-block;
+        width: auto;
+        float: none;
+        text-align: center;
+    }
+    a {
+        border-bottom: 1px solid $grey;
+        display: block;
+        @include media-query(desk) {
+            display: inline-block;
+            border-top: none;
+            border-bottom: none;
+            position: relative;
+            padding-left: $base-spacing-unit;
+        }
+    }
+}
+
+
+
+/****
+* When nav is shrunk on scroll
+****/
+.nav--scrolled {
+    @include media-query(desk) {
+        //position: fixed; //Adding this with js to avoid quick pop down
+        background: $white;
+        .nav-fade {
+            opacity: 1;
+        }
+        .nav__logo:after {
+            content: "/";
+        }
+    }
+}
+
+.nav--stuck {
+    @include media-query(desk) {
+        @include transform(translate3d(0, 0, 0));
+    }
+}
+
+.nav--unstuck {
+    @include media-query(desk) {
+        @include transform(translate3d(0, -100%, 0));
+    }
+}
+
+.nav-fade {
+    opacity: 0;
+    @include transition(opacity $anim);
+}
+
+
+
+/****
+* Fallbacks for no 3d transforms
+****/
+.nocsstransforms3d {
+    .nav--scrolled {
+        top: -100%;
+    }
+    .nav--scrolled--visible {
+        top:0;
+    }
+}
+
+
+
+/****
+* NO JS
+****/
+.no-js .nav:target {
+    @include transform(translate3d(100%, 0, 0));
+}

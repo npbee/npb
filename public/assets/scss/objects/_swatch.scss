@@ -1,0 +1,24 @@
+/*------------------------------------*\
+    $Swatches
+    For displaying small squares of colors
+\*------------------------------------*/
+.swatch {
+    padding-right: $base-spacing-unit;
+    &:before {
+        content: "";
+        height: 15px;
+        width: 15px;
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+}
+
+
+.swatch--green:before {
+    background: $green;
+}
+
+.swatch--red:before {
+    background: $error;
+}

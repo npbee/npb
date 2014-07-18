@@ -1,0 +1,32 @@
+/*------------------------------------*\
+    $HOME SECTIONS STYLES
+\*------------------------------------*/
+.homepage {
+    .site-logo img {
+        width: 100%;
+        height: auto;
+    }
+    .site-logo--big {
+        height:100px;
+        @include media-query(desk) {
+            display: block;
+            height: 500px;
+        }
+    }
+    .footer-container {
+        display: none;
+    }
+}
+
+.home {
+    margin-bottom: 0;
+}
+
+.tagline {
+    //@extend .headline;
+    font-size: $h2-size;
+    text-align: center;
+    @include media-query(desk) {
+        font-size: $mega-size;
+    }
+}

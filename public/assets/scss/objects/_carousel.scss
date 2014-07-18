@@ -1,0 +1,106 @@
+/*------------------------------------*\
+    $CAROUSEL
+    * This carousel is meant for desktop sizes only.
+    * It only looks good when it has a fixed height,
+    * And getting the desktop, ipad, and iphone images
+    * to be the same height while still maintaining aspect ratio
+    * is pretty much impossible on small screens.
+\*------------------------------------*/
+$height: 575px;
+
+
+.carousel-container {
+    @include media-query(desk) {
+        margin: 0;
+        width: 100%;
+        position: relative;
+        height: $height;
+        @include perspective(1000px);
+    }
+}
+
+.carousel {
+    @include media-query(desk) {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top: 0;
+        @include transform-style(preserve-3d);
+        @include transition(all $anim);
+    }
+    .carousel__img {
+        img {
+            display: block;
+            margin: $base-spacing-unit auto;
+        }
+        @include media-query(desk) {
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            height:auto;
+            img {
+                margin: 0 auto;
+            }
+            @include backface-visibility(hidden);
+            &:first-child {
+                @include transform(rotateY(0));
+            }
+            &:nth-child(2) {
+                @include transform(rotateY(120deg));
+            }
+            &:last-child {
+                @include transform(rotateY(240deg));
+            }
+        }
+    }
+    .carousel__img--desk {
+        img {
+            border-radius: 10px;
+            border: 3px solid $black;
+        }
+    }
+    .carousel__img--tablet {
+        img {
+            border-radius: 25px;
+            border: 4px solid $black;
+        }
+    }
+    .carousel__img--mobile {
+        img {
+            border-radius: 30px;
+            border: 4px solid $black;
+        }
+    }
+}
+
+
+.carousel__controls {
+    display: none;
+    @include media-query(desk) {
+        display: block;
+        text-align: center;
+        a {
+            position: relative;
+            display: block;
+            width: 300px;
+            margin: 0 auto $base-spacing-unit;
+        }
+    }
+}
+
+
+.no-js .carousel,
+.no-csstransforms3d {
+    .carousel {
+        position: static;
+        .carousel__img {
+            position: static;
+            margin: $base-spacing-unit auto;
+        }
+    }
+    .carousel__controls {
+        display: none;
+    }
+}

@@ -10,4 +10,12 @@ module ApplicationHelper
     }
     Redcarpet::Markdown.new(renderer, extensions).render(text).html_safe
   end
+
+  def script_tag
+    if Rails.env.production? 
+      return 'build'
+    else
+      return 'main'
+    end
+  end
 end

@@ -1,0 +1,124 @@
+/*------------------------------------*\
+    VARS.SCSS
+\*------------------------------------*/
+$use-grids:         false;
+$use-flexbox:       false;
+$use-columns:       false;
+$use-nav:           false;
+$use-options:       false;
+$use-pagination:    false;
+$use-breadcrumb:    false;
+$use-media:         false;
+$use-marginalia:    false;
+$use-island:        false;
+$use-block-list:    false;
+$use-matrix:        false;
+$use-split:         false;
+$use-this-or-this:  false;
+$use-link-complex:  false;
+$use-flyout:        false;
+$use-arrows:        false;
+$use-sprite:        false;
+$use-icon-text:     false;
+$use-beautons:      false;
+$use-lozenges:      false;
+$use-rules:         true;
+$use-stats:         false;
+$use-greybox:       false;
+
+
+
+
+/****
+* Breakpoints
+****/
+$lap-start:         1000px;
+$desk-start:        940px;
+
+
+
+/****
+* Font Sizes
+****/
+$giga-size:         96px!default;
+$mega-size:       68px!default;
+$kilo-size:         54px!default;
+$headline-size: 40px;
+
+$h1-size:           46px!default; // .alpha
+$h2-size:           36px!default; // .beta
+$h3-size:           32px!default; // .gamma
+$h4-size:           30px!default; // .delta
+$h5-size:           26px!default; // .epsilon
+$h6-size:           22px!default; // .zeta
+
+$milli-size:        14px!default;
+$micro-size:        12px!default;
+
+$base-font-size:    16px!default;
+$base-line-height:  24px!default;
+
+
+
+/****
+* Colors
+****/
+$grey: #c0c0c0;
+$white: #f9f9f9;
+$black: #444;
+$brand-yellow: #FFCE95;
+$brand-main: #cd6a7d;
+$brand-gold: #A66214;
+$brand-main: #ce6d7c;
+$green: #39ac52;
+$yellow: #faead4;
+$error: #a53737;
+
+
+
+/****
+* Animations
+****/
+$anim: 300ms;
+
+
+
+/****
+* Border Radius
+****/
+$brand-round: 3px;
+
+
+
+/****
+* Navigation height ( when desk )
+****/
+$nav-height-big: 140px;
+$nav-height-small: 80px;
+
+
+
+/****
+* Footer Height
+****/
+$footer-height: 80px;
+
+
+
+/****
+* Max width
+****/
+$max-width: 1300px;
+
+
+
+/****
+* Spacing
+****/
+$small-spacing-unit: 5px;
+
+
+/****
+* Fonts
+****/
+$base-font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B';

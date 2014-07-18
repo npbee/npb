@@ -1,0 +1,45 @@
+/*------------------------------------*\
+    $BUTTONS
+\*------------------------------------*/
+$icon-width: 60px;
+
+.button {
+    @extend .gamma;
+    margin-bottom: $base-spacing-unit/2;
+    position: relative;
+    background: $yellow;
+    border-radius: $brand-round*3;
+    outline: none;
+    border: 2px solid $black;
+    padding: $base-spacing-unit/2 $base-spacing-unit $base-spacing-unit/2 ($icon-width * 1.5);
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 2px 2px lighten($black, 50%);
+    &:before {
+        color: $white;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: $icon-width;
+        padding: $h3-size/1.8 0;
+        height: 100%;
+        background: $black;
+        border-radius: $brand-round 0 0 $brand-round;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        left: $icon-width;
+        top: 50%;
+        margin: -10px auto 0;
+        border-top: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid $black;
+
+    }
+    &:active {
+        top: 2px;
+        box-shadow: 0 0 $black;
+    }
+}

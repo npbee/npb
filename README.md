@@ -9,15 +9,24 @@ KINMILL
     Vagrant omnibus
 * Berkshelf
 
-**Stack**
+**Backend Stack**
 
 * Ruby 2.1.2
 * Rails 4.1.1
 * Postgresql
 
+**Frontend Stack**
+
+* SASS
+  Inuit CSS
+  Bourbon / Bourbon Neat
+* RequireJS
+* Gulp for build system
+
 **Development**
 
-To begin development, just run <tt>vagrant up</tt>.
+* Start the server with vagrant up
+* Start frontend build with gulp
 
 If you need to make changes to the server, update the Berksfile with the
 appropriate cookbooks.
