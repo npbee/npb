@@ -66,5 +66,15 @@ RSpec.describe "Posts", :type => :request do
         expect(@post.user).to eq(@user)
       end
     end
+
+    describe "correct content on posts index" do
+      before do
+        @post = FactoryGirl.create(:post)
+        visit posts_path
+      end
+      it "should display post excerpts" do
+        expect(page).to have_content(@post.excerpt)
+      end
+    end
   end
 end

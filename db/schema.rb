@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717233415) do
+ActiveRecord::Schema.define(version: 20140718125541) do
 
   create_table "posts", force: true do |t|
     t.string   "title"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140717233415) do
     t.datetime "updated_at"
     t.string   "slug"
     t.integer  "user_id"
+    t.text     "excerpt"
   end
 
   add_index "posts", ["slug"], name: "index_posts_on_slug", using: :btree

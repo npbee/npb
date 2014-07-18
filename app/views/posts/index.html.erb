@@ -5,7 +5,7 @@
             <a class="blog__excerpt" href="<%= "/blog/#{post.slug}" %>">
               <span class="post-meta post-date"><%= post.created_at.strftime('%m.%d.%Y') %></span>
               <h2 class="post-meta"><%= post.title %></h2>
-              <p class="post-meta italic"><%= post.body[0..4] %></p>
+              <p class="post-meta italic"><%= post.excerpt %></p>
             </a>
           <% end %>
         </div>
