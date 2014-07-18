@@ -2,3 +2,24 @@
     $FORMS
 \*------------------------------------*/
 
+.form-fields > li {
+  margin-bottom: $base-spacing-unit;
+  min-width: 700px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  border: none;
+  outline: none;
+  padding: $small-spacing-unit*2;
+  width: 100%;
+  border-radius: $brand-round;
+  border: 1px solid $grey;
+  @include transition(border 100ms);
+  &:focus {
+    border: 1px solid $brand-main;
+  }
+}
+
+

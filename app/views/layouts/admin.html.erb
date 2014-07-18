@@ -10,10 +10,11 @@
             <%= render 'shared/admin_nav' %>
 
             <div class="content" id="content">
-              <div class='flash'>
-                <%= flash[:notice] %>
-                <%= flash[:alert] %>
-              </div>
+              <% flash.each do |key, value| %>
+                <div class='flash flash--<%= key %>'>
+                  <%= value %>
+                </div>
+              <% end %>
                 <%= yield %>
 
             </div><!-- End Content -->

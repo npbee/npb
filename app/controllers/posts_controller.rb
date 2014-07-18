@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_filter :require_login, only: [:new, :edit, :create, :update, :destroy]
-
+  layout 'admin', :only => [:new, :edit, :create]
   
   # GET /posts
   def index

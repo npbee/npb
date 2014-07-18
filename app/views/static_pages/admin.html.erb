@@ -2,9 +2,9 @@
   <h1>Availability</h1>
   <p>You  
   <% if current_user.accepting_projects %>
-    ARE
+    <span class="pill pill--success">ARE</span>
   <% else %>
-    ARE NOT
+    <span class="pill pill--error">ARE NOT</span>
   <% end %>
   currently accepting projects.</p>
   <%= form_for(@user) do |f| %>

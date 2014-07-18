@@ -797,7 +797,7 @@ h4, .delta {
   font-size: 1.25rem;
   line-height: 1.2; }
 
-h5, .epsilon, .nav a, .budget label {
+h5, .epsilon, .nav a {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5; }
@@ -2754,6 +2754,101 @@ label, .label {
     bottom: calc(-100% - 20px);
     opacity: 1; } }
 
+/*------------------------------------*\
+    $FORMS
+\*------------------------------------*/
+.form-fields > li {
+  margin-bottom: 24px;
+  min-width: 700px; }
+
+input[type="text"], input[type="email"], input[type="password"] {
+  border: none;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+  -webkit-transition: border 100ms;
+  -moz-transition: border 100ms;
+  transition: border 100ms; }
+  input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+    border: 1px solid #ce6d7c; }
+
+/*------------------------------------*\
+    $ALERTS
+\*------------------------------------*/
+/* 
+ * 1:  Set explicit height so the icons fit nicely.
+*/
+.flash {
+  border: 1px solid #c0c0c0;
+  border-radius: 3px;
+  padding: 12px 12px 12px 40px;
+  font-weight: 600;
+  color: #f9f9f9;
+  height: 50px;
+  /* 1 */
+  max-width: 700px;
+  margin: 0 auto; }
+
+.flash--success, .flash--error, .flash--notice, .flash--explanation {
+  position: relative; }
+  .flash--success:before, .flash--error:before, .flash--notice:before, .flash--explanation:before {
+    font-family: 'icons';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 50px;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    top: 0;
+    left: 5px; }
+
+.flash--success {
+  background: #39ac52; }
+  .flash--success:before {
+    content: '\e60d'; }
+
+.flash--error {
+  background: #ce6d7c; }
+  .flash--error:before {
+    content: '\e60e'; }
+
+.flash--notice {
+  background: #faead4;
+  color: #444; }
+  .flash--notice:before {
+    content: '\e60f'; }
+
+.flash--explanation {
+  background: #ce6d7c;
+  width: 100%;
+  max-width: none;
+  text-align: left;
+  height: auto; }
+  .flash--explanation:before {
+    top: 12px; }
+
+/*------------------------------------*\
+    $PILL
+\*------------------------------------*/
+.pill {
+  display: inline-block;
+  min-width: 1em;
+  padding-right: 0.25em;
+  padding-left: 0.25em;
+  /* =1.50em */
+  text-align: center;
+  background-color: #ccc;
+  border-radius: 3px;
+  color: #f9f9f9; }
+
+.pill--error {
+  background: #ce6d7c; }
+
+.pill--success {
+  background: #39ac52; }
+
 /****
 * UI
 ****/
@@ -2878,7 +2973,7 @@ a:not(.button) {
 /****
 * Headers
 ****/
-.giga, .mega, .kilo, h1, .alpha, .section__header, h2, .beta, h3, .gamma, .button, h4, .delta, h5, .epsilon, .nav a, .budget label, h6 {
+.giga, .mega, .kilo, h1, .alpha, .section__header, h2, .beta, h3, .gamma, .button, h4, .delta, h5, .epsilon, .nav a, h6 {
   font-family: 'Landmark Regular A', 'Landmark Regular B';
   font-weight: 400;
   font-style: normal; }
@@ -2894,7 +2989,7 @@ a:not(.button) {
 /****
 * Headlines
 ****/
-.headline, .text-body p:first-of-type:first-letter, .text-body .lead-in, .contact-form h2 {
+.headline, .text-body p:first-of-type:first-letter, .text-body .lead-in {
   font-family: 'Landmark Dimensional A', 'Landmark Dimensional B';
   font-weight: 400;
   font-style: normal;
@@ -3284,43 +3379,6 @@ a:not(.button) {
       background: #ce6d7c; }
 
 /*------------------------------------*\
-    $FORMS!
-\*------------------------------------*/
-fieldset {
-  border: none;
-  padding: 0; }
-
-.text-input {
-  -webkit-appearance: none;
-  border: 1px solid #c0c0c0;
-  border-radius: 3px;
-  color: #444;
-  font-size: 24px;
-  outline: none;
-  padding: 12px;
-  width: 100%; }
-
-textarea {
-  min-height: 300px; }
-
-form > button {
-  width: 100%; }
-
-::-webkit-input-placeholder {
-  color: #c0c0c0; }
-
-input[type="text"], input[type="email"], textarea {
-  -webkit-transition: box-shadow 300ms;
-  -moz-transition: box-shadow 300ms;
-  transition: box-shadow 300ms;
-  border: 1px solid #c0c0c0;
-  outline: none;
-  border-radius: 3px;
-  box-shadow: 3px 3px transparent; }
-  input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
-    box-shadow: 3px 3px #ececec; }
-
-/*------------------------------------*\
     $LOGO
 \*------------------------------------*/
 .site-logo--small {
@@ -3536,114 +3594,6 @@ input[type="text"], input[type="email"], textarea {
   @media only screen and (min-width: 940px) {
     .tagline {
       font-size: 72px; } }
-
-/*------------------------------------*\
-    $CONTACT FORM
-\*------------------------------------*/
-.contact-form fieldset {
-  position: relative;
-  width: 100%; }
-.contact-form h2 {
-  font-size: 36px;
-  margin-bottom: 5px;
-  width: 100%;
-  text-align: left; }
-.contact-form .placeholder {
-  -webkit-transition: left 300ms;
-  -moz-transition: left 300ms;
-  transition: left 300ms;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 12px 6px;
-  margin-bottom: 0; }
-.contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea {
-  -webkit-transition: background 300ms;
-  -moz-transition: background 300ms;
-  transition: background 300ms;
-  width: 100%;
-  background: white;
-  font-size: 20.8px;
-  padding: 12px; }
-  .contact-form input[type="text"]:focus, .contact-form input[type="email"]:focus, .contact-form textarea:focus {
-    background: white; }
-
-.budget h2 {
-  margin-bottom: 0; }
-.budget ul {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-.budget li {
-  position: relative;
-  padding: 6px 0; }
-  @media only screen and (min-width: 940px) {
-    .budget li {
-      display: inline-block;
-      padding: 6px 24px; } }
-.budget input {
-  display: inline-block;
-  vertical-align: middle;
-  opacity: 0;
-  z-index: 100;
-  position: absolute;
-  left: -9999px; }
-  .budget input:checked + label:before {
-    border: 10px solid #444; }
-.budget label {
-  display: inline-block;
-  vertical-align: middle;
-  padding-left: 30px;
-  width: 100%; }
-  @media only screen and (min-width: 940px) {
-    .budget label {
-      padding-left: 5px; } }
-  .budget label:before {
-    -webkit-transition: border 150ms;
-    -moz-transition: border 150ms;
-    transition: border 150ms;
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    margin-top: -10px;
-    border: 3px solid #444;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px; }
-
-/****
-* When the form is successfully sent
-****/
-.sending:before {
-  content: url('/assets/images/loading.gif'); }
-
-.sent:before {
-  content: "\e60b";
-  color: #39ac52; }
-
-/****
-* Errors
-****/
-.error:before {
-  content: "\e607";
-  color: #a53737; }
-
-.error-placeholder {
-  -webkit-transition: opacity 300ms;
-  -moz-transition: opacity 300ms;
-  transition: opacity 300ms;
-  color: #a53737 !important;
-  margin: 12px 0;
-  display: none;
-  opacity: 0; }
-  .error-placeholder:before {
-    padding-right: 5px;
-    display: inline-block; }
-
-.has-error .error-placeholder {
-  display: block;
-  opacity: 1; }
 
 /*------------------------------------*\
     $CODE HIGHLIGHTING

@@ -1,0 +1,70 @@
+/*------------------------------------*\
+    $ALERTS
+\*------------------------------------*/
+
+/* 
+ * 1:  Set explicit height so the icons fit nicely.
+*/
+.flash {
+  border: 1px solid $grey;
+  border-radius: $brand-round;
+  padding: $base-spacing-unit/2 $base-spacing-unit/2 $base-spacing-unit/2 40px;;
+  font-weight: 600;
+  color: $white;
+  height: 50px; /* 1 */
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+  .flash--success,
+  .flash--error,
+  .flash--notice,
+  .flash--explanation {
+    position: relative;
+    &:before {
+      font-family: 'icons';
+      font-style: normal;
+      font-weight: normal;
+      font-size: 25px;
+      line-height: 50px;
+      -webkit-font-smoothing: antialiased;
+      position: absolute;
+      top: 0;
+      left: 5px;
+    }
+  }
+
+  .flash--success {
+    background: $green;
+    &:before {
+      content: '\e60d';
+    }
+  }
+
+  .flash--error {
+    background: $brand-main;
+    &:before {
+      content: '\e60e';
+    }
+  }
+
+  .flash--notice {
+    background: $yellow;
+    color: $black;
+    &:before {
+      content: '\e60f';
+    }
+  }
+
+  .flash--explanation {
+    background: $brand-main;
+    width: 100%;
+    max-width: none;
+    text-align: left;
+    height: auto;
+    &:before {
+      top: $base-spacing-unit/2;
+    }
+  }
+
+

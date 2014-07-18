@@ -18,4 +18,5 @@ module ApplicationHelper
       return 'main'
     end
   end
-end
+
+  end
