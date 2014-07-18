@@ -2,7 +2,7 @@
 
   <% @projects.each do |project| %>
     <a data-target="<%= "projects/#{project.slug}" %>" title="<%= project.name %>" href="<%= "/projects/#{project.slug}" %>">
-      <img class="work-thumb__icon" src="<%= project.thumbnail %>" alt="<%= "#{project.name} thumb"%>">
+      <img class="work-thumb__icon" src="<%= "/assets/images/#{project.thumbnail}" %>" alt="<%= "#{project.name} thumb"%>">
       <div class="work-thumb__caption" d data-icon="">
         <h2 class="gamma"><%= "#{project.name} (#{project.date_completed.strftime('%Y')})" %></h2>
         <p><%= project.role %></p>

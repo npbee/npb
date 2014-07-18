@@ -75,5 +75,27 @@ RSpec.describe Project, :type => :model do
       end
     end
 
+    describe "screenshot file extension types" do
+      context "when file extension is wrong" do
+        before do
+          @project.thumbnail = '/luray/logo.smg'
+        end
+
+        it "should not be valid" do
+          expect(@project).to_not be_valid
+        end
+      end
+
+      context "when file extension is correct" do
+        before do
+          @project.small_screen = '/luray/small.jpg'
+        end
+
+        it "should be valid" do
+          expect(@project).to be_valid
+        end
+      end
+    end
+
   end
 end

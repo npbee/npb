@@ -31,15 +31,29 @@
   <div class="carousel-container" id="carousel-container">
     <div class="carousel" id="carousel">
 
-      {% for image in page.carousel_images %}
-      <span data-picture data-alt="{{ image.title }}" class="carousel__img {% cycle 'carousel__img--desk', 'carousel__img--tablet', 'carousel__img--mobile' %}">
-        <span data-src="{{ image.small }}"></span>
-        <span data-src="{{ image.big }}" data-media="(min-width: 940px)"></span>
+      <span data-picture data-alt="<%= "#{@project.name} small"%>" class="carousel__img carousel__img--mobile">
+        <span data-src="<%= "/assets/images/#{@project.small_screen}" %>"></span>
+        <span data-src="<%= "/assets/images/#{@project.small_screen}" %>" data-media="(min-width: 940px)"></span>
         <noscript>
-          <img src="{{ image.small }}" alt="{{ image.title }}">
+          <img src="<%= "/assets/images/#{@project.small_screen}" %>" alt="<%= "#{@project.name} small" %>">
         </noscript>
       </span>
-      {% endfor %}
+
+       <span data-picture data-alt="<%= "#{@project.name} medium"%>" class="carousel__img carousel__img--tablet">
+        <span data-src="<%= "/assets/images/#{@project.medium_screen}" %>"></span>
+        <span data-src="<%= "/assets/images/#{@project.medium_screen}" %>" data-media="(min-width: 940px)"></span>
+        <noscript>
+          <img src="<%= "/assets/images/#{@project.medium_screen}" %>" alt="<%= "#{@project.name} medium" %>">
+        </noscript>
+      </span>
+
+      <span data-picture data-alt="<%= "#{@project.name} large"%>" class="carousel__img carousel__img--desk">
+        <span data-src="<%= "/assets/images/#{@project.large_screen}" %>"></span>
+        <span data-src="<%= "/assets/images/#{@project.large_screen}" %>" data-media="(min-width: 940px)"></span>
+        <noscript>
+          <img src="<%= "/assets/images/#{@project.large_screen}" %>" alt="<%= "#{@project.name} large" %>">
+        </noscript>
+      </span>
 
     </div>
   </div>

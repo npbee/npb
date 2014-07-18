@@ -21,3 +21,8 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      messages:
+        blank: "can't be blank!"
+        invalid: "wrong format!"

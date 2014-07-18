@@ -5,6 +5,12 @@ class Project < ActiveRecord::Base
   validates :body, :presence => true 
   validates :logo, :presence => true 
   validates :thumbnail, :presence => true 
+  validates_format_of :thumbnail,
+                      :small_screen,
+                      :medium_screen,
+                      :large_screen,
+                      :with => /(.)+\.(jpg|svg|png|jpeg)\z/,
+                      message: "path should end in .jpg, .svg, .png, or .jpeg."
 
   belongs_to :user
   has_many :tag_relationships, :foreign_key => "reference_id"
