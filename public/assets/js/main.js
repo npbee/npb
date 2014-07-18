@@ -10,8 +10,6 @@ requirejs.config({
     },
 });
 
-
-
 /****
 * Feature Testes
 ****/
@@ -68,6 +66,13 @@ require(['modules/nav/init'], function(nav) {
 //     contact.init();
 // });
 
+
+/***
+ * DELETE METHOD
+****/
+require(['modules/utils/delete_method'], function(delete_method) {
+  delete_method();
+});
 
 /****
 * Analytics
