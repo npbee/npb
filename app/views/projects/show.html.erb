@@ -64,8 +64,9 @@
 
   <hr class="rule">
 
-
-  <%= @project.body %>
+  <div class="text-body">
+    <%= markdown @project.body %>
+  </div>
 
   <a class="project-logo" href="{{ page.site_url }}">
     <img src="{{ page.project_logo }}" alt="{{ page.client }} logo">
