@@ -1,22 +1,21 @@
-<section class="section">
-  <h1>Availability</h1>
-  <p>You  
-  <% if current_user.accepting_projects %>
-    <span class="pill pill--success">ARE</span>
-  <% else %>
-    <span class="pill pill--error">ARE NOT</span>
-  <% end %>
-  currently accepting projects.</p>
-  <%= form_for(@user) do |f| %>
-    <%= f.label :accepting_projects, "Available?" %>
-    <%= f.check_box :accepting_projects %>
-    <%= f.submit 'Save Changes', class: ''  %>
-  <% end %>
-
+<section class="section section--admin">
+  <h1 class="headline">Admin</h1>
   <hr class="rule">
+ 
+  <%= form_for(@user) do |f| %>
+  <div class="checkbox">
+    <%= f.check_box :accepting_projects %>
+    <%= f.label :accepting_projects, "Availablity" %>
+  </div>
+  <%= f.button 'Save Changes', class: 'button', "data-icon" => ""  %>
+  <% end %>
+</section>
 
+<hr class="rule">
+
+<section class="section section--admin">
   <h1>Posts</h1>
-  <%= link_to "New Post", new_post_path %>
+  <%= link_to "New Post", new_post_path, class: "button button--small" %>
   <table>
     <thead>
       <tr>
@@ -27,25 +26,28 @@
       </tr>
     </thead>
     <tbody>
-      <% @user.posts.each do |post| %>
-        <tr>
-          <td><%= post.created_at.strftime('%m.%d.%Y') %></td>
-          <td><%= post.title %></td>
-          <td><%= post.slug %></td>
-          <td>
-            <%= link_to "View", post_path(post) %> / 
-            <%= link_to "Edit", edit_post_path(post) %> / 
-            <%= link_to "Delete", post_path(post), :method =>  :delete %>
-          </td>
-        </tr>
-      <% end %>
+    <% @user.posts.each do |post| %>
+      <tr>
+      <td><%= post.created_at.strftime('%m.%d.%Y') %></td>
+      <td><%= post.title %></td>
+      <td><%= post.slug %></td>
+      <td>
+        <%= link_to "View", post_path(post) %> / 
+        <%= link_to "Edit", edit_post_path(post) %> / 
+        <%= link_to "Delete", post_path(post), :method =>  :delete %>
+      </td>
+    </tr>
+  <% end %>
     </tbody>
   </table>
+</section>
 
-   <hr class="rule">
+<hr class="rule">
+
+<section class="section section--admin">
 
    <h1>Projects</h1>
-   <%= link_to "New Project", new_project_path %>
+   <%= link_to "New Project", new_project_path, class: "button button--small" %>
   <table>
     <thead>
       <tr>

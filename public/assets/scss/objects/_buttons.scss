@@ -43,3 +43,15 @@ $icon-width: 60px;
         box-shadow: 0 0 $black;
     }
 }
+
+
+.button--small {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: $base-spacing-unit/2;
+  &:before,
+  &:after {
+    display: none;
+  }
+}

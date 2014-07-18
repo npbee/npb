@@ -2403,7 +2403,8 @@ label, .label {
 ****/
 .rule {
   color: #c0c0c0;
-  margin-bottom: 24px; }
+  margin-bottom: 24px;
+  clear: both; }
 
 .rule--small {
   background: #444;
@@ -2449,6 +2450,14 @@ label, .label {
   .button:active {
     top: 2px;
     box-shadow: 0 0 #444; }
+
+.button--small {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 12px; }
+  .button--small:before, .button--small:after {
+    display: none; }
 
 /*------------------------------------*\
     $BREADCRUMBS
@@ -2774,6 +2783,57 @@ input[type="text"], input[type="email"], input[type="password"] {
   input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
     border: 1px solid #ce6d7c; }
 
+.checkbox {
+  position: relative;
+  margin-bottom: 24px;
+  float: left; }
+
+.checkbox + .button {
+  float: right; }
+
+.checkbox input[type="checkbox"] {
+  opacity: 0;
+  -webkit-appearance: none;
+  display: inline-block;
+  vertical-align: middle;
+  z-index: 100; }
+
+.checkbox input[type="checkbox"], .checkbox label::before {
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 0;
+  margin-top: -25px;
+  position: absolute;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #a53737; }
+
+.checkbox label {
+  display: inline-block;
+  position: relative;
+  font-size: 2em;
+  padding: 0 0 0 80px;
+  vertical-align: top;
+  cursor: pointer;
+  color: rgba(68, 68, 68, 0.7);
+  -webkit-transition: color 0.3s;
+  -moz-transition: color 0.3s;
+  transition: color 0.3s; }
+  .checkbox label:before {
+    content: '';
+    border: 4px solid #444;
+    -webkit-transition: opacity 0.3s, background 200ms;
+    -moz-transition: opacity 0.3s, background 200ms;
+    transition: opacity 0.3s, background 200ms; }
+
+.checkbox input[type="checkbox"]:checked + label {
+  color: #444; }
+
+.checkbox input[type="checkbox"]:checked + label::before {
+  opacity: 0.8;
+  background: #39ac52; }
+
 /*------------------------------------*\
     $ALERTS
 \*------------------------------------*/
@@ -2810,7 +2870,7 @@ input[type="text"], input[type="email"], input[type="password"] {
     content: '\e60d'; }
 
 .flash--error {
-  background: #ce6d7c; }
+  background: #a53737; }
   .flash--error:before {
     content: '\e60e'; }
 
@@ -2821,7 +2881,7 @@ input[type="text"], input[type="email"], input[type="password"] {
     content: '\e60f'; }
 
 .flash--explanation {
-  background: #ce6d7c;
+  background: #a53737;
   width: 100%;
   max-width: none;
   text-align: left;
@@ -2844,7 +2904,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   color: #f9f9f9; }
 
 .pill--error {
-  background: #ce6d7c; }
+  background: #a53737; }
 
 .pill--success {
   background: #39ac52; }
@@ -3693,3 +3753,13 @@ img.rounded, .rounded img {
 .block-center {
   display: block;
   margin: 12px auto; }
+
+/*------------------------------------*\
+    $ADMIN
+\*------------------------------------*/
+.section--admin {
+  margin-bottom: 24px; }
+  .section--admin h1 {
+    float: left; }
+  .section--admin h1 + a {
+    float: right; }

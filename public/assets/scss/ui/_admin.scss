@@ -1,0 +1,13 @@
+/*------------------------------------*\
+    $ADMIN
+\*------------------------------------*/
+
+.section--admin {
+  margin-bottom: $base-spacing-unit;
+  h1 {
+    float: left;
+  }
+  h1 + a {
+    float: right;
+  }
+}

@@ -42,7 +42,7 @@
   }
 
   .flash--error {
-    background: $brand-main;
+    background: $error;
     &:before {
       content: '\e60e';
     }
@@ -57,7 +57,7 @@
   }
 
   .flash--explanation {
-    background: $brand-main;
+    background: $error;
     width: 100%;
     max-width: none;
     text-align: left;
