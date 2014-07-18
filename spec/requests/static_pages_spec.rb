@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 describe "StaticPages" do
+  before do
+    @user = FactoryGirl.create(:user, { name: 'Nick' })
+  end
 
   describe "#home" do
     before do
-      @user = FactoryGirl.create(:user)
       @post1 = FactoryGirl.create(:post, { title: "Post 1 Title", user_id: @user.id })
       @post2 = FactoryGirl.create(:post, { title: "Post 2 Title", user_id: @user.id })
       @project1 = FactoryGirl.create(:project, { name: "Project 1 Title" })
@@ -28,7 +30,6 @@ describe "StaticPages" do
 
     it "Has the correct content" do
       expect(page).to have_content('Email Me')
-      expect(page).to have_content('Connect')
     end
 
   end

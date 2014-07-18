@@ -11,6 +11,7 @@ class StaticPagesController < ApplicationController
     @alt_header = "Connect"
     @alt_header_url = '/connect'
     @body_class = 'connect'
+    @available = User.find_by_name('Nick').accepting_projects
   end
 
   def admin
