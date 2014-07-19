@@ -10,4 +10,9 @@
   h1 + a {
     float: right;
   }
+  &:last-of-type {
+    margin-bottom: $base-spacing-unit*10;
+  }
 }
+
+

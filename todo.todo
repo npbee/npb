@@ -1,1 +1,5 @@
-- Add testing for blog slug retriveal
+- Add boolean to post and projects for 'public'
+- Add dismiss button for flashes
+- Ajax request for "available" checkbox
+  - With udpated language
+- Markdown hints for project/post editing

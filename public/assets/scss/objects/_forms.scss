@@ -8,7 +8,8 @@
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+textarea {
   border: none;
   outline: none;
   padding: $small-spacing-unit*2;
@@ -19,6 +20,10 @@ input[type="password"] {
   &:focus {
     border: 1px solid $brand-main;
   }
+}
+
+textarea {
+  min-height: 500px;
 }
 
 

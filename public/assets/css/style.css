@@ -2769,7 +2769,7 @@ label, .label {
 .form-fields > li {
   margin-bottom: 24px; }
 
-input[type="text"], input[type="email"], input[type="password"] {
+input[type="text"], input[type="email"], input[type="password"], textarea {
   border: none;
   outline: none;
   padding: 10px;
@@ -2779,8 +2779,11 @@ input[type="text"], input[type="email"], input[type="password"] {
   -webkit-transition: border 100ms;
   -moz-transition: border 100ms;
   transition: border 100ms; }
-  input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+  input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, textarea:focus {
     border: 1px solid #ce6d7c; }
+
+textarea {
+  min-height: 500px; }
 
 .checkbox {
   position: relative;
@@ -3800,3 +3803,5 @@ img.rounded, .rounded img {
     float: left; }
   .section--admin h1 + a {
     float: right; }
+  .section--admin:last-of-type {
+    margin-bottom: 240px; }

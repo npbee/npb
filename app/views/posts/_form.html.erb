@@ -1,36 +1,40 @@
 <%= form_for(@post) do |f| %>
   <% if @post.errors.any? %>
-    <div class="flash flash--explanation" data-icon="">
-      <strong class="gamma"><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</strong>
-      <ul>
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <div class="flash flash--explanation" data-icon="">
+  <strong class="gamma"><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</strong>
+  <ul>
+    <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+  <% end %>
+  </ul>
+</div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
-  </div>
+<ul class="form-fields">
+  <li>
+  <%= f.label :title, class: "beta" %>
+  <%= f.text_field :title %>
+  </li>
+  <li>
+  <%= f.label :body, class: "beta" %>
+  <%= f.text_area :body %>
+  </li>
+  <li>
+  <%= f.label :slug, class: "beta" %>
+  <%= f.text_field :slug %>
+  </li>
 
-  <div class="field">
-    <%= f.label :slug %>
-    <%= f.text_field :slug %>
-  </div>
-
-  <%= f.label :tag_list %>
+  <li>
+  <%= f.label :tag_list, class: "beta" %>
   <%= f.text_field :tag_list %>
+  </li>
 
-  <%= f.label :excerpt %>
+  <li>
+  <%= f.label :excerpt, class: "beta" %>
   <%= f.text_field :excerpt %>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  </li>
+  <li>
+  <%= f.button "Create Post", class: "button", "data-icon" => "" %>
+  </li>
+</ul>
 <% end %>
