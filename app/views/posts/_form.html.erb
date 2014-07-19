@@ -1,13 +1,6 @@
 <%= form_for(@post) do |f| %>
   <% if @post.errors.any? %>
-  <div class="flash flash--explanation" data-icon="">
-  <strong class="gamma"><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</strong>
-  <ul>
-    <% @post.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-  <% end %>
-  </ul>
-</div>
+    <%= render 'shared/errors', item: @post %>
   <% end %>
 
 <ul class="form-fields">

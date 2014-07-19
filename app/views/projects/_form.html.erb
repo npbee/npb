@@ -1,14 +1,6 @@
 <%= form_for(@project) do |f| %>
   <% if @project.errors.any? %>
-  <div id="error_explanation">
-  <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
-  <ul>
-    <% @project.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-  <% end %>
-  </ul>
-</div>
+    <%= render 'shared/errors', item: @project %>
   <% end %>
 
   <ul class="form-fields">
@@ -30,7 +22,7 @@
 
   <li>
   <%= f.label :date_completed, class: "beta"%>
-  <%= f.date_select :date_completed %>
+  <%= date_field("project", "date_completed") %>
   </li>
 
   <li>
