@@ -16,7 +16,16 @@ user = User.create(
   name: "Nick",
   email: "nick@nick.com",
   password: "foobar85",
-  password_confirmation: "foobar85"
+  password_confirmation: "foobar85",
+  admin: true
+)
+
+guest = User.create(
+  name: "Guest",
+  email: "guest@guest.com",
+  password: "guessing",
+  password_confirmation: "guessing",
+  admin: false
 )
 
 post = Post.create(

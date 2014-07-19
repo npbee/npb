@@ -7,5 +7,6 @@ FactoryGirl.define do
     password "foobar85"
     password_confirmation "foobar85"
     accepting_projects false
+    admin false
   end
 end

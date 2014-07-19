@@ -13,6 +13,7 @@ RSpec.describe User, :type => :model do
         expect(@user).to respond_to(:password)
         expect(@user).to respond_to(:password_confirmation)
         expect(@user).to respond_to(:accepting_projects)
+        expect(@user).to respond_to(:admin)
       end
     end
 

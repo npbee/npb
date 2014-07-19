@@ -100,3 +100,7 @@
   </div>
 
 </article>
+
+<% if logged_in? && current_user.admin %>
+  <%= link_to 'Edit', edit_project_path(@project) %>
+<% end %>

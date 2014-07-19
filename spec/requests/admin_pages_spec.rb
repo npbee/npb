@@ -33,7 +33,7 @@ describe "Admin pages" do
     end
 
     it 'should default to false' do
-      expect(page).to have_content('You ARE NOT currently accepting projects.')
+      expect(page).to have_content('Not Available')
     end
 
     describe "when checked" do
@@ -43,7 +43,7 @@ describe "Admin pages" do
       end
 
       it "should update the user attribute" do
-        expect(page).to have_content('You ARE currently accepting projects.')
+        expect(page).to_not have_content('Not Available')
       end
     end
 

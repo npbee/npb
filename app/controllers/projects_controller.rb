@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-
+  before_filter :require_login, only: [:new, :edit, :create, :update, :destroy]
+  
   # GET /projects
   def index
     @projects = Project.all
@@ -23,7 +24,9 @@ class ProjectsController < ApplicationController
   def create
     @project = current_user.projects.build(project_params)
 
-    if @project.save
+    if !current_user.admin
+      redirect_to admin_path, notice: "You cannot create projects as a guest."
+    elsif current_user.admin && @project.save
       redirect_to @project, notice: 'Project was successfully created.'
     else
       render :new

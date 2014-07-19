@@ -5,7 +5,11 @@
   <%= form_for(@user) do |f| %>
   <div class="checkbox">
     <%= f.check_box :accepting_projects %>
-    <%= f.label :accepting_projects, "Availablity" %>
+    <% if @user.accepting_projects %>
+      <%= f.label :accepting_projects, "Available" %>
+    <% else %>
+      <%= f.label :accepting_projects, "Not Available" %>
+    <% end %>
   </div>
   <%= f.button 'Save Changes', class: 'button', "data-icon" => ""  %>
   <% end %>

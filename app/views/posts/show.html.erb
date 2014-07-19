@@ -51,6 +51,6 @@
 
 </section>
 
-<% if logged_in? %>
+<% if logged_in? && current_user.admin %>
   <%= link_to 'Edit', edit_post_path(@post) %>
 <% end %>

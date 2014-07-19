@@ -27,7 +27,9 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
 
-    if @post.save
+    if !current_user.admin 
+      redirect_to admin_path, notice: "You cannot create posts as a guest."
+    elsif current_user.admin && @post.save
       redirect_to @post, notice: 'Post was successfully created.'
     else
       render :new
@@ -36,7 +38,9 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    if @post.update(post_params)
+    if !current_user.admin
+      redirect_to admin_path, notice: "You cannot update posts as a guest."
+    elsif current_user.admin && @post.update(post_params)
       redirect_to @post, notice: 'Post was successfully updated.'
     else
       render :edit
