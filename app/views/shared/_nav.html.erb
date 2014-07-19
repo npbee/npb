@@ -15,6 +15,9 @@
             <li><a class="blog-nav" href="/blog" data-icon="">Blog</a></li>
             <!-- <li><a class="lab-nav" href="/lab" data-icon="">Lab</a></li> -->
             <li><a class="connect-nav" href="/connect" data-icon="">Connect</a></li>
+            <% if logged_in? %>
+              <li><%= link_to "Logout", :logout, method: :post, "data-icon" => "" %></li>
+            <% end %>
         </ul>
     </nav>
 </div>
