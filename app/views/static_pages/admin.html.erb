@@ -3,7 +3,7 @@
   <hr class="rule">
  
   <%= form_for(@user) do |f| %>
-  <div class="checkbox">
+  <div class="checkbox float-left alpha">
     <%= f.check_box :accepting_projects %>
     <% if @user.accepting_projects %>
       <%= f.label :accepting_projects, "Available" %>

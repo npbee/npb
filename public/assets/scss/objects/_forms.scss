@@ -25,7 +25,6 @@ input[type="password"] {
 .checkbox {
   position: relative;
   margin-bottom: $base-spacing-unit;
-  float: left;
 }
 
 .checkbox + .button {
@@ -56,7 +55,6 @@ input[type="password"] {
 .checkbox label {
   display: inline-block;
   position: relative;
-  font-size: 2em;
   padding: 0 0 0 80px;
   vertical-align: top;
   cursor: pointer;

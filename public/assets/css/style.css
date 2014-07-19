@@ -2784,8 +2784,7 @@ input[type="text"], input[type="email"], input[type="password"] {
 
 .checkbox {
   position: relative;
-  margin-bottom: 24px;
-  float: left; }
+  margin-bottom: 24px; }
 
 .checkbox + .button {
   float: right; }
@@ -2811,7 +2810,6 @@ input[type="text"], input[type="email"], input[type="password"] {
 .checkbox label {
   display: inline-block;
   position: relative;
-  font-size: 2em;
   padding: 0 0 0 80px;
   vertical-align: top;
   cursor: pointer;
@@ -3786,6 +3784,12 @@ img.rounded, .rounded img {
   .deleted > * {
     text-decoration: line-through;
     font-style: italic; }
+
+/****
+* Float Left
+****/
+.float-left {
+  float: left; }
 
 /*------------------------------------*\
     $ADMIN
