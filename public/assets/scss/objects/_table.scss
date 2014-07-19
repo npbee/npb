@@ -1,0 +1,30 @@
+/*------------------------------------*\
+    $Table
+\*------------------------------------*/
+
+table {
+}
+
+thead {
+  border-radius: $brand-round*2;
+}
+
+th {
+  background: $brand-main;
+  color: $white;
+  &:first-child {
+    border-radius: $brand-round 0 0 0;
+  }
+  &:last-child {
+    border-radius: 0 $brand-round 0 0;
+  }
+}
+
+tbody {
+  tr:nth-child(2n-1) {
+    background: rgba($grey, 0.2);
+  }
+  tr:last-child {
+    border-bottom: 1px solid $black;
+  }
+}

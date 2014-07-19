@@ -2767,8 +2767,7 @@ label, .label {
     $FORMS
 \*------------------------------------*/
 .form-fields > li {
-  margin-bottom: 24px;
-  min-width: 700px; }
+  margin-bottom: 24px; }
 
 input[type="text"], input[type="email"], input[type="password"] {
   border: none;
@@ -2851,9 +2850,9 @@ input[type="text"], input[type="email"], input[type="password"] {
   max-width: 700px;
   margin: 0 auto; }
 
-.flash--success, .flash--error, .flash--notice, .flash--explanation {
+.flash--success, .flash--error, .flash--notice, .flash--alert, .flash--explanation {
   position: relative; }
-  .flash--success:before, .flash--error:before, .flash--notice:before, .flash--explanation:before {
+  .flash--success:before, .flash--error:before, .flash--notice:before, .flash--alert:before, .flash--explanation:before {
     font-family: 'icons';
     font-style: normal;
     font-weight: normal;
@@ -2874,10 +2873,10 @@ input[type="text"], input[type="email"], input[type="password"] {
   .flash--error:before {
     content: '\e60e'; }
 
-.flash--notice {
+.flash--notice, .flash--alert {
   background: #faead4;
   color: #444; }
-  .flash--notice:before {
+  .flash--notice:before, .flash--alert:before {
     content: '\e60f'; }
 
 .flash--explanation {
@@ -2908,6 +2907,25 @@ input[type="text"], input[type="email"], input[type="password"] {
 
 .pill--success {
   background: #39ac52; }
+
+/*------------------------------------*\
+    $Table
+\*------------------------------------*/
+thead {
+  border-radius: 6px; }
+
+th {
+  background: #ce6d7c;
+  color: #f9f9f9; }
+  th:first-child {
+    border-radius: 3px 0 0 0; }
+  th:last-child {
+    border-radius: 0 3px 0 0; }
+
+tbody tr:nth-child(2n-1) {
+  background: rgba(192, 192, 192, 0.2); }
+tbody tr:last-child {
+  border-bottom: 1px solid #444; }
 
 /****
 * UI
@@ -3238,16 +3256,16 @@ a:not(.button) {
   -moz-transform: translate3d(-100%, 0, 0);
   -ms-transform: translate3d(-100%, 0, 0);
   -o-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0);
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  transition-property: transform;
-  -webkit-transition-duration: 300ms;
-  -moz-transition-duration: 300ms;
-  transition-duration: 300ms; }
+  transform: translate3d(-100%, 0, 0); }
   .nav-container a {
     border-bottom: none; }
   .nav-container.nav--open {
+    -webkit-transition-duration: 300ms;
+    -moz-transition-duration: 300ms;
+    transition-duration: 300ms;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    transition-property: transform;
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
     -ms-transform: translate3d(0, 0, 0);
@@ -3258,9 +3276,18 @@ a:not(.button) {
     -moz-transform: translate3d(-100%, 0, 0);
     -ms-transform: translate3d(-100%, 0, 0);
     -o-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0); }
+    transform: translate3d(-100%, 0, 0);
+    -webkit-transition-duration: 300ms;
+    -moz-transition-duration: 300ms;
+    transition-duration: 300ms;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    transition-property: transform; }
     @media only screen and (min-width: 940px) {
       .nav-container.nav--closed {
+        -webkit-transition-property: none;
+        -moz-transition-property: none;
+        transition-property: none;
         -webkit-transform: translate3d(0, 0, 0);
         -moz-transform: translate3d(0, 0, 0);
         -ms-transform: translate3d(0, 0, 0);
@@ -3275,12 +3302,9 @@ a:not(.button) {
       -ms-transform: none;
       -o-transform: none;
       transform: none;
-      -webkit-transition-property: -webkit-transform;
-      -moz-transition-property: -moz-transform;
-      transition-property: transform;
-      -webkit-transition-duration: 300ms;
-      -moz-transition-duration: 300ms;
-      transition-duration: 300ms;
+      -webkit-transition-property: none;
+      -moz-transition-property: none;
+      transition-property: none;
       position: absolute;
       border-right: none;
       width: 100%;
@@ -3753,6 +3777,15 @@ img.rounded, .rounded img {
 .block-center {
   display: block;
   margin: 12px auto; }
+
+/****
+* Deleted text
+****/
+.deleted {
+  pointer-events: none; }
+  .deleted > * {
+    text-decoration: line-through;
+    font-style: italic; }
 
 /*------------------------------------*\
     $ADMIN

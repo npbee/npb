@@ -63,3 +63,19 @@
         @include transform(translateY(-100%));
     }
 }
+
+/****
+* Slide away
+****/
+@include keyframes(slide-away) {
+  0% {
+    @include transform(translateX(0%));
+    opacity: 1;
+  }
+  100% {
+    @include transform(translateX(-100%));
+    opacity: 0;
+    height: 0;
+  }
+}
+

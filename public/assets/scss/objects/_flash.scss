@@ -19,6 +19,7 @@
   .flash--success,
   .flash--error,
   .flash--notice,
+  .flash--alert,
   .flash--explanation {
     position: relative;
     &:before {
@@ -48,7 +49,8 @@
     }
   }
 
-  .flash--notice {
+  .flash--notice,
+  .flash--alert {
     background: $yellow;
     color: $black;
     &:before {

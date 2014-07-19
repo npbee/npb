@@ -1,0 +1,11 @@
+/*------------------------------------*\
+    $ANIMATIONS
+\*------------------------------------*/
+
+.strike-through {
+  pointer-events: none;
+  > * {
+    text-decoration: line-through;
+    font-style: italic;
+  }
+}

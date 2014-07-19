@@ -1,4 +1,4 @@
-define(['modules/utils/ajax'], function(ajax) {
+define(['modules/utils/ajax', 'modules/utils/upto'], function(ajax, upto) {
   
   var delete_method = function() {
     var button = document.querySelector('[data-method="delete"]');
@@ -7,16 +7,16 @@ define(['modules/utils/ajax'], function(ajax) {
     if (!button) return;
     
     button.addEventListener('click', function(e) {
+      var self = this;
       url = this.pathname; 
       e.preventDefault();
       if (confirm('Are you sure?')) {
-        console.log(this.parentNode);
-        this.parentNode.removeChild(this);
         ajax.post(url, {
           _method: 'delete'
         },
           function() {
-            this.parentNode.removeChild(this);
+            var elToRemove = upto(self, self.getAttribute('data-remove'));
+            elToRemove.classList.add('deleted');
           }
         );
       }
