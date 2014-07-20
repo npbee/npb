@@ -1,6 +1,5 @@
-- Add boolean to post and projects for 'public'
 - Add dismiss button for flashes
 - Ajax request for "available" checkbox
   - With udpated language
 - Markdown hints for project/post editing
-- date picker
+- Add constant values for social links
