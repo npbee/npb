@@ -16,6 +16,12 @@ requirejs.config({
 require(['modules/featureTests']);
 
 
+/****
+* Flashes
+****/
+require(['modules/flash'], function(flash) {
+  flash();
+});
 
 
 /****

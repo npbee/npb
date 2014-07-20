@@ -12,6 +12,7 @@
             <div class="content" id="content">
               <% flash.each do |key, value| %>
                 <div class='flash flash--<%= key %>'>
+                  <a class="flash__close">&times;</a>
                   <%= value %>
                 </div>
               <% end %>
