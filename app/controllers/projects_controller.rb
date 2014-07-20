@@ -1,10 +1,11 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_filter :require_login, only: [:new, :edit, :create, :update, :destroy]
+  layout "admin", only: [:new, :create, :edit]
   
   # GET /projects
   def index
-    @projects = Project.all
+    @projects = Project.published.all
   end
 
   # GET /projects/1
@@ -35,8 +36,10 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1
   def update
-    if @project.update(project_params)
-      redirect_to @project, notice: 'Project was successfully updated.'
+    if !current_user.admin
+      redirect_to admin_path, notice: "You cannot update posts as a guest."
+    elsif current_user.admin && @project.update(project_params)
+      redirect_to admin_path, notice: 'Project was successfully updated.'
     else
       render :edit
     end
@@ -53,6 +56,7 @@ class ProjectsController < ApplicationController
     def set_project
       @project = Project.find(params[:id])
       @project_images = [@project.small_screen, @project.medium_screen, @project.large_screen]
+      check_access(@project)
     end
 
     # Only allow a trusted parameter "white list" through.
@@ -68,6 +72,7 @@ class ProjectsController < ApplicationController
                                       :medium_screen, 
                                       :large_screen, 
                                       :tag_list,
-                                      :slug)
+                                      :slug,
+                                      :published)
     end
 end

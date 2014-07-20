@@ -12,5 +12,6 @@ FactoryGirl.define do
     small_screen "small.jpg"
     medium_screen "medium.jpg"
     large_screen "large.jpg"
+    published true
   end
 end

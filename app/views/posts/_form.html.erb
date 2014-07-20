@@ -25,7 +25,13 @@
   <li>
   <%= f.label :excerpt, class: "beta" %>
   <%= f.text_field :excerpt %>
+  </li> 
+
+  <li class="checkbox">
+    <%= f.check_box :published %>
+    <%= f.label :published, @post.published ? "Published" : "Private", class: "beta" %>
   </li>
+
   <li>
   <%= f.button nil, class: "button", "data-icon" => "" %>
   </li>

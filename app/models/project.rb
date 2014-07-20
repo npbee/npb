@@ -17,6 +17,7 @@ class Project < ActiveRecord::Base
   has_many :tags, :through => :tag_relationships 
   
   default_scope { order('created_at DESC') }
+  scope :published, -> { where(published: true) }
 
   def self.find(input)
     input.to_i == 0 ? find_by_slug(input) : super

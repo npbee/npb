@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720022926) do
+ActiveRecord::Schema.define(version: 20140720151917) do
 
   create_table "posts", force: true do |t|
     t.string   "title"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140720022926) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "slug"
+    t.boolean  "published",      default: false
   end
 
   create_table "tag_relationships", force: true do |t|

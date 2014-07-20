@@ -64,7 +64,12 @@
   <%= f.label :slug, class: "beta" %>
   <%= f.text_field :slug %>
   </li>
-  
+
+  <li class="checkbox">
+    <%= f.check_box :published %>
+    <%= f.label :published, @project.published ? "Published" : "Private", class: "beta" %>
+  </li>
+
   <li>
   <%= f.button nil, class: "button", "data-icon" => "" %>
   </li>

@@ -40,7 +40,7 @@ class PostsController < ApplicationController
     if !current_user.admin
       redirect_to admin_path, notice: "You cannot update posts as a guest."
     elsif current_user.admin && @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+      redirect_to admin_path, notice: 'Post was successfully updated.'
     else
       render :edit
     end
@@ -62,6 +62,6 @@ class PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:title, :body, :slug, :tag_list, :excerpt)
+      params.require(:post).permit(:title, :body, :slug, :tag_list, :excerpt, :published)
     end
 end

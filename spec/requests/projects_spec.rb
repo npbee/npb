@@ -6,9 +6,11 @@ RSpec.describe "Projects", :type => :request do
   
   describe "requests" do
     before do
-      @guest = FactoryGirl.create(:user)
-      @admin = FactoryGirl.create(:user, { email: 'admin@test.com', admin: true })
+      @guest = FactoryGirl.create(:user, { name: 'Guest' })
+      @admin = FactoryGirl.create(:user, { name: 'Admin', email: 'admin@test.com', admin: true })
       @project = FactoryGirl.create(:project, { user_id: @admin.id })
+      @post = FactoryGirl.create(:post)
+      @private_project = FactoryGirl.create(:project, { name: "Private Project", published: false })
     end
 
 
@@ -41,7 +43,7 @@ RSpec.describe "Projects", :type => :request do
 
       end
 
-      describe "accessing a project show page" do
+      describe "accessing a published project show page" do
         before do
           visit project_path(@project)
         end
@@ -52,6 +54,15 @@ RSpec.describe "Projects", :type => :request do
 
         it "should not have an edit link" do
           expect(page).to_not have_content('Edit')
+        end
+      end
+
+      describe "accessing a non-published project page" do
+        before do
+          visit project_path(@private_project)
+        end
+        it "should not allow access" do
+          expect(page.current_path).to eq('/')
         end
       end
     end
@@ -77,9 +88,7 @@ RSpec.describe "Projects", :type => :request do
          fill_in "Name", with: "My Name"
          fill_in "Role", with: "My Role"
          fill_in "Url", with: "Url"
-         select "2014", :from => "project[date_completed(1i)]"
-         select "July", :from => "project[date_completed(2i)]"
-         select "19", :from => "project[date_completed(3i)]"
+         fill_in "Date completed", :with => "07/19/2014"
          fill_in "Body", with: "My Body"
          fill_in "Logo", with: "/logo.jpg"
          fill_in "Thumbnail", with: "/thumbnail.jpg"
@@ -104,7 +113,17 @@ RSpec.describe "Projects", :type => :request do
         it "should not be allowed" do
           expect(@project.name).to eq('MyString')
         end
+      end 
+      
+      describe "accessing a non-published project page" do
+        before do
+          visit project_path(@private_project)
+        end
+        it "should not allow access" do
+          expect(page.current_path).to eq('/')
+        end
       end
+
 
     end
 
@@ -122,30 +141,7 @@ RSpec.describe "Projects", :type => :request do
            expect(page).to have_content('Edit')
          end
        end
-
-       describe "project creation" do
-         before do
-           visit new_project_path
-           fill_in "Name", with: "My Name"
-           fill_in "Role", with: "My Role"
-           fill_in "Url", with: "Url"
-           select "2014", :from => "project[date_completed(1i)]"
-           select "July", :from => "project[date_completed(2i)]"
-           select "19", :from => "project[date_completed(3i)]"
-           fill_in "Body", with: "My Body"
-           fill_in "Logo", with: "/logo.jpg"
-           fill_in "Thumbnail", with: "/thumbnail.jpg"
-           fill_in "Small screen", with: "/small.jpg"
-           fill_in "Medium screen", with: "/medium.jpg"
-           fill_in "Large screen", with: "/large.jpg"
-           fill_in "Tag list", with: "ruby, javascript"
-           fill_in "Slug", with: "my-slug"
-         end
-         it "should be allowed" do
-           expect{ click_button "Create Project" }.to change(Project, :count).by(1)
-         end
-       end
-
+      
        describe "project updating" do
          before do
            visit edit_project_path(@project)
@@ -166,9 +162,9 @@ RSpec.describe "Projects", :type => :request do
       before do
         visit projects_path
       end
-      it "should display projects thumbs" do
-        thumbnail_src = page.find('.work-thumb__icon')['src']
-        expect(thumbnail_src).to eq("/assets/images/thumb.jpg")
+      it "should display projects thumbs of published projects" do
+        # thumbnail_src = page.find('.work-thumb__icon')['src']
+        expect(page).to_not have_content(@private_project.name)
       end
     end
   end

@@ -26,6 +26,7 @@
         <th>Date</th>
         <th>Title</th>
         <th>Slug</th>
+        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -35,6 +36,7 @@
       <td><%= post.created_at.strftime('%m.%d.%Y') %></td>
       <td><%= post.title %></td>
       <td><%= post.slug %></td>
+      <td><%= post.published ? 'Published' : 'Private' %></td>
       <td>
         <%= link_to "View", post_path(post) %> / 
         <%= link_to "Edit", edit_post_path(post) %> / 
@@ -58,6 +60,7 @@
         <th>Date</th>
         <th>Name</th>
         <th>Slug</th>
+        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -67,6 +70,7 @@
           <td><%= project.created_at.strftime('%m.%d.%Y') %></td>
           <td><%= project.name %></td>
           <td><%= project.slug %></td>
+          <td><%= project.published ? 'Published' : 'Private' %></td>
           <td>
             <%= link_to "View", project_path(project) %> / 
             <%= link_to "Edit", edit_project_path(project) %> / 

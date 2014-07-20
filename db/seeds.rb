@@ -1,4 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
+# This file shou=ld contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
@@ -79,14 +79,32 @@ project = Project.create(
   url: "http://scarey.org",
   date_completed: "2014-01-31",
   body: "Beginning to End
-====
-The S. Carey site was a project near and dear to my heart.  To give full disclosure, S. Carey is a band, and I play in this band.  What started originally as a thrown-together tumblr has grown to become a somewhat sophisticated, yet minimal and clean site.  It's been a project for over four years now (2014) and as it's grown as a site I've grown as a developer.  Here is the story...",
-  logo: "/luray/logo.svg",
-  thumbnail: "/scarey/thumb.svg",
-  small_screen: "/scarey/iphone.jpg",
-  medium_screen: "/scarey/ipad.jpg",
-  large_screen: "/scarey/desktop.jpg",
-  slug: "s-carey"
+=====
+TThe S. Carey site was a project near and dear to my heart.  To give full disclosure, S. Carey is a band, and I play in this band.  What started originally as a thrown-together tumblr has grown to become a somewhat sophisticated, yet minimal and clean site.  It's been a project for over four years now (2014) and as it's grown as a site I've grown as a developer.  Here is the story...",
+logo: "/luray/logo.svg",
+thumbnail: "/scarey/thumb.svg",
+small_screen: "/scarey/iphone.jpg",
+medium_screen: "/scarey/ipad.jpg",
+large_screen: "/scarey/desktop.jpg",
+slug: "s-carey",
+published: true
+)
+
+private_project = Project.create(
+  name: "Private Project",
+  role: "Design & Development",
+  url: "http://scarey.org",
+  date_completed: "2014-01-31",
+  body: "Beginning to End
+=====
+TThe S. Carey site was a project near and dear to my heart.  To give full disclosure, S. Carey is a band, and I play in this band.  What started originally as a thrown-together tumblr has grown to become a somewhat sophisticated, yet minimal and clean site.  It's been a project for over four years now (2014) and as it's grown as a site I've grown as a developer.  Here is the story...",
+logo: "/luray/logo.svg",
+thumbnail: "/scarey/thumb.svg",
+small_screen: "/scarey/iphone.jpg",
+medium_screen: "/scarey/ipad.jpg",
+large_screen: "/scarey/desktop.jpg",
+slug: "s-carey",
+published: false
 )
 
 project_tag_relationship = TagRelationship.create(
