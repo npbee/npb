@@ -11,6 +11,7 @@ RSpec.describe Post, :type => :model do
       expect(@post).to respond_to(:body)
       expect(@post).to respond_to(:slug)
       expect(@post).to respond_to(:tags)
+      expect(@post).to respond_to(:published)
     end
 
     describe "title validation" do

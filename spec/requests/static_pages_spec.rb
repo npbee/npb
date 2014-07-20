@@ -7,6 +7,7 @@ describe "StaticPages" do
 
   describe "#home" do
     before do
+     dd @user = FactoryGirl.create(:user, { name: 'Nick' })
       @post1 = FactoryGirl.create(:post, { title: "Post 1 Title", user_id: @user.id })
       @post2 = FactoryGirl.create(:post, { title: "Post 2 Title", user_id: @user.id })
       @project1 = FactoryGirl.create(:project, { name: "Project 1 Title" })

@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :projects
 
-
+  def has_access_to?(item)
+    self.admin == true
+  end
 
 end

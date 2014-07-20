@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
   
   def home
     @body_class = 'homepage'
-    @post = Post.first
+    @post = Post.published.first
     @project = Project.first
   end
 

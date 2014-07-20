@@ -50,8 +50,19 @@ especially when it came to the javascript.  Many of my projects used jQuery,
   ",
   slug: "the-making-of",
   excerpt: "The making of kinmill.com",
-  user_id: user.id
+  user_id: user.id,
+  published: true
 )
+
+private_post = Post.create(
+  title: "Private Post",
+  body: "this is a private post, man.",
+  slug: "private-post",
+  excerpt: "My first private post",
+  user_id: user.id,
+  published: false
+)
+
 
 tag = Tag.create(
   name: "Ruby"

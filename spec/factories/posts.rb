@@ -7,5 +7,6 @@ FactoryGirl.define do
     slug "MySlug"
     excerpt "MyExcerpt"
     user_id 1
+    published true
   end
 end

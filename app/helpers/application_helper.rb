@@ -19,4 +19,8 @@ module ApplicationHelper
     end
   end
 
+  def user_authorized?
+    logged_in? && current_user.admin
+  end
+
   end

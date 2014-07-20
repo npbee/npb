@@ -10,7 +10,6 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
-    #render :layout => 'post'
   end
 
   # GET /posts/new
@@ -57,7 +56,9 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+      check_access(@post)
     end
+
 
     # Only allow a trusted parameter "white list" through.
     def post_params

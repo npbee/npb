@@ -9,6 +9,8 @@ RSpec.describe "Posts", :type => :request do
       @guest = FactoryGirl.create(:user)
       @admin = FactoryGirl.create(:user, { email: 'admin@test.com', admin: true })
       @post = FactoryGirl.create(:post, { user_id: @admin.id })
+      @project = FactoryGirl.create(:project)
+      @private_post = FactoryGirl.create(:post, { published: false })
     end
 
 
@@ -41,7 +43,7 @@ RSpec.describe "Posts", :type => :request do
 
       end
 
-      describe "accessing a post show page" do
+      describe "accessing a public post page" do
         before do
           visit post_path(@post)
         end
@@ -54,6 +56,16 @@ RSpec.describe "Posts", :type => :request do
           expect(page).to_not have_content('Edit')
         end
       end
+
+      describe "accessing a non-public post page" do
+        before do
+          visit post_path(@private_post)
+        end
+        it "should not allow access" do
+          expect(page.current_path).to eq(root_path)
+        end
+      end
+
     end
 
     ###############
@@ -96,6 +108,20 @@ RSpec.describe "Posts", :type => :request do
         end
       end
 
+      describe "accessing a published post" do
+        before do
+          visit post_path(@post)
+        end
+        it "should be allowed"
+      end
+
+      describe "accessing a non-published post" do
+        before do
+          visit post_path(@private_post)
+        end
+        it "should not be allowed"
+      end
+
     end
 
     ###############
@@ -135,6 +161,13 @@ RSpec.describe "Posts", :type => :request do
          it "should be allowed" do
            expect(page).to have_content('My new Title')
          end
+       end
+
+       describe "accessing a private post" do
+         before do
+           visit post_path(@private_post)
+         end
+         it "should be allowed"
        end
 
     end

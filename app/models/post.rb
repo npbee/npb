@@ -11,6 +11,7 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :tags
 
   default_scope { order('created_at DESC') }
+  scope :published, -> { where(published: true) }
   
 
   def self.find(input)
