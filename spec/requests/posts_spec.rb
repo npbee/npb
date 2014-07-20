@@ -10,7 +10,7 @@ RSpec.describe "Posts", :type => :request do
       @admin = FactoryGirl.create(:user, { email: 'admin@test.com', admin: true })
       @post = FactoryGirl.create(:post, { user_id: @admin.id })
       @project = FactoryGirl.create(:project)
-      @private_post = FactoryGirl.create(:post, { published: false })
+      @private_post = FactoryGirl.create(:post, { title: "My Private Post", published: false })
     end
 
 
@@ -112,14 +112,18 @@ RSpec.describe "Posts", :type => :request do
         before do
           visit post_path(@post)
         end
-        it "should be allowed"
+        it "should be allowed" do
+          expect(page.current_path).to eq(post_path(@post))
+        end
       end
 
       describe "accessing a non-published post" do
         before do
           visit post_path(@private_post)
         end
-        it "should not be allowed"
+        it "should not be allowed" do
+          expect(page.current_path).to eq('/')
+        end
       end
 
     end
@@ -167,7 +171,10 @@ RSpec.describe "Posts", :type => :request do
          before do
            visit post_path(@private_post)
          end
-         it "should be allowed"
+         it "should be allowed" do
+           expect(page.current_path).to eq(post_path(@private_post))
+         end
+          
        end
 
     end
@@ -179,8 +186,8 @@ RSpec.describe "Posts", :type => :request do
       before do
         visit posts_path
       end
-      it "should display post excerpts" do
-        expect(page).to have_content(@post.excerpt)
+      it "should display post excerpts only for published posts" do
+        expect(page).not_to have_content(@private_post.title)
       end
     end
   end
