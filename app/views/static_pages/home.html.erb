@@ -11,28 +11,27 @@
 
 <section class="recent" id="recent">
 
-    <div class="horizontal-list hl--four">
+    <div class="horizontal-list hl--three">
 
       <a data-icon="" href="<%= "/projects/#{@project.slug}" %>">
             <h2>Latest Work:</h2>
             <p class="italic"><%= @project.name %></p>
         </a><!--
 
-            {% for post in site.posts limit:1 %}
             --><a data-icon="" href="<%= "/blog/#{@post.slug}" %>">
                 <h2>Latest Post:</h2>
                 <p class="italic"><%= @post.title %></p>
             </a><!--
-            {% endfor %}
 
 
-        --><a data-icon="" xhref="#">
+        <a data-icon="" xhref="#">
             <h2>Latest Experiment:</h2>
             <p class="italic">Coming soon...</p>
-        </a><!--
+        </a>
 
         --><a data-icon="" href="/connect">
-            <h2>Connect</h2>
+        <h2>Connect</h2>
+        <p class="italic">Find me!</p>
         </a>
 
     </div> <!-- End horizontal list -->
