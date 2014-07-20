@@ -30,6 +30,6 @@ test:
   username: postgres
   password: password
 
-# production:
-#   <<: *default
-#   database: kinmill_production
+production:
+  <<: *default
+  database: kinmill_production
