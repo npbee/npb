@@ -18,7 +18,7 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :keep_releases, 2
 
 # files we want symlinking to specific entries in shared
-set :linked_files, %w{config/database.yml secrets.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml}
 
 # dirs we want symlinking to shared
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
@@ -37,6 +37,7 @@ set(:config_files, %w(
   monit
   unicorn.rb
   unicorn_init.sh
+  secrets.yml
 ))
 
 # which config files should be made executable after copying
