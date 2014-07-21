@@ -5,6 +5,9 @@ set :deploy_user, 'deploy'
 set :scm, :git
 set :repo_url, 'git@github.com:npbee/kinmill-rails.git'
 
+set :ssh_options, { :forward_agent => true }
+set :use_sudo, true
+
 # setup rvm.
 set :rbenv_type, :system
 set :rbenv_ruby, '2.1.2'

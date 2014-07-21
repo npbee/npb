@@ -30,3 +30,10 @@ KINMILL
 
 If you need to make changes to the server, update the Berksfile with the
 appropriate cookbooks.
+
+
+**Provisioning**
+* Knife solo prepare root@....
+* Knife solo cook root@...
+* Cap production deploy:setup_config
+* cap production deploy
