@@ -1,5 +1,5 @@
 upstream unicorn {
-  server unix:/var/sockets/unicorn.<%= fetch(:full_app_name) %>.sock fail_timeout=0;
+  server unix:/tmp/unicorn.<%= fetch(:full_app_name) %>.sock fail_timeout=0;
 }
 
 server {
