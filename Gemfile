@@ -14,6 +14,7 @@ group :development, :test do
 end
 gem 'rails_12factor', group: :production
 
+gem 'heroku_secrets', git: 'https://github.com/alexpeattie/heroku_secrets.git'
 
 
 ruby "2.1.2"
