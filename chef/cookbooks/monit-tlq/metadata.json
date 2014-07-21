@@ -1,0 +1,1 @@
+{"name":"monit-tlq","description":"Basic monit installation","long_description":"","maintainer":"Ben Dixon","maintainer_email":"ben@talkingquickly.co.uk","license":"none","platforms":{"ubuntu":">= 0.0.0"},"dependencies":{},"recommendations":{},"suggestions":{},"conflicting":{},"providing":{},"replacing":{},"attributes":{},"groupings":{},"recipes":{},"version":"0.3.7"}
