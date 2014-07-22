@@ -5,6 +5,7 @@ var tinylr = require('tiny-lr');
 var server = tinylr();
 var jshint = require('gulp-jshint');
 var rjs = require('gulp-requirejs');
+var uglify = require('gulp-uglify');
 
 // SASS
 gulp.task('sass', function() {
@@ -17,6 +18,18 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('public/assets/css/'))
     .pipe(livereload(server));
 });
+
+gulp.task('sass-build', function() {
+  return gulp.src('public/assets/scss/style.scss')
+    .pipe(
+      sass({
+        outputStyle: 'compressed',
+        errLogToConsole: true
+      }))
+    .pipe(gulp.dest('public/assets/css/'))
+});
+
+
 
 // JSHINT
 gulp.task('jshint', function() {
@@ -42,6 +55,15 @@ gulp.task('requirejsBuild', function() {
 });
 
 
+// Uglify
+gulp.task('compress', function() {
+  gulp.src('public/assets/js/build.js')
+  .pipe(uglify({
+    mangle: true
+  }))
+  .pipe(gulp.dest('public/assets/js/'));
+});
+
 // WATCH
 gulp.task('watch', function() {
   server.listen(35730, function(err) {
@@ -55,4 +77,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['watch']);
-gulp.task('build', ['requirejsBuild']);
+gulp.task('build', ['requirejsBuild', 'compress', 'sass-build']);
