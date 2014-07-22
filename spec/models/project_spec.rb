@@ -67,7 +67,7 @@ RSpec.describe Project, :type => :model do
     describe "tag retrieval" do
       before do
         @tag = FactoryGirl.create(:tag)
-        @tag_relationship = FactoryGirl.create(:tag_relationship, { reference_id: @project.id, tag_id: @tag.id })
+        @tag_relationship = FactoryGirl.create(:tag_relationship, { reference_id: @project.id, tag_id: @tag.id, reference_type: 'project' })
       end
 
       it "should retrive the tags" do

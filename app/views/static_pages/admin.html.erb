@@ -28,6 +28,7 @@
         <th>Slug</th>
         <th>Status</th>
         <th>Action</th>
+        <th>ID</th>
       </tr>
     </thead>
     <tbody>
@@ -41,6 +42,9 @@
         <%= link_to "View", post_path(post) %> / 
         <%= link_to "Edit", edit_post_path(post) %> / 
         <%= link_to "Delete", post_path(post), :method =>  :delete, "data-remove" => 'tr' %>
+      </td>
+      <td>
+        <%= post.id %>
       </td>
     </tr>
   <% end %>
@@ -62,6 +66,7 @@
         <th>Slug</th>
         <th>Status</th>
         <th>Action</th>
+        <th>ID</th>
       </tr>
     </thead>
     <tbody>
@@ -75,6 +80,9 @@
             <%= link_to "View", project_path(project) %> / 
             <%= link_to "Edit", edit_project_path(project) %> / 
             <%= link_to "Delete", project_path(project), :method =>  :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+          <td>
+            <%= project. id %>
           </td>
         </tr>
       <% end %>

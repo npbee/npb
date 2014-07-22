@@ -13,7 +13,10 @@ class Project < ActiveRecord::Base
                       message: "path should end in .jpg, .svg, .png, or .jpeg."
 
   belongs_to :user
-  has_many :tag_relationships, :foreign_key => "reference_id"
+  has_many :tag_relationships, 
+            -> { where reference_type: 'project' },
+            :foreign_key => "reference_id"
+  
   has_many :tags, :through => :tag_relationships 
   
   default_scope { order('created_at DESC') }

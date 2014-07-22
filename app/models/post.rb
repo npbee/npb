@@ -7,6 +7,7 @@ class Post < ActiveRecord::Base
 
   belongs_to :user
   has_many :tag_relationships, 
+            -> { where reference_type: 'post' },
             :foreign_key => "reference_id"
   
   has_many :tags, 
