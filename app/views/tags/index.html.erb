@@ -2,7 +2,7 @@
     <article>
         <div class="page-nav">
           <% @tags.each do |tag| %>
-            <a class="blog__excerpt" href="<%= tag_path(tag) %>">
+            <a class="blog__excerpt" href="/tags/<%= tag.name %>">
               <h2 class="tag-meta"><%= tag.name %></h2>
             </a>
           <% end %>

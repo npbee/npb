@@ -93,3 +93,14 @@ img.rounded,
 .float-left {
   float: left;
 }
+
+/****
+* Remove the paragraph leader
+****/
+.no-leader:first-letter {
+    font-size: inherit !important;
+    float: none !important;
+    font-family: $base-font-family !important;
+    padding: inherit !important;
+    font-style: inherit !important;
+}

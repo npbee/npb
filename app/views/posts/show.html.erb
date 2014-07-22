@@ -14,7 +14,7 @@
         <h2>About:</h2>
         <p>
         <% @post.tags.each do |tag| %>
-          <%= link_to tag.name, tag_path(tag.name) %>
+          <%= link_to tag.name, tag_path(tag.name), class: "pill" %>
         <% end %>
         </p>
 

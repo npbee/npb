@@ -1,21 +1,38 @@
-<p id="notice"><%= notice %></p>
+<section class="section text-body">
+    <span class="small-header">Tagged with:</span>
+    <h1 class="headline"><%= @tag.name %></h1>
 
-<p>
-<strong>Tag:</strong>
-  <%= @tag.name %>
-</p>
+    <h2 class="small-header">Posts</h2>
+    <% if @tag.post_references.length == 0 %>
+      <p class="no-leader italic">No posts with this tag yet.</p>
+    <% end %>
+    <% @tag.post_references.each do |post_reference| %>
+    <h2>
+    <%= link_to post_reference.title, post_path(post_reference) %>
+    </h2>
+    <% end %>
 
-<h2>Post References</h2>
-<% @tag.post_references.each do |post_reference| %>
-  <%= link_to post_reference.title, post_path(post_reference) %>
-<% end %>
+    <hr class="rule--small">
 
-<h2>Project References</h2>
-<% @tag.project_references.each do |project_reference| %>
-  <%= link_to project_reference.name, project_path(project_reference) %>
-<% end %>
+    <h2 class="small-header">Projects</h2>
+    <% if @tag.project_references.length == 0 %>
+      <p class="no-leader italic">No projects with this tag yet.</p>
+    <% end %>
+    <% @tag.project_references.each do |project_reference| %>
+    <h2>
+    <%= link_to project_reference.name, project_path(project_reference) %>
+    </h2>
+    <% end %>
+    
+    <hr class="rule--small">
 
+    <%= link_to "More Tags", tags_path %>
+
+</section>
 
 <% if logged_in? %>
-  <%= link_to 'Edit', edit_tag_path(@tag) %>
+<section class="text-body">
+<hr class="rule">
+<%= link_to 'Edit', edit_tag_path(@tag) %>
+</section>
 <% end %>

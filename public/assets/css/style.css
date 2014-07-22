@@ -880,7 +880,7 @@ hgroup .hN {
  * Inline quotes.
  */
 q {
-  quotes: "\2018" "\2019" "\201C" "\201D"; }
+  quotes: "\2018" "\2019" "" ""; }
   q:before {
     content: "\2018";
     content: open-quote; }
@@ -895,15 +895,15 @@ q {
     content: close-quote; }
 
 blockquote {
-  quotes: "\201C" "\201D"; }
+  quotes: "" ""; }
   blockquote p:before {
-    content: "\201C";
+    content: "";
     content: open-quote; }
   blockquote p:after {
     content: "";
     content: no-close-quote; }
   blockquote p:last-of-type:after {
-    content: "\201D";
+    content: "";
     content: close-quote; }
   blockquote q:before {
     content: "\2018";
@@ -2911,6 +2911,7 @@ textarea {
   text-align: center;
   background-color: #ccc;
   border-radius: 3px;
+  border: 1px solid #c0c0c0;
   color: #f9f9f9; }
 
 .pill--error {
@@ -3803,6 +3804,16 @@ img.rounded, .rounded img {
 ****/
 .float-left {
   float: left; }
+
+/****
+* Remove the paragraph leader
+****/
+.no-leader:first-letter {
+  font-size: inherit !important;
+  float: none !important;
+  font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B' !important;
+  padding: inherit !important;
+  font-style: inherit !important; }
 
 /*------------------------------------*\
     $ADMIN
