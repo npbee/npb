@@ -42,6 +42,21 @@ require(['modernizr', 'breakpoint'], function(Modernizr, breakpoint) {
 });
 define("modules/featureTests", function(){});
 
+define('modules/flash',[], function() {
+  var flash = function() {
+    var close = document.querySelector('.flash__close') || null;
+    if (close === null) return;
+    
+    close.addEventListener('click', function(e) {
+      e.preventDefault();
+      var parent = this.parentNode;
+      parent.classList.add('fade-out');
+    });
+  };
+
+  return flash;
+});
+
 /*! Picturefill - Responsive Images that work today. (and mimic the proposed Picture element with span elements). Author: Scott Jehl, Filament Group, 2012 | License: MIT/GPLv2 */
 
 (function( w ){
@@ -530,6 +545,86 @@ define('modules/nav/init',['modules/nav/events', 'modules/nav/sticky'], function
     return nav;
 
 });
+define('modules/utils/ajax',[], function() {
+  var ajax = {};
+
+  var csrf = document.querySelector('meta[name="csrf-token"]');
+  if (!csrf) return;
+
+  ajax.x = function() {
+    return new XMLHttpRequest();
+  };
+
+  ajax.send = function(url, callback, method, data, sync) {
+    var x = new XMLHttpRequest();
+    x.open(method, url, sync);
+    x.onreadystatechange = function() {
+      if (x.readyState == 4) {
+        callback(x.responseText);
+      }
+    };
+    if (method == 'POST') {
+      x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      x.setRequestHeader('X-CSRF-Token', csrf.getAttribute('content'));
+    }
+    x.send(data);
+  };
+
+  ajax.post = function(url, data, callback, sync) {
+    var query = [];
+    for (var key in data) {
+      query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+    }
+    ajax.send(url, callback, 'POST', query.join('&'), sync);
+  }
+
+  return ajax;
+});
+
+define('modules/utils/upto',[], function() {
+  var upto = function(el, tagName) {
+    tagName = tagName.toLowerCase();
+
+    do {
+      el = el.parentNode;
+      if (el.tagName.toLowerCase() == tagName) {
+        return el;
+      }
+    } while (el.parentNode)
+
+  }
+
+  return upto;
+});
+
+define('modules/utils/delete_method',['modules/utils/ajax', 'modules/utils/upto'], function(ajax, upto) {
+  
+  var delete_method = function() {
+    var button = document.querySelector('[data-method="delete"]');
+    var url;
+
+    if (!button) return;
+    
+    button.addEventListener('click', function(e) {
+      var self = this;
+      url = this.pathname; 
+      e.preventDefault();
+      if (confirm('Are you sure?')) {
+        ajax.post(url, {
+          _method: 'delete'
+        },
+          function() {
+            var elToRemove = upto(self, self.getAttribute('data-remove'));
+            elToRemove.classList.add('deleted');
+          }
+        );
+      }
+    });
+  }
+
+  return delete_method;
+});
+
 /****
 * Google Analytics
 ****/
@@ -571,14 +666,18 @@ requirejs.config({
     },
 });
 
-
-
 /****
 * Feature Testes
 ****/
 require(['modules/featureTests']);
 
 
+/****
+* Flashes
+****/
+require(['modules/flash'], function(flash) {
+  flash();
+});
 
 
 /****
@@ -629,6 +728,13 @@ require(['modules/nav/init'], function(nav) {
 //     contact.init();
 // });
 
+
+/***
+ * DELETE METHOD
+****/
+require(['modules/utils/delete_method'], function(delete_method) {
+  delete_method();
+});
 
 /****
 * Analytics
