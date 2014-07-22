@@ -8,7 +8,7 @@
     <% end %>
     <% @tag.post_references.each do |post_reference| %>
     <h2>
-    <%= link_to post_reference.title, post_path(post_reference) %>
+      <a href="/blog/<%= post_reference.slug %>"><%= post_reference.title %></a>
     </h2>
     <% end %>
 
@@ -20,7 +20,7 @@
     <% end %>
     <% @tag.project_references.each do |project_reference| %>
     <h2>
-    <%= link_to project_reference.name, project_path(project_reference) %>
+      <a href="/projects/<%= project_reference.slug %>"><%= project_reference.name %></a>
     </h2>
     <% end %>
     
