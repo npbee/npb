@@ -68,8 +68,8 @@
     <%= markdown @project.body %>
   </div>
 
-  <a class="project-logo" href="{{ page.site_url }}">
-    <img src="{{ page.project_logo }}" alt="{{ page.client }} logo">
+  <a class="project-logo" href="<%= @project.url %>">
+    <img src="/assets/images<%= @project.logo %>" alt="<%= "#{@project.name} logo" %>">
   </a>
 
 
