@@ -9,6 +9,7 @@ RSpec.describe TagRelationship, :type => :model do
     it "should respond to the proper attributes" do
       expect(@tag_relationship).to respond_to(:tag_id)
       expect(@tag_relationship).to respond_to(:reference_id)
+      expect(@tag_relationship).to respond_to(:type)
     end
   end
 end

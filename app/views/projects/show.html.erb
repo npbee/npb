@@ -22,6 +22,7 @@
       <h2>Tags:</h2>
       <p>
       <% @project.tags.each do |tag| %>
+        <%= tag.inspect %>
           <%= link_to tag.name, tag_path(tag.name) %>
         <% end %>
       </p>

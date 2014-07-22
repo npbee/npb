@@ -51,12 +51,19 @@ RSpec.describe Post, :type => :model do
 
     describe "tag retrieval" do
       before do
-        @tag = FactoryGirl.create(:tag)
-        @tag_relationship = FactoryGirl.create(:tag_relationship, { tag_id: @tag.id, reference_id: @post.id })
+        @post_tag = FactoryGirl.create(:tag, { name: "Post Tag" })
+        @project_tag = FactoryGirl.create(:tag, { name: "Project Tag" })
+        @project = FactoryGirl.create(:project)
+        @post_tag_relationship = FactoryGirl.create(:tag_relationship, { tag_id: @post_tag.id, reference_id: @post.id, type: 'post' })
+        @project_tag_relationship = FactoryGirl.create(:tag_relationship, { tag_id: @project_tag.id, reference_id: @project.id, type: 'project' })
       end
 
-      it "should retrive the right tags" do
-        expect(@post.tags).to include(@tag)
+      it "should retrieve only the post tags" do
+        expect(@post.tags).to include(@post_tag)
+      end
+
+      it "should not retrive the project tags" do
+        expect(@post.tags).to_not include(@project_tag)
       end
     end
   end
