@@ -1,4 +1,4 @@
-KINMILL
+(http://kinmill.com/assets/images/logo.svg)
 ----
 
 **Dependencies**
