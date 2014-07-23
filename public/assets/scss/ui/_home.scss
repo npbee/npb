@@ -2,9 +2,14 @@
     $HOME SECTIONS STYLES
 \*------------------------------------*/
 .homepage {
+    .site-logo {
+      display: block;
+      text-align: center;
+    }
     .site-logo img {
         width: 100%;
         height: auto;
+        max-width: 200px;
     }
     .site-logo--big {
         height:100px;

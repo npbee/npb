@@ -3262,7 +3262,6 @@ a:not(.button) {
   height: 100%;
   background: #f9f9f9;
   z-index: 101;
-  text-transform: uppercase;
   border-right: 2px solid #c0c0c0;
   -webkit-transform: translate3d(-100%, 0, 0);
   -moz-transform: translate3d(-100%, 0, 0);
