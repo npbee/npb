@@ -1,39 +1,59 @@
-(http://kinmill.com/assets/images/logo.svg)
+![Kinmill logo](http://kinmill.com/assets/images/logo.svg)
 ----
 
-**Dependencies**
+Site files for [Kinmill](http://kinmill.com).
+
+
+Dependencies
+-------------------
 
 * Vagrant
-* Vagrant Plugins:
-    Vagrant berkshelf
-    Vagrant omnibus
+  * Vagrant berkshelf
+  * Vagrant omnibus
 * Berkshelf
 
-**Backend Stack**
+
+Backend
+-----------------------
 
 * Ruby 2.1.2
 * Rails 4.1.1
 * Postgresql
 
-**Frontend Stack**
+
+Frontend
+-----------------------
 
 * SASS
-  Inuit CSS
-  Bourbon / Bourbon Neat
+  * Inuit CSS
+  * Bourbon / Bourbon Neat
 * RequireJS
 * Gulp for build system
 
-**Development**
 
-* Start the server with vagrant up
-* Start frontend build with gulp
+Development
+-------------------
 
+* Start the dev server with ```vagrant up```
+
+* Start frontend development with ```gulp```
+
+* Build frontent assets for production with ``` gulp build```
+
+
+Making Development Server Changes
+------------------------------------
 If you need to make changes to the server, update the Berksfile with the
 appropriate cookbooks.
 
 
-**Provisioning**
-* Knife solo prepare root@....
-* Knife solo cook root@...
-* Cap production deploy:setup_config
-* cap production deploy
+Provisioning
+-----------------
+```Knife solo prepare root@....```
+
+ ```Knife solo cook root@...```
+
+ ```Cap production deploy:setup_config```
+
+ ```cap production deploy```
+
