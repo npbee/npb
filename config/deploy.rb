@@ -1,9 +1,9 @@
-set :application, 'Kinmill'
+set :application, 'npb'
 set :deploy_user, 'deploy'
 
 # setup repo details
 set :scm, :git
-set :repo_url, 'git@github.com:npbee/kinmill-rails.git'
+set :repo_url, 'git@github.com:npbee/npb.git'
 
 set :ssh_options, { :forward_agent => true }
 set :use_sudo, true
