@@ -37,7 +37,7 @@
 * The menu toggle for small devices
 ****/
 .toggle-container {
-    padding: $base-spacing-unit !important;
+    padding: $base-spacing-unit $base-spacing-unit/2 !important;
 }
 
 .menu-toggle {
@@ -145,7 +145,6 @@
     @include media-query(desk) {
         @include transform(none);
         @include transition-property(none);
-        //@include transition-duration($anim);
         position: absolute;
         border-right: none;
         width: 100%;
@@ -241,7 +240,10 @@
 .nav--scrolled {
     @include media-query(desk) {
         //position: fixed; //Adding this with js to avoid quick pop down
+        @include transition-property(transform);
+        @include transition-duration($anim);
         background: $white;
+        border-bottom: 2px solid $black;
         .nav-fade {
             opacity: 1;
         }
