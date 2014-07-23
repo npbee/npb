@@ -37,7 +37,7 @@
 * The menu toggle for small devices
 ****/
 .toggle-container {
-    padding: $base-spacing-unit/2;
+    padding: $base-spacing-unit !important;
 }
 
 .menu-toggle {
@@ -121,7 +121,7 @@
     background: $white;
     z-index: 101;
     //text-transform: uppercase;
-    border-right: 2px solid $grey;
+    border-right: 2px solid $black;
     @include transform(translate3d(-100%,0,0));
        a {
         border-bottom: none;
@@ -177,7 +177,7 @@
     }
     .breadcrumbs {
         width: 100%;
-        background: darken($white, 3%);
+        background: $brand-main;
         @include media-query(desk) {
             background: none;
             float: left;
@@ -209,7 +209,7 @@
 
 .nav li {
     &:first-child a {
-        border-top: 1px solid $grey;
+        border-top: 1px solid $black;
         @include media-query(desk) {
             border-top: none;
         }
@@ -221,7 +221,7 @@
         text-align: center;
     }
     a {
-        border-bottom: 1px solid $grey;
+        border-bottom: 1px solid $black;
         display: block;
         @include media-query(desk) {
             display: inline-block;
