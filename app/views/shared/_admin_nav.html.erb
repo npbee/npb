@@ -11,9 +11,14 @@
         </div>
         <ul>
           <% if logged_in? %>
-            <li><a>Welcome, <%= current_user.name %></a></li>
-             <li><%= link_to "Logout", :logout, method: :post, "data-icon" => "" %></li>
-          <% end %>
+              <li class="dropdown">
+              <a data-icon=""><%= current_user.name %></a>
+                  <ul>
+                    <li><%= link_to "Admin", admin_path %></li>
+                    <li><%= link_to "Logout", :logout, method: :post %></li>
+                  </ul>
+              </li>
+            <% end %>
         </ul>
     </nav>
 </div>

@@ -1,3 +1,10 @@
 - Ajax request for "available" checkbox
   - With udpated language
 - Markdown hints for project/post editing
+- Tag update page styling
+- Search and filtering for tags
+- Admin dropdown
+- GZIP
+- CSS Compression
+- Ajax post saves
+- Get vagrant working with unicorn and chef

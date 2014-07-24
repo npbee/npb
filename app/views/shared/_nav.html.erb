@@ -16,7 +16,13 @@
             <!-- <li><a class="lab-nav" href="/lab" data-icon="">Lab</a></li> -->
             <li><a class="connect-nav" href="/connect" data-icon="">Connect</a></li>
             <% if logged_in? %>
-              <li><%= link_to "Logout", :logout, method: :post, "data-icon" => "" %></li>
+              <li class="dropdown">
+                <a data-icon=""><%= current_user.name %></a>
+                  <ul>
+                    <li><%= link_to "Admin", admin_path %></li>
+                    <li><%= link_to "Logout", :logout, method: :post %></li>
+                  </ul>
+              </li>
             <% end %>
         </ul>
     </nav>

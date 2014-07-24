@@ -1,0 +1,55 @@
+/*------------------------------------*\
+    $DROPDOWN
+\*------------------------------------*/
+.dropdown {
+  position: relative;
+  cursor: pointer;
+  > ul {
+    margin: 0;
+    padding: 0;
+    display:none;
+    float: none !important;
+    right: -$base-spacing-unit/2;
+    background: $white;
+    border: 1px solid $black;
+    border-radius: $brand-round;
+    &:before,
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -$base-spacing-unit + 4;
+      right: $base-spacing-unit/2;
+      border-top: $base-spacing-unit/2 solid transparent;
+      border-bottom: $base-spacing-unit/2 solid $white;
+      border-left: $base-spacing-unit/2 solid transparent;
+      border-right: $base-spacing-unit/2 solid transparent;
+    }
+    &:after {
+      top: -$base-spacing-unit + 3;
+      border-bottom: $base-spacing-unit/2 solid $black;
+      z-index: -1;
+    }
+    @include media-query(desk) {
+      position: absolute;
+      padding: $base-spacing-unit/2;
+    }
+    li {
+      display: block;
+    }
+    a {
+      display: block;
+      width: 100%;
+      line-height: inherit;
+      padding-left: $base-spacing-unit;
+      text-align: right;
+      @include media-query(desk) {
+        padding-left: 0;
+      }
+    }
+   }
+ }
+ 
+ .dropdown:hover ul {
+   display: block;
+}
