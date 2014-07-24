@@ -1,4 +1,4 @@
-![Kinmill logo](http://kinmill.com/assets/images/logo.svg)
+![npb logo](http://npbee.me/assets/images/logo.svg)
 ----
 
 Site files for [Kinmill](http://kinmill.com).
