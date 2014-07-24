@@ -9,8 +9,16 @@
   <%= f.text_field :title %>
   </li>
   <li>
-  <%= f.label :body, class: "beta" %>
-  <%= f.text_area :body %>
+    <div class="editor">
+      <div class="editor__raw">
+        <%= f.label :body, "Markdown", class: "beta" %>
+        <%= f.text_area :body, id: 'editor__raw__input', "oninput" => "this.editor.update()" %>
+      </div>
+      <div class="editor__preview">
+        <h2>Preview</h2>
+        <div id="editor__preview__text" class="editor__preview__text"></div>
+      </div>
+    </div>
   </li>
   <li>
   <%= f.label :slug, class: "beta" %>

@@ -7,14 +7,25 @@ requirejs.config({
         breakpoint: 'modules/utils/breakpoint',
         debounce: 'modules/utils/debounce',
         echo: 'libs/echo'
-    },
+    }
 });
+
 
 /****
 * Feature Testes
 ****/
 require(['modules/featureTests']);
 
+/****
+* Admin check
+****/
+require(['modules/utils/is_admin'], function(is_admin) {
+  if (is_admin()) {
+    require(['modules/markdown_preview'], function(markdown_preview) {
+      markdown_preview();
+    });
+  }
+});
 
 /****
 * Flashes

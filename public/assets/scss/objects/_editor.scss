@@ -1,0 +1,31 @@
+/*------------------------------------*\
+    $EDITOR
+\*------------------------------------*/
+.editor {
+  @include clearfix;
+}
+
+.editor__raw {
+  float: left;
+  width: 48%;
+  margin-right: 2%;
+  textarea {
+    max-width: 100%;
+    border: none;
+    border-right: 1px solid $grey;
+  }
+}
+
+.editor__preview {
+  float: left;
+  width: 50%;
+  .editor__preview__text {
+    background: #fff;
+    color: black;
+    min-height: 500px;
+    padding: $small-spacing-unit*2;
+  }
+  h2 {
+    margin-bottom: 0;
+  }
+}
