@@ -1,7 +1,7 @@
 ![npb logo](http://npbee.me/assets/images/logo.svg)
 ----
 
-Site files for [Kinmill](http://kinmill.com).
+Site files for [npbee.me](http://npbee.me).
 
 
 Dependencies
