@@ -6,6 +6,8 @@ var server = tinylr();
 var jshint = require('gulp-jshint');
 var rjs = require('gulp-requirejs');
 var uglify = require('gulp-uglify');
+var minifyCSS = require('gulp-minify-css');
+
 
 // SASS
 gulp.task('sass', function() {
@@ -27,6 +29,14 @@ gulp.task('sass-build', function() {
         errLogToConsole: true
       }))
     .pipe(gulp.dest('public/assets/css/'))
+});
+
+// Minify CSS
+gulp.task('minify-css', function() {
+  gulp.src('public/assets/css/')
+  .pipe(minifyCSS({
+  }))
+  .pipe(gulp.dest('public/assets/css'));
 });
 
 
@@ -77,4 +87,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['watch']);
-gulp.task('build', ['requirejsBuild', 'compress', 'sass-build']);
+gulp.task('build', ['requirejsBuild', 'compress', 'sass-build', 'minify-css']);

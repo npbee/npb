@@ -1,5 +1,5 @@
 {
-  "name": "Kinmill",
+  "name": "NPB",
   "version": "2.0.0",
   "description": "Portfolio and blog for Nick Ball",
   "main": "gulpfile.js",
@@ -17,7 +17,8 @@
     "gulp-jshint": "^1.7.1",
     "jshint-stylish": "^0.4.0",
     "gulp-requirejs": "^0.1.3",
-    "gulp-uglify": "^0.3.1"
+    "gulp-uglify": "^0.3.1",
+    "gulp-minify-css": "^0.3.7"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
