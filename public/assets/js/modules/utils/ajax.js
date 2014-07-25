@@ -2,7 +2,10 @@ define([], function() {
   var ajax = {};
 
   var csrf = document.querySelector('meta[name="csrf-token"]');
-  if (!csrf) return;
+  if (!csrf) {
+    throw new Error('The page needs the csrf token');
+    return;
+  }
 
   ajax.x = function() {
     return new XMLHttpRequest();

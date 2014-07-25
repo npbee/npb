@@ -17,17 +17,6 @@ requirejs.config({
 require(['modules/featureTests']);
 
 /****
-* Admin check
-****/
-require(['modules/utils/is_admin'], function(is_admin) {
-  if (is_admin()) {
-    require(['modules/markdown_preview'], function(markdown_preview) {
-      markdown_preview();
-    });
-  }
-});
-
-/****
 * Flashes
 ****/
 require(['modules/flash'], function(flash) {
@@ -95,3 +84,18 @@ require(['modules/utils/delete_method'], function(delete_method) {
 * Analytics
 ****/
 require(['modules/analytics']);
+
+
+
+/****
+* Admin only modules
+****/
+require(['modules/utils/is_admin'], function(is_admin) {
+  if (is_admin()) {
+    require(['modules/markdown_preview', ], function(markdown_preview) {
+      markdown_preview();
+    });
+  }
+});
+
+
