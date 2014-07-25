@@ -1,11 +1,11 @@
 /****
  * Markdown preview
 ****/
-define(['libs/markdown'], function(markdown) {
+define(['libs/markdown'], function(marked) {
 
   function Editor(input, preview) {
     this.update = function() {
-      preview.innerHTML = markdown.toHTML(input.value);
+      preview.innerHTML = marked(input.value);
       this.matchHeights(input, preview);
     };
     this.matchHeights = function(input, preview) {
@@ -17,12 +17,14 @@ define(['libs/markdown'], function(markdown) {
     };
     input.editor = this;
     this.update();
+    this.matchHeights(input, preview);
   }
 
 
   var markdown_preview = function() {
     var text_input = document.getElementById('editor__raw__input');
     var text_preview = document.getElementById('editor__preview__text');
+
     new Editor(text_input, text_preview);
   };
 
