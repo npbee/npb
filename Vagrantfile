@@ -7,11 +7,9 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # Set locale
-  # config.vm.provision :shell, inline: "cp /vagrant/shell/lang.sh /etc/profile.d/lang.sh"
 
   # Use [berkshelf](http://berkshelf.com/)
-  config.berkshelf.enabled = true
+  # config.berkshelf.enabled = true
   config.omnibus.chef_version = :latest
 
   # Every Vagrant virtual environment requires a box to build off of.
@@ -91,13 +89,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
   #
+
+
   config.vm.provision "chef_solo" do |chef|
+    
     chef.add_recipe "apt"
     chef.add_recipe "build-essential"
     chef.add_recipe "ruby_build"
     chef.add_recipe "rbenv::vagrant"
     chef.add_recipe "rbenv::user"
     chef.add_recipe "postgresql::server"
+    chef.add_recipe "npb-dev"
 
     # You may also specify custom JSON attributes:
     chef.json = {
@@ -121,6 +123,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       }
     }
   end
+
+
+  # Some shell scripts to run bundle
+
 
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).

@@ -53,9 +53,9 @@ ActiveRecord::Schema.define(version: 20140722132918) do
   end
 
   create_table "tags", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
   end
 
   create_table "users", force: true do |t|
