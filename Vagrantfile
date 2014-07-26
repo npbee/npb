@@ -8,7 +8,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Set locale
-  config.vm.provision :shell, inline: "cp /vagrant/shell/lang.sh /etc/profile.d/lang.sh"
+  # config.vm.provision :shell, inline: "cp /vagrant/shell/lang.sh /etc/profile.d/lang.sh"
 
   # Use [berkshelf](http://berkshelf.com/)
   config.berkshelf.enabled = true
@@ -95,8 +95,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "apt"
     chef.add_recipe "build-essential"
     chef.add_recipe "ruby_build"
-    chef.add_recipe "git"
-    chef.add_recipe "nginx"
     chef.add_recipe "rbenv::vagrant"
     chef.add_recipe "rbenv::user"
     chef.add_recipe "postgresql::server"
