@@ -57,6 +57,8 @@ if (typeof define !== 'undefined' && define.amd) {
         'use strict';
         return Echo;
     });
+} else if (typeof module !== 'undefined' && module.exports) {
+  module.exports = Echo;
 } else {
     window.Echo = Echo;
 }

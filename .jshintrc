@@ -16,7 +16,8 @@
         "requirejs",
         "define",
         "require",
-        "Modernizr"
+        "Modernizr",
+        "confirm"
     ],
     "quotmark": "single",
     "smarttabs": true,
