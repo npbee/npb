@@ -32,6 +32,7 @@ var slabText = {
 
       // Set the selector back to display inline so we can get a proper width
       selector.style.display = 'inline';
+      //selector.style.whiteSpace = 'nowrap';
 
       // Get the width and padding of the parent,
       // then convert to integers
