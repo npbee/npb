@@ -3,10 +3,14 @@
 ****/
 var picturefill = require('./libs/picturefill');
 
+
+
 /****
  * UTILS
 ****/
 var features = require('./utils/features');
+
+
 
 /****
  * SLAB TEXT
@@ -14,10 +18,12 @@ var features = require('./utils/features');
 var slabtext = require('./modules/slab-text').init();
 
 
+
 /****
  * NAVIGATION 
 ****/
 var nav = require('./modules/nav').init();
+
 
 
 /****
@@ -27,7 +33,6 @@ var carousel = require('./modules/carousel');
 if (features.csstransforms3d) {
   carousel();
 }
-
 
 
 
