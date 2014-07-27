@@ -3,6 +3,7 @@
   <article>
 
     <h1 class="headline"><%= @post.title %></h1>
+    <p class="sub-headline"><%= @post.excerpt %></p>
 
     <div class="horizontal-list hl--two">
       <div>
@@ -50,7 +51,3 @@
 
 
 </section>
-
-<% if logged_in? && current_user.admin %>
-  <%= link_to 'Edit', edit_post_path(@post) %>
-<% end %>

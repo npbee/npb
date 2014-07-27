@@ -76,6 +76,20 @@ h6 {
     }
 }
 
+/****
+* Sub headlines
+****/
+.sub-headline {
+  @extend .italic;
+  font-size: $h2-size;
+  text-align: center;
+  &:before,
+  &:after {
+    content: "-";
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
 
 
 /****
