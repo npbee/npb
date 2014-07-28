@@ -4,6 +4,10 @@ require 'support/requests_spec_helper'
 describe "Admin pages" do
   include RequestsSpecHelper
 
+  before(:all) do
+    @user = FactoryGirl.create(:user)
+  end
+
   describe "home page autorization" do
     describe "when not logged in" do
       before { visit '/admin' }
@@ -15,7 +19,6 @@ describe "Admin pages" do
 
     describe "when logged in" do
       before do
-        @user = FactoryGirl.create(:user)
         login_user('test@test.com', 'foobar85')
       end
 
@@ -27,7 +30,6 @@ describe "Admin pages" do
 
   describe "Updating user accepting_projects attribute" do
     before do
-      @user = FactoryGirl.create(:user)
       login_user('test@test.com', 'foobar85')
       visit '/admin'
     end
@@ -52,4 +54,7 @@ describe "Admin pages" do
     #end
   end
 
+  after(:all) do
+    @user.destroy
+  end
 end

@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :post do
-    title "MyString"
-    body "MyText"
+    title "MyTitle"
+    body "MyBody"
     sequence(:slug) { |s| "my-slug-#{s}" }
     excerpt "MyExcerpt"
     user_id 1

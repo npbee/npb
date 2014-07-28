@@ -89,13 +89,18 @@ RSpec.describe Project, :type => :model do
     end
 
     describe "tag retrieval" do
-      before do
+      before(:all) do
         @tag = FactoryGirl.create(:tag)
         @tag_relationship = FactoryGirl.create(:tag_relationship, { reference_id: @project.id, tag_id: @tag.id, reference_type: 'project' })
       end
 
       it "should retrive the tags" do
         expect(@project.tags).to include(@tag)
+      end
+
+      after(:all) do
+        @tag.destroy
+        @tag_relationship.destroy
       end
     end
 

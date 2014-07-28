@@ -17,7 +17,7 @@ default: &default
 
 development:
   <<: *default
-  database: kinmill_development
+  database: npb_development
   username: postgres
   password: password
 
@@ -26,10 +26,10 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: kinmill_test
+  database: npb_test
   username: postgres
   password: password
 
 production:
   <<: *default
-  database: kinmill_production
+  database: npb_production

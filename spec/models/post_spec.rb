@@ -4,6 +4,7 @@ RSpec.describe Post, :type => :model do
   describe "Post Model" do
     before(:all) do
       @post = FactoryGirl.create(:post)
+      @project = FactoryGirl.create(:project)
     end
 
     it "should respond to the right attributes" do
@@ -20,6 +21,7 @@ RSpec.describe Post, :type => :model do
         it "should not be valid" do
           expect(@post).to_not be_valid
         end
+        after { @post.title = 'MyTitle' }
       end
     end
 
@@ -29,6 +31,7 @@ RSpec.describe Post, :type => :model do
         it "should not be valid" do 
           expect(@post).to_not be_valid
         end
+        after { @post.body = 'MyBody' }
       end
     end
 
@@ -38,6 +41,7 @@ RSpec.describe Post, :type => :model do
         it "should not be valid" do
           expect(@post).to_not be_valid
         end
+        after { @post.slug = 'my-slug-1' }
       end
 
       context "when slug has special characters" do
@@ -69,10 +73,9 @@ RSpec.describe Post, :type => :model do
     end
 
     describe "tag retrieval" do
-      before do
+      before(:all) do
         @post_tag = FactoryGirl.create(:tag, { name: "Post Tag" })
         @project_tag = FactoryGirl.create(:tag, { name: "Project Tag" })
-        @project = FactoryGirl.create(:project)
         @post_tag_relationship = FactoryGirl.create(:tag_relationship, { tag_id: @post_tag.id, reference_id: @post.id, reference_type: 'post' })
         @project_tag_relationship = FactoryGirl.create(:tag_relationship, { tag_id: @project_tag.id, reference_id: @project.id, reference_type: 'project' })
       end
@@ -84,10 +87,18 @@ RSpec.describe Post, :type => :model do
       it "should not retrive the project tags" do
         expect(@post.tags).to_not include(@project_tag)
       end
+
+      after(:all) do
+        @post_tag.destroy
+        @project_tag.destroy
+        @post_tag_relationship.destroy
+        @project_tag_relationship.destroy
+      end
     end
 
     after(:all) do
       @post.destroy
+      @project.destroy
     end
   end
 end

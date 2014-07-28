@@ -10,6 +10,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
+    @edit_link = true
   end
 
   # GET /posts/new

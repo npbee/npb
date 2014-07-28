@@ -29,10 +29,3 @@
     <%= link_to "More Tags", tags_path %>
 
 </section>
-
-<% if logged_in? %>
-<section class="text-body">
-<hr class="rule">
-<%= link_to 'Edit', edit_tag_path(@tag) %>
-</section>
-<% end %>

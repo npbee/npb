@@ -9,6 +9,7 @@ class TagsController < ApplicationController
 
   # GET /tags/1
   def show
+    @edit_link = true
   end
 
   # GET /tags/new

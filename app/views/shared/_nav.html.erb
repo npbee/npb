@@ -20,10 +20,12 @@
                 <a data-icon=""><%= current_user.name %></a>
                   <ul>
                     <li><%= link_to "Admin", admin_path %></li>
-                    <% if @post %>
+                    <% if @edit_link && @post && current_user.admin %>
                       <li><%= link_to "Edit Post", edit_post_path(@post) %></li>
-                    <% elsif @project %>
-                      <li><%= link_to "Edit Proejct", edit_project_path(@project) %></li>
+                    <% elsif @edit_link && @project && current_user.admin %>
+                      <li><%= link_to "Edit Project", edit_project_path(@project) %></li>
+                    <% elsif @edit_link && @tag && current_user.admin %>
+                      <li><%= link_to "Edit Tag", edit_tag_path(@tag) %></li>
                     <% end %>
                     <li><%= link_to "Logout", :logout, method: :post %></li>
                   </ul>

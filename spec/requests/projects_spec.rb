@@ -1,11 +1,12 @@
 require 'rails_helper'
 require 'support/requests_spec_helper'
 
-RSpec.describe "Projects", :type => :request do
+RSpec.describe "Project", :type => :request do
   include RequestsSpecHelper
   
-  describe "requests" do
-    before do
+  describe "requests::" do
+
+    before(:all) do
       @guest = FactoryGirl.create(:user, { name: 'Guest' })
       @admin = FactoryGirl.create(:user, { name: 'Admin', email: 'admin@test.com', admin: true })
       @project = FactoryGirl.create(:project, { user_id: @admin.id })
@@ -17,72 +18,63 @@ RSpec.describe "Projects", :type => :request do
     ###############
     # NOT LOGGED IN
     ###############
-    context "when not logged in" do
-      describe "accessing the project index page" do
+    context "When not logged in" do
+      describe "the project index page" do
         before { visit '/projects' }
-        it "should allow access" do
+        it "should be accessible" do
           expect(page.current_path).to eq('/projects')
         end
       end
 
-      describe "accessing a project creation page" do
+      describe "the project creation page" do
         before { visit '/projects/new' }
-        it "should redirect to the login page" do
+        it "should not be accessible" do
           expect(page.current_path).to eq('/login')
         end
       end
    
-      describe "accessing a project edit page" do
-        before do
-          visit edit_project_path(@project)
-        end
-
-        it 'should redirect to the login page' do
+      describe "the project edit page" do
+        before { visit edit_project_path(@project) }
+        it "should not be accessible" do
           expect(page.current_path).to eq('/login')
         end
-
       end
 
-      describe "accessing a published project show page" do
-        before do
-          visit project_path(@project)
-        end
-
-        it "should allow access" do
+      describe "a published project" do
+        before { visit project_path(@project) }
+        it "should be accessible" do
           expect(page.current_path).to eq(project_path(@project))
         end
-
         it "should not have an edit link" do
           expect(page).to_not have_content('Edit')
         end
       end
 
-      describe "accessing a non-published project page" do
-        before do
-          visit project_path(@private_project)
-        end
-        it "should not allow access" do
+      describe "a private project" do
+        before { visit project_path(@private_project) }
+        it "should not be accessible" do
           expect(page.current_path).to eq('/')
         end
       end
+
     end
 
     ###############
     # LOGGED IN AS GUEST
     ###############
-    context "when logged in as guest" do
+    context "When logged in as guest" do
       before do
         login_user("test@test.com", "foobar85")
         visit project_path(@project)
       end
 
-      describe "listing the edit link on a project page" do
-        it "should not display an edit link on a project page" do
+      describe "a project page" do
+        it "should not have an edit link" do
           expect(page).to_not have_content('Edit')
         end
       end
 
-     describe "creating projects" do 
+     describe "project creation" do 
        before do
          visit new_project_path
          fill_in "Name", with: "My Name"
@@ -104,7 +96,7 @@ RSpec.describe "Projects", :type => :request do
        end
      end
 
-      describe "editing a project" do
+      describe "projecting editing" do
         before do
           visit edit_project_path(@project)
           fill_in "Name", with: "My new name"
@@ -115,11 +107,11 @@ RSpec.describe "Projects", :type => :request do
         end
       end 
       
-      describe "accessing a non-published project page" do
+      describe "a private project" do
         before do
           visit project_path(@private_project)
         end
-        it "should not allow access" do
+        it "should not be accessible" do
           expect(page.current_path).to eq('/')
         end
       end
@@ -130,19 +122,19 @@ RSpec.describe "Projects", :type => :request do
     ###############
     # LOGGED IN AS ADMIN
     ###############
-    context "when logged in and admin" do
+    context "When logged in as an admin" do
        before do
          login_user('admin@test.com', 'foobar85')
          visit project_path(@project)
        end
 
-       describe "the edit link on a project" do
-         it "should be display" do
+       describe "a project page" do
+         it "should have an edit link" do
            expect(page).to have_content('Edit')
          end
        end
       
-       describe "project updating" do
+       describe "projecting updating" do
          before do
            visit edit_project_path(@project)
            fill_in "Name", with: "My new name"
@@ -155,17 +147,25 @@ RSpec.describe "Projects", :type => :request do
 
    end
   
-   # ###############
-   # # OTHER
-   # ###############
+   ################
+   # OTHER
+   ################
     describe "the projects index page" do
       before do
         visit projects_path
       end
       it "should display projects thumbs of published projects" do
-        # thumbnail_src = page.find('.work-thumb__icon')['src']
         expect(page).to_not have_content(@private_project.name)
       end
     end
+
+    after(:all) do
+      @guest.destroy
+      @admin.destroy
+      @project.destroy
+      @post.destroy
+      @private_project.destroy
+    end
+
   end
 end

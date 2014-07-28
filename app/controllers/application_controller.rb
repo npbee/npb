@@ -10,12 +10,9 @@ class ApplicationController < ActionController::Base
   end
 
   def check_access(item)
-    puts "CHECKING ITEM"
-    print item.inspect
-    puts ""
-    if item.published
+    if logged_in? && current_user.has_access_to?(item)
       item
-    elsif logged_in? && current_user.has_access_to?(item)
+    elsif ( item.instance_of?(Post) || item.instance_of?(Project) ) && item.published
       item
     else
       redirect_to root_path

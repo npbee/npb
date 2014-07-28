@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Tag, :type => :model do
   describe "Tag model" do
-    before do
-      @post_tag = FactoryGirl.create(:tag)
-      @project_tag = FactoryGirl.create(:tag)
+    before(:all) do
       @post = FactoryGirl.create(:post)
       @project = FactoryGirl.create(:project)
+      @post_tag = FactoryGirl.create(:tag)
+      @project_tag = FactoryGirl.create(:tag)
       @post_tag_relationship = FactoryGirl.create(:tag_relationship, { tag_id: @post_tag.id, reference_id: @post.id, reference_type: 'post' })
       @project_tag_relationship = FactoryGirl.create(:tag_relationship, { tag_id: @project_tag.id, reference_id: @project.id, reference_type: 'project' })
     end
@@ -25,6 +25,15 @@ RSpec.describe Tag, :type => :model do
     it "should populate the project references" do
       expect(@project_tag.project_references).to include(@project)
       expect(@project_tag.project_references).to_not include(@post)
+    end
+
+    after(:all) do
+      @post.destroy
+      @project.destroy
+      @post_tag.destroy
+      @project_tag.destroy
+      @post_tag_relationship.destroy
+      @project_tag_relationship.destroy
     end
   end
 end

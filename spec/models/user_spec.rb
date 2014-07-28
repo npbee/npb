@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe User, :type => :model do
   describe "Model" do
 
-    before do
-      @user = FactoryGirl.create(:user)
+    before(:all) do
+      @user = FactoryGirl.build(:user)
     end
 
     describe "proper attributes" do
@@ -18,32 +18,27 @@ RSpec.describe User, :type => :model do
     end
 
     describe "when email is empty" do
-      before do
-        @user.email = ""
-      end
-
+      before { @user.email = "" }
       it "should not be valid" do
         expect(@user).to_not be_valid
       end
+      after { @user.email = "test@test.com" }
     end
 
     describe "when password is empty" do
       before { @user.password = '' }
-
       it "should not be valid" do
         expect(@user).to_not be_valid
       end
+      after { @user.password = 'foobar85' }
     end
 
     describe "when passwords do not match" do
-      before do
-        @user.password = 'foobar85'
-        @user.password_confirmation = 'foobar86'
-      end
-
+      before { @user.password_confirmation = 'foobar86' }
       it 'should not be valid' do
         expect(@user).to_not be_valid
       end
+      after { @user.password_confirmation = 'foobar85' }
     end
 
     describe "Accepting Projects" do

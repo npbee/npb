@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
+    @edit_link = true
   end
 
   # GET /projects/new

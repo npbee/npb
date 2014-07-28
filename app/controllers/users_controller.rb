@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :check_admin
   before_filter :require_login
   layout 'admin'
 
@@ -54,9 +55,15 @@ class UsersController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+      check_access(@user)
+    end
+
+    def check_admin
+      check_access(@user)
     end
 
     # Only allow a trusted parameter "white list" through.
