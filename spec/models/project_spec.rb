@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Project, :type => :model do
   describe "Project Model" do
-    before do
+    before(:all) do
       @project = FactoryGirl.create(:project)
     end
 
@@ -27,6 +27,7 @@ RSpec.describe Project, :type => :model do
       it "should not be valid" do
         expect(@project).to_not be_valid
       end
+      after { @project.name = 'MyString' }
     end
 
     describe "when role is submitted blank" do
@@ -34,6 +35,7 @@ RSpec.describe Project, :type => :model do
       it "should not be valid" do
         expect(@project).to_not be_valid
       end
+      after { @project.role = 'MyRole' }
     end
 
     describe "when url is submitted blank" do
@@ -41,6 +43,7 @@ RSpec.describe Project, :type => :model do
       it "should not be valid" do
         expect(@project).to_not be_valid
       end
+      after { @project.url = 'MyURL' }
     end
 
     describe "when body is submitted blank" do
@@ -48,6 +51,7 @@ RSpec.describe Project, :type => :model do
       it "should not be valid" do
         expect(@project).to_not be_valid
       end
+      after { @project.body = 'MyBody' }
     end
 
     describe "when logo is submitted blank" do
@@ -55,12 +59,32 @@ RSpec.describe Project, :type => :model do
       it "should not be valid" do
         expect(@project).to_not be_valid
       end
+      after { @project.logo = 'MyLogo' }
     end
 
     describe "when thumbnail is submitted blank" do
       before { @project.thumbnail = '' }
       it "should not be valid" do
         expect(@project).to_not be_valid
+      end
+      before { @project.thumbnail = 'MyThumbnail' }
+    end
+
+    describe "when a slug is not unique" do
+      before do
+        @new_project = FactoryGirl.build(:project, { slug: @project.slug })
+      end
+      it "should not be valid" do
+        expect(@new_project).to_not be_valid
+      end
+    end
+
+    describe "when a slug is unique" do
+      before do
+        @new_project = FactoryGirl.build(:project)
+      end
+      it "should be valid" do
+        expect(@new_project).to be_valid
       end
     end
 
@@ -88,6 +112,7 @@ RSpec.describe Project, :type => :model do
 
       context "when file extension is correct" do
         before do
+          @project.thumbnail = '/luray/logo.jpg'
           @project.small_screen = '/luray/small.jpg'
         end
 
@@ -95,6 +120,10 @@ RSpec.describe Project, :type => :model do
           expect(@project).to be_valid
         end
       end
+    end
+
+    after(:all) do
+      @project.destroy
     end
 
   end

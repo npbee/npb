@@ -10,6 +10,9 @@ class ApplicationController < ActionController::Base
   end
 
   def check_access(item)
+    puts "CHECKING ITEM"
+    print item.inspect
+    puts ""
     if item.published
       item
     elsif logged_in? && current_user.has_access_to?(item)

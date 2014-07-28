@@ -13,5 +13,6 @@ FactoryGirl.define do
     medium_screen "medium.jpg"
     large_screen "large.jpg"
     published true
+    sequence(:slug) { |s| "my-slug-#{s}" }
   end
 end
