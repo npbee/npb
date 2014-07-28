@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Post, :type => :model do
   describe "Post Model" do
-    before do
+    before(:all) do
       @post = FactoryGirl.create(:post)
     end
 
@@ -45,6 +45,25 @@ RSpec.describe Post, :type => :model do
         it "should not be valid" do
           expect(@post).to_not be_valid
         end
+        after { @post.slug = 'my-slug-1' }
+      end
+
+      context "when slug is not unique" do
+        before do
+          @new_post = FactoryGirl.build(:post, { slug: @post.slug })
+        end
+        it "should not be valid" do
+          expect(@new_post).to_not be_valid
+        end
+      end
+
+      context "when a slug is unique" do
+        before do
+          @new_post = FactoryGirl.build(:post)
+        end
+        it "should be valid" do
+          expect(@new_post).to be_valid
+        end
       end
 
     end
@@ -65,6 +84,10 @@ RSpec.describe Post, :type => :model do
       it "should not retrive the project tags" do
         expect(@post.tags).to_not include(@project_tag)
       end
+    end
+
+    after(:all) do
+      @post.destroy
     end
   end
 end
