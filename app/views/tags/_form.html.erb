@@ -1,21 +1,15 @@
 <%= form_for(@tag) do |f| %>
   <% if @tag.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tag.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
-      <% @tag.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+    <%= render 'shared/errors', item: @tag %>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
+  <ul class="form-fields">
+    <li>
+    <%= f.label :name, class: "beta" %>
     <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    </li>
+    <li>
+    <%= f.button nil, class: "button", id: "submit", "data-icon" => "" %>
+    </li>
+  </ul>
 <% end %>
