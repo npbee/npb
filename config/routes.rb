@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   # TAGS
   resources :tags
-
+  
   # PROJECTS
   resources :projects
 

@@ -19,6 +19,8 @@ class Tag < ActiveRecord::Base
           class_name: "Project", 
           :source => :reference
 
+  default_scope { order('name ASC') }
+  
   def self.find(input)
     input.to_i == 0 ? find_by_name(input) : super
   end

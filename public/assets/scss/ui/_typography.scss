@@ -129,6 +129,16 @@ h6 {
 }
 
 
+/***
+ * For skinny-width sections, similar to text-body
+***/
+.skinny {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 
 /****
 * Footnotes
