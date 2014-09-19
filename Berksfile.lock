@@ -27,8 +27,6 @@ DEPENDENCIES
   nginx-tlq
     git: git://github.com/TalkingQuickly/nginx-tlq.git
     revision: 863f0faadbc5c61e925cb7de10dba97fc695fa89
-  npb-dev
-    path: chef/cookbooks/npb-dev
   postgresql
     git: git://github.com/opscode-cookbooks/postgresql.git
     revision: 9dc4c6042bbd861ee8d5e2428397558fee06947e
@@ -59,7 +57,6 @@ GRAPH
   monit-tlq (0.3.7)
   monit_configs-tlq (0.0.6)
   nginx-tlq (0.0.4)
-  npb-dev (1.0.1)
   openssl (2.0.0)
     chef-sugar (>= 0.0.0)
   postgresql (3.4.1)
