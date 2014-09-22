@@ -35,3 +35,5 @@ public/assets/fonts/193880
 /chef
 
 .DS_Store
+
+.vagrant
