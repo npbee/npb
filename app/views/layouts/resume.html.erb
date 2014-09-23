@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    <head>
+        <meta http-equiv="Content-Type" content ="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+
+        <title>npb | resume</title>
+
+        <link rel="icon" type="image/png" href="/favicon.ico">
+
+        <link rel="stylesheet" type="text/css" href="//cloud.typography.com/7821852/698262/css/fonts.css" />
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <script src="/assets/js/libs/modernizr.js"></script>
+    </head>
+
+<body class="<%= @body_class || '' %>">
+
+        <body class="{{ page.body_class }}">
+
+        <div class="wrapper">
+
+            <div class="content" id="content">
+                <%= yield %>
+            </div><!-- End Content -->
+
+        </div><!-- End Wrapper -->
+
+    </body>
+</html>
+

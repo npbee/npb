@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   # PROJECTS
   resources :projects
 
+  # RESUME
+  get '/resume' => 'static_pages#resume'
+
+
   # ADMIN
   get '/admin' => 'static_pages#admin', :as => :admin
   

@@ -14,6 +14,11 @@ class StaticPagesController < ApplicationController
     @available = User.find_by_name('Nick').accepting_projects
   end
 
+  def resume
+    @body_class = 'resume'
+    render :layout => 'resume'
+  end
+
   def admin
     @user = current_user
     render :layout => 'admin'
