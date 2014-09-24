@@ -6,6 +6,32 @@ $white: #f9f9f9;
 body {
   background: $white;
   height: 100%;
+  font-family: 'Chronicle Display A', 'Chronicle Display B'; font-weight: 400; font-style: normal;
+  font-size: 1.5em;
+  font-size: 1.5rem;
+}
+
+h1, h2, h3, h4, h5, h6,
+.alpha, .beta, .gamma, .delta {
+  font-family: 'Chronicle Display A', 'Chronicle Display B'; font-weight: 700; font-style: normal;
+}
+
+.italic {
+  font-family: inherit;
+}
+
+.milli {
+  font-size: 1em;
+  font-size: 1rem;
+}
+
+
+.wrapper {
+  max-width: 960px;
+}
+
+section {
+  margin-bottom: $base-spacing-unit*4;
 }
 
 section:first-child {
@@ -35,4 +61,26 @@ section:first-child {
       }
     }
   }
+}
+
+
+.experience {
+  h3 {
+    margin-bottom: 0;
+  }
+  @include media-query(desk) {
+    .experience__left,
+    .experience__right {
+      display: inline-block;
+      width: 50%;
+      vertical-align: top;
+    }
+    .experience__right {
+      text-align: right;
+    }
+  }
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
 }

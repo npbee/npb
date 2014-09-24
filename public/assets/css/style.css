@@ -4185,7 +4185,30 @@ img.rounded, .rounded img {
 \*------------------------------------*/
 body {
   background: #f9f9f9;
-  height: 100%; }
+  height: 100%;
+  font-family: 'Chronicle Display A', 'Chronicle Display B';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.5em;
+  font-size: 1.5rem; }
+
+h1, h2, h3, h4, h5, h6, .alpha, .section__header, .beta, .gamma, .button, .delta, .flash__close {
+  font-family: 'Chronicle Display A', 'Chronicle Display B';
+  font-weight: 700;
+  font-style: normal; }
+
+.italic, .sub-headline {
+  font-family: inherit; }
+
+.milli {
+  font-size: 1em;
+  font-size: 1rem; }
+
+.wrapper {
+  max-width: 960px; }
+
+section {
+  margin-bottom: 96px; }
 
 section:first-child {
   margin-bottom: 120px; }
@@ -4208,3 +4231,16 @@ section:first-child {
           margin: 0 12px; }
         section:first-child ul li:last-child:after {
           content: ""; } }
+
+.experience h3 {
+  margin-bottom: 0; }
+@media only screen and (min-width: 940px) {
+  .experience .experience__left, .experience .experience__right {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top; }
+  .experience .experience__right {
+    text-align: right; } }
+
+.no-margin-bottom {
+  margin-bottom: 0; }
