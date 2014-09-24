@@ -4209,11 +4209,15 @@ h1, h2, h3, h4, h5, h6, .alpha, .section__header, .beta, .gamma, .button, .delta
 
 section {
   margin-bottom: 96px; }
+  @media only screen and (min-width: 940px) {
+    section p {
+      text-align: justify; } }
 
 section:first-child {
   margin-bottom: 120px; }
   section:first-child h1 {
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    font-size: 48px; }
     @media only screen and (min-width: 940px) {
       section:first-child h1 {
         font-size: 96px; } }
@@ -4239,7 +4243,7 @@ section:first-child {
     display: inline-block;
     width: 50%;
     vertical-align: top; }
-  .experience .experience__right {
+  .experience .experience__right p {
     text-align: right; } }
 
 .no-margin-bottom {

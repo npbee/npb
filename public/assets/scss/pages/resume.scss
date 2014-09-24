@@ -32,12 +32,18 @@ h1, h2, h3, h4, h5, h6,
 
 section {
   margin-bottom: $base-spacing-unit*4;
+  p {
+    @include media-query(desk) {
+      text-align: justify;
+    }
+  }
 }
 
 section:first-child {
   margin-bottom: $base-spacing-unit*5;
   h1 {
     margin-bottom: 0;
+    font-size: $kilo-size;
     @include media-query(desk) {
       font-size: $giga-size;
     }
@@ -75,7 +81,7 @@ section:first-child {
       width: 50%;
       vertical-align: top;
     }
-    .experience__right {
+    .experience__right p {
       text-align: right;
     }
   }
