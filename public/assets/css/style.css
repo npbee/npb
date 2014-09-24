@@ -4183,6 +4183,28 @@ img.rounded, .rounded img {
 /*------------------------------------*\
     $RESUME
 \*------------------------------------*/
-.resume {
+body {
   background: #f9f9f9;
   height: 100%; }
+
+section:first-child {
+  margin-bottom: 120px; }
+  section:first-child h1 {
+    margin-bottom: 0; }
+    @media only screen and (min-width: 940px) {
+      section:first-child h1 {
+        font-size: 96px; } }
+  section:first-child ul {
+    margin: 0;
+    list-style: none;
+    font-style: italic; }
+    @media only screen and (min-width: 940px) {
+      section:first-child ul li {
+        display: inline-block; }
+        section:first-child ul li:after {
+          font-style: normal;
+          content: "\2666";
+          display: inline-block;
+          margin: 0 12px; }
+        section:first-child ul li:last-child:after {
+          content: ""; } }

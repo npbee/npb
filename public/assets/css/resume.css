@@ -1,0 +1,15 @@
+/*------------------------------------*\
+    $RESUME
+\*------------------------------------*/
+body {
+  background: #f9f9f9;
+  height: 100%; }
+
+header {
+  display: flex;
+  flex-direction: column; }
+  header div {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    flex-direction: column; }

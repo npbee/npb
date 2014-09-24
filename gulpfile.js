@@ -23,6 +23,18 @@ gulp.task('sass', function() {
     .pipe(livereload(server));
 });
 
+gulp.task('sass-resume', function() {
+  return gulp.src('public/assets/scss/pages/resume.scss')
+    .pipe(
+      sass({
+        outputStyle: 'expanded',
+        errLogToConsole: true
+      }))
+    .pipe(gulp.dest('public/assets/css/'))
+    .pipe(livereload(server));
+});
+
+
 gulp.task('sass-build', function() {
   return gulp.src('public/assets/scss/style.scss')
     .pipe(
