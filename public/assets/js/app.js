@@ -15,7 +15,16 @@ var features = require('./utils/features');
 /****
  * SLAB TEXT
 ****/
-var slabtext = require('./modules/slab-text').init();
+//var slabtext = require('./modules/slab-text').init();
+var VanillaSlab = require('vanilla-slab');
+var slabtext = new VanillaSlab;
+slabtext.init({
+  selector: '.headline',
+  maxWordsPerLine: 1,
+  postTweak: true,
+  buffer: 0.7
+});
+
 
 
 
