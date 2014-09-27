@@ -10,7 +10,7 @@
   "dependencies": {
     "gulp": "~3.8.6",
     "domready": "^1.0.5",
-    "vanilla-slab": "^0.1.0"
+    "vanilla-slab": "^0"
   },
   "devDependencies": {
     "gulp-sass": "^0.7.2",
