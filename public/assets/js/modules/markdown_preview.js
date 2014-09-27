@@ -19,6 +19,9 @@ function Editor(input, preview) {
 
 
 var markdown_preview = function() {
+  if (!document.getElementById('editor__raw__input')) {
+    return;
+  }
   var text_input = document.getElementById('editor__raw__input');
   var text_preview = document.getElementById('editor__preview__text');
 

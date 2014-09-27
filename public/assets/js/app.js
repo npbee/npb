@@ -20,8 +20,7 @@ var VanillaSlab = require('vanilla-slab');
 var slabtext = new VanillaSlab;
 slabtext.init({
   selector: '.headline',
-  postTweak: true,
-  buffer: 1.0
+  maxFontSize: 500
 });
 
 
