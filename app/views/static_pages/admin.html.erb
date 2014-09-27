@@ -79,7 +79,7 @@
           <td>
             <%= link_to "View", project_path(project) %> / 
             <%= link_to "Edit", edit_project_path(project) %> / 
-            <%= link_to "Delete", project_path(project), :method =>  :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to "Delete", project_path(project), :method =>  :delete, "data-remove" => 'tr' %>
           </td>
           <td>
             <%= project. id %>
@@ -90,6 +90,37 @@
   </table>
 
 </section>
+
+<section class="section section--admin">
+
+   <h1>Tags</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Action</th>
+        <th>ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tags.each do |tag| %>
+        <tr>
+          <td><%= tag.name %></td>
+          <td>
+            <%= link_to "View", tag_path(tag) %> / 
+            <%= link_to "Edit", edit_tag_path(tag) %> / 
+            <%= link_to "Delete", tag_path(tag), :method =>  :delete, "data-remove" => "tr" %>
+          </td>
+          <td>
+            <%= tag.id %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</section>
+
 
 
 

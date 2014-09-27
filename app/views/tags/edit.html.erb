@@ -1,6 +1,7 @@
 <h1>Editing Tag</h1>
 
 <%= render 'form' %>
-
+<%= csrf_meta_tag %>
 <%= link_to 'Show', @tag %> |
-<%= link_to 'Back', tags_path %>
+<%= link_to 'Back', tags_path %> |
+<%= link_to 'Delete', tag_path(@tag), :method => :delete, data: { confirm: 'Are you sure?' } %>

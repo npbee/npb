@@ -21,6 +21,7 @@ class StaticPagesController < ApplicationController
 
   def admin
     @user = current_user
+    @tags = Tag.all
     render :layout => 'admin'
   end
 
