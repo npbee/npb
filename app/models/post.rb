@@ -32,7 +32,7 @@ class Post < ActiveRecord::Base
 
   def tag_list=(new_value)
     tag_names = new_value.split(/,\s+/)
-    self.tags = tag_names.map { |name| Tag.where('name = ?', name).first or Tag.create(:name => name) }
+    self.tags = tag_names.map { |name| Tag.where('name = ?', name.downcase).first or Tag.create(:name => name.downcase) }
   end
 
 end

@@ -5,6 +5,7 @@ class TagsController < ApplicationController
   # GET /tags
   def index
     @tags = Tag.all
+    print Tag.all.inspect
   end
 
   # GET /tags/1
