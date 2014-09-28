@@ -4201,16 +4201,18 @@ img.rounded, .rounded img {
   font-size: 1rem; }
 .resume .wrapper {
   max-width: 960px; }
+.resume .content {
+  margin-top: auto; }
 .resume section {
   margin-bottom: 96px; }
   @media only screen and (min-width: 940px) {
     .resume section p {
       text-align: justify; } }
 .resume section:first-child {
-  margin-bottom: 120px; }
+  /*border-bottom: 1px solid $grey;*/ }
   .resume section:first-child h1 {
     margin-bottom: 0;
-    font-size: 48px; }
+    font-size: 60px; }
     @media only screen and (min-width: 940px) {
       .resume section:first-child h1 {
         font-size: 96px; } }
@@ -4230,11 +4232,14 @@ img.rounded, .rounded img {
           content: ""; } }
 .resume .experience h3 {
   margin-bottom: 0; }
+.resume .experience .experience__right {
+  margin: -24px 0 48px; }
 @media only screen and (min-width: 940px) {
   .resume .experience .experience__left, .resume .experience .experience__right {
     display: inline-block;
     width: 50%;
-    vertical-align: top; }
+    vertical-align: top;
+    margin: auto; }
   .resume .experience .experience__right p {
     text-align: right; } }
 .resume .no-margin-bottom {

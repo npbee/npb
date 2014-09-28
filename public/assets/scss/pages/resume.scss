@@ -31,6 +31,10 @@ $white: #f9f9f9;
     max-width: 960px;
   }
 
+  .content {
+    margin-top: auto;
+  }
+
   section {
     margin-bottom: $base-spacing-unit*4;
     p {
@@ -41,10 +45,10 @@ $white: #f9f9f9;
   }
 
   section:first-child {
-    margin-bottom: $base-spacing-unit*5;
+    /*border-bottom: 1px solid $grey;*/
     h1 {
       margin-bottom: 0;
-      font-size: $kilo-size;
+      font-size: $kilo-size*1.25;
       @include media-query(desk) {
         font-size: $giga-size;
       }
@@ -75,12 +79,16 @@ $white: #f9f9f9;
     h3 {
       margin-bottom: 0;
     }
+    .experience__right {
+      margin: -$base-spacing-unit 0 $base-spacing-unit*2;
+    }
     @include media-query(desk) {
       .experience__left,
       .experience__right {
         display: inline-block;
         width: 50%;
         vertical-align: top;
+        margin: auto;
       }
       .experience__right p {
         text-align: right;
