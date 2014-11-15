@@ -1,0 +1,11 @@
+{
+  "name": "NPB",
+  "version": "0.0.0",
+  "description": "Personal blog and portfolio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nick Ball <nick@npbee.me> (http://npbee.me/)",
+  "license": "ISC"
+}
