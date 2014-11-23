@@ -1,0 +1,17 @@
+/*------------------------------------*\
+    $BLOCKQUOTE
+\*------------------------------------*/
+blockquote {
+	@extend .italic;
+	text-indent: 0;
+	margin: $base-spacing-unit*2 0;
+	padding-left: $base-spacing-unit;
+	border-left: 1px solid $grey;
+	footer {
+		text-align: right;
+		&:before {
+			content: '- ';
+			display: inline-block;
+		}
+	}
+}
