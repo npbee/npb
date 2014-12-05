@@ -1,31 +1,56 @@
-'use strict';
 
-var koa = require('koa')();
+var logger = require('koa-logger');
+var route = require('koa-route');
+var koa = require('koa');
+var app = koa();
 
-koa.use(function* (next) {
-    //do something before yielding/passing to next generator function in line which will be 1st event in downstream
-    console.log('A');
-    yield next;
 
-    // do something when the execution returns upstream, this will be last event in upstream
-    console.log('B');
-});
+// Middleware
+app.use(logger());
 
-koa.use(function* (next) {
-    // do something before yielding/passing to the next generator function in line, this shall be 2nd event downstream
-    console.log('C');
 
-    yield next;
+// Routes
+app.use(route.get('/posts', list));
+app.use(route.get('/posts/new', add));
+app.use(route.get('/posts/:id', show));
+app.use(route.get('/posts/:id/edit', edit));
+app.use(route.post('/posts', create));
+app.use(route.post('/posts/:id', put));
+// Delete?
+app.use(route.post('/posts/:id', put));
 
-    // do something when the execution returns upstream and this would be 2nd event upstream
-    console.log('D');
-});
 
-koa.use(function* () { // do something before yielding/passing to next generator function in line. Here it would be last function downstream
-    console.log('E');
-    this.body = 'hey guys';
-    console.log('F'); // First event of upstream (from the last to first)
+// Route handlers
+function *list() {
+    this.body = 'list all the posts';
+}
 
-});
+function *add() {
+    this.body = 'Add a post.';
+}
 
-koa.listen(3000);
+function *show(id) {
+    // var post = posts[id];
+    // if (!post) this.throw(4040, 'invalid post id');
+    this.body = 'Show a post';
+}
+
+function *edit(id) {
+    // var post = posts[id];
+    // if (!post) this.throw(4040, 'invalid post id');
+    this.body = 'Show a post';
+}
+
+function *create() {
+    // var post = yield parse(this);
+    // var id = posts.push(post) - 1;
+    // post.created_at = new Date;
+    // post.id = id;
+    // this.redirect('/');
+    this.body = 'Create a post';
+}
+
+
+// Listen
+app.listen(3000);
+console.log('listening on post 3000');
