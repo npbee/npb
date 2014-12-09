@@ -11,7 +11,8 @@
   "dependencies": {
     "koa": "^0.13.0",
     "koa-logger": "^1.2.2",
-    "koa-route": "^2.4.0"
+    "koa-route": "^2.4.0",
+    "koa-pg": "^0.23.0"
   },
   "devDependencies": {
     "gulp": "^3.8.10"
