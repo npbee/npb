@@ -12,7 +12,9 @@
     "koa": "^0.13.0",
     "koa-logger": "^1.2.2",
     "koa-route": "^2.4.0",
-    "koa-pg": "^0.23.0"
+    "koa-pg": "^0.23.0",
+    "co-views": "^0.2.0",
+    "swig": "^1.4.2"
   },
   "devDependencies": {
     "gulp": "^3.8.10"
