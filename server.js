@@ -3,6 +3,7 @@ var logger = require('koa-logger');
 var route = require('koa-route');
 var koa = require('koa');
 var koaPg = require('koa-pg');
+var parse = require('co-body');
 var render = require('./lib/render');
 
 var app = koa();
@@ -15,9 +16,9 @@ app.use(koaPg('postgres://nicholaspball@localhost:5432/npb'));
 
 // Routes
 app.use(route.get('/posts', list));
-app.use(route.get('/posts/:id', show));
 app.use(route.get('/posts/new', add));
-// app.use(route.get('/posts/:id/edit', edit));
+app.use(route.get('/posts/:id', show));
+app.use(route.get('/posts/:id/edit', edit));
 app.use(route.post('/posts', create));
 // app.use(route.post('/posts/:id', put));
 // Delete?
@@ -31,7 +32,6 @@ function *list() {
 }
 
 function *add() {
-    console.log('here?');
     this.body = yield render('new');
 }
 
@@ -42,18 +42,40 @@ function *show(id) {
 }
 
 function *edit(id) {
-    // var post = posts[id];
-    // if (!post) this.throw(4040, 'invalid post id');
-    this.body = 'Show a post';
+    var query = 'SELECT * FROM posts where ID = ' + id;
+    var results = yield this.pg.db.client.query_(query);
+    var post = results.rows[0];
+    if (!post) this.throw(4040, 'invalid post id');
+    this.body = yield render('edit', { post: post });
 }
 
 function *create() {
     var post = yield parse(this);
-    console.log(post);
+    post.id = 10;
+    post.created_at = new Date();
+    post.updated_at = new Date();
+    post.user_id = 1;
+    post.published = false;
+
+    var statement = 'INSERT INTO posts (id, title, body, created_at, updated_at, slug, user_id, excerpt, published)' +
+        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+
+    this.pg.db.client.query_(statement, [
+            post.id,
+            post.title,
+            post.body,
+            post.created_at,
+            post.updated_at,
+            post.slug,
+            post.user_id,
+            post.excerpt,
+            post.published
+        ]);
+
     // var id = posts.push(post) - 1;
     // post.created_at = new Date;
     // post.id = id;
-    // this.redirect('/');
+    this.redirect('/posts');
 }
 
 
