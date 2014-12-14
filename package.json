@@ -15,7 +15,9 @@
     "koa-pg": "^0.23.0",
     "co-views": "^0.2.0",
     "swig": "^1.4.2",
-    "co-body": "^1.0.0"
+    "co-body": "^1.0.0",
+    "react": "^0.12.1",
+    "node-jsx": "^0.12.4"
   },
   "devDependencies": {
     "gulp": "^3.8.10"

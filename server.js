@@ -1,3 +1,4 @@
+require('node-jsx').install();
 
 var logger = require('koa-logger');
 var route = require('koa-route');
@@ -9,12 +10,16 @@ var render = require('./lib/render');
 var app = koa();
 
 
+var routes = require('./config/routes');
+
+
 // Middleware
 app.use(logger());
-app.use(koaPg('postgres://nicholaspball@localhost:5432/npb'));
+app.use(koaPg('postgres://nick@localhost:5432/npb.com_dev'));
 
 
 // Routes
+app.use(route.get('/', routes.index));
 app.use(route.get('/posts', list));
 app.use(route.get('/posts/new', add));
 app.use(route.get('/posts/:id', show));
