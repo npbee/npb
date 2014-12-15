@@ -1,5 +1,5 @@
 var React = require('react');
-var Snippet = require('./Snippet.react');
+var Snippet = require('../Snippet.react');
 
 module.exports = React.createClass({
 
