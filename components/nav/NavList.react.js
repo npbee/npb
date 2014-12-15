@@ -5,18 +5,20 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
-			active: this.props.active,
+			selected: 'home',
 			items: ['projects', 'blog', 'connect']
 		}
 	},
 
 	render: function() {
+		var selected = this.props.selected || this.state.selected;
 
 		return (
 			<nav>
 				<a>Logo</a>
 				{this.state.items.map(function(result) {
-					return <NavItem key={result} data={result} />;
+					var className = result === selected ? 'active' : '';
+					return <NavItem key={result} data={result} className={className} />;
 				})}
 			</nav>
 		)

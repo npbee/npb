@@ -3,13 +3,14 @@ var React = require('react');
 module.exports = React.createClass({
 	render: function() {
 		var title = this.props.title;
-		var excerpt = this.props.excerpt;
+		var tagline = this.props.tagline;
+		var slug = this.props.url;
 
 		return (
-			<section>
-				<h1>{title}</h1>
-				<p>{excerpt}</p>
-			</section>
+			<a href={slug}>
+				<h2>{tagline}</h2>
+				<p>{title}</p>
+			</a>
 		)
 	}
 });

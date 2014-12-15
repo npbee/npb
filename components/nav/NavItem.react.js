@@ -4,9 +4,10 @@ module.exports = React.createClass({
 
 	render: function() {
 		var title = this.props.data;
+		var className = this.props.className;
 
 		return (
-			<a>{title}</a>
+			<a className={className} >{title}</a>
 		);
 	}
 });
