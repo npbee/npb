@@ -2,7 +2,9 @@
 
 var React = require('react');
 var Home = require('./page/Home.react');
+var Posts = require('./page/Posts.react');
 var NavList = require('./nav/NavList.react');
+
 
 var App = React.createClass({
 
@@ -15,6 +17,9 @@ var App = React.createClass({
 					post={this.props.data.latestPost}
 					project={this.props.data.latestProject}
 				/>;
+				break;
+			case 'posts':
+				output = <Posts posts={this.props.data.posts} />
 				break;
 		}
 

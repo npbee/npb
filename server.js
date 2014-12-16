@@ -21,7 +21,7 @@ app.use(koaPg('postgres://nick@localhost:5432/npb.com_dev'));
 
 // Routes
 app.use(route.get('/', routes.index));
-app.use(route.get('/posts', list));
+app.use(route.get('/posts', routes.posts));
 app.use(route.get('/posts/new', add));
 app.use(route.get('/posts/:id', show));
 app.use(route.get('/posts/:id/edit', edit));

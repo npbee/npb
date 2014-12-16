@@ -11,8 +11,14 @@ var config = require('./config/paths');
 var paths = config.paths;
 
 // Scripts
-var bundler = watchify(browserify('./components/App.react.js', watchify.args));
-bundler.transform(reactify);
+var bundler = watchify(browserify({
+	entries: ['./components/App.react.js'],
+	transform: [reactify],
+	debug: true,
+	cache: {},
+	packageCache: {},
+	fullPaths: true
+}));
 
 gulp.task('js', bundle);
 bundler.on('update', bundle);

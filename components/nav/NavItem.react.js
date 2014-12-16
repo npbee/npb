@@ -7,7 +7,9 @@ module.exports = React.createClass({
 		var className = this.props.className;
 
 		return (
-			<a className={className} >{title}</a>
+			<nav>
+				<a className={className} >{title}</a>
+			</nav>
 		);
 	}
 });

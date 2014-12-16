@@ -3,7 +3,9 @@
 
 var React = require('react');
 var Home = require('./page/Home.react');
+var Posts = require('./page/Posts.react');
 var NavList = require('./nav/NavList.react');
+
 
 var App = React.createClass({displayName: 'App',
 
@@ -16,6 +18,9 @@ var App = React.createClass({displayName: 'App',
 					post: this.props.data.latestPost, 
 					project: this.props.data.latestProject}
 				);
+				break;
+			case 'posts':
+				output = React.createElement(Posts, {posts: this.props.data.posts})
 				break;
 		}
 
@@ -31,7 +36,7 @@ var App = React.createClass({displayName: 'App',
 });
 
 module.exports = App;
-},{"./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
+},{"./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./page/Posts.react":"/Users/npb/Projects/npb/components/page/Posts.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
 var React = require('react');
 
 module.exports = React.createClass({displayName: 'exports',
@@ -58,7 +63,9 @@ module.exports = React.createClass({displayName: 'exports',
 		var className = this.props.className;
 
 		return (
-			React.createElement("a", {className: className}, title)
+			React.createElement("nav", null, 
+				React.createElement("a", {className: className}, title)
+			)
 		);
 	}
 });
@@ -104,6 +111,26 @@ module.exports = React.createClass({displayName: 'exports',
       		React.createElement(Snippet, {title: post.title, tagline: "Latest Post", url: 'posts/' + post.slug}), 
       		React.createElement(Snippet, {title: project.name, tagline: "Latest Project", url: 'projects/' + project.slug}), 
       		React.createElement(Snippet, {tagline: "Connect", title: "Find me!", url: 'connect'})
+      	)
+    )
+
+  }
+
+});
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/page/Posts.react.js":[function(require,module,exports){
+var React = require('react');
+var Snippet = require('../Snippet.react');
+
+module.exports = React.createClass({displayName: 'exports',
+
+  render: function(){
+  	var posts = this.props.posts;
+
+    return (
+    	React.createElement("section", {className: "posts"}, 
+      		posts.map(function(post) {
+      			return React.createElement(Snippet, {key: post.id, title: post.excerpt, tagline: post.title, url: post.slug})
+      		})
       	)
     )
 
@@ -18403,6 +18430,7 @@ module.exports = warning;
 },{"./emptyFunction":"/Users/npb/Projects/npb/node_modules/react/lib/emptyFunction.js","_process":"/Users/npb/Projects/npb/node_modules/browserify/node_modules/process/browser.js"}],"/Users/npb/Projects/npb/node_modules/react/react.js":[function(require,module,exports){
 module.exports = require('./lib/React');
 
-},{"./lib/React":"/Users/npb/Projects/npb/node_modules/react/lib/React.js"}]},{},["./components/App.react.js"]);
+},{"./lib/React":"/Users/npb/Projects/npb/node_modules/react/lib/React.js"}]},{},["./components/App.react.js"])
+
 
 //# sourceMappingURL=bundle.js.map

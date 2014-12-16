@@ -22,3 +22,19 @@ exports.index = function *() {
 
     this.body = yield render('default', { markup: markup });
 };
+
+
+exports.posts = function *() {
+	var _posts = yield this.pg.db.client.query_('SELECT * FROM posts');
+	var posts = _posts.rows;
+
+	var data = {
+		posts: posts
+	};
+
+	var markup = React.renderToString(
+		<App currentPage='posts' data={data} />
+	);
+
+	this.body = yield render('default', { markup: markup });
+};
