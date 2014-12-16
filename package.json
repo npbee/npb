@@ -17,9 +17,18 @@
     "swig": "^1.4.2",
     "co-body": "^1.0.0",
     "react": "^0.12.1",
-    "node-jsx": "^0.12.4"
+    "node-jsx": "^0.12.4",
+    "koa-static": "^1.4.7",
+    "bluebird": "^2.3.11"
   },
   "devDependencies": {
-    "gulp": "^3.8.10"
+    "gulp": "^3.8.10",
+    "browserify": "^7.0.2",
+    "watchify": "^2.2.1",
+    "reactify": "^0.17.1",
+    "gulp-sourcemaps": "^1.2.8",
+    "vinyl-source-stream": "^1.0.0",
+    "vinyl-buffer": "^1.0.0",
+    "gulp-util": "^3.0.1"
   }
 }

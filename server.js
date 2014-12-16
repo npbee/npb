@@ -5,6 +5,7 @@ var route = require('koa-route');
 var koa = require('koa');
 var koaPg = require('koa-pg');
 var parse = require('co-body');
+var serve = require('koa-static');
 var render = require('./lib/render');
 
 var app = koa();
@@ -29,6 +30,7 @@ app.use(route.post('/posts', create));
 // Delete?
 // app.use(route.post('/posts/:id', put));
 
+app.use(serve('.'));
 
 // Route handlers
 function *list() {
