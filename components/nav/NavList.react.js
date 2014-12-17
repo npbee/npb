@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
 		return (
 			<nav>
-				<a>Logo</a>
+				<a href="/">Logo</a>
 				{this.state.items.map(function(result) {
 					var className = result === selected ? 'active' : '';
 					return <NavItem key={result} data={result} className={className} />;

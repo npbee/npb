@@ -17,7 +17,7 @@ exports.index = function *() {
 	};
 
 	var markup = React.renderToString(
-		<App currentPage='home' data={data} />
+		<App path='/' history='true' data={data} />
 	);
 
     this.body = yield render('default', { markup: markup });
@@ -33,7 +33,7 @@ exports.posts = function *() {
 	};
 
 	var markup = React.renderToString(
-		<App currentPage='posts' data={data} />
+		<App path='/posts' history="true" data={data} />
 	);
 
 	this.body = yield render('default', { markup: markup });
