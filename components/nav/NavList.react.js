@@ -3,24 +3,33 @@ var NavItem = require('./NavItem.react');
 
 module.exports = React.createClass({
 
-	getInitialState: function() {
-		return {
-			selected: 'home',
-			items: ['projects', 'blog', 'connect']
-		}
-	},
+  getInitialState: function() {
+    return {
+      selected: 'home',
+  items: ['projects', 'blog', 'connect']
+    }
+  },
 
-	render: function() {
-		var selected = this.props.selected || this.state.selected;
+  render: function() {
+    var selected = this.props.selected || this.state.selected;
+    var self = this;
 
-		return (
-			<nav>
-				<a href="/">Logo</a>
-				{this.state.items.map(function(result) {
-					var className = result === selected ? 'active' : '';
-					return <NavItem key={result} data={result} className={className} />;
-				})}
-			</nav>
-		)
-	}
+    return (
+      <nav>
+      <a href="/">Logo</a>
+      {this.state.items.map(function(result) {
+        var className = result === selected ? 'active' : '';
+        return <NavItem 
+          key={result} 
+          data={result} 
+          className={className} 
+          onNavigate={self.handleClick} />;
+      })}
+      </nav>
+      )
+  },
+
+  handleClick: function() {
+    console.log('clicked');
+  }
 });

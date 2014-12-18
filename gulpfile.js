@@ -12,7 +12,7 @@ var paths = config.paths;
 
 // Scripts
 var bundler = watchify(browserify({
-	entries: ['./components/App.react.js'],
+	entries: ['./app.js'],
 	transform: [reactify],
 	debug: true,
 	cache: {},

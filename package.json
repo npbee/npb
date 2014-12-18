@@ -20,7 +20,9 @@
     "node-jsx": "^0.12.4",
     "koa-static": "^1.4.7",
     "bluebird": "^2.3.11",
-    "react-mini-router": "^1.0.0"
+    "react-mini-router": "^1.0.0",
+    "flux": "^2.0.1",
+    "object-assign": "^2.0.0"
   },
   "devDependencies": {
     "gulp": "^3.8.10",

@@ -5,10 +5,10 @@ var render = require('../lib/render');
 var App = require('../components/App.react');
 
 exports.index = function *() {
-	var latestPostQuery = yield this.pg.db.client.query_('SELECT * FROM posts ORDER BY created_at DESC LIMIT 1');
+	var latestPostQuery = yield this.pg.db.client.query_('SELECT title FROM posts ORDER BY created_at DESC LIMIT 1');
 	var latestPost = latestPostQuery.rows[0];
 
-	var latestProjectQuery = yield this.pg.db.client.query_('SELECT * FROM projects ORDER BY created_at DESC LIMIT 1');
+	var latestProjectQuery = yield this.pg.db.client.query_('SELECT name FROM projects ORDER BY created_at DESC LIMIT 1');
 	var latestProject = latestProjectQuery.rows[0];
 
 	var data = {
@@ -20,7 +20,10 @@ exports.index = function *() {
 		<App path='/' history='true' data={data} />
 	);
 
-    this.body = yield render('default', { markup: markup });
+    this.body = yield render('default', { 
+      markup: markup,
+      state: JSON.stringify(data)
+    });
 };
 
 
