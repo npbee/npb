@@ -6,7 +6,7 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       selected: 'home',
-  items: ['projects', 'blog', 'connect']
+  items: ['projects', 'posts', 'connect']
     }
   },
 
@@ -23,13 +23,12 @@ module.exports = React.createClass({
           key={result} 
           data={result} 
           className={className} 
-          onNavigate={self.handleClick} />;
+          navigate={self.handleClick} />;
       })}
       </nav>
       )
   },
 
-  handleClick: function() {
-    console.log('clicked');
+  handleClick: function(e) {
   }
 });

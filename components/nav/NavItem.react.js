@@ -8,12 +8,9 @@ module.exports = React.createClass({
     
     
     return (
-      <a className={className} onClick={this._onClick}>{title}</a>
+      <a href={'/' + title} className={className} onClick={this.props.navigate}>{title}</a>
       );
-  },
-
-  _onClick: function() {
-    console.log('clicked');
   }
+
 
 });

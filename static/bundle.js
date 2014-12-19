@@ -4,10 +4,9 @@ var App = require('./components/App.react');
 
 var initialState = JSON.parse(document.getElementById('initial-state').innerHTML);
 
-
 React.render(
     React.createElement(App, {path: "/", history: "true", data: initialState}),
-    document.getElementById('react-app')
+    document.getElementsByTagName('body')[0]
     );
 
 },{"./components/App.react":"/Users/npb/Projects/npb/components/App.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/App.react.js":[function(require,module,exports){
@@ -78,13 +77,10 @@ module.exports = React.createClass({displayName: 'exports',
     
     
     return (
-      React.createElement("a", {className: className, onClick: this._onClick}, title)
+      React.createElement("a", {href: '/' + title, className: className, onClick: this.props.navigate}, title)
       );
-  },
-
-  _onClick: function() {
-    console.log('clicked');
   }
+
 
 });
 
@@ -97,7 +93,7 @@ module.exports = React.createClass({displayName: 'exports',
   getInitialState: function() {
     return {
       selected: 'home',
-  items: ['projects', 'blog', 'connect']
+  items: ['projects', 'posts', 'connect']
     }
   },
 
@@ -114,14 +110,13 @@ module.exports = React.createClass({displayName: 'exports',
           key: result, 
           data: result, 
           className: className, 
-          onNavigate: self.handleClick});
+          navigate: self.handleClick});
       })
       )
       )
   },
 
-  handleClick: function() {
-    console.log('clicked');
+  handleClick: function(e) {
   }
 });
 
