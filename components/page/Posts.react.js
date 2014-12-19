@@ -1,14 +1,32 @@
 var React = require('react');
 var Snippet = require('../Snippet.react');
+var request = require('superagent');
 
 module.exports = React.createClass({
 
+  getInitialState: function() {
+    return {
+      posts: this.props.posts || []
+    };
+  },
+
+  componentDidMount: function() {
+    var self = this;
+
+    request.get('/posts')
+    .query({ query: 'isReact' })
+    .end(function(res) {
+      self.setState({
+        posts: JSON.parse(res.text)
+      });
+    });
+  },
+
   render: function(){
-  	var posts = this.props.posts;
 
     return (
     	<section className="posts">
-      		{posts.map(function(post) {
+      		{this.state.posts.map(function(post) {
       			return <Snippet key={post.id} title={post.excerpt} tagline={post.title} url={post.slug} />
       		})}
       	</section>

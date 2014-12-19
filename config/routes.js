@@ -28,8 +28,15 @@ exports.index = function *() {
 
 
 exports.posts = function *() {
+  var isReact = this.request.url.indexOf('isReact') !== -1;
+
 	var _posts = yield this.pg.db.client.query_('SELECT * FROM posts');
 	var posts = _posts.rows;
+
+  if (isReact) {
+    this.body = yield posts;
+    return;
+  }
 
 	var data = {
 		posts: posts

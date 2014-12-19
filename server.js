@@ -18,6 +18,12 @@ var routes = require('./config/routes');
 app.use(logger());
 app.use(koaPg('postgres://nick@localhost:5432/npb.com_dev'));
 
+app.use(function *(next) {
+  if ('POST' != this.method) return yield next;
+  var body = yield parse(this, { limit: '1kb' });
+  if (!body.name) this.throw(400, '.name required');
+  this.body = { name: body.name.toUpperCase() };
+});
 
 // Routes
 app.use(route.get('/', routes.index));
