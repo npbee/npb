@@ -10,9 +10,7 @@ var render = require('./lib/render');
 
 var app = koa();
 
-
 var routes = require('./config/routes');
-
 
 // Middleware
 app.use(logger());
@@ -27,22 +25,19 @@ app.use(function *(next) {
 
 // Routes
 app.use(route.get('/', routes.index));
-app.use(route.get('/posts', routes.posts));
+
+// Blog post routes
+app.use(route.get('/posts', routes.posts.index));
 app.use(route.get('/posts/new', add));
-app.use(route.get('/posts/:id', show));
+app.use(route.get('/posts/:slug', routes.posts.show));
 app.use(route.get('/posts/:id/edit', edit));
 app.use(route.post('/posts', create));
 // app.use(route.post('/posts/:id', put));
 // Delete?
 // app.use(route.post('/posts/:id', put));
 
+// Static files
 app.use(serve('.'));
-
-// Route handlers
-function *list() {
-    var posts = yield this.pg.db.client.query_('SELECT * from POSTS');
-    this.body = yield render('list', { posts: posts.rows });
-}
 
 function *add() {
     this.body = yield render('new');

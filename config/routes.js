@@ -4,47 +4,27 @@ var render = require('../lib/render');
 // var NavList = require('../components/nav/NavList.react');
 var App = require('../components/App.react');
 
+var postRoutes = require('./routes/posts');
+exports.posts = postRoutes;
+
 exports.index = function *() {
-	var latestPostQuery = yield this.pg.db.client.query_('SELECT title FROM posts ORDER BY created_at DESC LIMIT 1');
-	var latestPost = latestPostQuery.rows[0];
+    var latestPostQuery = yield this.pg.db.client.query_('SELECT title FROM posts ORDER BY created_at DESC LIMIT 1');
+    var latestPost = latestPostQuery.rows[0];
 
-	var latestProjectQuery = yield this.pg.db.client.query_('SELECT name FROM projects ORDER BY created_at DESC LIMIT 1');
-	var latestProject = latestProjectQuery.rows[0];
+    var latestProjectQuery = yield this.pg.db.client.query_('SELECT name FROM projects ORDER BY created_at DESC LIMIT 1');
+    var latestProject = latestProjectQuery.rows[0];
 
-	var data = {
-		latestPost: latestPost,
-		latestProject: latestProject
-	};
+    var data = {
+        latestPost: latestPost,
+        latestProject: latestProject
+    };
 
-	var markup = React.renderToString(
-		<App path='/' history='true' data={data} />
-	);
+    var markup = React.renderToString(
+            <App path='/' history='true' data={data} />
+            );
 
     this.body = yield render('default', { 
-      markup: markup,
-      state: JSON.stringify(data)
+        markup: markup,
+        state: JSON.stringify(data)
     });
-};
-
-
-exports.posts = function *() {
-  var isReact = this.request.url.indexOf('isReact') !== -1;
-
-	var _posts = yield this.pg.db.client.query_('SELECT * FROM posts');
-	var posts = _posts.rows;
-
-  if (isReact) {
-    this.body = yield posts;
-    return;
-  }
-
-	var data = {
-		posts: posts
-	};
-
-	var markup = React.renderToString(
-		<App path='/posts' history="true" data={data} />
-	);
-
-	this.body = yield render('default', { markup: markup });
 };

@@ -1,5 +1,5 @@
 var React = require('react');
-var Snippet = require('../Snippet.react');
+var Snippet = require('../../Snippet.react');
 var request = require('superagent');
 
 module.exports = React.createClass({
@@ -27,7 +27,7 @@ module.exports = React.createClass({
     return (
     	<section className="posts">
       		{this.state.posts.map(function(post) {
-      			return <Snippet key={post.id} title={post.excerpt} tagline={post.title} url={post.slug} />
+      			return <Snippet key={post.id} title={post.excerpt} tagline={post.title} url={'/posts/' + post.slug} />
       		})}
       	</section>
     )

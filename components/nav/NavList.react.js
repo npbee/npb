@@ -6,7 +6,7 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       selected: 'home',
-  items: ['projects', 'posts', 'connect']
+        items: ['projects', 'posts', 'connect']
     }
   },
 
