@@ -1,6 +1,7 @@
 var React = require('react');
 var Snippet = require('../../Snippet.react');
 var request = require('superagent');
+var marked = require('marked');
 
 module.exports = React.createClass({
 
@@ -27,11 +28,12 @@ module.exports = React.createClass({
     },
 
     render: function(){
-
+        var html = marked(this.state.post.body || '');
+        
         return (
             <section className="post">
                 <h1>{this.state.post.title}</h1>
-                {this.state.post.body}
+                <article dangerouslySetInnerHTML = {{__html: html }}></article>
             </section>
         )
 

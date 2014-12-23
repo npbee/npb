@@ -1,6 +1,8 @@
 var React = require('react');
 var App = require('../../components/App.react');
 var render = require('../../lib/render');
+var _ = require('lodash');
+var marked = require('marked');
 
 // Post index
 // Show all posts
@@ -35,15 +37,16 @@ exports.show = function*(slug) {
     var isReact = this.request.url.indexOf('isReact') !== -1;
 
     var query = "SELECT * FROM posts WHERE slug = '" + slug + "';";
-    var post = yield this.pg.db.client.query_(query);
-    
+    var _post = yield this.pg.db.client.query_(query);
+    var post = _post.rows[0];
+
     if (isReact) {
-        this.body = JSON.stringify(post.rows[0]);
+        this.body = JSON.stringify(post);
         return;
     }
 
     var data = {
-        post: post.rows[0],
+        post: post,
         slug: slug,
         path: '/posts/' + slug,
         history: true
