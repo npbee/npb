@@ -4,6 +4,6 @@ var App = require('./components/App.react');
 var initialState = JSON.parse(document.getElementById('initial-state').innerHTML);
 
 React.render(
-    <App path='/' history='true' data={initialState} />,
+    <App data={initialState} history="true" path={initialState.path} />,
     document.getElementsByTagName('body')[0]
     );

@@ -20,7 +20,6 @@ module.exports = React.createClass({
             query: 'isReact'
         })
         .end(function(res) {
-            console.log(res);
             self.setState({
                 post: JSON.parse(res.text)
             });

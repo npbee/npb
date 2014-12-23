@@ -7,7 +7,7 @@ var render = require('../../lib/render');
 exports.index = function *() {
     var isReact = this.request.url.indexOf('isReact') !== -1;
 
-    var _posts = yield this.pg.db.client.query_('SELECT * FROM posts');
+    var _posts = yield this.pg.db.client.query_('SELECT title, excerpt, slug, id FROM posts');
     var posts = _posts.rows;
 
     if (isReact) {
@@ -16,14 +16,19 @@ exports.index = function *() {
     }
 
     var data = {
-        posts: posts
+        posts: posts,
+        path: '/posts',
+        history: 'true'
     };
 
     var markup = React.renderToString(
-            <App path='/posts' history="true" data={data} />
+            <App data={data} history="true" path="/posts" />
             );
 
-    this.body = yield render('default', { markup: markup });
+    this.body = yield render('default', { 
+        markup: markup,
+        state: JSON.stringify(data)
+    });
 };
 
 exports.show = function*(slug) {
@@ -33,18 +38,23 @@ exports.show = function*(slug) {
     var post = yield this.pg.db.client.query_(query);
     
     if (isReact) {
-        this.body = post.rows[0];
+        this.body = JSON.stringify(post.rows[0]);
         return;
     }
 
     var data = {
         post: post.rows[0],
-        slug: slug
+        slug: slug,
+        path: '/posts/' + slug,
+        history: true
     };
 
     var markup = React.renderToString(
-            <App path='/posts/:slug' history='true' data={data} />
+            <App data={data} history="true" path={"/posts/" + slug} />
             );
 
-    this.body = yield render('default', { markup: markup });
+    this.body = yield render('default', { 
+        markup: markup,
+        state: JSON.stringify(data)
+    });
 };

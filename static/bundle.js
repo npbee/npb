@@ -5,7 +5,7 @@ var App = require('./components/App.react');
 var initialState = JSON.parse(document.getElementById('initial-state').innerHTML);
 
 React.render(
-    React.createElement(App, {path: "/", history: "true", data: initialState}),
+    React.createElement(App, {data: initialState, history: "true", path: initialState.path}),
     document.getElementsByTagName('body')[0]
     );
 
@@ -33,8 +33,8 @@ var App = React.createClass({displayName: 'App',
 
     home: function() {
         return React.createElement(Home, {
-    post: this.props.data.latestPost, 
-project: this.props.data.latestProject});
+                post: this.props.data.latestPost, 
+                project: this.props.data.latestProject});
     },
 
     // POSTS
@@ -62,19 +62,20 @@ module.exports = App;
 var React = require('react');
 
 module.exports = React.createClass({displayName: 'exports',
-	render: function() {
-		var title = this.props.title;
-		var tagline = this.props.tagline;
-		var slug = this.props.url;
+    render: function() {
+        var title = this.props.title;
+        var tagline = this.props.tagline;
+        var slug = this.props.url;
 
-		return (
-			React.createElement("a", {href: slug}, 
-				React.createElement("h2", null, tagline), 
-				React.createElement("p", null, title)
-			)
-		)
-	}
+        return (
+            React.createElement("a", {href: slug}, 
+                React.createElement("span", null, tagline), 
+                React.createElement("span", null, title)
+            )
+            )
+    }
 });
+
 },{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/nav/NavItem.react.js":[function(require,module,exports){
 var React = require('react');
 
@@ -135,21 +136,22 @@ var Snippet = require('../Snippet.react');
 
 module.exports = React.createClass({displayName: 'exports',
 
-  render: function(){
-  	var post = this.props.post;
-  	var project = this.props.project;
+    render: function(){
+        var post = this.props.post;
+        var project = this.props.project;
 
-    return (
-    	React.createElement("section", {className: "home"}, 
-      		React.createElement(Snippet, {title: post.title, tagline: "Latest Post", url: 'posts/' + post.slug}), 
-      		React.createElement(Snippet, {title: project.name, tagline: "Latest Project", url: 'projects/' + project.slug}), 
-      		React.createElement(Snippet, {tagline: "Connect", title: "Find me!", url: 'connect'})
-      	)
-    )
+        return (
+            React.createElement("section", {className: "home"}, 
+            React.createElement(Snippet, {title: post.title, tagline: "Latest Post", url: 'posts/' + post.slug}), 
+            React.createElement(Snippet, {title: project.name, tagline: "Latest Project", url: 'projects/' + project.slug}), 
+            React.createElement(Snippet, {tagline: "Connect", title: "Find me!", url: 'connect'})
+            )
+            )
 
-  }
+    }
 
 });
+
 },{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/page/posts/PostShow.react.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../../Snippet.react');
@@ -173,7 +175,6 @@ module.exports = React.createClass({displayName: 'exports',
             query: 'isReact'
         })
         .end(function(res) {
-            console.log(res);
             self.setState({
                 post: JSON.parse(res.text)
             });

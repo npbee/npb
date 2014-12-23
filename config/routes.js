@@ -16,11 +16,13 @@ exports.index = function *() {
 
     var data = {
         latestPost: latestPost,
-        latestProject: latestProject
+        latestProject: latestProject,
+        path: '/',
+        history: true
     };
 
     var markup = React.renderToString(
-            <App path='/' history='true' data={data} />
+            <App data={data} history="true" path="/" />
             );
 
     this.body = yield render('default', { 

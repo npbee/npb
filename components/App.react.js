@@ -21,8 +21,8 @@ var App = React.createClass({
 
     home: function() {
         return <Home
-    post={this.props.data.latestPost}
-project={this.props.data.latestProject}/>;
+                post={this.props.data.latestPost}
+                project={this.props.data.latestProject}/>;
     },
 
     // POSTS
