@@ -24,6 +24,7 @@ var bundler = watchify(browserify({
 
 
 function bundle() {
+    console.log('Rebundling...');
     return bundler.bundle()
         .on('error', gutil.log.bind(gutil, 'Browserify Error'))
         .pipe(source('bundle.js'))

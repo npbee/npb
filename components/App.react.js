@@ -6,6 +6,8 @@ var Home = require('./page/Home.react');
 var Posts = require('./page/posts/Posts.react');
 var PostShow = require('./page/posts/PostShow.react');
 
+var Projects = require('./page/projects/Projects.react');
+
 var NavList = require('./nav/NavList.react');
 var RouterMixin = require('react-mini-router').RouterMixin;
 
@@ -16,7 +18,8 @@ var App = React.createClass({
     routes: {
         '/': 'home',
         '/posts': 'posts',
-        '/posts/:slug': 'postShow'
+        '/posts/:slug': 'postShow',
+        '/projects': 'projects'
     },
 
     home: function() {
@@ -32,6 +35,11 @@ var App = React.createClass({
 
     postShow: function(slug) {
         return <PostShow post={this.props.data.post} slug={slug} />;
+    },
+
+    // PROJECTS
+    projects: function() {
+        return <Projects projects={this.props.data.projects} />;
     },
 
     render: function() {

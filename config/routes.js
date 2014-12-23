@@ -1,11 +1,9 @@
 var React = require('react');
 var render = require('../lib/render');
-// var Homepage = require('../components/page/Home.react');
-// var NavList = require('../components/nav/NavList.react');
 var App = require('../components/App.react');
 
-var postRoutes = require('./routes/posts');
-exports.posts = postRoutes;
+exports.posts = require('./routes/posts');
+exports.projects = require('./routes/projects');
 
 exports.index = function *() {
     var latestPostQuery = yield this.pg.db.client.query_('SELECT title FROM posts ORDER BY created_at DESC LIMIT 1');

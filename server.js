@@ -36,6 +36,9 @@ app.use(route.post('/posts', create));
 // Delete?
 // app.use(route.post('/posts/:id', put));
 
+// Project routes
+app.use(route.get('/projects', routes.projects.index));
+
 // Static files
 app.use(serve('.'));
 
