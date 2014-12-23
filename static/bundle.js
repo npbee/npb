@@ -19,6 +19,7 @@ var Posts = require('./page/posts/Posts.react');
 var PostShow = require('./page/posts/PostShow.react');
 
 var Projects = require('./page/projects/Projects.react');
+var Project = require('./page/projects/ProjectShow.react');
 
 var NavList = require('./nav/NavList.react');
 var RouterMixin = require('react-mini-router').RouterMixin;
@@ -31,7 +32,8 @@ var App = React.createClass({displayName: 'App',
         '/': 'home',
         '/posts': 'posts',
         '/posts/:slug': 'postShow',
-        '/projects': 'projects'
+        '/projects': 'projects',
+        '/projects/:slug': 'projectShow'
     },
 
     home: function() {
@@ -54,6 +56,10 @@ var App = React.createClass({displayName: 'App',
         return React.createElement(Projects, {projects: this.props.data.projects});
     },
 
+    projectShow: function(slug) {
+        return React.createElement(Project, {project: this.props.data.project, slug: slug});
+    },
+
     render: function() {
         return React.createElement("main", {id: "react-app"}, 
             React.createElement(NavList, null), 
@@ -66,7 +72,7 @@ var App = React.createClass({displayName: 'App',
 
 module.exports = App;
 
-},{"./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./page/posts/PostShow.react":"/Users/npb/Projects/npb/components/page/posts/PostShow.react.js","./page/posts/Posts.react":"/Users/npb/Projects/npb/components/page/posts/Posts.react.js","./page/projects/Projects.react":"/Users/npb/Projects/npb/components/page/projects/Projects.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
+},{"./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./page/posts/PostShow.react":"/Users/npb/Projects/npb/components/page/posts/PostShow.react.js","./page/posts/Posts.react":"/Users/npb/Projects/npb/components/page/posts/Posts.react.js","./page/projects/ProjectShow.react":"/Users/npb/Projects/npb/components/page/projects/ProjectShow.react.js","./page/projects/Projects.react":"/Users/npb/Projects/npb/components/page/projects/Projects.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
 var React = require('react');
 
 module.exports = React.createClass({displayName: 'exports',
@@ -247,7 +253,54 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/projects/Projects.react.js":[function(require,module,exports){
+},{"../../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/projects/ProjectShow.react.js":[function(require,module,exports){
+var React = require('react');
+var Snippet = require('../../Snippet.react');
+var request = require('superagent');
+var marked = require('marked');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {
+            project: this.props.project || {},
+            slug: this.props.slug || ''
+        };
+    },
+
+    componentDidMount: function() {
+       var self = this;
+        
+       // Only fetch a post if there is not one already there from the
+       // server
+       if (!Object.keys(this.state.project).length) {
+           request.get('/projects/' + this.state.slug)
+            .query({
+                query: 'isReact'
+            })
+            .end(function(res) {
+                self.setState({
+                    project: JSON.parse(res.text)
+                });
+            });
+       }
+    },
+
+    render: function(){
+        var html = marked(this.state.project.body || '');
+        
+        return (
+            React.createElement("section", {className: "project"}, 
+                React.createElement("h1", null, this.state.project.name), 
+                React.createElement("article", {dangerouslySetInnerHTML: {__html: html}})
+            )
+        )
+
+    }
+
+});
+
+},{"../../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/projects/Projects.react.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../../Snippet.react');
 var request = require('superagent');
@@ -276,8 +329,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     return (
     	React.createElement("section", {className: "projects"}, 
-      		this.state.projects.map(function(post) {
-      			return React.createElement(Snippet, {key: post.id, title: post.excerpt, tagline: post.title, url: '/projects/' + post.slug})
+      		this.state.projects.map(function(project) {
+      			return React.createElement("a", {key: project.name}, project.name)
       		})
       	)
     )

@@ -38,6 +38,7 @@ app.use(route.post('/posts', create));
 
 // Project routes
 app.use(route.get('/projects', routes.projects.index));
+app.use(route.get('/projects/:slug', routes.projects.show));
 
 // Static files
 app.use(serve('.'));

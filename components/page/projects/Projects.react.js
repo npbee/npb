@@ -26,8 +26,8 @@ module.exports = React.createClass({
 
     return (
     	<section className="projects">
-      		{this.state.projects.map(function(post) {
-      			return <Snippet key={post.id} title={post.excerpt} tagline={post.title} url={'/projects/' + post.slug} />
+      		{this.state.projects.map(function(project) {
+      			return <a key={project.name}>{project.name}</a>
       		})}
       	</section>
     )
