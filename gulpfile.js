@@ -50,3 +50,6 @@ gulp.task('server', function() {
         console.log('restarted')
     });
 });
+
+// Default task
+gulp.task('default', ['server', 'js']);

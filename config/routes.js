@@ -6,6 +6,8 @@ exports.posts = require('./routes/posts');
 exports.projects = require('./routes/projects');
 
 exports.index = function *() {
+    var isAjax = this.request.url.indexOf('isReact') !== -1;
+    
     var latestPostQuery = yield this.pg.db.client.query_('SELECT title, slug FROM posts ORDER BY created_at DESC LIMIT 1');
     var latestPost = latestPostQuery.rows[0];
 
@@ -18,6 +20,11 @@ exports.index = function *() {
         path: '/',
         history: true
     };
+
+    if (isAjax) {
+        this.body = yield data;
+        return;
+    }
 
     var markup = React.renderToString(
             <App data={data} history="true" path="/" />
