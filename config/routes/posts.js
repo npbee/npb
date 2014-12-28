@@ -3,6 +3,8 @@ var App = require('../../components/App.react');
 var render = require('../../lib/render');
 var _ = require('lodash');
 var parse = require('co-body');
+var checkit = require('checkit');
+var validations = require('../validations');
 
 // Post index
 // Show all posts
@@ -84,9 +86,29 @@ exports.new = function*() {
 // Create a post
 exports.create = function*() {
     var body = yield parse(this);
-    var creation = yield this.knex('posts').insert({
-        title: body.title
-    });
+    var error;
 
-    this.redirect('/posts');
+    // Validations
+    try {
+        yield checkit(validations.post).run(body);
+
+    } catch(err) {
+        error = err;
+    }
+
+    if (error) {
+        this.body = {
+            success: false,
+            errors: JSON.stringify(error)
+        };
+
+    } else {
+        var creation = yield this.knex('posts').insert({
+            title: body.title
+        });
+        this.body = {
+            success: true
+        };
+    }
+
 };

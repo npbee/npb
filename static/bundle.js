@@ -204,11 +204,14 @@ var React = require('react');
 var Snippet = require('../../Snippet.react');
 var request = require('superagent');
 var marked = require('marked');
+var navigate = require('react-mini-router').navigate;
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
+            hasErrors: false,
+            errors: {}
         };
     },
 
@@ -219,40 +222,73 @@ module.exports = React.createClass({displayName: 'exports',
         return (
             React.createElement("section", {className: "post"}, 
                 React.createElement("h1", null, "New Post"), 
-                React.createElement("form", {action: "/posts/", method: "post"}, 
+                React.createElement("form", {action: "/posts/", method: "post", onSubmit: this.handleSubmit}, 
                     React.createElement("label", {htmlFor: "title"}, "Title"), 
-                    React.createElement("input", {type: "text", name: "title"}), 
+                    React.createElement("input", {type: "text", name: "title", ref: "title"}), 
                     React.createElement("br", null), 
 
-                    React.createElement("textarea", {name: "body"}), 
+                    React.createElement("textarea", {name: "body", ref: "body"}), 
                     React.createElement("br", null), 
 
                     React.createElement("label", {htmlFor: "slug"}, "Slug"), 
-                    React.createElement("input", {type: "text", name: "slug"}), 
+                    React.createElement("input", {type: "text", name: "slug", ref: "slug"}), 
                     React.createElement("br", null), 
 
                     React.createElement("label", {htmlFor: "tags"}, "Tags"), 
-                    React.createElement("input", {type: "text", name: "tags"}), 
+                    React.createElement("input", {type: "text", name: "tags", ref: "tags"}), 
                     React.createElement("br", null), 
 
                     React.createElement("label", {htmlFor: "excerpt"}, "Excerpt"), 
-                    React.createElement("input", {type: "text", name: "excerpt"}), 
+                    React.createElement("input", {type: "text", name: "excerpt", ref: "excerpt"}), 
                     React.createElement("br", null), 
 
                     React.createElement("label", {htmlFor: "published"}, "Published?"), 
-                    React.createElement("input", {type: "checkbox", name: "published"}), 
+                    React.createElement("input", {type: "checkbox", name: "published", ref: "published"}), 
                     React.createElement("br", null), 
                     
                     React.createElement("button", {type: "submit"}, "Create Post")
-                )
+                ), 
+                React.createElement("pre", null, this.state.errors)
             )
         );
 
+    },
+
+    handleSubmit: function(e) {
+        var self = this;
+
+        e.preventDefault();
+        var title = this.refs.title.getDOMNode().value.trim();
+        var body = this.refs.body.getDOMNode().value.trim();
+        var slug = this.refs.slug.getDOMNode().value.trim();
+        var tags = this.refs.tags.getDOMNode().value.trim();
+        var excerpt = this.refs.excerpt.getDOMNode().value.trim();
+        var published = this.refs.published.getDOMNode().value.trim();
+
+        request.post('/posts')
+            .send({
+                title: title,
+                body: body,
+                slug: slug,
+                tags: tags,
+                excerpt: excerpt,
+                published: published
+            })
+            .end(function(res) {
+                var response = JSON.parse(res.text);
+                if (res.text.success) {
+                    navigate('/posts');
+                } else {
+                    self.setState({
+                        errors: response.errors
+                    });
+                }
+            });
     }
 
 });
 
-},{"../../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/posts/PostShow.react.js":[function(require,module,exports){
+},{"../../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/posts/PostShow.react.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../../Snippet.react');
 var request = require('superagent');

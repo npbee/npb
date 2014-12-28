@@ -23,10 +23,6 @@ app.use(function *(next) {
   }
 });
 
-app.use(function *(next) {
-  throw new Error('some error');
-})
-
 app.use(logger());
 
 // Database
