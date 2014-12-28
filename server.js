@@ -13,6 +13,20 @@ var app = koa();
 
 var routes = require('./config/routes');
 
+app.use(function *(next) {
+  try {
+    yield next;
+  } catch (err) {
+    this.status = err.status || 500;
+    this.body = err.message;
+    this.app.emit('error', err, this);
+  }
+});
+
+app.use(function *(next) {
+  throw new Error('some error');
+})
+
 app.use(logger());
 
 // Database
@@ -27,22 +41,16 @@ app.use(knex({
     }
 }));
 
-app.use(function *(next) {
-  if ('POST' != this.method) return yield next;
-  var body = yield parse(this, { limit: '1kb' });
-  if (!body.name) this.throw(400, '.name required');
-  this.body = { name: body.name.toUpperCase() };
-});
 
 // Routes
 app.use(route.get('/', routes.index));
 
 // Blog post routes
 app.use(route.get('/posts', routes.posts.index));
-app.use(route.get('/posts/new', add));
+app.use(route.get('/posts/new', routes.posts.new));
 app.use(route.get('/posts/:slug', routes.posts.show));
 app.use(route.get('/posts/:id/edit', edit));
-app.use(route.post('/posts', create));
+app.use(route.post('/posts', routes.posts.create));
 // app.use(route.post('/posts/:id', put));
 // Delete?
 // app.use(route.post('/posts/:id', put));

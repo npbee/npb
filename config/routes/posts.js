@@ -2,7 +2,7 @@ var React = require('react');
 var App = require('../../components/App.react');
 var render = require('../../lib/render');
 var _ = require('lodash');
-var marked = require('marked');
+var parse = require('co-body');
 
 // Post index
 // Show all posts
@@ -41,7 +41,7 @@ exports.show = function*(slug) {
     var post = yield this.knex('posts').where('slug', slug);
 
     if (isReact) {
-        this.body = JSON.stringify(post);
+        this.body = JSON.stringify(post[0]);
         return;
     }
 
@@ -62,3 +62,31 @@ exports.show = function*(slug) {
     });
 };
 
+// Show the new post form
+exports.new = function*() {
+    var isReact = this.request.url.indexOf('isReact') !== -1;
+
+    var data = {
+        path: '/posts/new',
+        history: true
+    };
+
+    var markup = React.renderToString(
+            <App data={data} history="true" path="/posts/new" />
+            );
+
+    this.body = yield render('default', {
+        markup: markup,
+        state: JSON.stringify(data)
+    });
+};
+
+// Create a post
+exports.create = function*() {
+    var body = yield parse(this);
+    var creation = yield this.knex('posts').insert({
+        title: body.title
+    });
+
+    this.redirect('/posts');
+};
