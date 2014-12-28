@@ -9,8 +9,9 @@ var marked = require('marked');
 exports.index = function *() {
     var isReact = this.request.url.indexOf('isReact') !== -1;
 
-    var _posts = yield this.pg.db.client.query_('SELECT title, excerpt, slug, id FROM posts');
-    var posts = _posts.rows;
+    var posts = yield this.knex('posts')
+                            .select('title', 'excerpt', 'slug', 'id');
+    
 
     if (isReact) {
         this.body = yield posts;
@@ -33,12 +34,11 @@ exports.index = function *() {
     });
 };
 
+// Show an individual post
 exports.show = function*(slug) {
     var isReact = this.request.url.indexOf('isReact') !== -1;
 
-    var query = "SELECT * FROM posts WHERE slug = '" + slug + "';";
-    var _post = yield this.pg.db.client.query_(query);
-    var post = _post.rows[0];
+    var post = yield this.knex('posts').where('slug', slug);
 
     if (isReact) {
         this.body = JSON.stringify(post);
@@ -46,7 +46,7 @@ exports.show = function*(slug) {
     }
 
     var data = {
-        post: post,
+        post: post[0],
         slug: slug,
         path: '/posts/' + slug,
         history: true
@@ -61,3 +61,4 @@ exports.show = function*(slug) {
         state: JSON.stringify(data)
     });
 };
+

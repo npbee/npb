@@ -8,8 +8,7 @@ var marked = require('marked');
 exports.index = function *() {
     var isReact = this.request.url.indexOf('isReact') !== -1;
 
-    var _projects = yield this.pg.db.client.query_('SELECT name FROM projects');
-    var projects = _projects.rows;
+    var projects = yield this.knex('projects').select('name');
 
     if (isReact) {
         this.body = yield projects;
@@ -35,9 +34,7 @@ exports.index = function *() {
 exports.show = function*(slug) {
     var isReact = this.request.url.indexOf('isReact') !== -1;
 
-    var query = "SELECT * FROM projects WHERE slug = '" + slug + "';";
-    var _project = yield this.pg.db.client.query_(query);
-    var project = _project.rows[0];
+    var project = yield this.knex('projects').where('slug', slug);
     
     if (isReact) {
         this.body = JSON.stringify(project);
@@ -45,7 +42,7 @@ exports.show = function*(slug) {
     }
 
     var data = {
-        post: project,
+        project: project[0],
         slug: slug,
         path: '/projects/' + slug,
         history: true

@@ -8,15 +8,19 @@ exports.projects = require('./routes/projects');
 exports.index = function *() {
     var isAjax = this.request.url.indexOf('isReact') !== -1;
     
-    var latestPostQuery = yield this.pg.db.client.query_('SELECT title, slug FROM posts ORDER BY created_at DESC LIMIT 1');
-    var latestPost = latestPostQuery.rows[0];
+    var latestPost = yield this.knex('posts')
+                                    .select('title', 'slug')
+                                    .orderBy('created_at', 'desc')
+                                    .limit(1);
 
-    var latestProjectQuery = yield this.pg.db.client.query_('SELECT name, slug FROM projects ORDER BY created_at DESC LIMIT 1');
-    var latestProject = latestProjectQuery.rows[0];
+    var latestProject = yield this.knex('projects')
+                                    .select('name', 'slug')
+                                    .orderBy('created_at', 'desc')
+                                    .limit(1);
 
     var data = {
-        latestPost: latestPost,
-        latestProject: latestProject,
+        latestPost: latestPost[0],
+        latestProject: latestProject[0],
         path: '/',
         history: true
     };

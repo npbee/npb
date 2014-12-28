@@ -7,14 +7,25 @@ var koaPg = require('koa-pg');
 var parse = require('co-body');
 var serve = require('koa-static');
 var render = require('./lib/render');
+var knex = require('koa-knex');
 
 var app = koa();
 
 var routes = require('./config/routes');
 
-// Middleware
 app.use(logger());
-app.use(koaPg('postgres://nick@localhost:5432/npb.com_dev'));
+
+// Database
+app.use(knex({
+    client: 'pg',
+    //connection: 'postgres://nick@localhost:5432/npb.com_dev'
+    connection: {
+        host: 'localhost',
+        user: 'nick',
+        password: '',
+        database: 'npb.com_dev'
+    }
+}));
 
 app.use(function *(next) {
   if ('POST' != this.method) return yield next;
