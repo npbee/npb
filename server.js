@@ -26,6 +26,8 @@ app.use(function *(next) {
 
 app.use(logger());
 
+console.log(process.env.NODE_ENV);
+
 // Database
 app.use(knex({
     client: 'pg',

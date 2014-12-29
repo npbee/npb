@@ -8,7 +8,6 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var nodemon = require('gulp-nodemon');
 var mocha = require('gulp-mocha');
-var preprocess = require('gulp-preprocess');
 
 var config = require('./config/paths');
 var paths = config.paths;
@@ -44,11 +43,11 @@ bundler.on('update', bundle);
 gulp.task('server', function() {
     nodemon({
         script: 'server.js',
-        env: {
-            'NODE_ENV': "DEVELOPMENT"
-        },
         ext: 'html js',
-        nodeArgs: ['--harmony']
+        nodeArgs: ['--harmony'],
+        env: {
+            'NODE_ENV': 'DEVELOPMENT'
+        }
     })
     .on('change', [])
     .on('restart', function() {
@@ -59,11 +58,6 @@ gulp.task('server', function() {
 //Unit tests
 gulp.task('test', function() {
     return gulp.src('./tests/**/*.js')
-        .pipe(preprocess({
-            context: {
-                NODE_ENV: 'DEVELOPMENT'
-            }
-        }))
         .pipe(mocha({
             reporter: 'nyan'
         }));

@@ -29,7 +29,7 @@
     "pg": "^4.1.1",
     "koa-knex": "^0.5.14",
     "checkit": "^0.2.0-pre",
-    "consolidate": "^0.10.0"
+    "swig": "^1.4.2"
   },
   "devDependencies": {
     "gulp": "^3.8.10",
@@ -42,7 +42,6 @@
     "gulp-util": "^3.0.1",
     "gulp-nodemon": "^1.0.4",
     "gulp-mocha": "^2.0.0",
-    "should": "^4.4.2",
-    "gulp-preprocess": "^1.2.0"
+    "should": "^4.4.2"
   }
 }
