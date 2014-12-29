@@ -13,7 +13,11 @@ nick
 Reseed:
 psql -U nick -d npb.com_dev -f /Users/npb/Dropbox/npb.prod.dump.sql
 
-Dev Database:
+Initialize test DB
+====
+psql -U nick -d npb.com_test -f /Users/npb/Dropbox/npb.test.sql
+
+### Dev Database
 npb.com_dev
 
 

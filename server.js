@@ -24,9 +24,9 @@ app.use(function *(next) {
   }
 });
 
-app.use(logger());
-
 console.log(process.env.NODE_ENV);
+
+app.use(logger());
 
 // Database
 app.use(knex({

@@ -12,7 +12,6 @@ var mocha = require('gulp-mocha');
 var config = require('./config/paths');
 var paths = config.paths;
 
-
 // Scripts
 var bundler = watchify(browserify({
     entries: ['./app.js'],
@@ -46,7 +45,7 @@ gulp.task('server', function() {
         ext: 'html js',
         nodeArgs: ['--harmony'],
         env: {
-            'NODE_ENV': 'DEVELOPMENT'
+            'NODE_ENV': process.env.NODE_ENV || 'DEVELOPMENT'
         }
     })
     .on('change', [])

@@ -105,7 +105,7 @@ exports.create = function*() {
         };
 
     } else {
-        var creation = yield this.knex('posts').insert({
+        var _post = yield this.knex('posts').insert({
             title: body.title,
             body: body.body,
             slug: body.slug,
@@ -113,9 +113,11 @@ exports.create = function*() {
             published: body.published,
             created_at: new Date(),
             updated_at: new Date()
-        });
+        }, 'id');
+
         this.body = {
-            success: true
+            success: true,
+            postId: _post[0]
         };
     }
 
