@@ -1,5 +1,7 @@
 var request = require('superagent');
 var should = require('should');
+var knex = require('../../lib/db');
+//console.log(knex);
 
 describe('Posts API', function() {
     var _id;

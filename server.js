@@ -7,7 +7,7 @@ var koaPg = require('koa-pg');
 var parse = require('co-body');
 var serve = require('koa-static');
 var render = require('./lib/render');
-var knex = require('koa-knex');
+var db = require('./lib/db');
 
 var app = koa();
 
@@ -29,11 +29,7 @@ console.log(process.env.NODE_ENV);
 app.use(logger());
 
 // Database
-app.use(knex({
-    client: 'pg',
-    //connection: 'postgres://nick@localhost:5432/npb.com_dev'
-    connection: database[process.env.NODE_ENV || 'DEVELOPMENT']
-}));
+app.use(db.koaKnex);
 
 console.log(process.env.NODE_ENV);
 
