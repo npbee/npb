@@ -18,9 +18,10 @@ React.render(
 var React = require('react');
 var Home = require('./page/Home.react');
 
-var Posts = require('./page/posts/Posts.react');
-var PostShow = require('./page/posts/PostShow.react');
-var PostNew = require('./page/posts/PostNew.react');
+var Posts = require('./post/index');
+var PostShow = require('./post/show');
+var PostNew = require('./post/new');
+var PostEdit = require('./post/edit');
 
 var Projects = require('./page/projects/Projects.react');
 var Project = require('./page/projects/ProjectShow.react');
@@ -34,9 +35,14 @@ var App = React.createClass({displayName: 'App',
 
     routes: {
         '/': 'home',
+
+        // Posts
         '/posts': 'posts',
         '/posts/new': 'postNew',
         '/posts/:slug': 'postShow',
+        '/posts/:id/edit': 'postEdit',
+
+        // Projects
         '/projects': 'projects',
         '/projects/:slug': 'projectShow'
     },
@@ -60,6 +66,10 @@ var App = React.createClass({displayName: 'App',
         return React.createElement(PostNew, null);
     },
 
+    postEdit: function(id) {
+        return React.createElement(PostEdit, {postId: id});
+    },
+
     // PROJECTS
     projects: function() {
         return React.createElement(Projects, {projects: this.props.data.projects});
@@ -81,7 +91,7 @@ var App = React.createClass({displayName: 'App',
 
 module.exports = App;
 
-},{"./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./page/posts/PostNew.react":"/Users/npb/Projects/npb/components/page/posts/PostNew.react.js","./page/posts/PostShow.react":"/Users/npb/Projects/npb/components/page/posts/PostShow.react.js","./page/posts/Posts.react":"/Users/npb/Projects/npb/components/page/posts/Posts.react.js","./page/projects/ProjectShow.react":"/Users/npb/Projects/npb/components/page/projects/ProjectShow.react.js","./page/projects/Projects.react":"/Users/npb/Projects/npb/components/page/projects/Projects.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
+},{"./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./page/projects/ProjectShow.react":"/Users/npb/Projects/npb/components/page/projects/ProjectShow.react.js","./page/projects/Projects.react":"/Users/npb/Projects/npb/components/page/projects/Projects.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
 var React = require('react');
 
 module.exports = React.createClass({displayName: 'exports',
@@ -199,183 +209,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/posts/PostNew.react.js":[function(require,module,exports){
-var React = require('react');
-var Snippet = require('../../Snippet.react');
-var request = require('superagent');
-var marked = require('marked');
-var navigate = require('react-mini-router').navigate;
-
-module.exports = React.createClass({displayName: 'exports',
-
-    getInitialState: function() {
-        return {
-            hasErrors: false,
-            errors: {}
-        };
-    },
-
-    componentDidMount: function() {
-    },
-
-    render: function(){
-        return (
-            React.createElement("section", {className: "post"}, 
-                React.createElement("h1", null, "New Post"), 
-                React.createElement("form", {action: "/posts/", method: "post", onSubmit: this.handleSubmit}, 
-                    React.createElement("label", {htmlFor: "title"}, "Title"), 
-                    React.createElement("input", {type: "text", name: "title", ref: "title"}), 
-                    React.createElement("br", null), 
-
-                    React.createElement("textarea", {name: "body", ref: "body"}), 
-                    React.createElement("br", null), 
-
-                    React.createElement("label", {htmlFor: "slug"}, "Slug"), 
-                    React.createElement("input", {type: "text", name: "slug", ref: "slug"}), 
-                    React.createElement("br", null), 
-
-                    React.createElement("label", {htmlFor: "tags"}, "Tags"), 
-                    React.createElement("input", {type: "text", name: "tags", ref: "tags"}), 
-                    React.createElement("br", null), 
-
-                    React.createElement("label", {htmlFor: "excerpt"}, "Excerpt"), 
-                    React.createElement("input", {type: "text", name: "excerpt", ref: "excerpt"}), 
-                    React.createElement("br", null), 
-
-                    React.createElement("label", {htmlFor: "published"}, "Published?"), 
-                    React.createElement("input", {type: "checkbox", name: "published", ref: "published"}), 
-                    React.createElement("br", null), 
-                    
-                    React.createElement("button", {type: "submit"}, "Create Post")
-                ), 
-                React.createElement("pre", null, this.state.errors)
-            )
-        );
-
-    },
-
-    handleSubmit: function(e) {
-        var self = this;
-
-        e.preventDefault();
-        var title = this.refs.title.getDOMNode().value.trim();
-        var body = this.refs.body.getDOMNode().value.trim();
-        var slug = this.refs.slug.getDOMNode().value.trim();
-        var tags = this.refs.tags.getDOMNode().value.trim();
-        var excerpt = this.refs.excerpt.getDOMNode().value.trim();
-        var published = this.refs.published.getDOMNode().value.trim();
-
-        request.post('/posts')
-            .send({
-                title: title,
-                body: body,
-                slug: slug,
-                tags: tags,
-                excerpt: excerpt,
-                published: published
-            })
-            .end(function(res) {
-                var response = JSON.parse(res.text);
-                if (res.text.success) {
-                    navigate('/posts');
-                } else {
-                    self.setState({
-                        errors: response.errors
-                    });
-                }
-            });
-    }
-
-});
-
-},{"../../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/posts/PostShow.react.js":[function(require,module,exports){
-var React = require('react');
-var Snippet = require('../../Snippet.react');
-var request = require('superagent');
-var marked = require('marked');
-
-module.exports = React.createClass({displayName: 'exports',
-
-    getInitialState: function() {
-        return {
-            post: this.props.post || {},
-            slug: this.props.slug || ''
-        };
-    },
-
-    componentDidMount: function() {
-       var self = this;
-       var slug = this.state.slug;
-
-       // Only fetch a post if there is not one already there from the
-       // server
-       if (!Object.keys(this.state.post).length) {
-           request.get('/posts/' + slug)
-            .query({
-                query: 'isReact'
-            })
-            .end(function(res) {
-                self.setState({
-                    post: JSON.parse(res.text)
-                });
-            });
-       }
-    },
-
-    render: function(){
-        var html = marked(this.state.post.body || '');
-        
-        return (
-            React.createElement("section", {className: "post"}, 
-                React.createElement("h1", null, this.state.post.title), 
-                React.createElement("article", {dangerouslySetInnerHTML: {__html: html}})
-            )
-        )
-
-    }
-
-});
-
-},{"../../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/posts/Posts.react.js":[function(require,module,exports){
-var React = require('react');
-var Snippet = require('../../Snippet.react');
-var request = require('superagent');
-
-module.exports = React.createClass({displayName: 'exports',
-
-  getInitialState: function() {
-    return {
-      posts: this.props.posts || []
-    };
-  },
-
-  componentDidMount: function() {
-    var self = this;
-
-    request.get('/posts')
-    .query({ query: 'isReact' })
-    .end(function(res) {
-      self.setState({
-        posts: JSON.parse(res.text)
-      });
-    });
-  },
-
-  render: function(){
-
-    return (
-    	React.createElement("section", {className: "posts"}, 
-      		this.state.posts.map(function(post) {
-      			return React.createElement(Snippet, {key: post.id, title: post.excerpt, tagline: post.title, url: '/posts/' + post.slug})
-      		})
-      	)
-    )
-
-  }
-
-});
-
-},{"../../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/projects/ProjectShow.react.js":[function(require,module,exports){
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/projects/ProjectShow.react.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../../Snippet.react');
 var request = require('superagent');
@@ -461,7 +295,281 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
+},{"../../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/edit.js":[function(require,module,exports){
+var React = require('react');
+var navigate = require('react-mini-router').navigate;
+var PostForm = require('./form');
+var request = require('superagent');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {
+            hasErrors: false,
+            errors: {},
+            post: this.props.post || {}
+        };
+    },
+
+    componentDidMount: function() {
+        var self = this;
+        
+        if (!Object.keys(this.state.post).length) {
+           request.get('/posts/' + this.props.postId)
+            .query({
+                query: 'isReact'
+            })
+            .end(function(res) {
+                self.setState({
+                    post: JSON.parse(res.text)
+                });
+            });
+       }
+    },
+
+    render: function(){
+        return (
+            React.createElement("section", {className: "post"}, 
+                React.createElement("h1", null, "New Post"), 
+                React.createElement(PostForm, {
+                    post: this.state.post, 
+                    onChange: this.handleChange})
+            )
+        );
+    },
+
+    handleChange: function(event) {
+        var attr = event.target.name;
+        var value = event.target.value;
+
+        var newData = {};
+        newData[attr] = value;
+
+        this.setState({
+            post: newData
+        });
+    }
+
+    
+});
+
+},{"./form":"/Users/npb/Projects/npb/components/post/form.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/form.js":[function(require,module,exports){
+var React = require('react');
+var request = require('superagent');
+
+module.exports = React.createClass({displayName: 'exports',
+    getInitialState: function() {
+        return {
+            errors: {}
+        }
+    },
+
+    render: function() {
+
+        return (
+            React.createElement("form", {action: "/posts/", method: "post", onSubmit: this.handleSubmit}, 
+            React.createElement("label", {htmlFor: "title"}, "Title"), 
+            React.createElement("input", {type: "text", 
+                name: "title", 
+                ref: "title", 
+                value: this.props.post.title, 
+                onChange: this.props.onChange}
+                ), 
+            React.createElement("br", null), 
+
+            React.createElement("textarea", {
+                name: "body", 
+                ref: "body", 
+                value: this.props.post.body, 
+                onChange: this.props.onChange}), 
+            React.createElement("br", null), 
+
+            React.createElement("label", {htmlFor: "slug"}, "Slug"), 
+            React.createElement("input", {
+                type: "text", 
+                name: "slug", 
+                ref: "slug", 
+                value: this.props.post.slug, 
+                onChange: this.props.onChange}), 
+            React.createElement("br", null), 
+
+            React.createElement("label", {htmlFor: "tags"}, "Tags"), 
+            React.createElement("input", {type: "text", name: "tags", ref: "tags"}), 
+            React.createElement("br", null), 
+
+            React.createElement("label", {htmlFor: "excerpt"}, "Excerpt"), 
+            React.createElement("input", {
+                type: "text", 
+                name: "excerpt", 
+                ref: "excerpt", 
+               value: this.props.post.excerpt, 
+               onChange: this.props.onChange}), 
+            React.createElement("br", null), 
+
+            React.createElement("label", {htmlFor: "published"}, "Published?"), 
+            React.createElement("input", {type: "checkbox", name: "published", ref: "published"}), 
+            React.createElement("br", null), 
+
+            React.createElement("button", {type: "submit"}, "Create Post"), 
+
+            React.createElement("pre", null, this.state.errors)
+            )
+        );
+    },
+
+    handleSubmit: function(e) {
+        var self = this;
+
+        e.preventDefault();
+        var title = this.refs.title.getDOMNode().value.trim();
+        var body = this.refs.body.getDOMNode().value.trim();
+        var slug = this.refs.slug.getDOMNode().value.trim();
+        var tags = this.refs.tags.getDOMNode().value.trim();
+        var excerpt = this.refs.excerpt.getDOMNode().value.trim();
+        var published = this.refs.published.getDOMNode().value.trim();
+
+        request.post('/posts')
+            .send({
+                title: title,
+                body: body,
+                slug: slug,
+                tags: tags,
+                excerpt: excerpt,
+                published: published
+            })
+            .end(function(res) {
+                var response = JSON.parse(res.text);
+                if (response.success) {
+                    navigate('/posts');
+                } else {
+                    self.setState({
+                        errors: response.errors
+                    });
+                }
+            });
+    }
+
+});
+
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
+var React = require('react');
+var Snippet = require('../Snippet.react');
+var request = require('superagent');
+
+module.exports = React.createClass({displayName: 'exports',
+
+  getInitialState: function() {
+    return {
+      posts: this.props.posts || []
+    };
+  },
+
+  componentDidMount: function() {
+    var self = this;
+
+    request.get('/posts')
+    .query({ query: 'isReact' })
+    .end(function(res) {
+      self.setState({
+        posts: JSON.parse(res.text)
+      });
+    });
+  },
+
+  render: function(){
+
+    return (
+    	React.createElement("section", {className: "posts"}, 
+      		this.state.posts.map(function(post) {
+      			return React.createElement(Snippet, {key: post.id, title: post.excerpt, tagline: post.title, url: '/posts/' + post.slug})
+      		})
+      	)
+    )
+
+  }
+
+});
+
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/new.js":[function(require,module,exports){
+var React = require('react');
+var navigate = require('react-mini-router').navigate;
+var PostForm = require('./form');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {
+            hasErrors: false,
+            errors: {}
+        };
+    },
+
+    componentDidMount: function() {
+    },
+
+    render: function(){
+        return (
+            React.createElement("section", {className: "post"}, 
+                React.createElement("h1", null, "New Post"), 
+                React.createElement(PostForm, null)
+            )
+        );
+
+    }
+
+    
+});
+
+},{"./form":"/Users/npb/Projects/npb/components/post/form.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/post/show.js":[function(require,module,exports){
+var React = require('react');
+var Snippet = require('../Snippet.react');
+var request = require('superagent');
+var marked = require('marked');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {
+            post: this.props.post || {},
+            slug: this.props.slug || ''
+        };
+    },
+
+    componentDidMount: function() {
+       var self = this;
+       var slug = this.state.slug;
+
+       // Only fetch a post if there is not one already there from the
+       // server
+       if (!Object.keys(this.state.post).length) {
+           request.get('/posts/' + slug)
+            .query({
+                query: 'isReact'
+            })
+            .end(function(res) {
+                self.setState({
+                    post: JSON.parse(res.text)
+                });
+            });
+       }
+    },
+
+    render: function(){
+        var html = marked(this.state.post.body || '');
+        
+        return (
+            React.createElement("section", {className: "post"}, 
+                React.createElement("h1", null, this.state.post.title), 
+                React.createElement("article", {dangerouslySetInnerHTML: {__html: html}}), 
+                React.createElement("a", {href: "/posts/" + this.state.post.id + "/edit"}, "Edit")
+            )
+        )
+
+    }
+
+});
+
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

@@ -3,9 +3,10 @@
 var React = require('react');
 var Home = require('./page/Home.react');
 
-var Posts = require('./page/posts/Posts.react');
-var PostShow = require('./page/posts/PostShow.react');
-var PostNew = require('./page/posts/PostNew.react');
+var Posts = require('./post/index');
+var PostShow = require('./post/show');
+var PostNew = require('./post/new');
+var PostEdit = require('./post/edit');
 
 var Projects = require('./page/projects/Projects.react');
 var Project = require('./page/projects/ProjectShow.react');
@@ -19,9 +20,14 @@ var App = React.createClass({
 
     routes: {
         '/': 'home',
+
+        // Posts
         '/posts': 'posts',
         '/posts/new': 'postNew',
         '/posts/:slug': 'postShow',
+        '/posts/:id/edit': 'postEdit',
+
+        // Projects
         '/projects': 'projects',
         '/projects/:slug': 'projectShow'
     },
@@ -43,6 +49,10 @@ var App = React.createClass({
 
     postNew: function() {
         return <PostNew />;
+    },
+
+    postEdit: function(id) {
+        return <PostEdit postId={id} />;
     },
 
     // PROJECTS

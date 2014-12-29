@@ -1,5 +1,5 @@
 var React = require('react');
-var Snippet = require('../../Snippet.react');
+var Snippet = require('../Snippet.react');
 var request = require('superagent');
 
 module.exports = React.createClass({

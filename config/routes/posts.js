@@ -39,8 +39,11 @@ exports.index = function *() {
 // Show an individual post
 exports.show = function*(slug) {
     var isReact = this.request.url.indexOf('isReact') !== -1;
-
-    var post = yield this.knex('posts').where('slug', slug);
+    
+    // Detect if the param passed is a number so that we can look up a post
+    // by id or by slug
+    var _id = isNaN(Number(slug)) ? 'slug' : 'id';
+    var post = yield this.knex('posts').where(_id, slug);
 
     if (isReact) {
         this.body = JSON.stringify(post[0]);
@@ -104,11 +107,38 @@ exports.create = function*() {
 
     } else {
         var creation = yield this.knex('posts').insert({
-            title: body.title
+            title: body.title,
+            body: body.body,
+            slug: body.slug,
+            excerpt: body.excerpt,
+            published: body.published,
+            created_at: new Date(),
+            updated_at: new Date()
         });
         this.body = {
             success: true
         };
     }
+
+};
+
+
+// Show the edit post form
+exports.edit = function* (id) {
+    var isReact = this.request.url.indexOf('isReact') !== -1;
+
+    var data = {
+        path: '/posts/' + id +'/edit',
+        history: true
+    };
+
+    var markup = React.renderToString(
+            <App data={data} history="true" path={"/posts/" + id + "/edit"} />
+            );
+
+    this.body = yield render('default', {
+        markup: markup,
+        state: JSON.stringify(data)
+    });
 
 };

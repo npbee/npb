@@ -1,5 +1,5 @@
 var React = require('react');
-var Snippet = require('../../Snippet.react');
+var Snippet = require('../Snippet.react');
 var request = require('superagent');
 var marked = require('marked');
 
@@ -38,6 +38,7 @@ module.exports = React.createClass({
             <section className="post">
                 <h1>{this.state.post.title}</h1>
                 <article dangerouslySetInnerHTML = {{__html: html }}></article>
+                <a href={"/posts/" + this.state.post.id + "/edit"}>Edit</a>
             </section>
         )
 
