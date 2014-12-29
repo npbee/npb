@@ -14,7 +14,6 @@
     "koa-route": "^2.4.0",
     "koa-pg": "^0.23.0",
     "co-views": "^0.2.0",
-    "swig": "^1.4.2",
     "co-body": "^1.0.0",
     "react": "^0.12.1",
     "node-jsx": "^0.12.4",
@@ -29,7 +28,8 @@
     "knex": "^0.7.3",
     "pg": "^4.1.1",
     "koa-knex": "^0.5.14",
-    "checkit": "^0.2.0-pre"
+    "checkit": "^0.2.0-pre",
+    "consolidate": "^0.10.0"
   },
   "devDependencies": {
     "gulp": "^3.8.10",
@@ -40,6 +40,9 @@
     "vinyl-source-stream": "^1.0.0",
     "vinyl-buffer": "^1.0.0",
     "gulp-util": "^3.0.1",
-    "gulp-nodemon": "^1.0.4"
+    "gulp-nodemon": "^1.0.4",
+    "gulp-mocha": "^2.0.0",
+    "should": "^4.4.2",
+    "gulp-preprocess": "^1.2.0"
   }
 }

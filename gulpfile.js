@@ -7,6 +7,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var nodemon = require('gulp-nodemon');
+var mocha = require('gulp-mocha');
+var preprocess = require('gulp-preprocess');
 
 var config = require('./config/paths');
 var paths = config.paths;
@@ -42,6 +44,9 @@ bundler.on('update', bundle);
 gulp.task('server', function() {
     nodemon({
         script: 'server.js',
+        env: {
+            'NODE_ENV': "DEVELOPMENT"
+        },
         ext: 'html js',
         nodeArgs: ['--harmony']
     })
@@ -50,6 +55,20 @@ gulp.task('server', function() {
         console.log('restarted')
     });
 });
+
+//Unit tests
+gulp.task('test', function() {
+    return gulp.src('./tests/**/*.js')
+        .pipe(preprocess({
+            context: {
+                NODE_ENV: 'DEVELOPMENT'
+            }
+        }))
+        .pipe(mocha({
+            reporter: 'nyan'
+        }));
+   }
+);
 
 // Default task
 gulp.task('default', ['server', 'js']);

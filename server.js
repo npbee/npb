@@ -12,6 +12,7 @@ var knex = require('koa-knex');
 var app = koa();
 
 var routes = require('./config/routes');
+var database = require('./config/database');
 
 app.use(function *(next) {
   try {
@@ -29,14 +30,10 @@ app.use(logger());
 app.use(knex({
     client: 'pg',
     //connection: 'postgres://nick@localhost:5432/npb.com_dev'
-    connection: {
-        host: 'localhost',
-        user: 'nick',
-        password: '',
-        database: 'npb.com_dev'
-    }
+    connection: database[process.env.NODE_ENV || 'DEVELOPMENT']
 }));
 
+console.log(process.env.NODE_ENV);
 
 // Routes
 app.use(route.get('/', routes.index));
