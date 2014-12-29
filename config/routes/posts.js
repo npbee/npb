@@ -143,9 +143,9 @@ exports.edit = function* (id) {
 };
 
 // Update a post
-exports.put = function* (id) {
+exports.put = function* () {
     var body = yield parse(this);
-    
+    var id = body.id;
     var error;
 
     // Validations
@@ -162,7 +162,9 @@ exports.put = function* (id) {
         };
 
     } else {
-        var creation = yield this.knex('posts').update({
+        var creation = yield this.knex('posts')
+            .where('id', id)
+            .update({
             title: body.title,
             body: body.body,
             slug: body.slug,
@@ -175,4 +177,20 @@ exports.put = function* (id) {
         };
     }
 
+};
+
+
+// Delete a post
+exports.del = function* () {
+    var body = yield parse(this);
+    var id = body.id;
+    var error;
+
+    var deletion = yield this.knex('posts')
+                    .where('id', id)
+                    .del();
+
+    this.body = {
+        success: true
+    };
 };

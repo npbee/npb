@@ -10,6 +10,9 @@ createdb -Ousername -Eutf8 database_name
 USER:
 nick
 
+Reseed:
+psql -U nick -d npb.com_dev -f /Users/npb/Dropbox/npb.prod.dump.sql
+
 Dev Database:
 npb.com_dev
 

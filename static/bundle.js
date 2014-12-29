@@ -101,9 +101,11 @@ module.exports = React.createClass({displayName: 'exports',
         var slug = this.props.url;
 
         return (
+            React.createElement("div", null, 
             React.createElement("a", {href: slug}, 
                 React.createElement("span", null, tagline), 
                 React.createElement("span", null, title)
+            )
             )
             )
     }
@@ -337,7 +339,8 @@ module.exports = React.createClass({displayName: 'exports',
                 React.createElement(PostForm, {
                     post: this.state.post, 
                     onChange: this.handleChange, 
-                    action: "/posts/" + this.state.post.id})
+                    method: "put", 
+                    action: "/posts"})
             )
         );
     },
@@ -377,53 +380,59 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         return (
-            React.createElement("form", {action: this.props.action, method: "post", onSubmit: this.handleSubmit}, 
+            React.createElement("section", null, 
+            React.createElement("form", {
+            action: this.props.action, 
+            method: this.props.method, 
+            onSubmit: this.handleSubmit}, 
             React.createElement("label", {htmlFor: "title"}, "Title"), 
             React.createElement("input", {type: "text", 
-                name: "title", 
-                ref: "title", 
-                value: this.props.post.title, 
-                onChange: this.props.onChange}
-                ), 
+            name: "title", 
+            ref: "title", 
+            value: this.props.post.title, 
+            onChange: this.props.onChange}
+            ), 
             React.createElement("br", null), 
 
             React.createElement("textarea", {
-                name: "body", 
-                ref: "body", 
-                value: this.props.post.body, 
-                onChange: this.props.onChange}), 
+            name: "body", 
+            ref: "body", 
+            value: this.props.post.body, 
+            onChange: this.props.onChange}), 
             React.createElement("br", null), 
 
             React.createElement("label", {htmlFor: "slug"}, "Slug"), 
             React.createElement("input", {
-                type: "text", 
-                name: "slug", 
-                ref: "slug", 
-                value: this.props.post.slug, 
-                onChange: this.props.onChange}), 
-            React.createElement("br", null), 
+            type: "text", 
+            name: "slug", 
+            ref: "slug", 
+            value: this.props.post.slug, 
+            onChange: this.props.onChange}), 
+                React.createElement("br", null), 
 
-            React.createElement("label", {htmlFor: "tags"}, "Tags"), 
-            React.createElement("input", {type: "text", name: "tags", ref: "tags"}), 
-            React.createElement("br", null), 
+                React.createElement("label", {htmlFor: "tags"}, "Tags"), 
+                React.createElement("input", {type: "text", name: "tags", ref: "tags"}), 
+                React.createElement("br", null), 
 
-            React.createElement("label", {htmlFor: "excerpt"}, "Excerpt"), 
-            React.createElement("input", {
+                React.createElement("label", {htmlFor: "excerpt"}, "Excerpt"), 
+                React.createElement("input", {
                 type: "text", 
                 name: "excerpt", 
                 ref: "excerpt", 
-               value: this.props.post.excerpt, 
-               onChange: this.props.onChange}), 
-            React.createElement("br", null), 
+                value: this.props.post.excerpt, 
+            onChange: this.props.onChange}), 
+                React.createElement("br", null), 
 
-            React.createElement("label", {htmlFor: "published"}, "Published?"), 
-            React.createElement("input", {type: "checkbox", name: "published", ref: "published"}), 
-            React.createElement("br", null), 
+                React.createElement("label", {htmlFor: "published"}, "Published?"), 
+                React.createElement("input", {type: "checkbox", name: "published", ref: "published"}), 
+                React.createElement("br", null), 
 
-            React.createElement("button", {type: "submit"}, "Submit"), 
+                React.createElement("button", {type: "submit"}, "Submit"), 
 
-            React.createElement("pre", null, this.state.errors)
-            )
+                React.createElement("pre", null, this.state.errors)
+                ), 
+                React.createElement("a", {id: "delete", onClick: this.handleDelete}, "Delete")
+                )
         );
     },
 
@@ -431,6 +440,7 @@ module.exports = React.createClass({displayName: 'exports',
         var self = this;
 
         e.preventDefault();
+        var id = this.props.post.id || null;
         var title = this.refs.title.getDOMNode().value.trim();
         var body = this.refs.body.getDOMNode().value.trim();
         var slug = this.refs.slug.getDOMNode().value.trim();
@@ -438,14 +448,37 @@ module.exports = React.createClass({displayName: 'exports',
         var excerpt = this.refs.excerpt.getDOMNode().value.trim();
         var published = this.refs.published.getDOMNode().value.trim();
 
-        request.post(this.props.action)
+        request[this.props.method](this.props.action)
             .send({
+                id: id,
                 title: title,
                 body: body,
                 slug: slug,
                 tags: tags,
                 excerpt: excerpt,
                 published: published
+            })
+            .end(function(res) {
+                var response = JSON.parse(res.text);
+                if (response.success) {
+                    navigate('/posts');
+                } else {
+                    self.setState({
+                        errors: response.errors
+                    });
+                }
+            });
+    },
+
+    handleDelete: function(e) {
+        var self = this;
+
+        e.preventDefault();
+        var id = this.props.post.id;
+        
+        request.del(this.props.action)
+            .send({
+                id: id
             })
             .end(function(res) {
                 var response = JSON.parse(res.text);
@@ -521,7 +554,10 @@ module.exports = React.createClass({displayName: 'exports',
         return (
             React.createElement("section", {className: "post"}, 
                 React.createElement("h1", null, "New Post"), 
-                React.createElement(PostForm, null)
+                React.createElement(PostForm, {
+                    post: {}, 
+                    method: "post", 
+                    action: "/posts"})
             )
         );
 

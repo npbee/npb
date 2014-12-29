@@ -39,7 +39,8 @@ module.exports = React.createClass({
                 <PostForm 
                     post={this.state.post} 
                     onChange={this.handleChange}
-                    action={"/posts/" + this.state.post.id }/>
+                    method="put"
+                    action="/posts" />
             </section>
         );
     },

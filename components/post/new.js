@@ -18,7 +18,10 @@ module.exports = React.createClass({
         return (
             <section className="post">
                 <h1>New Post</h1>
-                <PostForm />
+                <PostForm
+                    post={{}}
+                    method="post"
+                    action="/posts" />
             </section>
         );
 

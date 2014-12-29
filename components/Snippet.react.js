@@ -7,10 +7,12 @@ module.exports = React.createClass({
         var slug = this.props.url;
 
         return (
+            <div>
             <a href={slug}>
                 <span>{tagline}</span>
                 <span>{title}</span>
             </a>
+            </div>
             )
     }
 });
