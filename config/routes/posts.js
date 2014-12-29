@@ -94,7 +94,6 @@ exports.create = function*() {
     // Validations
     try {
         yield checkit(validations.post).run(body);
-
     } catch(err) {
         error = err;
     }
@@ -140,5 +139,40 @@ exports.edit = function* (id) {
         markup: markup,
         state: JSON.stringify(data)
     });
+
+};
+
+// Update a post
+exports.put = function* (id) {
+    var body = yield parse(this);
+    
+    var error;
+
+    // Validations
+    try {
+        yield checkit(validations.post).run(body);
+    } catch(err) {
+        error = err;
+    }
+
+     if (error) {
+        this.body = {
+            success: false,
+            errors: JSON.stringify(error)
+        };
+
+    } else {
+        var creation = yield this.knex('posts').update({
+            title: body.title,
+            body: body.body,
+            slug: body.slug,
+            excerpt: body.excerpt,
+            published: body.published,
+            updated_at: new Date()
+        });
+        this.body = {
+            success: true
+        };
+    }
 
 };

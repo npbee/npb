@@ -47,6 +47,7 @@ app.use(route.get('/posts/new', routes.posts.new));
 app.use(route.get('/posts/:slug', routes.posts.show));
 app.use(route.get('/posts/:id/edit', routes.posts.edit));
 app.use(route.post('/posts', routes.posts.create));
+app.use(route.post('/posts/:id', routes.posts.put));
 // app.use(route.post('/posts/:id', put));
 // Delete?
 // app.use(route.post('/posts/:id', put));

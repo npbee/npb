@@ -1,5 +1,7 @@
 var React = require('react');
 var request = require('superagent');
+var navigate = require('react-mini-router').navigate;
+
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -11,7 +13,7 @@ module.exports = React.createClass({
     render: function() {
 
         return (
-            <form action="/posts/" method="post" onSubmit={this.handleSubmit}>
+            <form action={this.props.action} method="post" onSubmit={this.handleSubmit}>
             <label htmlFor="title">Title</label>
             <input type="text" 
                 name="title"
@@ -54,7 +56,7 @@ module.exports = React.createClass({
             <input type="checkbox" name="published" ref="published" />
             <br/>
 
-            <button type="submit">Create Post</button>
+            <button type="submit">Submit</button>
 
             <pre>{this.state.errors}</pre>
             </form>
@@ -72,7 +74,7 @@ module.exports = React.createClass({
         var excerpt = this.refs.excerpt.getDOMNode().value.trim();
         var published = this.refs.published.getDOMNode().value.trim();
 
-        request.post('/posts')
+        request.post(this.props.action)
             .send({
                 title: title,
                 body: body,

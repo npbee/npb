@@ -300,6 +300,7 @@ var React = require('react');
 var navigate = require('react-mini-router').navigate;
 var PostForm = require('./form');
 var request = require('superagent');
+var _ = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -307,7 +308,8 @@ module.exports = React.createClass({displayName: 'exports',
         return {
             hasErrors: false,
             errors: {},
-            post: this.props.post || {}
+            post: this.props.post || {},
+            loaded: false
         };
     },
 
@@ -321,7 +323,8 @@ module.exports = React.createClass({displayName: 'exports',
             })
             .end(function(res) {
                 self.setState({
-                    post: JSON.parse(res.text)
+                    post: JSON.parse(res.text),
+                    loaded: true
                 });
             });
        }
@@ -333,7 +336,8 @@ module.exports = React.createClass({displayName: 'exports',
                 React.createElement("h1", null, "New Post"), 
                 React.createElement(PostForm, {
                     post: this.state.post, 
-                    onChange: this.handleChange})
+                    onChange: this.handleChange, 
+                    action: "/posts/" + this.state.post.id})
             )
         );
     },
@@ -341,21 +345,27 @@ module.exports = React.createClass({displayName: 'exports',
     handleChange: function(event) {
         var attr = event.target.name;
         var value = event.target.value;
-
+        
         var newData = {};
         newData[attr] = value;
 
+        var previousState = this.state.post;
+        var newState = _.assign(previousState, newData);
+
         this.setState({
-            post: newData
+            post: newState
         });
+
     }
 
     
 });
 
-},{"./form":"/Users/npb/Projects/npb/components/post/form.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/form.js":[function(require,module,exports){
+},{"./form":"/Users/npb/Projects/npb/components/post/form.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/form.js":[function(require,module,exports){
 var React = require('react');
 var request = require('superagent');
+var navigate = require('react-mini-router').navigate;
+
 
 module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
@@ -367,7 +377,7 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         return (
-            React.createElement("form", {action: "/posts/", method: "post", onSubmit: this.handleSubmit}, 
+            React.createElement("form", {action: this.props.action, method: "post", onSubmit: this.handleSubmit}, 
             React.createElement("label", {htmlFor: "title"}, "Title"), 
             React.createElement("input", {type: "text", 
                 name: "title", 
@@ -410,7 +420,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.createElement("input", {type: "checkbox", name: "published", ref: "published"}), 
             React.createElement("br", null), 
 
-            React.createElement("button", {type: "submit"}, "Create Post"), 
+            React.createElement("button", {type: "submit"}, "Submit"), 
 
             React.createElement("pre", null, this.state.errors)
             )
@@ -428,7 +438,7 @@ module.exports = React.createClass({displayName: 'exports',
         var excerpt = this.refs.excerpt.getDOMNode().value.trim();
         var published = this.refs.published.getDOMNode().value.trim();
 
-        request.post('/posts')
+        request.post(this.props.action)
             .send({
                 title: title,
                 body: body,
@@ -451,7 +461,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');

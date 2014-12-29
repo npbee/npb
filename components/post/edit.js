@@ -2,6 +2,7 @@ var React = require('react');
 var navigate = require('react-mini-router').navigate;
 var PostForm = require('./form');
 var request = require('superagent');
+var _ = require('lodash');
 
 module.exports = React.createClass({
 
@@ -9,7 +10,8 @@ module.exports = React.createClass({
         return {
             hasErrors: false,
             errors: {},
-            post: this.props.post || {}
+            post: this.props.post || {},
+            loaded: false
         };
     },
 
@@ -23,7 +25,8 @@ module.exports = React.createClass({
             })
             .end(function(res) {
                 self.setState({
-                    post: JSON.parse(res.text)
+                    post: JSON.parse(res.text),
+                    loaded: true
                 });
             });
        }
@@ -35,7 +38,8 @@ module.exports = React.createClass({
                 <h1>New Post</h1>
                 <PostForm 
                     post={this.state.post} 
-                    onChange={this.handleChange} />
+                    onChange={this.handleChange}
+                    action={"/posts/" + this.state.post.id }/>
             </section>
         );
     },
@@ -43,13 +47,17 @@ module.exports = React.createClass({
     handleChange: function(event) {
         var attr = event.target.name;
         var value = event.target.value;
-
+        
         var newData = {};
         newData[attr] = value;
 
+        var previousState = this.state.post;
+        var newState = _.assign(previousState, newData);
+
         this.setState({
-            post: newData
+            post: newState
         });
+
     }
 
     
