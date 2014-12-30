@@ -7,7 +7,7 @@ var koaPg = require('koa-pg');
 var parse = require('co-body');
 var serve = require('koa-static');
 var render = require('./lib/render');
-var db = require('./lib/db');
+var knex = require('koa-knex');
 
 var app = koa();
 
@@ -27,11 +27,6 @@ app.use(function *(next) {
 console.log(process.env.NODE_ENV);
 
 app.use(logger());
-
-// Database
-app.use(db.koaKnex);
-
-console.log(process.env.NODE_ENV);
 
 // Routes
 app.use(route.get('/', routes.index));

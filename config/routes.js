@@ -1,6 +1,7 @@
 var React = require('react');
 var render = require('../lib/render');
 var App = require('../components/App.react');
+var db = require('../lib/db');
 
 exports.posts = require('./routes/posts');
 exports.projects = require('./routes/projects');
@@ -8,12 +9,12 @@ exports.projects = require('./routes/projects');
 exports.index = function *() {
     var isAjax = this.request.url.indexOf('isReact') !== -1;
     
-    var latestPost = yield this.knex('posts')
+    var latestPost = yield db('posts')
                                     .select('title', 'slug')
                                     .orderBy('created_at', 'desc')
                                     .limit(1);
 
-    var latestProject = yield this.knex('projects')
+    var latestProject = yield db('projects')
                                     .select('name', 'slug')
                                     .orderBy('created_at', 'desc')
                                     .limit(1);

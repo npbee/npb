@@ -5,13 +5,14 @@ var _ = require('lodash');
 var parse = require('co-body');
 var checkit = require('checkit');
 var validations = require('../validations');
+var knex = require('../../lib/db');
 
 // Post index
 // Show all posts
 exports.index = function *() {
     var isReact = this.request.url.indexOf('isReact') !== -1;
 
-    var posts = yield this.knex('posts')
+    var posts = yield knex('posts')
                             .select('title', 'excerpt', 'slug', 'id');
     
 
