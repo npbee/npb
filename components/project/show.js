@@ -33,7 +33,6 @@ module.exports = React.createClass({
 
     render: function(){
         var html = marked(this.state.project.body || '');
-        console.log(this.state.project);
         return (
             <section className="project">
                 <h1>{this.state.project.name}</h1>
