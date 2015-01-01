@@ -45,7 +45,7 @@ gulp.task('server', function() {
         ext: 'html js',
         nodeArgs: ['--harmony'],
         env: {
-            'NODE_ENV': process.env.NODE_ENV || 'DEVELOPMENT'
+            'NODE_ENV': process.env.NODE_ENV || 'development'
         }
     })
     .on('change', [])

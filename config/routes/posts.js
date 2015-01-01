@@ -39,13 +39,13 @@ exports.index = function *() {
 
 // Show an individual post
 exports.show = function*(slug) {
-    var isReact = this.request.url.indexOf('isReact') !== -1;
+    var isClient = this.request.url.indexOf('isClient') !== -1;
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';
     var post = yield knex('posts').where(_id, slug);
-
-    if (isReact) {
+    
+    if (isClient) {
         this.body = JSON.stringify(post[0]);
         return;
     }
@@ -126,7 +126,7 @@ exports.create = function*() {
 
 // Show the edit post form
 exports.edit = function* (id) {
-    var isReact = this.request.url.indexOf('isReact') !== -1;
+    var isReact = this.request.url.indexOf('isClient') !== -1;
 
     var data = {
         path: '/posts/' + id +'/edit',
