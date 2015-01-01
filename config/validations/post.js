@@ -1,6 +1,11 @@
 module.exports = {
-    title: 'required',
-    body: 'required',
-    slug: 'required',
-    excerpt: 'required'
+    new: {
+        title: 'required',
+        body: 'required',
+        slug: 'required',
+        excerpt: 'required'
+    },
+    update: {
+        id: 'required'
+    }
 };

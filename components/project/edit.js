@@ -1,5 +1,5 @@
 var React = require('react'); var navigate = require('react-mini-router').navigate;
-var PostForm = require('./form');
+var ProjectForm = require('./form');
 var request = require('superagent');
 var _ = require('lodash');
 
@@ -9,7 +9,7 @@ module.exports = React.createClass({
         return {
             hasErrors: false,
             errors: {},
-            post: this.props.post || {},
+            project: this.props.project || {},
             loaded: false
         };
     },
@@ -17,14 +17,14 @@ module.exports = React.createClass({
     componentDidMount: function() {
         var self = this;
         
-        if (!Object.keys(this.state.post).length) {
-           request.get('/posts/' + this.props.postId)
+        if (!Object.keys(this.state.project).length) {
+           request.get('/projects/' + this.props.projectId)
             .query({
                 query: 'isClient'
             })
             .end(function(res) {
                 self.setState({
-                    post: JSON.parse(res.text),
+                    project: JSON.parse(res.text),
                     loaded: true
                 });
             });
@@ -33,13 +33,13 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <section className="post">
+            <section className="project">
                 <h1>New Post</h1>
-                <PostForm 
-                    post={this.state.post} 
+                <ProjectForm 
+                    project={this.state.project} 
                     onChange={this.handleChange}
                     method="put"
-                    action="/posts" />
+                    action="/projects" />
             </section>
         );
     },
@@ -51,11 +51,11 @@ module.exports = React.createClass({
         var newData = {};
         newData[attr] = value;
 
-        var previousState = this.state.post;
+        var previousState = this.state.project;
         var newState = _.assign(previousState, newData);
 
         this.setState({
-            post: newState
+            project: newState
         });
 
     }

@@ -40,11 +40,10 @@ exports.index = function *() {
 // Show an individual post
 exports.show = function*(slug) {
     var isReact = this.request.url.indexOf('isReact') !== -1;
-    
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';
-    var post = yield this.knex('posts').where(_id, slug);
+    var post = yield knex('posts').where(_id, slug);
 
     if (isReact) {
         this.body = JSON.stringify(post[0]);
@@ -94,7 +93,7 @@ exports.create = function*() {
 
     // Validations
     try {
-        yield checkit(validations.post).run(body);
+        yield checkit(validations.post.new).run(body);
     } catch(err) {
         error = err;
     }
@@ -106,7 +105,7 @@ exports.create = function*() {
         };
 
     } else {
-        var _post = yield this.knex('posts').insert({
+        var _post = yield knex('posts').insert({
             title: body.title,
             body: body.body,
             slug: body.slug,
@@ -118,7 +117,7 @@ exports.create = function*() {
 
         this.body = {
             success: true,
-            postId: _post[0]
+            post_id: _post[0]
         };
     }
 
@@ -153,7 +152,7 @@ exports.put = function* () {
 
     // Validations
     try {
-        yield checkit(validations.post).run(body);
+        yield checkit(validations.post.update).run(body);
     } catch(err) {
         error = err;
     }
@@ -165,7 +164,7 @@ exports.put = function* () {
         };
 
     } else {
-        var creation = yield this.knex('posts')
+        var update = yield knex('posts')
             .where('id', id)
             .update({
             title: body.title,
@@ -174,9 +173,10 @@ exports.put = function* () {
             excerpt: body.excerpt,
             published: body.published,
             updated_at: new Date()
-        });
+        }, 'id');
         this.body = {
-            success: true
+            success: true,
+            post_id: update[0]
         };
     }
 
@@ -187,13 +187,13 @@ exports.put = function* () {
 exports.del = function* () {
     var body = yield parse(this);
     var id = body.id;
-    var error;
 
-    var deletion = yield this.knex('posts')
+    var deletion = yield knex('posts')
                     .where('id', id)
                     .del();
-
+    
     this.body = {
-        success: true
+        success: true,
+        affected_rows: deletion
     };
 };

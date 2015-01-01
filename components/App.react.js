@@ -8,8 +8,10 @@ var PostShow = require('./post/show');
 var PostNew = require('./post/new');
 var PostEdit = require('./post/edit');
 
-var Projects = require('./page/projects/Projects.react');
-var Project = require('./page/projects/ProjectShow.react');
+var Projects = require('./project/index');
+var ProjectShow = require('./project/show');
+var ProjectNew = require('./project/new');
+var ProjectEdit = require('./project/edit');
 
 var NavList = require('./nav/NavList.react');
 var RouterMixin = require('react-mini-router').RouterMixin;
@@ -29,7 +31,9 @@ var App = React.createClass({
 
         // Projects
         '/projects': 'projects',
-        '/projects/:slug': 'projectShow'
+        '/projects/new': 'projectNew',
+        '/projects/:slug': 'projectShow',
+        '/projects/:id/edit': 'projectEdit'
     },
 
     home: function() {
@@ -61,7 +65,15 @@ var App = React.createClass({
     },
 
     projectShow: function(slug) {
-        return <Project project={this.props.data.project} slug={slug} />;
+        return <ProjectShow project={this.props.data.project} slug={slug} />;
+    },
+
+    projectNew: function() {
+        return <ProjectNew />;
+    },
+
+    projectEdit: function(id) {
+        return <ProjectEdit projectId={id} />;
     },
 
     render: function() {

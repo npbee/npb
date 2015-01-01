@@ -45,7 +45,12 @@ app.use(route.del('/posts', routes.posts.del));
 
 // Project routes
 app.use(route.get('/projects', routes.projects.index));
+app.use(route.get('/projects/new', routes.projects.new));
 app.use(route.get('/projects/:slug', routes.projects.show));
+app.use(route.get('/projects/:id/edit', routes.projects.edit));
+app.use(route.post('/projects', routes.projects.create));
+app.use(route.put('/projects', routes.projects.put));
+app.use(route.del('/projects', routes.projects.del));
 
 // Static files
 app.use(serve('.'));
