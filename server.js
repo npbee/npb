@@ -4,15 +4,19 @@ var logger = require('koa-logger');
 var route = require('koa-route');
 var koa = require('koa');
 var koaPg = require('koa-pg');
-var parse = require('co-body');
+var bodyParser = require('koa-bodyparser');
 var serve = require('koa-static');
 var render = require('./lib/render');
 var knex = require('koa-knex');
+var passport = require('./lib/auth');
 
 var app = koa();
+app.use(bodyParser());
 
 var routes = require('./config/routes');
 var database = require('./config/database');
+
+app.use(passport.initialize());
 
 app.use(function *(next) {
   try {
@@ -29,6 +33,15 @@ console.log(process.env.NODE_ENV);
 app.use(logger());
 
 // Routes
+var secured = function *(next) {
+    if (this.isAuthenticated()) {
+        console.log('authenticated');
+        yield next;
+    } else {
+        this.status = 401;
+    }
+};
+
 app.use(route.get('/', routes.index));
 
 // Blog post routes
@@ -39,9 +52,6 @@ app.use(route.get('/posts/:id/edit', routes.posts.edit));
 app.use(route.post('/posts', routes.posts.create));
 app.use(route.put('/posts', routes.posts.put));
 app.use(route.del('/posts', routes.posts.del));
-// app.use(route.post('/posts/:id', put));
-// Delete?
-// app.use(route.post('/posts/:id', put));
 
 // Project routes
 app.use(route.get('/projects', routes.projects.index));
@@ -52,55 +62,13 @@ app.use(route.post('/projects', routes.projects.create));
 app.use(route.put('/projects', routes.projects.put));
 app.use(route.del('/projects', routes.projects.del));
 
+// Admin routes
+app.use(route.get('/login', routes.auth.loginForm));
+app.use(route.post('/login', routes.auth.login));
+
+
 // Static files
 app.use(serve('.'));
-
-function *add() {
-    this.body = yield render('new');
-}
-
-function *show(id) {
-    var query = 'SELECT * FROM posts where ID = ' + id;
-    var result = yield this.pg.db.client.query_(query);
-    this.body = yield render('show', { post: result.rows[0] });
-}
-
-function *edit(id) {
-    var query = 'SELECT * FROM posts where ID = ' + id;
-    var results = yield this.pg.db.client.query_(query);
-    var post = results.rows[0];
-    if (!post) this.throw(4040, 'invalid post id');
-    this.body = yield render('edit', { post: post });
-}
-
-function *create() {
-    var post = yield parse(this);
-    post.id = 10;
-    post.created_at = new Date();
-    post.updated_at = new Date();
-    post.user_id = 1;
-    post.published = false;
-
-    var statement = 'INSERT INTO posts (id, title, body, created_at, updated_at, slug, user_id, excerpt, published)' +
-        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
-
-    this.pg.db.client.query_(statement, [
-            post.id,
-            post.title,
-            post.body,
-            post.created_at,
-            post.updated_at,
-            post.slug,
-            post.user_id,
-            post.excerpt,
-            post.published
-        ]);
-
-    // var id = posts.push(post) - 1;
-    // post.created_at = new Date;
-    // post.id = id;
-    this.redirect('/posts');
-}
 
 
 // Listen

@@ -28,6 +28,8 @@ var ProjectShow = require('./project/show');
 var ProjectNew = require('./project/new');
 var ProjectEdit = require('./project/edit');
 
+var Login = require('./auth/login');
+
 var NavList = require('./nav/NavList.react');
 var RouterMixin = require('react-mini-router').RouterMixin;
 
@@ -37,6 +39,9 @@ var App = React.createClass({displayName: 'App',
 
     routes: {
         '/': 'home',
+
+        // Auth
+        '/login': 'login',
 
         // Posts
         '/posts': 'posts',
@@ -55,6 +60,11 @@ var App = React.createClass({displayName: 'App',
         return React.createElement(Home, {
                 post: this.props.data.latestPost, 
                 project: this.props.data.latestProject});
+    },
+
+    // AUTH
+    login: function() {
+        return React.createElement(Login, null)
     },
 
     // POSTS
@@ -103,7 +113,7 @@ var App = React.createClass({displayName: 'App',
 
 module.exports = App;
 
-},{"./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
+},{"./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
 var React = require('react');
 
 module.exports = React.createClass({displayName: 'exports',
@@ -123,7 +133,71 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/nav/NavItem.react.js":[function(require,module,exports){
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/auth/login.js":[function(require,module,exports){
+var React = require('react');
+var navigate = require('react-mini-router').navigate;
+var request = require('superagent');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {
+            hasErrors: false,
+            errors: {}
+        };
+    },
+
+    componentDidMount: function() {
+    },
+
+    render: function(){
+        return (
+            React.createElement("section", {className: "login"}, 
+                React.createElement("h1", null, "Login"), 
+                React.createElement("form", {action: "/login", method: "post", onSubmit: this.handleSubmit}, 
+                    React.createElement("label", {htmlFor: "username"}, "Username"), 
+                    React.createElement("input", {
+                        type: "text", 
+                        name: "username", 
+                        ref: "username"}
+                    ), 
+                    React.createElement("br", null), 
+
+                    React.createElement("label", {htmlFor: "password"}, "Password"), 
+                    React.createElement("input", {
+                        type: "password", 
+                        name: "password", 
+                        ref: "password"}
+                    ), 
+                    React.createElement("br", null), 
+
+                    React.createElement("button", {type: "submit"}, "Submit")
+                )
+            )
+        );
+
+    },
+
+    handleSubmit: function(e) {
+        var self = this;
+        //e.preventDefault();
+        //var username = this.refs.username.getDOMNode().value.trim();
+        //var password = this.refs.password.getDOMNode().value.trim();
+
+        //request.post('/login')
+        //.send({
+            //username: username,
+            //password: password
+        //})
+        //.end(function(res) {
+            //console.log(res);
+        //});
+    }
+
+    
+});
+
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/nav/NavItem.react.js":[function(require,module,exports){
 var React = require('react');
 
 module.exports = React.createClass({displayName: 'exports',

@@ -2,7 +2,6 @@ var React = require('react');
 var App = require('../../components/App.react');
 var render = require('../../lib/render');
 var _ = require('lodash');
-var parse = require('co-body');
 var checkit = require('checkit');
 var validations = require('../validations');
 var knex = require('../../lib/db');
@@ -88,7 +87,7 @@ exports.new = function*() {
 
 // Create a project
 exports.create = function*() {
-    var body = yield parse(this);
+    var body = this.request.body;
     var error;
 
     // Validations
@@ -153,7 +152,7 @@ exports.edit = function* (id) {
 
 // Update a project
 exports.put = function* () {
-    var body = yield parse(this);
+    var body = this.request.body;
     var id = body.id;
     var error;
 
@@ -199,7 +198,7 @@ exports.put = function* () {
 
 // Delete a project
 exports.del = function* () {
-    var body = yield parse(this);
+    var body = this.request.body;
     var id = body.id;
 
     var deletion = yield knex('projects')

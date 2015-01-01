@@ -13,6 +13,8 @@ var ProjectShow = require('./project/show');
 var ProjectNew = require('./project/new');
 var ProjectEdit = require('./project/edit');
 
+var Login = require('./auth/login');
+
 var NavList = require('./nav/NavList.react');
 var RouterMixin = require('react-mini-router').RouterMixin;
 
@@ -22,6 +24,9 @@ var App = React.createClass({
 
     routes: {
         '/': 'home',
+
+        // Auth
+        '/login': 'login',
 
         // Posts
         '/posts': 'posts',
@@ -40,6 +45,11 @@ var App = React.createClass({
         return <Home
                 post={this.props.data.latestPost}
                 project={this.props.data.latestProject}/>;
+    },
+
+    // AUTH
+    login: function() {
+        return <Login />
     },
 
     // POSTS

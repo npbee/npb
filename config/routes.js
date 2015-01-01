@@ -5,6 +5,7 @@ var db = require('../lib/db');
 
 exports.posts = require('./routes/posts');
 exports.projects = require('./routes/projects');
+exports.auth = require('./routes/auth');
 
 exports.index = function *() {
     var isAjax = this.request.url.indexOf('isReact') !== -1;
