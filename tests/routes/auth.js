@@ -13,13 +13,16 @@ describe('Authentication routes', function() {
         });
     });
 
-    describe('Admin page', function() {
-        it('should only be accessible if logged in', function(done) {
-            request.get('localhost:9000/admin')
-            .end(function(res) {
-                console.log(res.status);
+    context('When not logged in', function() {
 
-                done();
+        describe('the admin page', function() {
+            it('should only be accessible if logged in', function(done) {
+                request.get('localhost:9000/admin')
+                .end(function(res) {
+                    res.redirects.should.containEql('http://localhost:9000/login');
+
+                    done();
+                });
             });
         });
     });
