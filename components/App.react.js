@@ -87,8 +87,9 @@ var App = React.createClass({
     },
 
     render: function() {
+        
         return <main id="react-app">
-            <NavList />
+            <NavList isAuthenticated={this.props.data.isAuthenticated} />
             {this.renderCurrentRoute()}
         </main>
     }

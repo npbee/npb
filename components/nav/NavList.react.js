@@ -13,6 +13,7 @@ module.exports = React.createClass({
   render: function() {
     var selected = this.props.selected || this.state.selected;
     var self = this;
+    var isAuthenticated = this.props.isAuthenticated;
 
     return (
       <nav>
@@ -25,6 +26,7 @@ module.exports = React.createClass({
           className={className} 
           navigate={self.handleClick} />;
       })}
+      {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
       </nav>
       )
   },

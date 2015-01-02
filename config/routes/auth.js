@@ -26,3 +26,8 @@ exports.login = passport.authenticate('local', {
     failureRedirect: '/?error=true'
 });
 
+
+exports.logout = function *(){
+    this.logout();
+    this.redirect('/');
+};

@@ -75,7 +75,7 @@ app.del('/projects', routes.projects.del);
 app.get('/admin', secured, routes.admin.index);
 app.get('/login', routes.auth.loginForm);
 app.post('/login', routes.auth.login);
-
+app.get('/logout', routes.auth.logout);
 
 // Static files
 app.use(serve('.'));

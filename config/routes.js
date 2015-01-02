@@ -9,7 +9,7 @@ exports.admin = require('./routes/admin');
 exports.auth = require('./routes/auth');
 
 exports.index = function *() {
-    var isAjax = this.request.url.indexOf('isReact') !== -1;
+    var isClient = this.request.url.indexOf('isClient') !== -1;
     
     var latestPost = yield db('posts')
                                     .select('title', 'slug')
@@ -21,14 +21,16 @@ exports.index = function *() {
                                     .orderBy('created_at', 'desc')
                                     .limit(1);
 
+                                    
     var data = {
         latestPost: latestPost[0],
         latestProject: latestProject[0],
         path: '/',
-        history: true
+        history: true,
+        isAuthenticated: this.isAuthenticated()
     };
 
-    if (isAjax) {
+    if (isClient) {
         this.body = yield data;
         return;
     }
