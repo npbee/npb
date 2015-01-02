@@ -5,6 +5,7 @@ var db = require('../lib/db');
 
 exports.posts = require('./routes/posts');
 exports.projects = require('./routes/projects');
+exports.admin = require('./routes/admin');
 exports.auth = require('./routes/auth');
 
 exports.index = function *() {

@@ -1,0 +1,505 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@1.4.3
+3 info using node@v0.11.12
+4 warn package.json NPB@0.0.0 No repository field.
+5 verbose readDependencies using package.json deps
+6 verbose install where, deps [ '/Users/npb/Projects/npb',
+6 verbose install   [ 'bcrypt',
+6 verbose install     'koa',
+6 verbose install     'koa-logger',
+6 verbose install     'koa-route',
+6 verbose install     'koa-pg',
+6 verbose install     'co-views',
+6 verbose install     'react',
+6 verbose install     'node-jsx',
+6 verbose install     'koa-static',
+6 verbose install     'bluebird',
+6 verbose install     'react-mini-router',
+6 verbose install     'flux',
+6 verbose install     'object-assign',
+6 verbose install     'superagent',
+6 verbose install     'marked',
+6 verbose install     'lodash',
+6 verbose install     'knex',
+6 verbose install     'pg',
+6 verbose install     'koa-knex',
+6 verbose install     'checkit',
+6 verbose install     'swig',
+6 verbose install     'koa-passport',
+6 verbose install     'passport-local',
+6 verbose install     'co',
+6 verbose install     'koa-bodyparser',
+6 verbose install     'koa-generic-session',
+6 verbose install     'gulp',
+6 verbose install     'browserify',
+6 verbose install     'watchify',
+6 verbose install     'reactify',
+6 verbose install     'gulp-sourcemaps',
+6 verbose install     'vinyl-source-stream',
+6 verbose install     'vinyl-buffer',
+6 verbose install     'gulp-util',
+6 verbose install     'gulp-nodemon',
+6 verbose install     'gulp-mocha',
+6 verbose install     'should' ] ]
+7 info preinstall NPB@0.0.0
+8 warn package.json react-mini-router@1.0.0 No repository field.
+9 verbose readDependencies using package.json deps
+10 verbose cache add [ 'bcrypt@0.8.x', null ]
+11 verbose cache add name=undefined spec="bcrypt@0.8.x" args=["bcrypt@0.8.x",null]
+12 verbose parsed url { protocol: null,
+12 verbose parsed url   slashes: null,
+12 verbose parsed url   auth: null,
+12 verbose parsed url   host: null,
+12 verbose parsed url   port: null,
+12 verbose parsed url   hostname: null,
+12 verbose parsed url   hash: null,
+12 verbose parsed url   search: null,
+12 verbose parsed url   query: null,
+12 verbose parsed url   pathname: 'bcrypt@0.8.x',
+12 verbose parsed url   path: 'bcrypt@0.8.x',
+12 verbose parsed url   href: 'bcrypt@0.8.x' }
+13 verbose cache add name="bcrypt" spec="0.8.x" args=["bcrypt","0.8.x"]
+14 verbose parsed url { protocol: null,
+14 verbose parsed url   slashes: null,
+14 verbose parsed url   auth: null,
+14 verbose parsed url   host: null,
+14 verbose parsed url   port: null,
+14 verbose parsed url   hostname: null,
+14 verbose parsed url   hash: null,
+14 verbose parsed url   search: null,
+14 verbose parsed url   query: null,
+14 verbose parsed url   pathname: '0.8.x',
+14 verbose parsed url   path: '0.8.x',
+14 verbose parsed url   href: '0.8.x' }
+15 verbose addNamed [ 'bcrypt', '0.8.x' ]
+16 verbose addNamed [ null, '>=0.8.0-0 <0.9.0-0' ]
+17 verbose already installed skipping koa@^0.13.0 /Users/npb/Projects/npb
+18 verbose already installed skipping koa-logger@^1.2.2 /Users/npb/Projects/npb
+19 verbose already installed skipping koa-route@^2.4.0 /Users/npb/Projects/npb
+20 verbose already installed skipping koa-pg@^0.23.0 /Users/npb/Projects/npb
+21 verbose already installed skipping co-views@^0.2.0 /Users/npb/Projects/npb
+22 verbose already installed skipping react@^0.12.1 /Users/npb/Projects/npb
+23 verbose already installed skipping node-jsx@^0.12.4 /Users/npb/Projects/npb
+24 verbose already installed skipping koa-static@^1.4.7 /Users/npb/Projects/npb
+25 silly lockFile ea5020f6-bcrypt-0-8-x bcrypt@0.8.x
+26 verbose lock bcrypt@0.8.x /Users/npb/.npm/ea5020f6-bcrypt-0-8-x.lock
+27 verbose already installed skipping bluebird@^2.3.11 /Users/npb/Projects/npb
+28 silly addNameRange { name: 'bcrypt', range: '>=0.8.0-0 <0.9.0-0', hasData: false }
+29 verbose already installed skipping react-mini-router@^1.0.0 /Users/npb/Projects/npb
+30 verbose url raw bcrypt
+31 verbose url resolving [ 'https://registry.npmjs.org/', './bcrypt' ]
+32 verbose url resolved https://registry.npmjs.org/bcrypt
+33 info trying registry request attempt 1 at 13:29:25
+34 verbose etag "AJJ9FTSJS0R7UP5IDU36E9MV6"
+35 http GET https://registry.npmjs.org/bcrypt
+36 verbose already installed skipping flux@^2.0.1 /Users/npb/Projects/npb
+37 verbose already installed skipping object-assign@^2.0.0 /Users/npb/Projects/npb
+38 verbose already installed skipping superagent@^0.21.0 /Users/npb/Projects/npb
+39 verbose already installed skipping marked@^0.3.2 /Users/npb/Projects/npb
+40 verbose already installed skipping lodash@^2.4.1 /Users/npb/Projects/npb
+41 verbose already installed skipping knex@^0.7.3 /Users/npb/Projects/npb
+42 verbose already installed skipping pg@^4.1.1 /Users/npb/Projects/npb
+43 verbose already installed skipping koa-knex@^0.5.14 /Users/npb/Projects/npb
+44 verbose already installed skipping checkit@^0.2.0-pre /Users/npb/Projects/npb
+45 verbose already installed skipping swig@^1.4.2 /Users/npb/Projects/npb
+46 verbose already installed skipping koa-passport@^1.1.3 /Users/npb/Projects/npb
+47 verbose already installed skipping passport-local@^1.0.0 /Users/npb/Projects/npb
+48 verbose already installed skipping co@^4.1.0 /Users/npb/Projects/npb
+49 verbose already installed skipping koa-bodyparser@^1.3.0 /Users/npb/Projects/npb
+50 verbose already installed skipping koa-generic-session@^1.3.0 /Users/npb/Projects/npb
+51 verbose already installed skipping gulp@^3.8.10 /Users/npb/Projects/npb
+52 verbose already installed skipping browserify@^7.0.2 /Users/npb/Projects/npb
+53 verbose already installed skipping watchify@^2.2.1 /Users/npb/Projects/npb
+54 verbose already installed skipping reactify@^0.17.1 /Users/npb/Projects/npb
+55 verbose already installed skipping gulp-sourcemaps@^1.2.8 /Users/npb/Projects/npb
+56 verbose already installed skipping vinyl-source-stream@^1.0.0 /Users/npb/Projects/npb
+57 verbose already installed skipping vinyl-buffer@^1.0.0 /Users/npb/Projects/npb
+58 verbose already installed skipping gulp-util@^3.0.1 /Users/npb/Projects/npb
+59 verbose already installed skipping gulp-nodemon@^1.0.4 /Users/npb/Projects/npb
+60 verbose already installed skipping gulp-mocha@^2.0.0 /Users/npb/Projects/npb
+61 verbose already installed skipping should@^4.4.2 /Users/npb/Projects/npb
+62 http 304 https://registry.npmjs.org/bcrypt
+63 silly registry.get cb [ 304,
+63 silly registry.get   { date: 'Thu, 01 Jan 2015 21:29:25 GMT',
+63 silly registry.get     server: 'Apache',
+63 silly registry.get     via: '1.1 varnish',
+63 silly registry.get     'last-modified': 'Thu, 01 Jan 2015 21:29:25 GMT',
+63 silly registry.get     'cache-control': 'max-age=60',
+63 silly registry.get     etag: '"AJJ9FTSJS0R7UP5IDU36E9MV6"',
+63 silly registry.get     age: '51',
+63 silly registry.get     'x-served-by': 'cache-lax1421-LAX',
+63 silly registry.get     'x-cache': 'HIT',
+63 silly registry.get     'x-cache-hits': '1',
+63 silly registry.get     'x-timer': 'S1420147765.163455,VS0,VE0',
+63 silly registry.get     vary: 'Accept',
+63 silly registry.get     'content-length': '0',
+63 silly registry.get     connection: 'close' } ]
+64 verbose etag bcrypt from cache
+65 silly addNameRange number 2 { name: 'bcrypt', range: '>=0.8.0-0 <0.9.0-0', hasData: true }
+66 silly addNameRange versions [ 'bcrypt',
+66 silly addNameRange   [ '0.1.2',
+66 silly addNameRange     '0.2.0',
+66 silly addNameRange     '0.2.1',
+66 silly addNameRange     '0.1.3',
+66 silly addNameRange     '0.2.2',
+66 silly addNameRange     '0.2.3',
+66 silly addNameRange     '0.2.4',
+66 silly addNameRange     '0.3.0',
+66 silly addNameRange     '0.3.1',
+66 silly addNameRange     '0.3.2',
+66 silly addNameRange     '0.4.0',
+66 silly addNameRange     '0.4.1',
+66 silly addNameRange     '0.5.0',
+66 silly addNameRange     '0.6.0',
+66 silly addNameRange     '0.7.0',
+66 silly addNameRange     '0.7.1',
+66 silly addNameRange     '0.7.2',
+66 silly addNameRange     '0.7.3',
+66 silly addNameRange     '0.7.4',
+66 silly addNameRange     '0.7.5',
+66 silly addNameRange     '0.7.6',
+66 silly addNameRange     '0.7.7',
+66 silly addNameRange     '0.7.8',
+66 silly addNameRange     '0.8.0' ] ]
+67 verbose addNamed [ 'bcrypt', '0.8.0' ]
+68 verbose addNamed [ '0.8.0', '0.8.0' ]
+69 silly lockFile d33dacdf-bcrypt-0-8-0 bcrypt@0.8.0
+70 verbose lock bcrypt@0.8.0 /Users/npb/.npm/d33dacdf-bcrypt-0-8-0.lock
+71 silly lockFile d33dacdf-bcrypt-0-8-0 bcrypt@0.8.0
+72 silly lockFile d33dacdf-bcrypt-0-8-0 bcrypt@0.8.0
+73 silly lockFile ea5020f6-bcrypt-0-8-x bcrypt@0.8.x
+74 silly lockFile ea5020f6-bcrypt-0-8-x bcrypt@0.8.x
+75 silly resolved [ { name: 'bcrypt',
+75 silly resolved     description: 'A bcrypt library for NodeJS.',
+75 silly resolved     keywords:
+75 silly resolved      [ 'bcrypt',
+75 silly resolved        'password',
+75 silly resolved        'auth',
+75 silly resolved        'authentication',
+75 silly resolved        'encryption',
+75 silly resolved        'crypt',
+75 silly resolved        'crypto' ],
+75 silly resolved     main: './bcrypt',
+75 silly resolved     version: '0.8.0',
+75 silly resolved     author: { name: 'Nick Campbell', url: 'https://github.com/ncb000gt' },
+75 silly resolved     engines: { node: '>= 0.6.0' },
+75 silly resolved     repository:
+75 silly resolved      { type: 'git',
+75 silly resolved        url: 'https://github.com/ncb000gt/node.bcrypt.js.git' },
+75 silly resolved     licenses: [ [Object] ],
+75 silly resolved     bugs: { url: 'https://github.com/ncb000gt/node.bcrypt.js/issues' },
+75 silly resolved     scripts:
+75 silly resolved      { test: 'node-gyp configure build && nodeunit test',
+75 silly resolved        install: 'node-gyp rebuild' },
+75 silly resolved     dependencies: { bindings: '1.0.0', nan: '1.3.0' },
+75 silly resolved     devDependencies: { nodeunit: '>=0.6.4' },
+75 silly resolved     contributors:
+75 silly resolved      [ [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object],
+75 silly resolved        [Object] ],
+75 silly resolved     gypfile: true,
+75 silly resolved     readme: '# node.bcrypt.js\n\n[![Build Status](https://secure.travis-ci.org/ncb000gt/node.bcrypt.js.svg)](http://travis-ci.org/#!/ncb000gt/node.bcrypt.js)\n\nLib to help you hash passwords.\n[bcrypt on wikipedia][bcryptwiki]\n\nCatalyst for this module: [How To Safely Store A Password][codahale]\n\n## If You Are Submitting Bugs/Issues\n\nFirst, make sure that the version of node you are using is a _stable_ version. You\'ll know this because it\'ll have an even major release number. We do not currently support unstable versions and while the module may happen to work on some unstable versions you\'ll find that we quickly close issues if you\'re not using a stable version.\n\nIf you are on a stable version of node, we can\'t magically know what you are doing to expose an issue, it is best if you provide a snippet of code or log files if you\'re having an install issue. This snippet need not include your secret sauce, but it must replicate the issue you are describing. The issues that get closed without resolution tend to be the ones that don\'t help us help you. Thanks.\n\n\n## Version Compatibility\n\n| Node Version | Bcrypt Version |\n| ---- | ---- |\n| <= 0.4.x | <= 0.4.x |\n| >= 0.6.x | >= 0.5.x |\n\nWindows users should make sure to have at least node 0.8.5 installed and version >= 0.7.1 of this module.\n\n`node-gyp` only works with stable/released versions of node. Since the `bcrypt` module uses `node-gyp` to build and install you\'ll need a stable version of node to use bcrypt. If you do not you\'ll likely see an error that starts with:\n\n```\ngyp ERR! stack Error: "pre" versions of node cannot be installed, use the --nodedir flag instead\n```\n\n## Security Issues/Concerns\n\nAs should be the case with any security tool, this library should be scrutinized by anyone using it. If you find or suspect an issue with the code- please bring it to my attention and I\'ll spend some time trying to make sure that this tool is as secure as possible.\n\nTo make it easier for people using this tool to analyze what has been surveyed, here is a list of BCrypt related security issues/concerns as they\'ve come up.\n\n* An [issue with passwords][jtr] was found with a version of the Blowfish algorithm developed for John the Ripper. This is not present in the OpenBSD version and is thus not a problem for this module. HT [zooko][zooko].\n\n## Dependencies\n\n* NodeJS\n* `node-gyp`\n * Please check the dependencies for this tool at: https://github.com/TooTallNate/node-gyp/\n  * Windows users will need the options for c# and c++ installed with their visual studio instance.\n  * Python 2.x\n* `OpenSSL` - This is only required to build the `bcrypt` project if you are using versions <= 0.7.7. Otherwise, we\'re using the builtin node crypto bindings for seed data (which use the same OpenSSL code paths we were, but don\'t have the external dependency).\n\n## Install via NPM\n```\nnpm install bcrypt\n```\n\n***Note:*** OS X users using Xcode 4.3.1 or above may need to run the following command in their terminal prior to installing if errors occur regarding xcodebuild: ```sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer```\n\n## Usage\n\n### async (recommended)\n\nTo hash a password:\n\n```javascript\nvar bcrypt = require(\'bcrypt\');\nbcrypt.genSalt(10, function(err, salt) {\n    bcrypt.hash("B4c0/\\/", salt, function(err, hash) {\n        // Store hash in your password DB.\n    });\n});\n```\n\nTo check a password:\n\n```javascript\n// Load hash from your password DB.\nbcrypt.compare("B4c0/\\/", hash, function(err, res) {\n    // res == true\n});\nbcrypt.compare("not_bacon", hash, function(err, res) {\n    // res == false\n});\n```\n\nAuto-gen a salt and hash:\n\n```javascript\nbcrypt.hash(\'bacon\', 8, function(err, hash) {\n});\n```\n\n\n### sync\n\nTo hash a password:\n\n```javascript\nvar bcrypt = require(\'bcrypt\');\nvar salt = bcrypt.genSaltSync(10);\nvar hash = bcrypt.hashSync("B4c0/\\/", salt);\n// Store hash in your password DB.\n```\n\nTo check a password:\n\n```javascript\n// Load hash from your password DB.\nbcrypt.compareSync("B4c0/\\/", hash); // true\nbcrypt.compareSync("not_bacon", hash); // false\n```\n\nAuto-gen a salt and hash:\n\n```javascript\nvar hash = bcrypt.hashSync(\'bacon\', 8);\n```\n\n## API\n\n`BCrypt.`\n\n  * `genSaltSync(rounds)`\n    * `rounds` - [OPTIONAL] - the cost of processing the data. (default - 10)\n  * `genSalt(rounds, cb)`\n    * `rounds` - [OPTIONAL] - the cost of processing the data. (default - 10)\n    * `cb` - [REQUIRED] - a callback to be fired once the salt has been generated. uses eio making it asynchronous.\n      * `err` - First parameter to the callback detailing any errors.\n      * `salt` - Second parameter to the callback providing the generated salt.\n  * `hashSync(data, salt)`\n    * `data` - [REQUIRED] - the data to be encrypted.\n    * `salt` - [REQUIRED] - the salt to be used in encryption.\n  * `hash(data, salt, cb)`\n    * `data` - [REQUIRED] - the data to be encrypted.\n    * `salt` - [REQUIRED] - the salt to be used to hash the password. if specified as a number then a salt will be generated and used (see examples).\n    * `cb` - [REQUIRED] - a callback to be fired once the data has been encrypted. uses eio making it asynchronous.\n      * `err` - First parameter to the callback detailing any errors.\n      * `encrypted` - Second parameter to the callback providing the encrypted form.\n  * `compareSync(data, encrypted)`\n    * `data` - [REQUIRED] - data to compare.\n    * `encrypted` - [REQUIRED] - data to be compared to.\n  * `compare(data, encrypted, cb)`\n    * `data` - [REQUIRED] - data to compare.\n    * `encrypted` - [REQUIRED] - data to be compared to.\n    * `cb` - [REQUIRED] - a callback to be fired once the data has been compared. uses eio making it asynchronous.\n      * `err` - First parameter to the callback detailing any errors.\n      * `same` - Second parameter to the callback providing whether the data and encrypted forms match [true | false].\n  * `getRounds(encrypted)` - return the number of rounds used to encrypt a given hash\n    * `encrypted` - [REQUIRED] - hash from which the number of rounds used should be extracted.\n\n## A Note on Rounds\n\nA note about the cost. When you are hashing your data the module will go through a series of rounds to give you a secure hash. The value you submit there is not just the number of rounds that the module will go through to hash your data. The module will use the value you enter and go through `2^rounds` iterations of processing.\n\nFrom @garthk, on a 2GHz core you can roughly expect:\n\n    rounds=10: ~10 hashes/sec\n    rounds=13: ~1 sec/hash\n    rounds=25: ~1 hour/hash\n    rounds=31: 2-3 days/hash\n\n\n## Hash Info\n\nThe characters that comprise the resultant hash are `./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$`.\n\n## Testing\n\nIf you create a pull request, tests better pass :)\n\n```\nnpm install\nnpm test\n```\n\n## Credits\n\nThe code for this comes from a few sources:\n\n* blowfish.cc - OpenBSD\n* bcrypt.cc - OpenBSD\n* bcrypt::gen_salt - [gen_salt inclusion to bcrypt][bcryptgs]\n* bcrypt_node.cc - me\n\n## Contributors\n\n* [Antonio Salazar Cardozo][shadowfiend] - Early MacOS X support (when we used libbsd)\n* [Ben Glow][pixelglow] - Fixes for thread safety with async calls\n* [Van Nguyen][thegoleffect] - Found a timing attack in the comparator\n* [NewITFarmer][newitfarmer] - Initial Cygwin support\n* [David Trejo][dtrejo] - packaging fixes\n* [Alfred Westerveld][alfredwesterveld] - packaging fixes\n* [Vincent Côté-Roy][vincentr] - Testing around concurrency issues\n* [Lloyd Hilaiel][lloyd] - Documentation fixes\n* [Roman Shtylman][shtylman] - Code refactoring, general rot reduction, compile options, better memory management with delete and new, and an upgrade to libuv over eio/ev.\n* [Vadim Graboys][vadimg] - Code changes to support 0.5.5+\n* [Ben Noordhuis][bnoordhuis] - Fixed a thread safety issue in nodejs that was perfectly mappable to this module.\n* [Nate Rajlich][tootallnate] - Bindings and build process.\n* [Sean McArthur][seanmonstar] - Windows Support\n* [Fanie Oosthuysen][weareu] - Windows Support\n\n## License\nUnless stated elsewhere, file headers or otherwise, the license as stated in the LICENSE file.\n\n[bcryptwiki]: http://en.wikipedia.org/wiki/Bcrypt\n[bcryptgs]: http://mail-index.netbsd.org/tech-crypto/2002/05/24/msg000204.html\n[codahale]: http://codahale.com/how-to-safely-store-a-password/\n[gh13]: https://github.com/ncb000gt/node.bcrypt.js/issues/13\n[jtr]: http://www.openwall.com/lists/oss-security/2011/06/20/2\n\n[shadowfiend]:https://github.com/Shadowfiend\n[thegoleffect]:https://github.com/thegoleffect\n[pixelglow]:https://github.com/pixelglow\n[dtrejo]:https://github.com/dtrejo\n[alfredwesterveld]:https://github.com/alfredwesterveld\n[newitfarmer]:https://github.com/newitfarmer\n[zooko]:https://twitter.com/zooko\n[vincentr]:https://twitter.com/vincentcr\n[lloyd]:https://github.com/lloyd\n[shtylman]:https://github.com/shtylman\n[vadimg]:https://github.com/vadimg\n[bnoordhuis]:https://github.com/bnoordhuis\n[tootallnate]:https://github.com/tootallnate\n[seanmonstar]:https://github.com/seanmonstar\n[weareu]:https://github.com/weareu\n',
+75 silly resolved     readmeFilename: 'README.md',
+75 silly resolved     homepage: 'https://github.com/ncb000gt/node.bcrypt.js',
+75 silly resolved     _id: 'bcrypt@0.8.0',
+75 silly resolved     _from: 'bcrypt@0.8.x' } ]
+76 info install bcrypt@0.8.0 into /Users/npb/Projects/npb
+77 info installOne bcrypt@0.8.0
+78 info /Users/npb/Projects/npb/node_modules/bcrypt unbuild
+79 verbose tar unpack /Users/npb/.npm/bcrypt/0.8.0/package.tgz
+80 silly lockFile 94c50c35-Projects-npb-node-modules-bcrypt tar:///Users/npb/Projects/npb/node_modules/bcrypt
+81 verbose lock tar:///Users/npb/Projects/npb/node_modules/bcrypt /Users/npb/.npm/94c50c35-Projects-npb-node-modules-bcrypt.lock
+82 silly lockFile ca1e9396-npb-npm-bcrypt-0-8-0-package-tgz tar:///Users/npb/.npm/bcrypt/0.8.0/package.tgz
+83 verbose lock tar:///Users/npb/.npm/bcrypt/0.8.0/package.tgz /Users/npb/.npm/ca1e9396-npb-npm-bcrypt-0-8-0-package-tgz.lock
+84 silly gunzTarPerm modes [ '755', '644' ]
+85 silly gunzTarPerm extractEntry package.json
+86 silly gunzTarPerm extractEntry .npmignore
+87 silly gunzTarPerm extractEntry README.md
+88 silly gunzTarPerm extractEntry LICENSE
+89 silly gunzTarPerm extractEntry bcrypt.js
+90 silly gunzTarPerm extractEntry Makefile
+91 silly gunzTarPerm extractEntry .travis.yml
+92 silly gunzTarPerm extractEntry binding.gyp
+93 silly gunzTarPerm extractEntry examples/async_compare.js
+94 silly gunzTarPerm extractEntry examples/forever_gen_salt.js
+95 silly gunzTarPerm extractEntry CHANGELOG.md
+96 silly gunzTarPerm extractEntry src/bcrypt.cc
+97 silly gunzTarPerm extractEntry src/bcrypt_node.cc
+98 silly gunzTarPerm extractEntry src/blowfish.cc
+99 silly gunzTarPerm extractEntry src/node_blf.h
+100 silly gunzTarPerm extractEntry test/async.js
+101 silly gunzTarPerm extractEntry test/repetitions.js
+102 silly gunzTarPerm extractEntry test/sync.js
+103 silly gunzTarPerm extractEntry werker.yml
+104 silly lockFile 94c50c35-Projects-npb-node-modules-bcrypt tar:///Users/npb/Projects/npb/node_modules/bcrypt
+105 silly lockFile 94c50c35-Projects-npb-node-modules-bcrypt tar:///Users/npb/Projects/npb/node_modules/bcrypt
+106 silly lockFile ca1e9396-npb-npm-bcrypt-0-8-0-package-tgz tar:///Users/npb/.npm/bcrypt/0.8.0/package.tgz
+107 silly lockFile ca1e9396-npb-npm-bcrypt-0-8-0-package-tgz tar:///Users/npb/.npm/bcrypt/0.8.0/package.tgz
+108 info preinstall bcrypt@0.8.0
+109 verbose readDependencies using package.json deps
+110 verbose readDependencies using package.json deps
+111 verbose cache add [ 'bindings@1.0.0', null ]
+112 verbose cache add name=undefined spec="bindings@1.0.0" args=["bindings@1.0.0",null]
+113 verbose parsed url { protocol: null,
+113 verbose parsed url   slashes: null,
+113 verbose parsed url   auth: null,
+113 verbose parsed url   host: null,
+113 verbose parsed url   port: null,
+113 verbose parsed url   hostname: null,
+113 verbose parsed url   hash: null,
+113 verbose parsed url   search: null,
+113 verbose parsed url   query: null,
+113 verbose parsed url   pathname: 'bindings@1.0.0',
+113 verbose parsed url   path: 'bindings@1.0.0',
+113 verbose parsed url   href: 'bindings@1.0.0' }
+114 verbose cache add name="bindings" spec="1.0.0" args=["bindings","1.0.0"]
+115 verbose parsed url { protocol: null,
+115 verbose parsed url   slashes: null,
+115 verbose parsed url   auth: null,
+115 verbose parsed url   host: null,
+115 verbose parsed url   port: null,
+115 verbose parsed url   hostname: null,
+115 verbose parsed url   hash: null,
+115 verbose parsed url   search: null,
+115 verbose parsed url   query: null,
+115 verbose parsed url   pathname: '1.0.0',
+115 verbose parsed url   path: '1.0.0',
+115 verbose parsed url   href: '1.0.0' }
+116 verbose addNamed [ 'bindings', '1.0.0' ]
+117 verbose addNamed [ '1.0.0', '1.0.0' ]
+118 silly lockFile f01e5454-bindings-1-0-0 bindings@1.0.0
+119 verbose lock bindings@1.0.0 /Users/npb/.npm/f01e5454-bindings-1-0-0.lock
+120 verbose cache add [ 'nan@1.3.0', null ]
+121 verbose cache add name=undefined spec="nan@1.3.0" args=["nan@1.3.0",null]
+122 verbose parsed url { protocol: null,
+122 verbose parsed url   slashes: null,
+122 verbose parsed url   auth: null,
+122 verbose parsed url   host: null,
+122 verbose parsed url   port: null,
+122 verbose parsed url   hostname: null,
+122 verbose parsed url   hash: null,
+122 verbose parsed url   search: null,
+122 verbose parsed url   query: null,
+122 verbose parsed url   pathname: 'nan@1.3.0',
+122 verbose parsed url   path: 'nan@1.3.0',
+122 verbose parsed url   href: 'nan@1.3.0' }
+123 verbose cache add name="nan" spec="1.3.0" args=["nan","1.3.0"]
+124 verbose parsed url { protocol: null,
+124 verbose parsed url   slashes: null,
+124 verbose parsed url   auth: null,
+124 verbose parsed url   host: null,
+124 verbose parsed url   port: null,
+124 verbose parsed url   hostname: null,
+124 verbose parsed url   hash: null,
+124 verbose parsed url   search: null,
+124 verbose parsed url   query: null,
+124 verbose parsed url   pathname: '1.3.0',
+124 verbose parsed url   path: '1.3.0',
+124 verbose parsed url   href: '1.3.0' }
+125 verbose addNamed [ 'nan', '1.3.0' ]
+126 verbose addNamed [ '1.3.0', '1.3.0' ]
+127 silly lockFile b8539500-nan-1-3-0 nan@1.3.0
+128 verbose lock nan@1.3.0 /Users/npb/.npm/b8539500-nan-1-3-0.lock
+129 verbose url raw bindings/1.0.0
+130 verbose url resolving [ 'https://registry.npmjs.org/', './bindings/1.0.0' ]
+131 verbose url resolved https://registry.npmjs.org/bindings/1.0.0
+132 info trying registry request attempt 1 at 13:29:25
+133 verbose etag "6SJRISMK25A1UDWM33HHCDB3Q"
+134 http GET https://registry.npmjs.org/bindings/1.0.0
+135 verbose url raw nan/1.3.0
+136 verbose url resolving [ 'https://registry.npmjs.org/', './nan/1.3.0' ]
+137 verbose url resolved https://registry.npmjs.org/nan/1.3.0
+138 info trying registry request attempt 1 at 13:29:25
+139 verbose etag "BASL4AHUZL2X9BYWJN23MGK84"
+140 http GET https://registry.npmjs.org/nan/1.3.0
+141 http 304 https://registry.npmjs.org/nan/1.3.0
+142 silly registry.get cb [ 304,
+142 silly registry.get   { date: 'Thu, 01 Jan 2015 21:29:25 GMT',
+142 silly registry.get     server: 'Apache',
+142 silly registry.get     via: '1.1 varnish',
+142 silly registry.get     'last-modified': 'Thu, 01 Jan 2015 21:29:25 GMT',
+142 silly registry.get     'cache-control': 'max-age=60',
+142 silly registry.get     etag: '"BASL4AHUZL2X9BYWJN23MGK84"',
+142 silly registry.get     age: '0',
+142 silly registry.get     'x-served-by': 'cache-lax1427-LAX',
+142 silly registry.get     'x-cache': 'HIT',
+142 silly registry.get     'x-cache-hits': '1',
+142 silly registry.get     'x-timer': 'S1420147765.349207,VS0,VE174',
+142 silly registry.get     vary: 'Accept',
+142 silly registry.get     'content-length': '0',
+142 silly registry.get     connection: 'close' } ]
+143 verbose etag nan/1.3.0 from cache
+144 silly lockFile b8539500-nan-1-3-0 nan@1.3.0
+145 silly lockFile b8539500-nan-1-3-0 nan@1.3.0
+146 http 304 https://registry.npmjs.org/bindings/1.0.0
+147 silly registry.get cb [ 304,
+147 silly registry.get   { date: 'Thu, 01 Jan 2015 21:29:25 GMT',
+147 silly registry.get     server: 'Apache',
+147 silly registry.get     via: '1.1 varnish',
+147 silly registry.get     'last-modified': 'Thu, 01 Jan 2015 21:29:25 GMT',
+147 silly registry.get     'cache-control': 'max-age=60',
+147 silly registry.get     etag: '"6SJRISMK25A1UDWM33HHCDB3Q"',
+147 silly registry.get     age: '0',
+147 silly registry.get     'x-served-by': 'cache-lax1421-LAX',
+147 silly registry.get     'x-cache': 'MISS',
+147 silly registry.get     'x-cache-hits': '0',
+147 silly registry.get     'x-timer': 'S1420147765.348260,VS0,VE274',
+147 silly registry.get     vary: 'Accept',
+147 silly registry.get     'content-length': '0',
+147 silly registry.get     connection: 'close' } ]
+148 verbose etag bindings/1.0.0 from cache
+149 silly lockFile f01e5454-bindings-1-0-0 bindings@1.0.0
+150 silly lockFile f01e5454-bindings-1-0-0 bindings@1.0.0
+151 silly resolved [ { name: 'nan',
+151 silly resolved     version: '1.3.0',
+151 silly resolved     description: 'Native Abstractions for Node.js: C++ header for Node 0.8->0.12 compatibility',
+151 silly resolved     main: 'include_dirs.js',
+151 silly resolved     repository: { type: 'git', url: 'git://github.com/rvagg/nan.git' },
+151 silly resolved     scripts:
+151 silly resolved      { test: 'tap --gc test/js/*-test.js',
+151 silly resolved        'rebuild-tests': 'node-gyp rebuild --directory test' },
+151 silly resolved     contributors: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+151 silly resolved     devDependencies:
+151 silly resolved      { bindings: '~1.2.1',
+151 silly resolved        'node-gyp': '~1.0.1',
+151 silly resolved        tap: '~0.4.12',
+151 silly resolved        xtend: '~4.0.0' },
+151 silly resolved     license: 'MIT',
+151 silly resolved     readme: 'Native Abstractions for Node.js\n===============================\n\n**A header file filled with macro and utility goodness for making add-on development for Node.js easier across versions 0.8, 0.10 and 0.11, and eventually 0.12.**\n\n***Current version: 1.3.0***\n\n*(See [nan.h](https://github.com/rvagg/nan/blob/master/CHANGELOG.md) for complete ChangeLog)*\n\n[![NPM](https://nodei.co/npm/nan.png?downloads=true)](https://nodei.co/npm/nan/) [![NPM](https://nodei.co/npm-dl/nan.png?months=6)](https://nodei.co/npm/nan/)\n\n[![Build Status](https://secure.travis-ci.org/rvagg/nan.png)](http://travis-ci.org/rvagg/nan)\n[![Build status](https://ci.appveyor.com/api/projects/status/kh73pbm9dsju7fgh)](https://ci.appveyor.com/project/RodVagg/nan)\n\nThanks to the crazy changes in V8 (and some in Node core), keeping native addons compiling happily across versions, particularly 0.10 to 0.11/0.12, is a minor nightmare. The goal of this project is to store all logic necessary to develop native Node.js addons without having to inspect `NODE_MODULE_VERSION` and get yourself into a macro-tangle.\n\nThis project also contains some helper utilities that make addon development a bit more pleasant.\n\n * **[News & Updates](#news)**\n * **[Usage](#usage)**\n * **[Example](#example)**\n * **[API](#api)**\n\n<a name="news"></a>\n## News & Updates\n\n### Aug-2014: 1.3.0 release\n\n* `NanCString()` and `NanRawString()` have been deprecated in favour of new <a href="#api_nan_ascii_string"><b><code>NanAsciiString</code></b></a>, <a href="#api_nan_utf8_string"><b><code>NanUtf8String</code></b></a> and <a href="#api_nan_ucs2_string"><b><code>NanUcs2String</code></b></a>. These classes manage the underlying memory for you in a safer way than just handing off an allocated array. You should now `*NanAsciiString(handle)` to access the raw `char` data, you can also allocate on the heap if you need to keep a reference.\n* Two more <a href="#api_nan_make_callback"><b><code>NanMakeCallback</code></b></a> overloads have been added to for parity with Node core.\n* You can now `NanNew(std::string)` (use `NanNew<std::string&>(std::string&)` to pass by reference)\n* <a href="#api_nan_set_template"><b><code>NanSetTemplate</code></b></a>, <a href="#api_nan_set_prototype_template"><b><code>NanSetPrototypeTemplate</code></b></a> and <a href="#api_nan_set_instance_template"><b><code>NanSetInstanceTemplate</code></b></a> have been added.\n\n### May-2014: 1.1.0 release\n\n* We\'ve deprecated `NanSymbol()`, you should just use `NanNew<String>()` now.\n* `NanNull()`, `NanUndefined()`, `NanTrue()`, `NanFalse()` all return `Local`s now.\n* `nan_isolate` is gone, it was intended to be internal-only but if you were using it then you should switch to `v8::Isolate::GetCurrent()`.\n* `NanNew()` has received some additional overload-love so you should be able to give it many kinds of values without specifying the `<Type>`.\n* Lots of small fixes and additions to expand the V8 API coverage, *use the source, Luke*.\n\n\n### May-2014: Major changes for V8 3.25 / Node 0.11.13\n\nNode 0.11.11 and 0.11.12 were both broken releases for native add-ons, you simply can\'t properly compile against either of them for different reasons. But we now have a 0.11.13 release that jumps a couple of versions of V8 ahead and includes some more, major (traumatic) API changes.\n\nBecause we are now nearing Node 0.12 and estimate that the version of V8 we are using in Node 0.11.13 will be close to the API we get for 0.12, we have taken the opportunity to not only *fix* NAN for 0.11.13 but make some major changes to improve the NAN API.\n\nWe have **removed support for Node 0.11 versions prior to 0.11.13**. As usual, our tests are run against (and pass) the last 5 versions of Node 0.8 and Node 0.10. We also include Node 0.11.13 obviously.\n\nThe major change is something that [Benjamin Byholm](kkoopa) has put many hours in to. We now have a fantastic new `NanNew<T>(args)` interface for creating new `Local`s, this replaces `NanNewLocal()` and much more. If you look in [./nan.h](nan.h) you\'ll see a large number of overloaded versions of this method. In general you should be able to `NanNew<Type>(arguments)` for any type you want to make a `Local` from. This includes `Persistent` types, so we now have a `Local<T> NanNew(const Persistent<T> arg)` to replace `NanPersistentToLocal()`.\n\nWe also now have `NanUndefined()`, `NanNull()`, `NanTrue()` and `NanFalse()`. Mainly because of the new requirement for an `Isolate` argument for each of the native V8 versions of this.\n\nV8 has now introduced an `EscapableHandleScope` from which you `scope.Escape(Local<T> value)` to *return* a value from a one scope to another. This replaces the standard `HandleScope` and `scope.Close(Local<T> value)`, although `HandleScope` still exists for when you don\'t need to return a handle to the caller. For NAN we are exposing it as `NanEscapableScope()` and `NanEscapeScope()`, while `NanScope()` is still how you create a new scope that doesn\'t need to return handles. For older versions of Node/V8, it\'ll still map to the older `HandleScope` functionality.\n\n`NanFromV8String()` was deprecated and has now been removed. You should use `NanCString()` or `NanRawString()` instead.\n\nBecause `node::MakeCallback()` now takes an `Isolate`, and because it doesn\'t exist in older versions of Node, we\'ve introduced `NanMakeCallback()`. You should *always* use this when calling a JavaScript function from C++.\n\nThere\'s lots more, check out the Changelog in nan.h or look through [#86](https://github.com/rvagg/nan/pull/86) for all the gory details.\n\n### Dec-2013: NanCString and NanRawString\n\nTwo new functions have been introduced to replace the functionality that\'s been provided by `NanFromV8String` until now. NanCString has sensible defaults so it\'s super easy to fetch a null-terminated c-style string out of a `v8::String`. `NanFromV8String` is still around and has defaults that allow you to pass a single handle to fetch a `char*` while `NanRawString` requires a little more attention to arguments.\n\n### Nov-2013: Node 0.11.9+ breaking V8 change\n\nThe version of V8 that\'s shipping with Node 0.11.9+ has changed the signature for new `Local`s to: `v8::Local<T>::New(isolate, value)`, i.e. introducing the `isolate` argument and therefore breaking all new `Local` declarations for previous versions. NAN 0.6+ now includes a `NanNewLocal<T>(value)` that can be used in place to work around this incompatibility and maintain compatibility with 0.8->0.11.9+ (minus a few early 0.11 releases).\n\nFor example, if you wanted to return a `null` on a callback you will have to change the argument from `v8::Local<v8::Value>::New(v8::Null())` to `NanNewLocal<v8::Value>(v8::Null())`.\n\n### Nov-2013: Change to binding.gyp `"include_dirs"` for NAN\n\nInclusion of NAN in a project\'s binding.gyp is now greatly simplified. You can now just use `"<!(node -e \\"require(\'nan\')\\")"` in your `"include_dirs"`, see example below (note Windows needs the quoting around `require` to be just right: `"require(\'nan\')"` with appropriate `\\` escaping).\n\n<a name="usage"></a>\n## Usage\n\nSimply add **NAN** as a dependency in the *package.json* of your Node addon:\n\n``` bash\n$ npm install --save nan\n```\n\nPull in the path to **NAN** in your *binding.gyp* so that you can use `#include <nan.h>` in your *.cpp* files:\n\n``` python\n"include_dirs" : [\n    "<!(node -e \\"require(\'nan\')\\")"\n]\n```\n\nThis works like a `-I<path-to-NAN>` when compiling your addon.\n\n<a name="example"></a>\n## Example\n\nSee **[LevelDOWN](https://github.com/rvagg/node-leveldown/pull/48)** for a full example of **NAN** in use.\n\nFor a simpler example, see the **[async pi estimation example](https://github.com/rvagg/nan/tree/master/examples/async_pi_estimate)** in the examples directory for full code and an explanation of what this Monte Carlo Pi estimation example does. Below are just some parts of the full example that illustrate the use of **NAN**.\n\nCompare to the current 0.10 version of this example, found in the [node-addon-examples](https://github.com/rvagg/node-addon-examples/tree/master/9_async_work) repository and also a 0.11 version of the same found [here](https://github.com/kkoopa/node-addon-examples/tree/5c01f58fc993377a567812597e54a83af69686d7/9_async_work).\n\nNote that there is no embedded version sniffing going on here and also the async work is made much simpler, see below for details on the `NanAsyncWorker` class.\n\n```c++\n// addon.cc\n#include <node.h>\n#include <nan.h>\n// ...\n\nusing v8::FunctionTemplate;\nusing v8::Handle;\nusing v8::Object;\nusing v8::String;\n\nvoid InitAll(Handle<Object> exports) {\n  exports->Set(NanNew<String>("calculateSync"),\n    NanNew<FunctionTemplate>(CalculateSync)->GetFunction());\n\n  exports->Set(NanNew<String>("calculateAsync"),\n    NanNew<FunctionTemplate>(CalculateAsync)->GetFunction());\n}\n\nNODE_MODULE(addon, InitAll)\n```\n\n```c++\n// sync.h\n#include <node.h>\n#include <nan.h>\n\nNAN_METHOD(CalculateSync);\n```\n\n```c++\n// sync.cc\n#include <node.h>\n#include <nan.h>\n#include "./sync.h"\n// ...\n\nusing v8::Number;\n\n// Simple synchronous access to the `Estimate()` function\nNAN_METHOD(CalculateSync) {\n  NanScope();\n\n  // expect a number as the first argument\n  int points = args[0]->Uint32Value();\n  double est = Estimate(points);\n\n  NanReturnValue(NanNew<Number>(est));\n}\n```\n\n```c++\n// async.h\n#include <node.h>\n#include <nan.h>\n\nNAN_METHOD(CalculateAsync);\n```\n\n```c++\n// async.cc\n#include <node.h>\n#include <nan.h>\n#include "./async.h"\n\n// ...\n\nusing v8::Function;\nusing v8::Local;\nusing v8::Null;\nusing v8::Number;\nusing v8::Value;\n\nclass PiWorker : public NanAsyncWorker {\n public:\n  PiWorker(NanCallback *callback, int points)\n    : NanAsyncWorker(callback), points(points) {}\n  ~PiWorker() {}\n\n  // Executed inside the worker-thread.\n  // It is not safe to access V8, or V8 data structures\n  // here, so everything we need for input and output\n  // should go on `this`.\n  void Execute () {\n    estimate = Estimate(points);\n  }\n\n  // Executed when the async work is complete\n  // this function will be run inside the main event loop\n  // so it is safe to use V8 again\n  void HandleOKCallback () {\n    NanScope();\n\n    Local<Value> argv[] = {\n        NanNull()\n      , NanNew<Number>(estimate)\n    };\n\n    callback->Call(2, argv);\n  };\n\n private:\n  int points;\n  double estimate;\n};\n\n// Asynchronous access to the `Estimate()` function\nNAN_METHOD(CalculateAsync) {\n  NanScope();\n\n  int points = args[0]->Uint32Value();\n  NanCallback *callback = new NanCallback(args[1].As<Function>());\n\n  NanAsyncQueueWorker(new PiWorker(callback, points));\n  NanReturnUndefined();\n}\n```\n\n<a name="api"></a>\n## API\n\n * <a href="#api_nan_method"><b><code>NAN_METHOD</code></b></a>\n * <a href="#api_nan_getter"><b><code>NAN_GETTER</code></b></a>\n * <a href="#api_nan_setter"><b><code>NAN_SETTER</code></b></a>\n * <a href="#api_nan_property_getter"><b><code>NAN_PROPERTY_GETTER</code></b></a>\n * <a href="#api_nan_property_setter"><b><code>NAN_PROPERTY_SETTER</code></b></a>\n * <a href="#api_nan_property_enumerator"><b><code>NAN_PROPERTY_ENUMERATOR</code></b></a>\n * <a href="#api_nan_property_deleter"><b><code>NAN_PROPERTY_DELETER</code></b></a>\n * <a href="#api_nan_property_query"><b><code>NAN_PROPERTY_QUERY</code></b></a>\n * <a href="#api_nan_index_getter"><b><code>NAN_INDEX_GETTER</code></b></a>\n * <a href="#api_nan_index_setter"><b><code>NAN_INDEX_SETTER</code></b></a>\n * <a href="#api_nan_index_enumerator"><b><code>NAN_INDEX_ENUMERATOR</code></b></a>\n * <a href="#api_nan_index_deleter"><b><code>NAN_INDEX_DELETER</code></b></a>\n * <a href="#api_nan_index_query"><b><code>NAN_INDEX_QUERY</code></b></a>\n * <a href="#api_nan_weak_callback"><b><code>NAN_WEAK_CALLBACK</code></b></a>\n * <a href="#api_nan_deprecated"><b><code>NAN_DEPRECATED</code></b></a>\n * <a href="#api_nan_inline"><b><code>NAN_INLINE</code></b></a>\n * <a href="#api_nan_new"><b><code>NanNew</code></b></a>\n * <a href="#api_nan_undefined"><b><code>NanUndefined</code></b></a>\n * <a href="#api_nan_null"><b><code>NanNull</code></b></a>\n * <a href="#api_nan_true"><b><code>NanTrue</code></b></a>\n * <a href="#api_nan_false"><b><code>NanFalse</code></b></a>\n * <a href="#api_nan_return_value"><b><code>NanReturnValue</code></b></a>\n * <a href="#api_nan_return_undefined"><b><code>NanReturnUndefined</code></b></a>\n * <a href="#api_nan_return_null"><b><code>NanReturnNull</code></b></a>\n * <a href="#api_nan_return_empty_string"><b><code>NanReturnEmptyString</code></b></a>\n * <a href="#api_nan_scope"><b><code>NanScope</code></b></a>\n * <a href="#api_nan_escapable_scope"><b><code>NanEscapableScope</code></b></a>\n * <a href="#api_nan_escape_scope"><b><code>NanEscapeScope</code></b></a>\n * <a href="#api_nan_locker"><b><code>NanLocker</code></b></a>\n * <a href="#api_nan_unlocker"><b><code>NanUnlocker</code></b></a>\n * <a href="#api_nan_get_internal_field_pointer"><b><code>NanGetInternalFieldPointer</code></b></a>\n * <a href="#api_nan_set_internal_field_pointer"><b><code>NanSetInternalFieldPointer</code></b></a>\n * <a href="#api_nan_object_wrap_handle"><b><code>NanObjectWrapHandle</code></b></a>\n * <del><a href="#api_nan_symbol"><b><code>NanSymbol</code></b></a></del>\n * <a href="#api_nan_get_pointer_safe"><b><code>NanGetPointerSafe</code></b></a>\n * <a href="#api_nan_set_pointer_safe"><b><code>NanSetPointerSafe</code></b></a>\n * <del><a href="#api_nan_raw_string"><b><code>NanRawString</code></b></a></del>\n * <del><a href="#api_nan_c_string"><b><code>NanCString</code></b></a></del>\n * <a href="#api_nan_ascii_string"><b><code>NanAsciiString</code></b></a>\n * <a href="#api_nan_utf8_string"><b><code>NanUtf8String</code></b></a>\n * <a href="#api_nan_ucs2_string"><b><code>NanUcs2String</code></b></a>\n * <a href="#api_nan_boolean_option_value"><b><code>NanBooleanOptionValue</code></b></a>\n * <a href="#api_nan_uint32_option_value"><b><code>NanUInt32OptionValue</code></b></a>\n * <a href="#api_nan_error"><b><code>NanError</code></b>, <b><code>NanTypeError</code></b>, <b><code>NanRangeError</code></b></a>\n * <a href="#api_nan_throw_error"><b><code>NanThrowError</code></b>, <b><code>NanThrowTypeError</code></b>, <b><code>NanThrowRangeError</code></b>, <b><code>NanThrowError(Handle<Value>)</code></b>, <b><code>NanThrowError(Handle<Value>, int)</code></b></a>\n * <a href="#api_nan_new_buffer_handle"><b><code>NanNewBufferHandle(char *, size_t, FreeCallback, void *)</code></b>, <b><code>NanNewBufferHandle(char *, uint32_t)</code></b>, <b><code>NanNewBufferHandle(uint32_t)</code></b></a>\n * <a href="#api_nan_buffer_use"><b><code>NanBufferUse(char *, uint32_t)</code></b></a>\n * <a href="#api_nan_new_context_handle"><b><code>NanNewContextHandle</code></b></a>\n * <a href="#api_nan_get_current_context"><b><code>NanGetCurrentContext</code></b></a>\n * <a href="#api_nan_has_instance"><b><code>NanHasInstance</code></b></a>\n * <a href="#api_nan_dispose_persistent"><b><code>NanDisposePersistent</code></b></a>\n * <a href="#api_nan_assign_persistent"><b><code>NanAssignPersistent</code></b></a>\n * <a href="#api_nan_make_weak_persistent"><b><code>NanMakeWeakPersistent</code></b></a>\n * <a href="#api_nan_set_template"><b><code>NanSetTemplate</code></b></a>\n * <a href="#api_nan_set_prototype_template"><b><code>NanSetPrototypeTemplate</code></b></a>\n * <a href="#api_nan_set_instance_template"><b><code>NanSetInstanceTemplate</code></b></a>\n * <a href="#api_nan_make_callback"><b><code>NanMakeCallback</code></b></a>\n * <a href="#api_nan_compile_script"><b><code>NanCompileScript</code></b></a>\n * <a href="#api_nan_run_script"><b><code>NanRunScript</code></b></a>\n * <a href="#api_nan_adjust_external_memory"><b><code>NanAdjustExternalMemory</code></b></a>\n * <a href="#api_nan_add_gc_epilogue_callback"><b><code>NanAddGCEpilogueCallback</code></b></a>\n * <a href="#api_nan_add_gc_prologue_callback"><b><code>NanAddGCPrologueCallback</code></b></a>\n * <a href="#api_nan_remove_gc_epilogue_callback"><b><code>NanRemoveGCEpilogueCallback</code></b></a>\n * <a href="#api_nan_remove_gc_prologue_callback"><b><code>NanRemoveGCPrologueCallback</code></b></a>\n * <a href="#api_nan_get_heap_statistics"><b><code>NanGetHeapStatistics</code></b></a>\n * <a href="#api_nan_callback"><b><code>NanCallback</code></b></a>\n * <a href="#api_nan_async_worker"><b><code>NanAsyncWorker</code></b></a>\n * <a href="#api_nan_async_queue_worker"><b><code>NanAsyncQueueWorker</code></b></a>\n\n<a name="api_nan_method"></a>\n### NAN_METHOD(methodname)\n\nUse `NAN_METHOD` to define your V8 accessible methods:\n\n```c++\n// .h:\nclass Foo : public node::ObjectWrap {\n  ...\n\n  static NAN_METHOD(Bar);\n  static NAN_METHOD(Baz);\n}\n\n\n// .cc:\nNAN_METHOD(Foo::Bar) {\n  ...\n}\n\nNAN_METHOD(Foo::Baz) {\n  ...\n}\n```\n\nThe reason for this macro is because of the method signature change in 0.11:\n\n```c++\n// 0.10 and below:\nHandle<Value> name(const Arguments& args)\n\n// 0.11 and above\nvoid name(const FunctionCallbackInfo<Value>& args)\n```\n\nThe introduction of `FunctionCallbackInfo` brings additional complications:\n\n<a name="api_nan_getter"></a>\n### NAN_GETTER(methodname)\n\nUse `NAN_GETTER` to declare your V8 accessible getters. You get a `Local<String>` `property` and an appropriately typed `args` object that can act like the `args` argument to a `NAN_METHOD` call.\n\nYou can use `NanReturnNull()`, `NanReturnEmptyString()`, `NanReturnUndefined()` and `NanReturnValue()` in a `NAN_GETTER`.\n\n<a name="api_nan_setter"></a>\n### NAN_SETTER(methodname)\n\nUse `NAN_SETTER` to declare your V8 accessible setters. Same as `NAN_GETTER` but you also get a `Local<Value>` `value` object to work with.\n\n<a name="api_nan_property_getter"></a>\n### NAN_PROPERTY_GETTER(cbname)\nUse `NAN_PROPERTY_GETTER` to declare your V8 accessible property getters. You get a `Local<String>` `property` and an appropriately typed `args` object that can act similar to the `args` argument to a `NAN_METHOD` call.\n\nYou can use `NanReturnNull()`, `NanReturnEmptyString()`, `NanReturnUndefined()` and `NanReturnValue()` in a `NAN_PROPERTY_GETTER`.\n\n<a name="api_nan_property_setter"></a>\n### NAN_PROPERTY_SETTER(cbname)\nUse `NAN_PROPERTY_SETTER` to declare your V8 accessible property setters. Same as `NAN_PROPERTY_GETTER` but you also get a `Local<Value>` `value` object to work with.\n\n<a name="api_nan_property_enumerator"></a>\n### NAN_PROPERTY_ENUMERATOR(cbname)\nUse `NAN_PROPERTY_ENUMERATOR` to declare your V8 accessible property enumerators. You get an appropriately typed `args` object like the `args` argument to a `NAN_PROPERTY_GETTER` call.\n\nYou can use `NanReturnNull()`, `NanReturnEmptyString()`, `NanReturnUndefined()` and `NanReturnValue()` in a `NAN_PROPERTY_ENUMERATOR`.\n\n<a name="api_nan_property_deleter"></a>\n### NAN_PROPERTY_DELETER(cbname)\nUse `NAN_PROPERTY_DELETER` to declare your V8 accessible property deleters. Same as `NAN_PROPERTY_GETTER`.\n\nYou can use `NanReturnNull()`, `NanReturnEmptyString()`, `NanReturnUndefined()` and `NanReturnValue()` in a `NAN_PROPERTY_DELETER`.\n\n<a name="api_nan_property_query"></a>\n### NAN_PROPERTY_QUERY(cbname)\nUse `NAN_PROPERTY_QUERY` to declare your V8 accessible property queries. Same as `NAN_PROPERTY_GETTER`.\n\nYou can use `NanReturnNull()`, `NanReturnEmptyString()`, `NanReturnUndefined()` and `NanReturnValue()` in a `NAN_PROPERTY_QUERY`.\n\n<a name="api_nan_index_getter"></a>\n### NAN_INDEX_GETTER(cbname)\nUse `NAN_INDEX_GETTER` to declare your V8 accessible index getters. You get a `uint32_t` `index` and an appropriately typed `args` object that can act similar to the `args` argument to a `NAN_METHOD` call.\n\nYou can use `NanReturnNull()`, `NanReturnEmptyString()`, `NanReturnUndefined()` and `NanReturnValue()` in a `NAN_INDEX_GETTER`.\n\n<a name="api_nan_index_setter"></a>\n### NAN_INDEX_SETTER(cbname)\nUse `NAN_INDEX_SETTER` to declare your V8 accessible index setters. Same as `NAN_INDEX_GETTER` but you also get a `Local<Value>` `value` object to work with.\n\n<a name="api_nan_index_enumerator"></a>\n### NAN_INDEX_ENUMERATOR(cbname)\nUse `NAN_INDEX_ENUMERATOR` to declare your V8 accessible index enumerators. You get an appropriately typed `args` object like the `args` argument to a `NAN_INDEX_GETTER` call.\n\nYou can use `NanReturnNull()`, `NanReturnEmptyString()`, `NanReturnUndefined()` and `NanReturnValue()` in a `NAN_INDEX_ENUMERATOR`.\n\n<a name="api_nan_index_deleter"></a>\n### NAN_INDEX_DELETER(cbname)\nUse `NAN_INDEX_DELETER` to declare your V8 accessible index deleters. Same as `NAN_INDEX_GETTER`.\n\nYou can use `NanReturnNull()`, `NanReturnEmptyString()`, `NanReturnUndefined()` and `NanReturnValue()` in a `NAN_INDEX_DELETER`.\n\n<a name="api_nan_index_query"></a>\n### NAN_INDEX_QUERY(cbname)\nUse `NAN_INDEX_QUERY` to declare your V8 accessible index queries. Same as `NAN_INDEX_GETTER`.\n\nYou can use `NanReturnNull()`, `NanReturnEmptyString()`, `NanReturnUndefined()` and `NanReturnValue()` in a `NAN_INDEX_QUERY`.\n\n<a name="api_nan_weak_callback"></a>\n### NAN_WEAK_CALLBACK(cbname)\n\nUse `NAN_WEAK_CALLBACK` to define your V8 WeakReference callbacks. There is an argument object `const _NanWeakCallbackData<T, P> &data` allowing access to the weak object and the supplied parameter through its `GetValue` and `GetParameter` methods. You can even access the weak callback info object through the `GetCallbackInfo()`method, but you probably should not. `Revive()` keeps the weak object alive until the next GC round.\n\n```c++\nNAN_WEAK_CALLBACK(weakCallback) {\n  int *parameter = data.GetParameter();\n  NanMakeCallback(NanGetCurrentContext()->Global(), data.GetValue(), 0, NULL);\n  if ((*parameter)++ == 0) {\n    data.Revive();\n  } else {\n    delete parameter;\n  }\n}\n```\n\n<a name="api_nan_deprecated"></a>\n### NAN_DEPRECATED\nDeclares a function as deprecated.\n\n```c++\nstatic NAN_DEPRECATED NAN_METHOD(foo) {\n  ...\n}\n```\n\n<a name="api_nan_inline"></a>\n### NAN_INLINE\nInlines a function.\n\n```c++\nNAN_INLINE int foo(int bar) {\n  ...\n}\n```\n\n<a name="api_nan_new"></a>\n### Local&lt;T&gt; NanNew&lt;T&gt;( ... )\n\nUse `NanNew` to construct almost all v8 objects and make new local handles.\n\nNote: Using NanNew with an std::string is possible, however, you should ensure\nto use the overload version (`NanNew(stdString)`) rather than the template\nversion (`NanNew<v8::String>(stdString)`) as there is an unnecessary\nperformance penalty to using the template version because of the inability for\ncompilers to appropriately deduce to reference types on template specialization. \n\n```c++\nLocal<String> s = NanNew<String>("value");\n\n...\n\nPersistent<Object> o;\n\n...\n\nLocal<Object> lo = NanNew(o);\n\n```\n\n<a name="api_nan_undefined"></a>\n### Local&lt;Primitive&gt; NanUndefined()\n\nUse instead of `Undefined()`\n\n<a name="api_nan_null"></a>\n### Local&lt;Primitive&gt; NanNull()\n\nUse instead of `Null()`\n\n<a name="api_nan_true"></a>\n### Local&lt;Boolean&gt; NanTrue()\n\nUse instead of `True()`\n\n<a name="api_nan_false"></a>\n### Local&lt;Boolean&gt; NanFalse()\n\nUse instead of `False()`\n\n<a name="api_nan_return_value"></a>\n### NanReturnValue(Handle&lt;Value&gt;)\n\nUse `NanReturnValue` when you want to return a value from your V8 accessible method:\n\n```c++\nNAN_METHOD(Foo::Bar) {\n  ...\n\n  NanReturnValue(NanNew<String>("FooBar!"));\n}\n```\n\nNo `return` statement required.\n\n<a name="api_nan_return_undefined"></a>\n### NanReturnUndefined()\n\nUse `NanReturnUndefined` when you don\'t want to return anything from your V8 accessible method:\n\n```c++\nNAN_METHOD(Foo::Baz) {\n  ...\n\n  NanReturnUndefined();\n}\n```\n\n<a name="api_nan_return_null"></a>\n### NanReturnNull()\n\nUse `NanReturnNull` when you want to return `Null` from your V8 accessible method:\n\n```c++\nNAN_METHOD(Foo::Baz) {\n  ...\n\n  NanReturnNull();\n}\n```\n\n<a name="api_nan_return_empty_string"></a>\n### NanReturnEmptyString()\n\nUse `NanReturnEmptyString` when you want to return an empty `String` from your V8 accessible method:\n\n```c++\nNAN_METHOD(Foo::Baz) {\n  ...\n\n  NanReturnEmptyString();\n}\n```\n\n<a name="api_nan_scope"></a>\n### NanScope()\n\nThe introduction of `isolate` references for many V8 calls in Node 0.11 makes `NanScope()` necessary, use it in place of `HandleScope scope` when you do not wish to return handles (`Handle` or `Local`) to the surrounding scope (or in functions directly exposed to V8, as they do not return values in the normal sense):\n\n```c++\nNAN_METHOD(Foo::Bar) {\n  NanScope();\n\n  NanReturnValue(NanNew<String>("FooBar!"));\n}\n```\n\nThis method is not directly exposed to V8, nor does it return a handle, so it uses an unescapable scope:\n\n```c++\nbool Foo::Bar() {\n  NanScope();\n\n  Local<Boolean> val = NanFalse();\n  ...\n  return val->Value();\n}\n```\n\n<a name="api_nan_escapable_scope"></a>\n### NanEscapableScope()\n\nThe separation of handle scopes into escapable and inescapable scopes makes `NanEscapableScope()` necessary, use it in place of `HandleScope scope` when you later wish to return a handle (`Handle` or `Local`) from the scope, this is for internal functions not directly exposed to V8:\n\n```c++\nHandle<String> Foo::Bar() {\n  NanEscapableScope();\n\n  return NanEscapeScope(NanNew<String>("FooBar!"));\n}\n```\n\n<a name="api_nan_escape_scope"></a>\n### Local&lt;T&gt; NanEscapeScope(Handle&lt;T&gt; value);\nUse together with `NanEscapableScope` to escape the scope. Corresponds to `HandleScope::Close` or `EscapableHandleScope::Escape`.\n\n<a name="api_nan_locker"></a>\n### NanLocker()\n\nThe introduction of `isolate` references for many V8 calls in Node 0.11 makes `NanLocker()` necessary, use it in place of `Locker locker`:\n\n```c++\nNAN_METHOD(Foo::Bar) {\n  NanLocker();\n  ...\n  NanUnlocker();\n}\n```\n\n<a name="api_nan_unlocker"></a>\n### NanUnlocker()\n\nThe introduction of `isolate` references for many V8 calls in Node 0.11 makes `NanUnlocker()` necessary, use it in place of `Unlocker unlocker`:\n\n```c++\nNAN_METHOD(Foo::Bar) {\n  NanLocker();\n  ...\n  NanUnlocker();\n}\n```\n\n<a name="api_nan_get_internal_field_pointer"></a>\n### void * NanGetInternalFieldPointer(Handle&lt;Object&gt;, int)\n\nGets a pointer to the internal field with at `index` from a V8 `Object` handle.\n\n```c++\nLocal<Object> obj;\n...\nNanGetInternalFieldPointer(obj, 0);\n```\n<a name="api_nan_set_internal_field_pointer"></a>\n### void NanSetInternalFieldPointer(Handle&lt;Object&gt;, int, void *)\n\nSets the value of the internal field at `index` on a V8 `Object` handle.\n\n```c++\nstatic Persistent<Function> dataWrapperCtor;\n...\nLocal<Object> wrapper = NanNew(dataWrapperCtor)->NewInstance();\nNanSetInternalFieldPointer(wrapper, 0, this);\n```\n\n<a name="api_nan_object_wrap_handle"></a>\n### Local&lt;Object&gt; NanObjectWrapHandle(Object)\n\nWhen you want to fetch the V8 object handle from a native object you\'ve wrapped with Node\'s `ObjectWrap`, you should use `NanObjectWrapHandle`:\n\n```c++\nNanObjectWrapHandle(iterator)->Get(NanNew<String>("end"))\n```\n\n<a name="api_nan_symbol"></a>\n### <del>Local&lt;String&gt; NanSymbol(const char *)</del>\n\nDeprecated. Use `NanNew<String>` instead.\n<del>Use to create string symbol objects (i.e. `v8::String::NewSymbol(x)`), for getting and setting object properties, or names of objects.</del>\n\n```c++\nbool foo = false;\nif (obj->Has(NanNew<String>("foo")))\n  foo = optionsObj->Get(NanNew<String>("foo"))->BooleanValue()\n```\n\n<a name="api_nan_get_pointer_safe"></a>\n### Type NanGetPointerSafe(Type *[, Type])\n\nA helper for getting values from optional pointers. If the pointer is `NULL`, the function returns the optional default value, which defaults to `0`.  Otherwise, the function returns the value the pointer points to.\n\n```c++\nchar *plugh(uint32_t *optional) {\n  char res[] = "xyzzy";\n  uint32_t param = NanGetPointerSafe<uint32_t>(optional, 0x1337);\n  switch (param) {\n    ...\n  }\n  NanSetPointerSafe<uint32_t>(optional, 0xDEADBEEF);\n}  \n```\n\n<a name="api_nan_set_pointer_safe"></a>\n### bool NanSetPointerSafe(Type *, Type)\n\nA helper for setting optional argument pointers. If the pointer is `NULL`, the function simply returns `false`.  Otherwise, the value is assigned to the variable the pointer points to.\n\n```c++\nconst char *plugh(size_t *outputsize) {\n  char res[] = "xyzzy";\n  if !(NanSetPointerSafe<size_t>(outputsize, strlen(res) + 1)) {\n    ...\n  }\n\n  ...\n}\n```\n\n<a name="api_nan_raw_string"></a>\n### <del>void* NanRawString(Handle&lt;Value&gt;, enum Nan::Encoding, size_t *, void *, size_t, int)</del>\n\nDeprecated. Use something else.\n\n<del>When you want to convert a V8 `String` to a `char*` buffer, use `NanRawString`. You have to supply an encoding as well as a pointer to a variable that will be assigned the number of bytes in the returned string. It is also possible to supply a buffer and its length to the function in order not to have a new buffer allocated. The final argument allows setting `String::WriteOptions`.\nJust remember that you\'ll end up with an object that you\'ll need to `delete[]` at some point unless you supply your own buffer:</del>\n\n```c++\nsize_t count;\nvoid* decoded = NanRawString(args[1], Nan::BASE64, &count, NULL, 0, String::HINT_MANY_WRITES_EXPECTED);\n...\ndelete[] reinterpret_cast<char*>(decoded);\n```\n\n<a name="api_nan_c_string"></a>\n### <del>char* NanCString(Handle&lt;Value&gt;, size_t *[, char *, size_t, int])</del>\n\nDeprecated. Use `NanUtf8String` instead.\n\n<del>When you want to convert a V8 `String` to a null-terminated C `char*` use `NanCString`. The resulting `char*` will be UTF-8-encoded, and you need to supply a pointer to a variable that will be assigned the number of bytes in the returned string. It is also possible to supply a buffer and its length to the function in order not to have a new buffer allocated. The final argument allows optionally setting `String::WriteOptions`, which default to `v8::String::NO_OPTIONS`.\nJust remember that you\'ll end up with an object that you\'ll need to `delete[]` at some point unless you supply your own buffer:</del>\n\n```c++\nsize_t count;\nchar* name = NanCString(args[0], &count);\n...\ndelete[] name;\n```\n\n<a name="api_nan_ascii_string"></a>\n### NanAsciiString\n\nConvert a `String` to zero-terminated, Ascii-encoded `char *`.\n\n```c++\nNAN_METHOD(foo) {\n  NanScope();\n  NanReturnValue(NanNew(*NanAsciiString(arg[0])));\n}\n```\n\n<a name="api_nan_utf8_string"></a>\n### NanUtf8String\n\nConvert a `String` to zero-terminated, Utf8-encoded `char *`.\n\n```c++\nNAN_METHOD(foo) {\n  NanScope();\n  NanReturnValue(NanNew(*NanUtf8String(arg[0])));\n}\n```\n\n<a name="api_nan_ucs2_string"></a>\n### NanUcs2String\n\nConvert a `String` to zero-terminated, Ucs2-encoded `uint16_t *`.\n\n```c++\nNAN_METHOD(foo) {\n  NanScope();\n  NanReturnValue(NanNew(*NanUcs2String(arg[0])));\n}\n```\n\n<a name="api_nan_boolean_option_value"></a>\n### bool NanBooleanOptionValue(Handle&lt;Value&gt;, Handle&lt;String&gt;[, bool])\n\nWhen you have an "options" object that you need to fetch properties from, boolean options can be fetched with this pair. They check first if the object exists (`IsEmpty`), then if the object has the given property (`Has`) then they get and convert/coerce the property to a `bool`.\n\nThe optional last parameter is the *default* value, which is `false` if left off:\n\n```c++\n// `foo` is false unless the user supplies a truthy value for it\nbool foo = NanBooleanOptionValue(optionsObj, NanNew<String>("foo"));\n// `bar` is true unless the user supplies a falsy value for it\nbool bar = NanBooleanOptionValueDefTrue(optionsObj, NanNew<String>("bar"), true);\n```\n\n<a name="api_nan_uint32_option_value"></a>\n### uint32_t NanUInt32OptionValue(Handle&lt;Value&gt;, Handle&lt;String&gt;, uint32_t)\n\nSimilar to `NanBooleanOptionValue`, use `NanUInt32OptionValue` to fetch an integer option from your options object. Can be any kind of JavaScript `Number` and it will be coerced to an unsigned 32-bit integer.\n\nRequires all 3 arguments as a default is not optional:\n\n```c++\nuint32_t count = NanUInt32OptionValue(optionsObj, NanNew<String>("count"), 1024);\n```\n\n<a name="api_nan_error"></a>\n### NanError(message), NanTypeError(message), NanRangeError(message)\n\nFor making `Error`, `TypeError` and `RangeError` objects.\n\n```c++\nLocal<Value> res = NanError("you must supply a callback argument");\n```\n\n<a name="api_nan_throw_error"></a>\n### NanThrowError(message), NanThrowTypeError(message), NanThrowRangeError(message), NanThrowError(Local&lt;Value&gt;), NanThrowError(Local&lt;Value&gt;, int)\n\nFor throwing `Error`, `TypeError` and `RangeError` objects.\n\n```c++\nNanThrowError("you must supply a callback argument");\n```\n\nCan also handle any custom object you may want to throw. If used with the error code argument, it will add the supplied error code to the error object as a property called `code`.\n\n<a name="api_nan_new_buffer_handle"></a>\n### Local&lt;Object&gt; NanNewBufferHandle(char *, uint32_t), Local&lt;Object&gt; NanNewBufferHandle(uint32_t)\n\nThe `Buffer` API has changed a little in Node 0.11, this helper provides consistent access to `Buffer` creation:\n\n```c++\nNanNewBufferHandle((char*)value.data(), value.size());\n```\n\nCan also be used to initialize a `Buffer` with just a `size` argument.\n\nCan also be supplied with a `NanFreeCallback` and a hint for the garbage collector.\n\n<a name="api_nan_buffer_use"></a>\n### Local&lt;Object&gt; NanBufferUse(char*, uint32_t)\n\n`Buffer::New(char*, uint32_t)` prior to 0.11 would make a copy of the data.\nWhile it was possible to get around this, it required a shim by passing a\ncallback. So the new API `Buffer::Use(char*, uint32_t)` was introduced to remove\nneeding to use this shim.\n\n`NanBufferUse` uses the `char*` passed as the backing data, and will free the\nmemory automatically when the weak callback is called. Keep this in mind, as\ncareless use can lead to "double free or corruption" and other cryptic failures.\n\n<a name="api_nan_has_instance"></a>\n### bool NanHasInstance(Persistent&lt;FunctionTemplate&gt;&, Handle&lt;Value&gt;)\n\nCan be used to check the type of an object to determine it is of a particular class you have already defined and have a `Persistent<FunctionTemplate>` handle for.\n\n<a name="api_nan_new_context_handle"></a>\n### Local&lt;Context&gt; NanNewContextHandle([ExtensionConfiguration*, Handle&lt;ObjectTemplate&gt;, Handle&lt;Value&gt;])\nCreates a new `Local<Context>` handle.\n\n```c++\nLocal<FunctionTemplate> ftmpl = NanNew<FunctionTemplate>();\nLocal<ObjectTemplate> otmpl = ftmpl->InstanceTemplate();\nLocal<Context> ctx =  NanNewContextHandle(NULL, otmpl);\n```\n\n<a name="api_nan_get_current_context"></a>\n### Local&lt;Context&gt; NanGetCurrentContext()\n\nGets the current context.\n\n```c++\nLocal<Context> ctx = NanGetCurrentContext();\n```\n\n<a name="api_nan_dispose_persistent"></a>\n### void NanDisposePersistent(Persistent&lt;T&gt; &)\n\nUse `NanDisposePersistent` to dispose a `Persistent` handle.\n\n```c++\nNanDisposePersistent(persistentHandle);\n```\n\n<a name="api_nan_assign_persistent"></a>\n### NanAssignPersistent(handle, object)\n\nUse `NanAssignPersistent` to assign a non-`Persistent` handle to a `Persistent` one. You can no longer just declare a `Persistent` handle and assign directly to it later, you have to `Reset` it in Node 0.11, so this makes it easier.\n\nIn general it is now better to place anything you want to protect from V8\'s garbage collector as properties of a generic `Object` and then assign that to a `Persistent`. This works in older versions of Node also if you use `NanAssignPersistent`:\n\n```c++\nPersistent<Object> persistentHandle;\n\n...\n\nLocal<Object> obj = NanNew<Object>();\nobj->Set(NanNew<String>("key"), keyHandle); // where keyHandle might be a Local<String>\nNanAssignPersistent(persistentHandle, obj)\n```\n\n<a name="api_nan_make_weak_persistent"></a>\n### _NanWeakCallbackInfo&lt;T, P&gt;* NanMakeWeakPersistent(Handle&lt;T&gt;, P*, _NanWeakCallbackInfo&lt;T, P&gt;::Callback)\n\nCreates a weak persistent handle with the supplied parameter and `NAN_WEAK_CALLBACK`.\n\n```c++\nNAN_WEAK_CALLBACK(weakCallback) {\n\n...\n\n}\n\nLocal<Function> func;\n\n...\n\nint *parameter = new int(0);\nNanMakeWeakPersistent(func, parameter, &weakCallback);\n```\n\n<a name="api_nan_set_template"></a>\n### NanSetTemplate(templ, name, value [, attributes])\n\nUse to add properties on object and function templates.\n\n<a name="api_nan_set_prototype_template"></a>\n### NanSetPrototypeTemplate(templ, name, value [, attributes])\n\nUse to add prototype properties on function templates.\n\n<a name="api_nan_set_instance_template"></a>\n### NanSetInstanceTemplate(templ, name, value [, attributes])\n\nUse to add instance properties on function templates.\n\n<a name="api_nan_make_callback"></a>\n### NanMakeCallback(target, func, argc, argv)\n\nUse instead of `node::MakeCallback` to call javascript functions. This is the only proper way of calling functions.\n\n<a name="api_nan_compile_script"></a>\n### NanCompileScript(Handle<String> s [, const ScriptOrigin&amp; origin])\n\nUse to create new scripts bound to the current context.\n\n<a name="api_nan_run_script"></a>\n### NanRunScript(script)\n\nUse to run both bound and unbound scripts.\n\n<a name="api_nan_adjust_external_memory"></a>\n### NanAdjustExternalMemory(int change_in_bytes)\n\nSimply does `AdjustAmountOfExternalAllocatedMemory`, note that the argument and returned value have type `int`.\n\n<a name="api_nan_add_gc_epilogue_callback"></a>\n### NanAddGCEpilogueCallback(GCEpilogueCallback callback, GCType gc_type_filter=kGCTypeAll)\n\nSimply does `AddGCEpilogueCallback`\n\n<a name="api_nan_add_gc_prologue_callback"></a>\n### NanAddGCPrologueCallback(GCPrologueCallback callback, GCType gc_type_filter=kGCTypeAll)\n\nSimply does `AddGCPrologueCallback`\n\n<a name="api_nan_remove_gc_epilogue_callback"></a>\n### NanRemoveGCEpilogueCallback(GCEpilogueCallback callback)\n\nSimply does `RemoveGCEpilogueCallback`\n\n<a name="api_nan_remove_gc_prologue_callback"></a>\n### NanRemoveGCPrologueCallback(GCPrologueCallback callback)\n\nSimply does `RemoveGCPrologueCallback`\n\n<a name="api_nan_get_heap_statistics"></a>\n### NanGetHeapStatistics(HeapStatistics *heap_statistics)\n\nSimply does `GetHeapStatistics`\n\n<a name="api_nan_callback"></a>\n### NanCallback\n\nBecause of the difficulties imposed by the changes to `Persistent` handles in V8 in Node 0.11, creating `Persistent` versions of your `Handle<Function>` is annoyingly tricky. `NanCallback` makes it easier by taking your handle, making it persistent until the `NanCallback` is deleted and even providing a handy `Call()` method to fetch and execute the callback `Function`.\n\n```c++\nLocal<Function> callbackHandle = args[0].As<Function>();\nNanCallback *callback = new NanCallback(callbackHandle);\n// pass `callback` around and it\'s safe from GC until you:\ndelete callback;\n```\n\nYou can execute the callback like so:\n\n```c++\n// no arguments:\ncallback->Call(0, NULL);\n\n// an error argument:\nHandle<Value> argv[] = {\n  NanError(NanNew<String>("fail!"))\n};\ncallback->Call(1, argv);\n\n// a success argument:\nHandle<Value> argv[] = {\n  NanNull(),\n  NanNew<String>("w00t!")\n};\ncallback->Call(2, argv);\n```\n\n`NanCallback` also has a `Local<Function> GetCallback()` method that you can use\nto fetch a local handle to the underlying callback function, as well  as a\n`void SetFunction(Handle<Function>)` for setting the callback on the\n`NanCallback`. You can check if a `NanCallback` is empty with the `bool IsEmpty()` method. Additionally a generic constructor is available for using\n`NanCallback` without performing heap allocations.\n\n<a name="api_nan_async_worker"></a>\n### NanAsyncWorker\n\n`NanAsyncWorker` is an abstract class that you can subclass to have much of the annoying async queuing and handling taken care of for you. It can even store arbitrary V8 objects for you and have them persist while the async work is in progress.\n\nSee a rough outline of the implementation:\n\n```c++\nclass NanAsyncWorker {\npublic:\n  NanAsyncWorker (NanCallback *callback);\n\n  // Clean up persistent handles and delete the *callback\n  virtual ~NanAsyncWorker ();\n\n  // Check the `ErrorMessage()` and call HandleOKCallback()\n  // or HandleErrorCallback depending on whether it has been set or not\n  virtual void WorkComplete ();\n\n  // You must implement this to do some async work. If there is an\n  // error then use `SetErrorMessage()` to set an error message and the callback will\n  // be passed that string in an Error object\n  virtual void Execute ();\n\n  // Save a V8 object in a Persistent handle to protect it from GC\n  void SaveToPersistent(const char *key, Local<Object> &obj);\n\n  // Fetch a stored V8 object (don\'t call from within `Execute()`)\n  Local<Object> GetFromPersistent(const char *key);\n\n  // Get the error message (or NULL)\n  const char *ErrorMessage();\n\n  // Set an error message\n  void SetErrorMessage(const char *msg);\n\nprotected:\n  // Default implementation calls the callback function with no arguments.\n  // Override this to return meaningful data\n  virtual void HandleOKCallback ();\n\n  // Default implementation calls the callback function with an Error object\n  // wrapping the `errmsg` string\n  virtual void HandleErrorCallback ();\n};\n```\n\n<a name="api_nan_async_queue_worker"></a>\n### NanAsyncQueueWorker(NanAsyncWorker *)\n\n`NanAsyncQueueWorker` will run a `NanAsyncWorker` asynchronously via libuv. Both the *execute* and *after_work* steps are taken care of for you&mdash;most of the logic for this is embedded in `NanAsyncWorker`.\n\n### Contributors\n\nNAN is only possible due to the excellent work of the following contributors:\n\n<table><tbody>\n<tr><th align="left">Rod Vagg</th><td><a href="https://github.com/rvagg">GitHub/rvagg</a></td><td><a href="http://twitter.com/rvagg">Twitter/@rvagg</a></td></tr>\n<tr><th align="left">Benjamin Byholm</th><td><a href="https://github.com/kkoopa/">GitHub/kkoopa</a></td><td>-</td></tr>\n<tr><th align="left">Trevor Norris</th><td><a href="https://github.com/trevnorris">GitHub/trevnorris</a></td><td><a href="http://twitter.com/trevnorris">Twitter/@trevnorris</a></td></tr>\n<tr><th align="left">Nathan Rajlich</th><td><a href="https://github.com/TooTallNate">GitHub/TooTallNate</a></td><td><a href="http://twitter.com/TooTallNate">Twitter/@TooTallNate</a></td></tr>\n<tr><th align="left">Brett Lawson</th><td><a href="https://github.com/brett19">GitHub/brett19</a></td><td><a href="http://twitter.com/brett19x">Twitter/@brett19x</a></td></tr>\n<tr><th align="left">Ben Noordhuis</th><td><a href="https://github.com/bnoordhuis">GitHub/bnoordhuis</a></td><td><a href="http://twitter.com/bnoordhuis">Twitter/@bnoordhuis</a></td></tr>\n</tbody></table>\n\nLicence &amp; copyright\n-----------------------\n\nCopyright (c) 2014 NAN contributors (listed above).\n\nNative Abstractions for Node.js is licensed under an MIT +no-false-attribs license. All rights not explicitly granted in the MIT license are reserved. See the included LICENSE file for more details.\n',
+151 silly resolved     readmeFilename: 'README.md',
+151 silly resolved     bugs: { url: 'https://github.com/rvagg/nan/issues' },
+151 silly resolved     homepage: 'https://github.com/rvagg/nan',
+151 silly resolved     _id: 'nan@1.3.0',
+151 silly resolved     _from: 'nan@1.3.0' },
+151 silly resolved   { name: 'bindings',
+151 silly resolved     description: 'Helper module for loading your native module\'s .node file',
+151 silly resolved     keywords: [ 'native', 'addon', 'bindings', 'gyp', 'waf', 'c', 'c++' ],
+151 silly resolved     version: '1.0.0',
+151 silly resolved     author:
+151 silly resolved      { name: 'Nathan Rajlich',
+151 silly resolved        email: 'nathan@tootallnate.net',
+151 silly resolved        url: 'http://tootallnate.net' },
+151 silly resolved     repository:
+151 silly resolved      { type: 'git',
+151 silly resolved        url: 'git://github.com/TooTallNate/node-bindings.git' },
+151 silly resolved     main: './bindings.js',
+151 silly resolved     readme: 'node-bindings\n=============\n### Helper module for loading your native module\'s .node file\n\nThis is a helper module for authors of Node.js native addon modules.\nIt is basically the "swiss army knife" of `require()`ing your native module\'s\n`.node` file.\n\nThroughout the course of Node\'s native addon history, addons have ended up being\ncompiled in a variety of different places, depending on which build tool and which\nversion of node was used. To make matters worse, now the _gyp_ build tool can\nproduce either a _Release_ or _Debug_ build, each being built into different\nlocations.\n\nThis module checks _all_ the possible locations that a native addon would be built\nat, and returns the first one that loads successfully.\n\n\nInstallation\n------------\n\nInstall with `npm`:\n\n``` bash\n$ npm install bindings\n```\n\nOr add it to the `"dependencies"` section of your _package.json_ file.\n\n\nExample\n-------\n\n`require()`ing the proper bindings file for the current node version, platform\nand architecture is as simple as:\n\n``` js\nvar bindings = require(\'bindings\')(\'binding.node\')\n\n// Use your bindings defined in your C files\nbindings.your_c_function()\n```\n\n\nNice Error Output\n-----------------\n\nWhen the `.node` file could not be loaded, `node-bindings` throws an Error with\na nice error message telling you exactly what was tried. You can also check the\n`err.tries` Array property.\n\n```\nError: Could not load the bindings file. Tried:\n → /Users/nrajlich/ref/build/binding.node\n → /Users/nrajlich/ref/build/Debug/binding.node\n → /Users/nrajlich/ref/build/Release/binding.node\n → /Users/nrajlich/ref/out/Debug/binding.node\n → /Users/nrajlich/ref/Debug/binding.node\n → /Users/nrajlich/ref/out/Release/binding.node\n → /Users/nrajlich/ref/Release/binding.node\n → /Users/nrajlich/ref/build/default/binding.node\n → /Users/nrajlich/ref/compiled/0.8.2/darwin/x64/binding.node\n    at bindings (/Users/nrajlich/ref/node_modules/bindings/bindings.js:84:13)\n    at Object.<anonymous> (/Users/nrajlich/ref/lib/ref.js:5:47)\n    at Module._compile (module.js:449:26)\n    at Object.Module._extensions..js (module.js:467:10)\n    at Module.load (module.js:356:32)\n    at Function.Module._load (module.js:312:12)\n    ...\n```\n\n\nLicense\n-------\n\n(The MIT License)\n\nCopyright (c) 2012 Nathan Rajlich &lt;nathan@tootallnate.net&gt;\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\'Software\'), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \'AS IS\', WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n',
+151 silly resolved     readmeFilename: 'README.md',
+151 silly resolved     bugs: { url: 'https://github.com/TooTallNate/node-bindings/issues' },
+151 silly resolved     homepage: 'https://github.com/TooTallNate/node-bindings',
+151 silly resolved     _id: 'bindings@1.0.0',
+151 silly resolved     _from: 'bindings@1.0.0' } ]
+152 info install nan@1.3.0 into /Users/npb/Projects/npb/node_modules/bcrypt
+153 info install bindings@1.0.0 into /Users/npb/Projects/npb/node_modules/bcrypt
+154 info installOne nan@1.3.0
+155 info installOne bindings@1.0.0
+156 info /Users/npb/Projects/npb/node_modules/bcrypt/node_modules/nan unbuild
+157 info /Users/npb/Projects/npb/node_modules/bcrypt/node_modules/bindings unbuild
+158 verbose tar unpack /Users/npb/.npm/nan/1.3.0/package.tgz
+159 silly lockFile ff4e74f9--modules-bcrypt-node-modules-nan tar:///Users/npb/Projects/npb/node_modules/bcrypt/node_modules/nan
+160 verbose lock tar:///Users/npb/Projects/npb/node_modules/bcrypt/node_modules/nan /Users/npb/.npm/ff4e74f9--modules-bcrypt-node-modules-nan.lock
+161 silly lockFile 8ce171ac-rs-npb-npm-nan-1-3-0-package-tgz tar:///Users/npb/.npm/nan/1.3.0/package.tgz
+162 verbose lock tar:///Users/npb/.npm/nan/1.3.0/package.tgz /Users/npb/.npm/8ce171ac-rs-npb-npm-nan-1-3-0-package-tgz.lock
+163 verbose tar unpack /Users/npb/.npm/bindings/1.0.0/package.tgz
+164 silly lockFile 42f8387a-les-bcrypt-node-modules-bindings tar:///Users/npb/Projects/npb/node_modules/bcrypt/node_modules/bindings
+165 verbose lock tar:///Users/npb/Projects/npb/node_modules/bcrypt/node_modules/bindings /Users/npb/.npm/42f8387a-les-bcrypt-node-modules-bindings.lock
+166 silly lockFile c0bfaa8e-b-npm-bindings-1-0-0-package-tgz tar:///Users/npb/.npm/bindings/1.0.0/package.tgz
+167 verbose lock tar:///Users/npb/.npm/bindings/1.0.0/package.tgz /Users/npb/.npm/c0bfaa8e-b-npm-bindings-1-0-0-package-tgz.lock
+168 silly gunzTarPerm modes [ '755', '644' ]
+169 silly gunzTarPerm modes [ '755', '644' ]
+170 silly gunzTarPerm extractEntry package.json
+171 silly gunzTarPerm extractEntry package.json
+172 silly gunzTarPerm extractEntry README.md
+173 silly gunzTarPerm extractEntry LICENSE
+174 silly gunzTarPerm extractEntry README.md
+175 silly gunzTarPerm extractEntry bindings.js
+176 silly gunzTarPerm extractEntry include_dirs.js
+177 silly gunzTarPerm extractEntry .dntrc
+178 silly lockFile 42f8387a-les-bcrypt-node-modules-bindings tar:///Users/npb/Projects/npb/node_modules/bcrypt/node_modules/bindings
+179 silly lockFile 42f8387a-les-bcrypt-node-modules-bindings tar:///Users/npb/Projects/npb/node_modules/bcrypt/node_modules/bindings
+180 silly lockFile c0bfaa8e-b-npm-bindings-1-0-0-package-tgz tar:///Users/npb/.npm/bindings/1.0.0/package.tgz
+181 silly lockFile c0bfaa8e-b-npm-bindings-1-0-0-package-tgz tar:///Users/npb/.npm/bindings/1.0.0/package.tgz
+182 info preinstall bindings@1.0.0
+183 verbose readDependencies using package.json deps
+184 verbose readDependencies using package.json deps
+185 silly resolved []
+186 verbose about to build /Users/npb/Projects/npb/node_modules/bcrypt/node_modules/bindings
+187 info build /Users/npb/Projects/npb/node_modules/bcrypt/node_modules/bindings
+188 verbose linkStuff [ false,
+188 verbose linkStuff   false,
+188 verbose linkStuff   false,
+188 verbose linkStuff   '/Users/npb/Projects/npb/node_modules/bcrypt/node_modules' ]
+189 info linkStuff bindings@1.0.0
+190 verbose linkBins bindings@1.0.0
+191 verbose linkMans bindings@1.0.0
+192 verbose rebuildBundles bindings@1.0.0
+193 info install bindings@1.0.0
+194 info postinstall bindings@1.0.0
+195 silly gunzTarPerm extractEntry CHANGELOG.md
+196 silly gunzTarPerm extractEntry appveyor.yml
+197 silly gunzTarPerm extractEntry nan.h
+198 silly lockFile ff4e74f9--modules-bcrypt-node-modules-nan tar:///Users/npb/Projects/npb/node_modules/bcrypt/node_modules/nan
+199 silly lockFile ff4e74f9--modules-bcrypt-node-modules-nan tar:///Users/npb/Projects/npb/node_modules/bcrypt/node_modules/nan
+200 silly lockFile 8ce171ac-rs-npb-npm-nan-1-3-0-package-tgz tar:///Users/npb/.npm/nan/1.3.0/package.tgz
+201 silly lockFile 8ce171ac-rs-npb-npm-nan-1-3-0-package-tgz tar:///Users/npb/.npm/nan/1.3.0/package.tgz
+202 info preinstall nan@1.3.0
+203 verbose readDependencies using package.json deps
+204 verbose readDependencies using package.json deps
+205 silly resolved []
+206 verbose about to build /Users/npb/Projects/npb/node_modules/bcrypt/node_modules/nan
+207 info build /Users/npb/Projects/npb/node_modules/bcrypt/node_modules/nan
+208 verbose linkStuff [ false,
+208 verbose linkStuff   false,
+208 verbose linkStuff   false,
+208 verbose linkStuff   '/Users/npb/Projects/npb/node_modules/bcrypt/node_modules' ]
+209 info linkStuff nan@1.3.0
+210 verbose linkBins nan@1.3.0
+211 verbose linkMans nan@1.3.0
+212 verbose rebuildBundles nan@1.3.0
+213 info install nan@1.3.0
+214 info postinstall nan@1.3.0
+215 verbose about to build /Users/npb/Projects/npb/node_modules/bcrypt
+216 info build /Users/npb/Projects/npb/node_modules/bcrypt
+217 verbose linkStuff [ false, false, false, '/Users/npb/Projects/npb/node_modules' ]
+218 info linkStuff bcrypt@0.8.0
+219 verbose linkBins bcrypt@0.8.0
+220 verbose linkMans bcrypt@0.8.0
+221 verbose rebuildBundles bcrypt@0.8.0
+222 verbose rebuildBundles [ 'bindings', 'nan' ]
+223 info install bcrypt@0.8.0
+224 verbose unsafe-perm in lifecycle true
+225 info bcrypt@0.8.0 Failed to exec install script
+226 info /Users/npb/Projects/npb/node_modules/bcrypt unbuild
+227 info preuninstall bcrypt@0.8.0
+228 info uninstall bcrypt@0.8.0
+229 verbose true,/Users/npb/Projects/npb/node_modules,/Users/npb/Projects/npb/node_modules unbuild bcrypt@0.8.0
+230 info postuninstall bcrypt@0.8.0
+231 error bcrypt@0.8.0 install: `node-gyp rebuild`
+231 error Exit status 1
+232 error Failed at the bcrypt@0.8.0 install script.
+232 error This is most likely a problem with the bcrypt package,
+232 error not with npm itself.
+232 error Tell the author that this fails on your system:
+232 error     node-gyp rebuild
+232 error You can get their info via:
+232 error     npm owner ls bcrypt
+232 error There is likely additional logging output above.
+233 error System Darwin 14.0.0
+234 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+235 error cwd /Users/npb/Projects/npb
+236 error node -v v0.11.12
+237 error npm -v 1.4.3
+238 error code ELIFECYCLE
+239 verbose exit [ 1, true ]

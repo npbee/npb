@@ -37,8 +37,10 @@ exports.index = function *() {
 };
 
 // Show an individual project
-exports.show = function*(slug) {
+exports.show = function*() {
     var isClient = this.request.url.indexOf('isClient') !== -1;
+    var slug = this.params.slug;
+
     // Detect if the param passed is a number so that we can look up a project
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';
@@ -131,8 +133,9 @@ exports.create = function*() {
 
 
 // Show the edit project form
-exports.edit = function* (id) {
+exports.edit = function* () {
     var isClient = this.request.url.indexOf('isClient') !== -1;
+    var id = this.params.id;
 
     var data = {
         path: '/projects/' + id +'/edit',

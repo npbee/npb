@@ -1,7 +1,7 @@
-require('node-jsx').install();
-
+require('node-jsx').install(); 
 var logger = require('koa-logger');
 var route = require('koa-route');
+var router = require('koa-router');
 var koa = require('koa');
 var koaPg = require('koa-pg');
 var bodyParser = require('koa-bodyparser');
@@ -9,14 +9,25 @@ var serve = require('koa-static');
 var render = require('./lib/render');
 var knex = require('koa-knex');
 var passport = require('./lib/auth');
+var session = require('koa-generic-session');
 
 var app = koa();
-app.use(bodyParser());
 
 var routes = require('./config/routes');
 var database = require('./config/database');
+var config = require('./config/app');
+
+app.keys = config.app.keys;
+
+app.use(session({
+    key: 'npb.sid'
+}));
+app.use(bodyParser());
+
 
 app.use(passport.initialize());
+app.use(passport.session());
+app.use(router(app));
 
 app.use(function *(next) {
   try {
@@ -35,36 +46,35 @@ app.use(logger());
 // Routes
 var secured = function *(next) {
     if (this.isAuthenticated()) {
-        console.log('authenticated');
         yield next;
     } else {
-        this.status = 401;
+        this.redirect('/login');
     }
 };
 
-app.use(route.get('/', routes.index));
-
+app.get('/', routes.index); 
 // Blog post routes
-app.use(route.get('/posts', routes.posts.index));
-app.use(route.get('/posts/new', routes.posts.new));
-app.use(route.get('/posts/:slug', routes.posts.show));
-app.use(route.get('/posts/:id/edit', routes.posts.edit));
-app.use(route.post('/posts', routes.posts.create));
-app.use(route.put('/posts', routes.posts.put));
-app.use(route.del('/posts', routes.posts.del));
+app.get('/posts', routes.posts.index);
+app.get('/posts/new', routes.posts.new);
+app.get('/posts/:slug', routes.posts.show);
+app.get('/posts/:id/edit', routes.posts.edit);
+app.post('/posts', routes.posts.create);
+app.put('/posts', routes.posts.put);
+app.del('/posts', routes.posts.del);
 
 // Project routes
-app.use(route.get('/projects', routes.projects.index));
-app.use(route.get('/projects/new', routes.projects.new));
-app.use(route.get('/projects/:slug', routes.projects.show));
-app.use(route.get('/projects/:id/edit', routes.projects.edit));
-app.use(route.post('/projects', routes.projects.create));
-app.use(route.put('/projects', routes.projects.put));
-app.use(route.del('/projects', routes.projects.del));
+app.get('/projects', routes.projects.index);
+app.get('/projects/new', routes.projects.new);
+app.get('/projects/:slug', routes.projects.show);
+app.get('/projects/:id/edit', routes.projects.edit);
+app.post('/projects', routes.projects.create);
+app.put('/projects', routes.projects.put);
+app.del('/projects', routes.projects.del);
 
 // Admin routes
-app.use(route.get('/login', routes.auth.loginForm));
-app.use(route.post('/login', routes.auth.login));
+app.get('/admin', secured, routes.admin.index);
+app.get('/login', routes.auth.loginForm);
+app.post('/login', routes.auth.login);
 
 
 // Static files
