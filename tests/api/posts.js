@@ -39,7 +39,7 @@ describe('Posts API', function() {
     it('should retrieve a specific post', function(done) {
         request.get('localhost:9000/posts/' + _id)
         .query({
-            query: 'isReact'
+            query: 'isClient'
         })
         .end(function(res) {
             var response = JSON.parse(res.text);

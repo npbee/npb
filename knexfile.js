@@ -18,6 +18,19 @@ module.exports = {
     }
   },
 
+  testing: {
+      client: 'pg',
+      connection: {
+          host: 'localhost',
+          user: 'nick',
+          password: '',
+          database: 'npb.com_test'
+      },
+      migrations: {
+          tableName: 'knex_migrations'
+      }
+  },
+
   staging: {
     client: 'postgresql',
     connection: {

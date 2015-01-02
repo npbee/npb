@@ -10,6 +10,11 @@ var specific = {
         app: {
             keys: ['super-secret-keys']
         }
+    },
+    testing: {
+        app: {
+            keys: ['testing-keys']
+        }
     }
 };
 
