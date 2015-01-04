@@ -1,4 +1,5 @@
-var request = require('superagent');
+var app = require('../../server');
+var request = require('co-supertest').agent(app.listen());
 var should = require('should');
 var db = require('../../lib/db');
 
@@ -29,49 +30,43 @@ describe('Projects API', function() {
         });
     });
 
-    it('should retrive all projects', function(done) {
-        request.get('localhost:9000/projects')
+    it('should retrive all projects', function *() {
+        var res = yield request.get('/projects')
             .query({
                 query: 'isClient'
             })
-            .end(function(res) {
-                var response = JSON.parse(res.text);
-                res.should.exist;
-                response.should.have.length(1);
-                response[0].should.have.property('name', 'My Project');
-                done();
-            });
+            .end();
+
+        var response = JSON.parse(res.text);
+        response.should.have.length(1);
+        response[0].should.have.property('name', 'My Project');
     });
 
-    it('should retrieve a specific project', function(done) {
-        request.get('localhost:9000/projects/' + _id)
+    it('should retrieve a specific project', function *() {
+        var res = yield request.get('/projects/' + _id)
         .query({
             query: 'isClient'
         })
-        .end(function(res) {
-            var response = JSON.parse(res.text);
-            res.should.exist;
-            response.should.have.property('name', 'My Project');
-            done();
-        });
+        .end();
+
+        var response = JSON.parse(res.text);
+        response.should.have.property('name', 'My Project');
     });
 
-    it('should update a project', function(done) {
-        request.put('localhost:9000/projects')
+    it('should update a project', function *() {
+        var res = yield request.put('/projects')
         .send({
             'id': _id,
             'name': 'My Edited Project'
         })
-        .end(function(res) {
-            var response = JSON.parse(res.text);
-            res.should.exist;
-            response.should.have.property('project_id', _id);
-            done();
-        });
+        .end();
+
+        var response = JSON.parse(res.text);
+        response.should.have.property('project_id', _id);
     });
 
-    it('should create a project', function(done) {
-        request.post('localhost:9000/projects')
+    it('should create a project', function *() {
+        var res = yield request.post('/projects')
         .send({
             name: 'My Second Project',
             role: 'Developer',
@@ -86,26 +81,22 @@ describe('Projects API', function() {
             slug: 'my-project',
             published: false,
         })
-        .end(function(res) {
-            var response = JSON.parse(res.text);
-            res.should.exist;
-            response.should.have.property('project_id');
-            _secondId = response.project_id;
-            done();
-        });
+        .end();
+
+        var response = JSON.parse(res.text);
+        response.should.have.property('project_id');
+        _secondId = response.project_id;
     });
 
-    it('should delete a project', function(done) {
-        request.del('localhost:9000/projects')
+    it('should delete a project', function *() {
+        var res = yield request.del('/projects')
         .send({
             'id': _secondId
         })
-        .end(function(res) {
-            var response = JSON.parse(res.text);
-            res.should.exist;
-            response.should.have.property('affected_rows', 1);
-            done();
-        });
+        .end();
+        
+        var response = JSON.parse(res.text);
+        response.should.have.property('affected_rows', 1);
     });
 
     after(function(done) {

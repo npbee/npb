@@ -20,7 +20,7 @@ var config = require('./config/app');
 app.keys = config.app.keys;
 
 app.use(session({
-    key: 'npb.sid'
+    key: 'nbp.sid'
 }));
 app.use(bodyParser());
 
@@ -84,3 +84,5 @@ app.use(serve('.'));
 // Listen
 app.listen(9000);
 console.log('listening on post 9000');
+
+module.exports = app;

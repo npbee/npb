@@ -7,7 +7,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var nodemon = require('gulp-nodemon');
-var mocha = require('gulp-mocha');
+var mocha = require('gulp-mocha-co');
+var exit = require('gulp-exit');
 
 var config = require('./config/paths');
 var paths = config.paths;
@@ -59,7 +60,8 @@ gulp.task('test', function() {
     return gulp.src('./tests/**/*.js')
         .pipe(mocha({
             reporter: 'nyan'
-        }));
+        }))
+        .pipe(exit());
    }
 );
 

@@ -27,3 +27,13 @@ psql -U username database_name
 On VPS:
 
 Switch to postgres user:
+
+### Tests
+We're using generators here, so tests are using gulp-mocha-co and the gulp 
+commands must be run with the harmony flag.  So to run the tests, just run 
+the following command: 
+
+`npm test`
+
+This will set the node env to "testing," set the `--harmony` flag, start the 
+server, and run the "test" gulp task.

@@ -1,4 +1,5 @@
-var request = require('superagent');
+var app = require('../../server');
+var request = require('co-supertest').agent(app.listen());
 var should = require('should');
 var db = require('../../lib/db');
 
@@ -22,79 +23,69 @@ describe('Posts API', function() {
         });
     });
 
-    it('should retrive all posts', function(done) {
-        request.get('localhost:9000/posts')
+    it('should retrive all posts', function *() {
+        var res = yield request.get('/posts')
             .query({
                 query: 'isReact'
             })
-            .end(function(res) {
-                var response = JSON.parse(res.text);
-                res.should.exist;
-                response.should.have.length(1);
-                response[0].should.have.property('title', 'New Title');
-                done();
-            });
+            .end();
+
+       var response = JSON.parse(res.text);
+       response.should.have.length(1);
+       response[0].should.have.property('title', 'New Title');
     });
 
-    it('should retrieve a specific post', function(done) {
-        request.get('localhost:9000/posts/' + _id)
+    it('should retrieve a specific post', function *() {
+        var res = yield request.get('/posts/' + _id)
         .query({
             query: 'isClient'
         })
-        .end(function(res) {
-            var response = JSON.parse(res.text);
-            res.should.exist;
-            response.should.have.property('title', 'New Title');
-            done();
-        });
+        .end();
+
+        var response = JSON.parse(res.text);
+        response.should.have.property('title', 'New Title');
     });
 
-    it('should update a post', function(done) {
-        request.put('localhost:9000/posts')
+    it('should update a post', function *() {
+        var res = yield request.put('/posts')
         .send({
             'id': _id,
             'title': 'My Edited Title'
         })
-        .end(function(res) {
-            var response = JSON.parse(res.text);
-            res.should.exist;
-            response.should.have.property('post_id', _id);
-            done();
-        });
+        .end();
+
+        var response = JSON.parse(res.text);
+        res.should.exist;
+        response.should.have.property('post_id', _id);
     });
 
-    it('should create a post', function(done) {
-        request.post('localhost:9000/posts')
-        .send({
-            'title': 'My Second Title',
-            'body': 'My second body',
-            'slug': 'my-second-title',
-            'excerpt': 'The second excerpt',
-            published: false,
-            created_at: new Date(),
-            updated_at: new Date()
-        })
-        .end(function(res) {
-            var response = JSON.parse(res.text);
-            res.should.exist;
-            response.should.have.property('post_id');
-            _secondId = response.post_id;
-            done();
-        });
+    it('should create a post', function *() {
+        var res = yield request.post('/posts')
+            .send({
+                'title': 'My Second Title',
+                'body': 'My second body',
+                'slug': 'my-second-title',
+                'excerpt': 'The second excerpt',
+                published: false,
+                created_at: new Date(),
+                updated_at: new Date()
+            })
+            .end();
+
+       var response = JSON.parse(res.text);
+       response.should.have.property('post_id');
+       _secondId = response.post_id;
     });
 
-    it('should delete a post', function(done) {
-        console.log(_secondId);
-        request.del('localhost:9000/posts')
-        .send({
-            'id': _secondId
-        })
-        .end(function(res) {
-            var response = JSON.parse(res.text);
-            res.should.exist;
-            response.should.have.property('affected_rows', 1);
-            done();
-        });
+    it('should delete a post', function *() {
+        var res = yield request.del('/posts')
+            .send({
+                'id': _secondId
+            })
+            .end();
+
+        var response = JSON.parse(res.text);
+        response.should.have.property('affected_rows', 1);
     });
 
     after(function(done) {
