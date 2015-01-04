@@ -9,11 +9,33 @@ var buffer = require('vinyl-buffer');
 var nodemon = require('gulp-nodemon');
 var mocha = require('gulp-mocha-co');
 var exit = require('gulp-exit');
+var sass = require('gulp-ruby-sass');
+var watch = require('gulp-watch');
 
 var config = require('./config/paths');
 var paths = config.paths;
 
-// Scripts
+
+
+/**********
+ * SCSS
+ *********/
+gulp.task('scss-dev', function () {
+    return sass('scss/app.scss', {
+        sourcemap: true
+    })
+    .on('error', function(err) {
+        console.error('Error', err.message);
+    })
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./static/css'));
+});
+
+
+
+/**********
+ * JS
+ *********/
 var bundler = watchify(browserify({
     entries: ['./app.js'],
     transform: [reactify],
@@ -35,11 +57,13 @@ function bundle() {
         .pipe(gulp.dest('./static'));
 }
 
-gulp.task('js', bundle);
 bundler.on('update', bundle);
 
 
-// Node monitor
+
+/**********
+ * SERVER
+ *********/
 gulp.task('server', function() {
     nodemon({
         script: 'server.js',
@@ -55,7 +79,11 @@ gulp.task('server', function() {
     });
 });
 
-//Unit tests
+
+
+/**********
+ * TESTS
+ *********/
 gulp.task('test', function() {
     return gulp.src('./tests/**/*.js')
         .pipe(mocha({
@@ -65,5 +93,15 @@ gulp.task('test', function() {
    }
 );
 
-// Default task
-gulp.task('default', ['server', 'js']);
+
+
+/**********
+ * TASKS
+ *********/
+gulp.task('scss', function() {
+    watch('./scss/**/*.scss', function() {
+        gulp.start('scss-dev');
+    });
+});
+gulp.task('js', bundle);
+gulp.task('default', ['server', 'js', 'scss']);

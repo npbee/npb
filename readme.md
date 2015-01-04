@@ -20,6 +20,8 @@ psql -U nick -d npb.com_test -f /Users/npb/Dropbox/npb.test.sql
 ### Dev Database
 npb.com_dev
 
+### Create a user
+node --harmony ./lib/create_user {password}
 
 Connect on the command line:
 psql -U username database_name

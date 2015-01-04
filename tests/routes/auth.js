@@ -3,7 +3,6 @@ var request = require('co-supertest').agent(app.listen());
 var should = require('should');
 var knex = require('../../lib/db');
 var bcrypt = require('bcrypt');
-var login = require('../helpers/login');
 
 describe('Authentication routes', function() {
     var user;
