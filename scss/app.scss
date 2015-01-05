@@ -8,12 +8,6 @@
 
 
 /**
- * Vars
- **/
-@import "vars";
-
-
-/**
  * Config
  **/
 @import "config";
@@ -34,6 +28,7 @@
 /**
  * Typography
  */
+@import "lib/typecsset/typecsset";
 @import "typography/base";
 
 /**

@@ -1,6 +1,13 @@
 .mobile-nav {
+    @include container;
+    .site-logo,
+    .mobile-nav__toggle {
+    }
     .site-logo {
         @include span(6 of 12);
+        img {
+            max-width: 50px;
+        }
     }
     .mobile-nav__toggle {
         @include span(6 of 12 last);
