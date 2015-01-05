@@ -22,7 +22,8 @@ var paths = config.paths;
  *********/
 gulp.task('scss-dev', function () {
     return sass('scss/app.scss', {
-        sourcemap: true
+        sourcemap: true,
+        require: 'susy'
     })
     .on('error', function(err) {
         console.error('Error', err.message);

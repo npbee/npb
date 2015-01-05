@@ -16,17 +16,17 @@ module.exports = React.createClass({
     var isAuthenticated = this.props.isAuthenticated;
 
     return (
-      <nav>
-      <a href="/">Logo</a>
-      {this.state.items.map(function(result) {
-        var className = result === selected ? 'active' : '';
-        return <NavItem 
-          key={result} 
-          data={result} 
-          className={className} 
-          navigate={self.handleClick} />;
-      })}
-      {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
+      <nav htmlClass="main-nav">
+          <a href="/">Logo</a>
+          {this.state.items.map(function(result) {
+              var className = result === selected ? 'active' : '';
+              return <NavItem 
+                  key={result} 
+                  data={result} 
+                  className={className} 
+                  navigate={self.handleClick} />;
+          })}
+          {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
       </nav>
       )
   },

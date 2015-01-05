@@ -104,6 +104,10 @@ var App = React.createClass({displayName: 'App',
     render: function() {
         
         return React.createElement("main", {id: "react-app"}, 
+            React.createElement("nav", {className: "mobile-nav"}, 
+                React.createElement("a", {className: "site-logo"}, "NPB"), 
+                React.createElement("a", {className: "mobile-nav__toggle"}, "Open")
+            ), 
             React.createElement(NavList, {isAuthenticated: this.props.data.isAuthenticated}), 
             this.renderCurrentRoute()
         )
@@ -235,17 +239,17 @@ module.exports = React.createClass({displayName: 'exports',
     var isAuthenticated = this.props.isAuthenticated;
 
     return (
-      React.createElement("nav", null, 
-      React.createElement("a", {href: "/"}, "Logo"), 
-      this.state.items.map(function(result) {
-        var className = result === selected ? 'active' : '';
-        return React.createElement(NavItem, {
-          key: result, 
-          data: result, 
-          className: className, 
-          navigate: self.handleClick});
-      }), 
-      isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
+      React.createElement("nav", {htmlClass: "main-nav"}, 
+          React.createElement("a", {href: "/"}, "Logo"), 
+          this.state.items.map(function(result) {
+              var className = result === selected ? 'active' : '';
+              return React.createElement(NavItem, {
+                  key: result, 
+                  data: result, 
+                  className: className, 
+                  navigate: self.handleClick});
+          }), 
+          isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
       )
       )
   },
@@ -290,9 +294,10 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
             React.createElement("section", {className: "home"}, 
-            React.createElement(Snippet, {title: this.state.post.title, tagline: "Latest Post", url: 'posts/' + this.state.post.slug}), 
-            React.createElement(Snippet, {title: this.state.project.name, tagline: "Latest Project", url: 'projects/' + this.state.project.slug}), 
-            React.createElement(Snippet, {tagline: "Connect", title: "Find me!", url: 'connect'})
+                React.createElement("p", {className: "tagline"}, "Development + Design + Other Stuff"), 
+                React.createElement(Snippet, {title: this.state.post.title, tagline: "Latest Post", url: 'posts/' + this.state.post.slug}), 
+                React.createElement(Snippet, {title: this.state.project.name, tagline: "Latest Project", url: 'projects/' + this.state.project.slug}), 
+                React.createElement(Snippet, {tagline: "Connect", title: "Find me!", url: 'connect'})
             )
             )
 
