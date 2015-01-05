@@ -128,11 +128,12 @@ module.exports = React.createClass({displayName: 'exports',
         var slug = this.props.url;
         
         return (
-            React.createElement("div", null, 
-            React.createElement("a", {href: slug}, 
-                React.createElement("span", null, title), 
-                React.createElement("span", null, excerpt)
-            )
+            React.createElement("article", {className: "snippet"}, 
+                React.createElement("h2", {className: "snippet__tagline"}, this.props.tagline), 
+                React.createElement("a", {className: "snippet__item", href: slug}, 
+                    React.createElement("span", null, title), 
+                    React.createElement("span", null, excerpt)
+                )
             )
             )
     }

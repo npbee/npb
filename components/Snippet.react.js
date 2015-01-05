@@ -7,12 +7,13 @@ module.exports = React.createClass({
         var slug = this.props.url;
         
         return (
-            <div>
-            <a href={slug}>
-                <span>{title}</span>
-                <span>{excerpt}</span>
-            </a>
-            </div>
+            <article className="snippet">
+                <h2 className="snippet__tagline">{this.props.tagline}</h2>
+                <a className="snippet__item" href={slug}>
+                    <span>{title}</span>
+                    <span>{excerpt}</span>
+                </a>
+            </article>
             )
     }
 });
