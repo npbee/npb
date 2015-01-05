@@ -91,7 +91,7 @@ var App = React.createClass({
         return <main id="react-app">
             <nav className="mobile-nav">
                 <a className="site-logo"><img src="/static/images/logo.svg" /></a>
-                <a className="mobile-nav__toggle">Open</a>
+                <a className="mobile-nav__toggle"><img src="/static/images/icons/core/menu.svg" /></a>
             </nav>
             <NavList isAuthenticated={this.props.data.isAuthenticated} />
             {this.renderCurrentRoute()}

@@ -1,16 +1,19 @@
 .mobile-nav {
-    @include container;
+    display: table;
+    width: 100%;
     .site-logo,
     .mobile-nav__toggle {
+        display: table-cell;
+        vertical-align: middle;
+        width: 50%;
     }
     .site-logo {
-        @include span(6 of 12);
+        
         img {
-            max-width: 50px;
+            max-width: 40px;
         }
     }
     .mobile-nav__toggle {
-        @include span(6 of 12 last);
         text-align: right;
     }
     @include breakpoint($large) {

@@ -106,7 +106,7 @@ var App = React.createClass({displayName: 'App',
         return React.createElement("main", {id: "react-app"}, 
             React.createElement("nav", {className: "mobile-nav"}, 
                 React.createElement("a", {className: "site-logo"}, React.createElement("img", {src: "/static/images/logo.svg"})), 
-                React.createElement("a", {className: "mobile-nav__toggle"}, "Open")
+                React.createElement("a", {className: "mobile-nav__toggle"}, React.createElement("img", {src: "/static/images/icons/core/menu.svg"}))
             ), 
             React.createElement(NavList, {isAuthenticated: this.props.data.isAuthenticated}), 
             this.renderCurrentRoute()
