@@ -14,9 +14,38 @@
         }
     }
     .mobile-nav__toggle {
+        &:after {
+            content: url('/static/images/icons/core/menu.svg');
+            display: block;
+        }
         text-align: right;
     }
     @include breakpoint($large) {
         display: none;
     }
 }
+
+.mobile-nav--open {
+    .mobile-nav__toggle {
+        &:after {
+            content: url('/static/images/icons/core/close.svg');
+        }
+    }
+}
+
+
+.main-nav {
+    display: none;
+    background: $white;
+    font-family: $header-font;
+    font-size: $typecsset-h2-size;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    a {
+        @include typecsset-space(margin-bottom);
+        display: block;
+    }
+}
+

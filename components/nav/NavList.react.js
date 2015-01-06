@@ -16,8 +16,8 @@ module.exports = React.createClass({
     var isAuthenticated = this.props.isAuthenticated;
 
     return (
-      <nav htmlClass="main-nav">
-          <a href="/">Logo</a>
+      <nav className="main-nav">
+          <a href="/"><img src="/static/images/logo.svg" /></a>
           {this.state.items.map(function(result) {
               var className = result === selected ? 'active' : '';
               return <NavItem 

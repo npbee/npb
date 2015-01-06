@@ -26,6 +26,7 @@ $typecsset-base-line-height: 24px;
 **********/
 $white: #f9f9f9;
 $black: #333333;
+$brand-main: #ce6d7c;
 
 
 
@@ -33,3 +34,11 @@ $black: #333333;
  * Spacing
  ****/
 $base-spacing-unit: 10px;
+
+
+
+/*****
+ * Fonts
+ ****/
+$body-font: 'Chronicle Display A', 'Chronicle Display B';
+$header-font: 'Landmark Regular A', 'Landmark Regular B';

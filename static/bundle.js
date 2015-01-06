@@ -105,8 +105,8 @@ var App = React.createClass({displayName: 'App',
         
         return React.createElement("main", {id: "react-app"}, 
             React.createElement("nav", {className: "mobile-nav"}, 
-                React.createElement("a", {className: "site-logo"}, React.createElement("img", {src: "/static/images/logo.svg"})), 
-                React.createElement("a", {className: "mobile-nav__toggle"}, React.createElement("img", {src: "/static/images/icons/core/menu.svg"}))
+                React.createElement("a", {className: "site-logo", href: "/"}, React.createElement("img", {src: "/static/images/logo.svg"})), 
+                React.createElement("a", {className: "mobile-nav__toggle"})
             ), 
             React.createElement(NavList, {isAuthenticated: this.props.data.isAuthenticated}), 
             this.renderCurrentRoute()
@@ -240,8 +240,8 @@ module.exports = React.createClass({displayName: 'exports',
     var isAuthenticated = this.props.isAuthenticated;
 
     return (
-      React.createElement("nav", {htmlClass: "main-nav"}, 
-          React.createElement("a", {href: "/"}, "Logo"), 
+      React.createElement("nav", {className: "main-nav"}, 
+          React.createElement("a", {href: "/"}, React.createElement("img", {src: "/static/images/logo.svg"})), 
           this.state.items.map(function(result) {
               var className = result === selected ? 'active' : '';
               return React.createElement(NavItem, {
@@ -297,8 +297,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.createElement("section", {className: "home"}, 
                 React.createElement("p", {className: "tagline"}, "Development + Design + Other Stuff"), 
                 React.createElement(Snippet, {title: this.state.post.title, tagline: "Latest Post", url: 'posts/' + this.state.post.slug}), 
-                React.createElement(Snippet, {title: this.state.project.name, tagline: "Latest Project", url: 'projects/' + this.state.project.slug}), 
-                React.createElement(Snippet, {tagline: "Connect", title: "Find me!", url: 'connect'})
+                React.createElement(Snippet, {title: this.state.project.name, tagline: "Latest Project", url: 'projects/' + this.state.project.slug})
             )
             )
 

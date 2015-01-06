@@ -36,7 +36,6 @@ module.exports = React.createClass({
                 <p className="tagline">Development + Design + Other Stuff</p>
                 <Snippet title={this.state.post.title} tagline="Latest Post" url={'posts/' + this.state.post.slug} />
                 <Snippet title={this.state.project.name} tagline="Latest Project" url={'projects/' + this.state.project.slug} />
-                <Snippet tagline="Connect" title='Find me!' url={'connect'} />
             </section>
             )
 
