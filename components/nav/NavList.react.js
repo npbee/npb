@@ -17,7 +17,8 @@ module.exports = React.createClass({
 
     return (
       <nav className="main-nav">
-          <a href="/"><img src="/static/images/logo.svg" /></a>
+          <a href="/" className="site-logo"><img src="/static/images/logo.svg" /></a>
+          <div className="main-nav__menu">
           {this.state.items.map(function(result) {
               var className = result === selected ? 'active' : '';
               return <NavItem 
@@ -26,7 +27,13 @@ module.exports = React.createClass({
                   className={className} 
                   navigate={self.handleClick} />;
           })}
-          {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
+          </div>
+          <div className="main-nav__social">
+              <a>Twitter</a>
+              <a>Email</a>
+              {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
+          </div>
+          <a className="main-nav__toggle"><img src="/static/images/icons/core/menu.svg" /></a>
       </nav>
       )
   },

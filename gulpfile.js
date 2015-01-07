@@ -11,6 +11,7 @@ var mocha = require('gulp-mocha-co');
 var exit = require('gulp-exit');
 var sass = require('gulp-ruby-sass');
 var watch = require('gulp-watch');
+var livereload = require('gulp-livereload');
 
 var config = require('./config/paths');
 var paths = config.paths;
@@ -29,7 +30,8 @@ gulp.task('scss-dev', function () {
         console.error('Error', err.message);
     })
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./static/css'));
+    .pipe(gulp.dest('./static/css'))
+    .pipe(livereload());
 });
 
 
@@ -100,6 +102,7 @@ gulp.task('test', function() {
  * TASKS
  *********/
 gulp.task('scss', function() {
+    livereload.listen();
     watch('./scss/**/*.scss', function() {
         gulp.start('scss-dev');
     });

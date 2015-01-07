@@ -43,6 +43,7 @@
     "co-supertest": "0.0.7",
     "gulp": "^3.8.10",
     "gulp-exit": "0.0.2",
+    "gulp-livereload": "^3.2.0",
     "gulp-nodemon": "^1.0.4",
     "gulp-ruby-sass": "^1.0.0-alpha",
     "gulp-sourcemaps": "^1.2.8",

@@ -33,7 +33,11 @@ module.exports = React.createClass({
 
         return (
             <section className="home">
-                <p className="tagline">Development + Design + Other Stuff</p>
+                <div className="tagline">
+                    <p className="tagline__item">Development +</p>
+                    <p className="tagline__item">Design +</p>
+                    <p className="tagline__item">Me</p>
+                </div>
                 <Snippet title={this.state.post.title} tagline="Latest Post" url={'posts/' + this.state.post.slug} />
                 <Snippet title={this.state.project.name} tagline="Latest Project" url={'projects/' + this.state.project.slug} />
             </section>

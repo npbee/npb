@@ -1,0 +1,15 @@
+.tagline {
+    font-family: $fun-font;
+    font-weight: $fun-font-regular-weight;
+    font-size: $typecsset-h1-size;
+    @include breakpoint($large) {
+        text-align: center;
+        .tagline__item {
+            display: inline-block;
+            &:after {
+                content: "\00a0";
+                display: inline-block;
+            }
+        }
+    }
+}

@@ -3,13 +3,11 @@ main {
 
     nav {
         @include breakpoint($large) {
-            @include span(4 of 12);
         }
     }
 
     nav + section {
         @include breakpoint($large) {
-            @include span(8 of 12 last);
         }
     }
 

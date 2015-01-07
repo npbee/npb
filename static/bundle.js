@@ -104,10 +104,6 @@ var App = React.createClass({displayName: 'App',
     render: function() {
         
         return React.createElement("main", {id: "react-app"}, 
-            React.createElement("nav", {className: "mobile-nav"}, 
-                React.createElement("a", {className: "site-logo", href: "/"}, React.createElement("img", {src: "/static/images/logo.svg"})), 
-                React.createElement("a", {className: "mobile-nav__toggle"})
-            ), 
             React.createElement(NavList, {isAuthenticated: this.props.data.isAuthenticated}), 
             this.renderCurrentRoute()
         )
@@ -241,7 +237,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     return (
       React.createElement("nav", {className: "main-nav"}, 
-          React.createElement("a", {href: "/"}, React.createElement("img", {src: "/static/images/logo.svg"})), 
+          React.createElement("a", {href: "/", className: "site-logo"}, React.createElement("img", {src: "/static/images/logo.svg"})), 
+          React.createElement("div", {className: "main-nav__menu"}, 
           this.state.items.map(function(result) {
               var className = result === selected ? 'active' : '';
               return React.createElement(NavItem, {
@@ -249,8 +246,14 @@ module.exports = React.createClass({displayName: 'exports',
                   data: result, 
                   className: className, 
                   navigate: self.handleClick});
-          }), 
-          isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
+          })
+          ), 
+          React.createElement("div", {className: "main-nav__social"}, 
+              React.createElement("a", null, "Twitter"), 
+              React.createElement("a", null, "Email"), 
+              isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
+          ), 
+          React.createElement("a", {className: "main-nav__toggle"}, React.createElement("img", {src: "/static/images/icons/core/menu.svg"}))
       )
       )
   },
@@ -295,7 +298,11 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
             React.createElement("section", {className: "home"}, 
-                React.createElement("p", {className: "tagline"}, "Development + Design + Other Stuff"), 
+                React.createElement("div", {className: "tagline"}, 
+                    React.createElement("p", {className: "tagline__item"}, "Development +"), 
+                    React.createElement("p", {className: "tagline__item"}, "Design +"), 
+                    React.createElement("p", {className: "tagline__item"}, "Me")
+                ), 
                 React.createElement(Snippet, {title: this.state.post.title, tagline: "Latest Post", url: 'posts/' + this.state.post.slug}), 
                 React.createElement(Snippet, {title: this.state.project.name, tagline: "Latest Project", url: 'projects/' + this.state.project.slug})
             )
