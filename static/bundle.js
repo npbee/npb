@@ -249,8 +249,8 @@ module.exports = React.createClass({displayName: 'exports',
           })
           ), 
           React.createElement("div", {className: "main-nav__social"}, 
-              React.createElement("a", null, "Twitter"), 
-              React.createElement("a", null, "Email"), 
+              React.createElement("a", null, React.createElement("img", {src: "/static/images/icons/social/post-twitter.svg"})), 
+              React.createElement("a", null, React.createElement("img", {src: "/static/images/icons/communication/email.svg"})), 
               isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
           ), 
           React.createElement("a", {className: "main-nav__toggle"}, React.createElement("img", {src: "/static/images/icons/core/menu.svg"}))
