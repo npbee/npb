@@ -297,13 +297,26 @@ module.exports = React.createClass({displayName: 'exports',
     render: function(){
 
         return (
-            React.createElement("section", {className: "home"}, 
-                React.createElement("div", {className: "tagline"}, 
-                    React.createElement("p", {className: "tagline__item"}, "Development +"), 
-                    React.createElement("p", {className: "tagline__item"}, "Design +"), 
-                    React.createElement("p", {className: "tagline__item"}, "Me")
+            React.createElement("section", {className: "home skinny"}, 
+                React.createElement("div", {className: "grid"}, 
+                    React.createElement("div", {className: "avatar grid--one-quarter grid--push-one-quarter"}, 
+                        React.createElement("img", {className: "avatar__image", src: "/static/images/me.png"}), 
+                        React.createElement("div", {className: "avatar__summary"}, 
+                            React.createElement("p", {className: "avatar__summary__position"}, 
+                                "Jr. Software Engineer"
+                            ), 
+                            React.createElement("p", {className: "avatar__summary__employer"}, 
+                                "@ Loudr"
+                            )
+                        )
+                    ), 
+                    React.createElement("div", {className: "tagline grid--one-half-last"}, 
+                        React.createElement("p", {className: "tagline__item"}, "Development +"), 
+                        React.createElement("p", {className: "tagline__item"}, "Design +"), 
+                        React.createElement("p", {className: "tagline__item"}, "Me")
+                    )
                 ), 
-                React.createElement(Snippet, {title: this.state.post.title, tagline: "Latest Post", url: 'posts/' + this.state.post.slug}), 
+                    React.createElement(Snippet, {title: this.state.post.title, tagline: "Latest Post", url: 'posts/' + this.state.post.slug}), 
                 React.createElement(Snippet, {title: this.state.project.name, tagline: "Latest Project", url: 'projects/' + this.state.project.slug})
             )
             )
