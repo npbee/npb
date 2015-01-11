@@ -1,31 +1,45 @@
+$settings: (
+    display: table
+    );
+
 .grid {
-    @include container;
-    @include show-grid(overlay);
+    /*@include container;*/
+    display: map-get($settings, display);
 }
 
 
 
 .grid--one-quarter {
     @include breakpoint($large) {
-        @include span(3 of 12);
+        display: table-cell;
+        vertical-align: middle;
+        /*@include span(3 of 12);*/
+        width: span(3 of 12);
     }
 }
 
 .grid--three-quarters {
     @include breakpoint($large) {
-        @include span(9 of 12 last);
+        display: table-cell;
+        vertical-align: middle;
+        /*@include span(9 of 12 last);*/
+        width: span(9 of 12);
     }
 }
 
 .grid--one-half {
     @include breakpoint($large) {
+        display: table-cell;
         @include span(6 of 12);
     }
 }
 
 .grid--one-half-last {
     @include breakpoint($large) {
-        @include span(6 of 12 last);
+        display: table-cell;
+        /*@include span(6 of 12 last);*/
+        width: span(6 of 12 last);
+        vertical-align: middle;
     }
 }
 
