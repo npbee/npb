@@ -29,5 +29,9 @@
     }
     .main-nav__social {
         margin-left: auto;
+        img {
+            max-width: 20px;
+            vertical-align: middle;
+        }
     }
 }

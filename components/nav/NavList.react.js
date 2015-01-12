@@ -29,8 +29,8 @@ module.exports = React.createClass({
           })}
           </div>
           <div className="main-nav__social">
-              <a><img src="/static/images/icons/social/post-twitter.svg" /></a>
-              <a><img src="/static/images/icons/communication/email.svg" /></a>
+              <a><img src="/static/images/icons/entypo/twitter4.svg" /></a>
+              <a><img src="/static/images/icons/entypo/card2.svg" /></a>
               {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
           </div>
           <a className="main-nav__toggle"><img src="/static/images/icons/core/menu.svg" /></a>
