@@ -1,6 +1,12 @@
 $settings: (
     display: table
-    );
+);
+
+@mixin grid-item($span) {
+    display: table-cell;
+    vertical-align: middle;
+    width: span($span of 12);
+}
 
 .grid {
     /*@include container;*/
@@ -11,10 +17,7 @@ $settings: (
 
 .grid--one-quarter {
     @include breakpoint($large) {
-        display: table-cell;
-        vertical-align: middle;
-        /*@include span(3 of 12);*/
-        width: span(3 of 12);
+        @include grid-item(3);
     }
 }
 
