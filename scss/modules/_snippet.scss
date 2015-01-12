@@ -1,7 +1,15 @@
 .snippet {
+    display: block;
     margin-bottom: $typecsset-base-line-height;
+    text-align: center;
+    @include breakpoint($large) {
+        text-align: left;
+    }
     .snippet__tagline {
-        font-size: $typecsset-h4-size;
+        font-size: $typecsset-h6-size;
         margin-bottom: 0;
+    }
+    .snippet__item {
+        font-style: italic;
     }
 }

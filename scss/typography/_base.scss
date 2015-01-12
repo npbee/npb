@@ -1,6 +1,6 @@
 html, body {
     font-family: $body-font;
-    font-weight: 300;
+    font-weight: 200;
     font-style: normal;
 }
 
@@ -20,3 +20,21 @@ a:not(.button) {
         color: $brand-main;
     }
 }
+
+
+
+.rule {
+    border: none;
+    outline: none;
+    height: 1px;
+    background: $grey;
+    /*margin: $typecsset-base-line-height 0;*/
+    @include typecsset-space(margin-top);
+    @include typecsset-space(margin-bottom);
+}
+
+    .rule--small {
+        max-width: 30%;
+        margin-left: auto;
+        margin-right: auto;
+    }

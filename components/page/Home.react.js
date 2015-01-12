@@ -33,25 +33,29 @@ module.exports = React.createClass({
 
         return (
             <section className="home skinny">
-                <div className="grid">
-                    <div className="avatar grid--one-quarter grid--push-one-quarter">
+                <div className="grid grid--centered">
+                    <div className="avatar grid--1-4 grid--push-1-4 grid--left">
                         <img className="avatar__image" src="/static/images/me.png" />
                         <div className="avatar__summary">
-                            <p className="avatar__summary__position">
+                            <p className="avatar__summary__item">
+                                Nick Ball
+                            </p>
+                            <p className="avatar__summary__position avatar__summary__item">
                                 Jr. Software Engineer
                             </p>
-                            <p className="avatar__summary__employer">
+                            <p className="avatar__summary__employer avatar__summary__item">
                                 @ Loudr
                             </p>
                         </div>
                     </div>
-                    <div className="tagline grid--one-half-last">
+                    <div className="tagline grid--1-2 grid--last">
                         <p className="tagline__item">Development +</p>
                         <p className="tagline__item">Design +</p>
                         <p className="tagline__item">Me</p>
                     </div>
                 </div>
-                    <Snippet title={this.state.post.title} tagline="Latest Post" url={'posts/' + this.state.post.slug} />
+                <hr className="rule rule--small" />
+                <Snippet title={this.state.post.title} tagline="Latest Post" url={'posts/' + this.state.post.slug} />
                 <Snippet title={this.state.project.name} tagline="Latest Project" url={'projects/' + this.state.project.slug} />
             </section>
             )

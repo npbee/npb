@@ -3,52 +3,45 @@ $settings: (
 );
 
 @mixin grid-item($span) {
-    display: table-cell;
-    vertical-align: middle;
-    width: span($span of 12);
+    @include span($span of 12);
+    line-height: 1;
 }
 
 .grid {
-    /*@include container;*/
-    display: map-get($settings, display);
+    @include container;
+    /*display: map-get($settings, display);*/
+}
+
+.grid--centered {
+    @include breakpoint($large) {
+        .grid--left {
+            text-align: right;
+        }
+    }
 }
 
 
 
-.grid--one-quarter {
+.grid--1-4 {
     @include breakpoint($large) {
         @include grid-item(3);
     }
 }
 
-.grid--three-quarters {
+.grid--1-2 {
     @include breakpoint($large) {
-        display: table-cell;
-        vertical-align: middle;
-        /*@include span(9 of 12 last);*/
-        width: span(9 of 12);
+        @include grid-item(6);
     }
 }
 
-.grid--one-half {
-    @include breakpoint($large) {
-        display: table-cell;
-        @include span(6 of 12);
-    }
-}
-
-.grid--one-half-last {
-    @include breakpoint($large) {
-        display: table-cell;
-        /*@include span(6 of 12 last);*/
-        width: span(6 of 12 last);
-        vertical-align: middle;
-    }
-}
-
-
-.grid--push-one-quarter {
+.grid--push-1-4 {
     @include breakpoint($large) {
         @include push(3 of 12);
+    }
+}
+
+.grid--last {
+    @include breakpoint($large) {
+        @include last;
     }
 }
