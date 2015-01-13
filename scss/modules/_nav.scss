@@ -2,8 +2,9 @@
 * $NAVIGATION
 ******************************/
 .main-nav {
-    display: flex;
     align-items: center;
+    display: flex;
+    height: $nav-height;
     justify-content: space-between;
     padding-bottom: $typecsset-base-line-height;
     @include breakpoint($large) {
@@ -11,6 +12,7 @@
     }
     .site-logo {
         padding-right: $base-spacing-unit;
+        z-index: 2;
         img {
             align-self: flex-start;
             max-width: 35px;
@@ -23,7 +25,8 @@
         }
     }
     a:not(.site-logo) {
-        padding: 0 $base-spacing-unit;
+        padding-left: $base-spacing-unit;
+        padding-right: $base-spacing-unit;
     }
     .main-nav__social {
         margin-left: auto;
@@ -38,6 +41,32 @@
 /*
 * MOBILE NAVIGATION
 ******************************/
+.main-nav__menu {
+    font-family: $header-font;
+    font-size: $typecsset-h3-size;
+    height: 80%;
+    left: 0;
+    padding-top: $nav-height + $typecsset-base-line-height;
+    top: 0;
+    a {
+        display: block;
+        padding-bottom: $typecsset-base-line-height;
+        @include breakpoint($large) {
+            display: inline;
+        }
+    }
+    @include breakpoint($large) {
+        height: auto;
+        padding-top: 0;
+    }
+}
+
+.main-nav__social {
+    top: 80%;
+    height: 20%;
+}
+
+
 .main-nav__menu,
 .main-nav__social {
     left: 0;
@@ -47,17 +76,10 @@
     @include breakpoint($large) {
         background: none;
         display: block;
+        font-family: $body-font;
+        font-size: $typecsset-base-font-size;
         position: static;
         width: auto;
     }
 }
-.main-nav__menu {
-    top: 0;
-    left: 0;
-    height: 80%;
-}
 
-.main-nav__social {
-    top: 80%;
-    height: 20%;
-}
