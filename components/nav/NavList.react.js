@@ -29,11 +29,12 @@ module.exports = React.createClass({
           })}
           </div>
           <div className="main-nav__social">
-              <a><img src="/static/images/icons/entypo/twitter4.svg" /></a>
-              <a><img src="/static/images/icons/entypo/card2.svg" /></a>
+              <a><img className="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
+              <a><img className="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
+              <a><img className="icon" src="/static/images/icons/github/mark.svg" /></a>
               {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
           </div>
-          <a className="main-nav__toggle"><img src="/static/images/icons/core/menu.svg" /></a>
+          <a className="main-nav__toggle icon"><img className="icon" src="/static/images/icons/icomoon/list.svg" /></a>
       </nav>
       )
   },

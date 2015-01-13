@@ -249,11 +249,12 @@ module.exports = React.createClass({displayName: 'exports',
           })
           ), 
           React.createElement("div", {className: "main-nav__social"}, 
-              React.createElement("a", null, React.createElement("img", {src: "/static/images/icons/entypo/twitter4.svg"})), 
-              React.createElement("a", null, React.createElement("img", {src: "/static/images/icons/entypo/card2.svg"})), 
+              React.createElement("a", null, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/twitter.svg"})), 
+              React.createElement("a", null, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/mail.svg"})), 
+              React.createElement("a", null, React.createElement("img", {className: "icon", src: "/static/images/icons/github/mark.svg"})), 
               isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
           ), 
-          React.createElement("a", {className: "main-nav__toggle"}, React.createElement("img", {src: "/static/images/icons/core/menu.svg"}))
+          React.createElement("a", {className: "main-nav__toggle icon"}, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/list.svg"}))
       )
       )
   },
