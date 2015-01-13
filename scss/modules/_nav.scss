@@ -1,3 +1,6 @@
+/******************************
+* $NAVIGATION
+******************************/
 .main-nav {
     display: flex;
     align-items: center;
@@ -13,13 +16,8 @@
             max-width: 35px;
         }
     }
-    .main-nav__menu {
-        display: none;
-        @include breakpoint($large) {
-            display: block;
-        }
-    }
     .main-nav__toggle {
+        z-index: 2;
         @include breakpoint($large) {
             display: none;
         }
@@ -34,4 +32,32 @@
             vertical-align: middle;
         }
     }
+}
+
+
+/*
+* MOBILE NAVIGATION
+******************************/
+.main-nav__menu,
+.main-nav__social {
+    left: 0;
+    position: absolute;
+    width: 100%;
+    background: rgba($white, 0.9);
+    @include breakpoint($large) {
+        background: none;
+        display: block;
+        position: static;
+        width: auto;
+    }
+}
+.main-nav__menu {
+    top: 0;
+    left: 0;
+    height: 80%;
+}
+
+.main-nav__social {
+    top: 80%;
+    height: 20%;
 }
