@@ -10,8 +10,13 @@
     @include breakpoint($large) {
         justify-content: flex-start;
     }
+    a {
+        padding-left: $base-spacing-unit;
+        padding-right: $base-spacing-unit;
+    }
     .site-logo {
         padding-right: $base-spacing-unit;
+        padding-left: 0;
         z-index: 2;
         img {
             align-self: flex-start;
@@ -19,35 +24,47 @@
         }
     }
     .main-nav__toggle {
+        padding-right: 0;
         z-index: 2;
         @include breakpoint($large) {
             display: none;
         }
     }
-    a:not(.site-logo) {
-        padding-left: $base-spacing-unit;
-        padding-right: $base-spacing-unit;
+}
+
+
+
+.main-nav__social {
+    font-size: $typecsset-h3-size;
+    height: 20%;
+    margin-left: auto;
+    right: 0;
+    text-align: right;
+    a {
+        display: block;
+        padding-bottom: $typecsset-base-line-height;
     }
-    .main-nav__social {
-        margin-left: auto;
-        img {
-            max-width: 20px;
+    .icon {
+        vertical-align: top;
+    }
+    @include breakpoint($large) {
+        animation: none;
+        .icon {
             vertical-align: middle;
+        }
+        a {
+            display: inline;
         }
     }
 }
 
 
-/*
-* MOBILE NAVIGATION
-******************************/
+
 .main-nav__menu {
     font-family: $header-font;
     font-size: $typecsset-h3-size;
     height: 80%;
     left: 0;
-    padding-top: $nav-height + $typecsset-base-line-height;
-    top: 0;
     a {
         display: block;
         padding-bottom: $typecsset-base-line-height;
@@ -56,30 +73,61 @@
         }
     }
     @include breakpoint($large) {
+        animation: none;
         height: auto;
         padding-top: 0;
     }
 }
 
-.main-nav__social {
-    top: 80%;
-    height: 20%;
-}
 
 
 .main-nav__menu,
 .main-nav__social {
-    left: 0;
-    position: absolute;
-    width: 100%;
     background: rgba($white, 0.9);
+    height: 100%;
+    line-height: $typecsset-base-line-height;
+    opacity: 0;
+    padding-top: $nav-height + $typecsset-base-line-height;
+    position: absolute;
+    top: 0;
+    width: 50%;
+    z-index: -1;
     @include breakpoint($large) {
         background: none;
         display: block;
         font-family: $body-font;
         font-size: $typecsset-base-font-size;
+        height: auto;
+        opacity: 1;
+        padding-top: 0;
         position: static;
         width: auto;
+        z-index: 1;
     }
 }
 
+
+
+.main-nav--open {
+    .main-nav__menu {
+        animation: slide-in-from-left 300ms forwards;
+    }
+    .main-nav__social {
+        animation: slide-in-from-right 300ms forwards;
+    }
+}
+
+.main-nav--closed {
+    .main-nav__menu {
+        animation: slide-out-to-left 300ms forwards;
+    }
+    .main-nav__social {
+        animation: slide-out-to-right 300ms forwards;
+    }
+    .main-nav__menu,
+    .main-nav__social {
+        @include breakpoint($large) {
+            animation: none;
+        }
+    }
+}

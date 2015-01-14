@@ -12,6 +12,8 @@ var exit = require('gulp-exit');
 var sass = require('gulp-ruby-sass');
 var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer-core');
 
 var config = require('./config/paths');
 var paths = config.paths;
@@ -29,6 +31,11 @@ gulp.task('scss-dev', function () {
     .on('error', function(err) {
         console.error('Error', err.message);
     })
+    .pipe(postcss([
+        autoprefixer({
+            browsers: ['last 2 version']
+        })
+    ]))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./static/css'))
     .pipe(livereload());

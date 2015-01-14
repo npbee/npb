@@ -226,7 +226,10 @@ module.exports = React.createClass({displayName: 'exports',
   getInitialState: function() {
     return {
       selected: 'home',
-        items: ['projects', 'posts', 'connect']
+      items: ['projects', 'posts', 'connect'],
+      isOpen: false,
+      isClosed: true,
+      isFirstLoad: true
     }
   },
 
@@ -234,9 +237,18 @@ module.exports = React.createClass({displayName: 'exports',
     var selected = this.props.selected || this.state.selected;
     var self = this;
     var isAuthenticated = this.props.isAuthenticated;
+    var _className;
+    
+    if (this.state.isOpen) {
+        _className = 'main-nav main-nav--open';
+    } else if (this.state.isClosed && !this.state.isFirstLoad) {
+        _className =  'main-nav main-nav--closed';
+    } else if (this.state.isFirstLoad) {
+        _className = 'main-nav';
+    }
 
     return (
-      React.createElement("nav", {className: "main-nav"}, 
+      React.createElement("nav", {className: _className}, 
           React.createElement("a", {href: "/", className: "site-logo"}, React.createElement("img", {src: "/static/images/logo.svg"})), 
           React.createElement("div", {className: "main-nav__menu"}, 
           this.state.items.map(function(result) {
@@ -254,12 +266,19 @@ module.exports = React.createClass({displayName: 'exports',
               React.createElement("a", null, React.createElement("img", {className: "icon", src: "/static/images/icons/github/mark.svg"})), 
               isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
           ), 
-          React.createElement("a", {className: "main-nav__toggle icon"}, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/list.svg"}))
+          React.createElement("a", {className: "main-nav__toggle icon", onClick: this.toggleNav}, 
+              React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/list.svg"})
+          )
       )
       )
   },
 
-  handleClick: function(e) {
+  toggleNav: function(e) {
+      this.setState({
+          isOpen: !this.state.isOpen,
+          isClosed: !this.state.isClosed,
+          isFirstLoad: false
+      });
   }
 });
 
