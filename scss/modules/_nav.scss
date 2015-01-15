@@ -33,13 +33,11 @@
 }
 
 
-
 .main-nav__social {
     font-size: $typecsset-h3-size;
     height: 20%;
     margin-left: auto;
     right: 0;
-    text-align: right;
     a {
         display: block;
         padding-bottom: $typecsset-base-line-height;
@@ -49,6 +47,9 @@
     }
     @include breakpoint($large) {
         animation: none;
+        display: inline-block;
+        float: right;
+        width: auto;
         .icon {
             vertical-align: middle;
         }
@@ -76,13 +77,13 @@
         animation: none;
         height: auto;
         padding-top: 0;
+        width: 100%;
     }
 }
 
 
 
-.main-nav__menu,
-.main-nav__social {
+.main-nav__menu {
     background: rgba($white, 0.9);
     height: 100%;
     line-height: $typecsset-base-line-height;
@@ -90,8 +91,12 @@
     padding-top: $nav-height + $typecsset-base-line-height;
     position: absolute;
     top: 0;
-    width: 50%;
+    width: 100%;
     z-index: -1;
+    a {
+        opacity: 0;
+        z-index: -1;
+    }
     @include breakpoint($large) {
         background: none;
         display: block;
@@ -101,7 +106,6 @@
         opacity: 1;
         padding-top: 0;
         position: static;
-        width: auto;
         z-index: 1;
     }
 }
@@ -112,17 +116,29 @@
     .main-nav__menu {
         animation: slide-in-from-left 300ms forwards;
     }
-    .main-nav__social {
-        animation: slide-in-from-right 300ms forwards;
+    .main-nav__menu a:first-child {
+        animation: slide-in-from-left 300ms 100ms forwards;
+    }
+    .main-nav__menu a:nth-child(2) {
+        animation: slide-in-from-left 300ms 200ms forwards;
+    }
+    .main-nav__menu a:nth-child(3) {
+        animation: slide-in-from-left 300ms 300ms forwards;
     }
 }
 
 .main-nav--closed {
     .main-nav__menu {
-        animation: slide-out-to-left 300ms forwards;
+        animation: slide-out-to-left 300ms 400ms forwards;
     }
-    .main-nav__social {
-        animation: slide-out-to-right 300ms forwards;
+    .main-nav__menu a:first-child {
+        animation: slide-out-to-left 300ms 100ms forwards;
+    }
+    .main-nav__menu a:nth-child(2) {
+        animation: slide-out-to-left 300ms 200ms forwards;
+    }
+    .main-nav__menu a:nth-child(3) {
+        animation: slide-out-to-left 300ms 300ms forwards;
     }
     .main-nav__menu,
     .main-nav__social {

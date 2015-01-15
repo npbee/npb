@@ -39,12 +39,12 @@ module.exports = React.createClass({
                   className={className} 
                   navigate={self.handleClick} />;
           })}
-          </div>
-          <div className="main-nav__social">
-              <a><img className="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
-              <a><img className="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
-              <a><img className="icon" src="/static/images/icons/github/mark.svg" /></a>
-              {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
+            <div className="main-nav__social">
+                <a><img className="icon main-nav__right" src="/static/images/icons/icomoon/twitter.svg" /></a>
+                <a><img className="icon main-nav__right" src="/static/images/icons/icomoon/mail.svg" /></a>
+                <a><img className="icon main-nav__right" src="/static/images/icons/github/mark.svg" /></a>
+                {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
+            </div>
           </div>
           <a className="main-nav__toggle icon" onClick={this.toggleNav} >
               <img className="icon" src="/static/images/icons/icomoon/list.svg" />

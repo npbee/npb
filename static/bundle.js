@@ -258,13 +258,13 @@ module.exports = React.createClass({displayName: 'exports',
                   data: result, 
                   className: className, 
                   navigate: self.handleClick});
-          })
-          ), 
-          React.createElement("div", {className: "main-nav__social"}, 
-              React.createElement("a", null, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/twitter.svg"})), 
-              React.createElement("a", null, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/mail.svg"})), 
-              React.createElement("a", null, React.createElement("img", {className: "icon", src: "/static/images/icons/github/mark.svg"})), 
-              isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
+          }), 
+            React.createElement("div", {className: "main-nav__social"}, 
+                React.createElement("a", null, React.createElement("img", {className: "icon main-nav__right", src: "/static/images/icons/icomoon/twitter.svg"})), 
+                React.createElement("a", null, React.createElement("img", {className: "icon main-nav__right", src: "/static/images/icons/icomoon/mail.svg"})), 
+                React.createElement("a", null, React.createElement("img", {className: "icon main-nav__right", src: "/static/images/icons/github/mark.svg"})), 
+                isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
+            )
           ), 
           React.createElement("a", {className: "main-nav__toggle icon", onClick: this.toggleNav}, 
               React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/list.svg"})

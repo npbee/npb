@@ -45,6 +45,12 @@ a:not(.button) {
 * ICONS
 ******************************/
 .icon {
-    max-width: 20px;
-    vertical-align: middle;
+    width: 70px;
+    @include breakpoint($large) {
+        max-width: 20px;
+        vertical-align: middle;
+    }
+    @include breakpoint($retina) {
+        width: 100px;
+    }
 }
