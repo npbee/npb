@@ -226,7 +226,10 @@ module.exports = React.createClass({displayName: 'exports',
   getInitialState: function() {
     return {
       selected: 'home',
-        items: ['projects', 'posts', 'connect']
+      items: ['projects', 'posts', 'connect'],
+      isOpen: false,
+      isClosed: true,
+      isFirstLoad: true
     }
   },
 
@@ -234,31 +237,47 @@ module.exports = React.createClass({displayName: 'exports',
     var selected = this.props.selected || this.state.selected;
     var self = this;
     var isAuthenticated = this.props.isAuthenticated;
+    var _className;
+    
+    if (this.state.isOpen) {
+        _className = 'main-nav main-nav--open';
+    } else if (this.state.isClosed && !this.state.isFirstLoad) {
+        _className =  'main-nav main-nav--closed';
+    } else if (this.state.isFirstLoad) {
+        _className = 'main-nav';
+    }
 
     return (
-      React.createElement("nav", {className: "main-nav"}, 
-          React.createElement("a", {href: "/", className: "site-logo"}, React.createElement("img", {src: "/static/images/logo.svg"})), 
+      React.createElement("nav", {className: _className}, 
+          React.createElement("a", {href: true, className: "site-logo"}, React.createElement("img", {className: "icon", src: "/static/images/logo.svg"})), 
+          React.createElement("a", {href: true, className: "site-logo main-nav__toggle", onClick: this.toggleNav}, React.createElement("img", {className: "icon", src: "/static/images/logo.svg"})), 
           React.createElement("div", {className: "main-nav__menu"}, 
-          this.state.items.map(function(result) {
-              var className = result === selected ? 'active' : '';
-              return React.createElement(NavItem, {
-                  key: result, 
-                  data: result, 
-                  className: className, 
-                  navigate: self.handleClick});
-          })
+              this.state.items.map(function(result) {
+                  var className = result === selected ? 'active' : '';
+                  return React.createElement(NavItem, {
+                      key: result, 
+                      data: result, 
+                      className: className, 
+                      navigate: self.handleClick});
+              })
           ), 
-          React.createElement("div", {className: "main-nav__social"}, 
-              React.createElement("a", null, React.createElement("img", {src: "/static/images/icons/entypo/twitter4.svg"})), 
-              React.createElement("a", null, React.createElement("img", {src: "/static/images/icons/entypo/card2.svg"})), 
-              isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
+          React.createElement("div", {className: "main-nav__social main-nav__break-right"}, 
+              React.createElement("a", {className: "main-nav__break-right"}, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/twitter.svg"})), 
+              React.createElement("a", {className: ""}, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/mail.svg"})), 
+              React.createElement("a", {className: ""}, React.createElement("img", {className: "icon", src: "/static/images/icons/github/mark.svg"}))
           ), 
-          React.createElement("a", {className: "main-nav__toggle"}, React.createElement("img", {src: "/static/images/icons/core/menu.svg"}))
+          isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
       )
       )
   },
 
-  handleClick: function(e) {
+  toggleNav: function(e) {
+      e.preventDefault();
+      this.setState({
+          isOpen: !this.state.isOpen,
+          isClosed: !this.state.isClosed,
+          isFirstLoad: false
+      });
   }
 });
 

@@ -11,7 +11,8 @@ $susy: (
 /**********
 * Breakpoints
 **********/
-$large: ( min: 50em );
+$large: ( min: 1000px );
+$retina: ( retina: true );
 
 
 
@@ -51,3 +52,10 @@ $fun-font: 'Landmark Inline A', 'Landmark Inline B';
 $fun-font-regular-weight: 400;
 
 $small-font: $typecsset-base-font-size * .80;
+
+
+
+/*****
+ * Navigation
+ ****/
+$nav-height: 50px;

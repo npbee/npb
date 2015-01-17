@@ -38,3 +38,17 @@ a:not(.button) {
         margin-left: auto;
         margin-right: auto;
     }
+
+
+
+/******************************
+* ICONS
+******************************/
+.icon {
+    max-width: 20px;
+    width: 20px;
+    vertical-align: middle;
+    @include breakpoint($retina) {
+        /*width: 100px;*/
+    }
+}
