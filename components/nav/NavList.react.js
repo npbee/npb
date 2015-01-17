@@ -1,5 +1,7 @@
 var React = require('react');
 var NavItem = require('./NavItem.react');
+var NavActions = require('../../actions/NavActions');
+var NavStore = require('../../stores/NavStore');
 
 module.exports = React.createClass({
 
@@ -7,30 +9,29 @@ module.exports = React.createClass({
     return {
       selected: 'home',
       items: ['projects', 'posts', 'connect'],
-      isOpen: false,
+      isOpen: NavStore.isOpen(),
       isClosed: true,
       isFirstLoad: true
     }
+  },
+
+  componentDidMount: function() {
+      NavStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function() {
+      NavStore.removeChangeListener(this._onChange);
   },
 
   render: function() {
     var selected = this.props.selected || this.state.selected;
     var self = this;
     var isAuthenticated = this.props.isAuthenticated;
-    var _className;
-    
-    if (this.state.isOpen) {
-        _className = 'main-nav main-nav--open';
-    } else if (this.state.isClosed && !this.state.isFirstLoad) {
-        _className =  'main-nav main-nav--closed';
-    } else if (this.state.isFirstLoad) {
-        _className = 'main-nav';
-    }
 
     return (
-      <nav className={_className} >
-          <a href className="site-logo"><img className="icon" src="/static/images/logo.svg" /></a>
-          <a href className="site-logo main-nav__toggle" onClick={this.toggleNav}><img className="icon" src="/static/images/logo.svg" /></a>
+      <nav className='main-nav' >
+          <a href="/" className="site-logo"><img className="icon" src="/static/images/logo.svg" /></a>
+          <a href="#" className="site-logo main-nav__toggle" onClick={this._onClick}><img className="icon" src="/static/images/logo.svg" /></a>
           <div className="main-nav__menu">
               {this.state.items.map(function(result) {
                   var className = result === selected ? 'active' : '';
@@ -38,7 +39,7 @@ module.exports = React.createClass({
                       key={result} 
                       data={result} 
                       className={className} 
-                      navigate={self.handleClick} />;
+                      navigate={self._onNavigate} />;
               })}
           </div>
           <div className="main-nav__social main-nav__break-right">
@@ -51,12 +52,15 @@ module.exports = React.createClass({
       )
   },
 
-  toggleNav: function(e) {
+  _onClick: function(e) {
       e.preventDefault();
-      this.setState({
-          isOpen: !this.state.isOpen,
-          isClosed: !this.state.isClosed,
-          isFirstLoad: false
-      });
+      NavActions.toggle();
+  },
+
+  _onNavigate: function() {
+      NavActions.close();
+  },
+
+  _onChange: function() {
   }
 });
