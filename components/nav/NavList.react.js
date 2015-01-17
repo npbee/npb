@@ -29,8 +29,7 @@ module.exports = React.createClass({
 
     return (
       <nav className={_className} >
-          <a href="/" className="site-logo"><img src="/static/images/logo.svg" /></a>
-          <div className="main-nav__menu">
+          <a href="/" className="site-logo"><img className="icon" src="/static/images/logo.svg" /></a>
           {this.state.items.map(function(result) {
               var className = result === selected ? 'active' : '';
               return <NavItem 
@@ -39,16 +38,13 @@ module.exports = React.createClass({
                   className={className} 
                   navigate={self.handleClick} />;
           })}
-            <div className="main-nav__social">
-                <a><img className="icon main-nav__right" src="/static/images/icons/icomoon/twitter.svg" /></a>
-                <a><img className="icon main-nav__right" src="/static/images/icons/icomoon/mail.svg" /></a>
-                <a><img className="icon main-nav__right" src="/static/images/icons/github/mark.svg" /></a>
-                {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
-            </div>
+          <a className="main-nav__toggle" onClick={this.toggleNav}><img className="icon" src="/static/images/icons/icomoon/list.svg" /></a>
+          <div className="main-nav__social main-nav__break-right">
+              <a className="main-nav__break-right"><img className="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
+              <a className=""><img className="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
+              <a className=""><img className="icon" src="/static/images/icons/github/mark.svg" /></a>
           </div>
-          <a className="main-nav__toggle icon" onClick={this.toggleNav} >
-              <img className="icon" src="/static/images/icons/icomoon/list.svg" />
-          </a>
+          {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
       </nav>
       )
   },

@@ -4,23 +4,36 @@
 .main-nav {
     align-items: center;
     display: flex;
-    height: $nav-height;
+    font-size: $typecsset-base-font-size * 2;
+    height: $nav-height * 2;
     justify-content: space-between;
     padding-bottom: $typecsset-base-line-height;
     @include breakpoint($large) {
+        font-size: $typecsset-base-font-size;
+        height: $nav-height;
         justify-content: flex-start;
     }
     a {
-        padding-left: $base-spacing-unit;
-        padding-right: $base-spacing-unit;
+        text-align: center;
+        width: 20%;
+        @include breakpoint($large) {
+            padding-left: $base-spacing-unit;
+            padding-right: $base-spacing-unit;
+            text-align: left;
+            width: auto;
+        }
     }
     .site-logo {
-        padding-right: $base-spacing-unit;
-        padding-left: 0;
         z-index: 2;
         img {
             align-self: flex-start;
-            max-width: 35px;
+            @include breakpoint($large) {
+                max-width: 35px;
+            }
+        }
+        @include breakpoint($large) {
+            padding-right: $base-spacing-unit;
+            padding-left: 0;
         }
     }
     .main-nav__toggle {
@@ -30,127 +43,56 @@
             display: none;
         }
     }
+    .icon {
+        max-width: none;
+        width: 60px;
+        @include breakpoint($large) {
+            max-width: 20px;
+        }
+    }
 }
+
+
+.main-nav__break-right {
+    @include breakpoint($large) {
+        margin-left: auto;
+    }
+}
+
 
 
 .main-nav__social {
-    font-size: $typecsset-h3-size;
-    height: 20%;
-    margin-left: auto;
-    right: 0;
+    display: none;
+    margin-left: -$base-spacing-unit;
+    position: absolute;
+    left: 80%;
+    text-align: center;
+    top: $nav-height * 2;
+    width: 20%;
     a {
         display: block;
-        padding-bottom: $typecsset-base-line-height;
-    }
-    .icon {
-        vertical-align: top;
-    }
-    @include breakpoint($large) {
-        animation: none;
-        display: inline-block;
-        float: right;
         width: auto;
-        .icon {
-            vertical-align: middle;
-        }
-        a {
-            display: inline;
-        }
-    }
-}
-
-
-
-.main-nav__menu {
-    font-family: $header-font;
-    font-size: $typecsset-h3-size;
-    height: 80%;
-    left: 0;
-    a {
-        display: block;
-        padding-bottom: $typecsset-base-line-height;
         @include breakpoint($large) {
             display: inline;
         }
     }
     @include breakpoint($large) {
-        animation: none;
-        height: auto;
-        padding-top: 0;
-        width: 100%;
-    }
-}
-
-
-
-.main-nav__menu {
-    background: rgba($white, 0.9);
-    height: 100%;
-    line-height: $typecsset-base-line-height;
-    opacity: 0;
-    padding-top: $nav-height + $typecsset-base-line-height;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: -1;
-    a {
-        transform: translate3d(0,0,0);
-        opacity: 0;
-        z-index: -1;
-    }
-    @include breakpoint($large) {
-        background: none;
         display: block;
-        font-family: $body-font;
-        font-size: $typecsset-base-font-size;
-        height: auto;
-        opacity: 1;
-        padding-top: 0;
+        margin-left: auto;
         position: static;
-        z-index: 1;
+        width: auto;
     }
 }
+
+
 
 
 
 .main-nav--open {
-    .main-nav__menu {
-        animation: slide-in-from-left 300ms forwards;
-    }
-    .main-nav__menu a:first-child {
-        animation: slide-in-from-left 300ms 100ms forwards;
-    }
-    .main-nav__menu a:nth-child(2) {
-        animation: slide-in-from-left 300ms 200ms forwards;
-    }
-    .main-nav__menu a:nth-child(3) {
-        animation: slide-in-from-left 300ms 300ms forwards;
+    .main-nav__social {
+        display: block;
     }
 }
 
 .main-nav--closed {
-    .main-nav__menu {
-        opacity: 1;
-        z-index: 1;
-        animation: slide-out-to-left 300ms 400ms forwards;
-    }
-    .main-nav__menu a {
-        opacity: 1;
-        z-index: 1;
-    }
-    .main-nav__menu a:first-child {
-        animation: slide-out-to-left 300ms 300ms forwards;
-    }
-    .main-nav__menu a:nth-child(2) {
-        animation: slide-out-to-left 300ms 200ms forwards;
-    }
-    .main-nav__menu a:nth-child(3) {
-        animation: slide-out-to-left 300ms 200ms forwards;
-    }
-    .main-nav__menu,
-    .main-nav__social {
-        @include breakpoint($large) {
-            animation: none;
-        }
-    }
 }
