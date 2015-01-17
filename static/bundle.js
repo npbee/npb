@@ -249,16 +249,18 @@ module.exports = React.createClass({displayName: 'exports',
 
     return (
       React.createElement("nav", {className: _className}, 
-          React.createElement("a", {href: "/", className: "site-logo"}, React.createElement("img", {className: "icon", src: "/static/images/logo.svg"})), 
-          this.state.items.map(function(result) {
-              var className = result === selected ? 'active' : '';
-              return React.createElement(NavItem, {
-                  key: result, 
-                  data: result, 
-                  className: className, 
-                  navigate: self.handleClick});
-          }), 
-          React.createElement("a", {className: "main-nav__toggle", onClick: this.toggleNav}, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/list.svg"})), 
+          React.createElement("a", {href: true, className: "site-logo"}, React.createElement("img", {className: "icon", src: "/static/images/logo.svg"})), 
+          React.createElement("a", {href: true, className: "site-logo main-nav__toggle", onClick: this.toggleNav}, React.createElement("img", {className: "icon", src: "/static/images/logo.svg"})), 
+          React.createElement("div", {className: "main-nav__menu"}, 
+              this.state.items.map(function(result) {
+                  var className = result === selected ? 'active' : '';
+                  return React.createElement(NavItem, {
+                      key: result, 
+                      data: result, 
+                      className: className, 
+                      navigate: self.handleClick});
+              })
+          ), 
           React.createElement("div", {className: "main-nav__social main-nav__break-right"}, 
               React.createElement("a", {className: "main-nav__break-right"}, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/twitter.svg"})), 
               React.createElement("a", {className: ""}, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/mail.svg"})), 
@@ -270,6 +272,7 @@ module.exports = React.createClass({displayName: 'exports',
   },
 
   toggleNav: function(e) {
+      e.preventDefault();
       this.setState({
           isOpen: !this.state.isOpen,
           isClosed: !this.state.isClosed,

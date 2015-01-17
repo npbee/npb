@@ -29,16 +29,18 @@ module.exports = React.createClass({
 
     return (
       <nav className={_className} >
-          <a href="/" className="site-logo"><img className="icon" src="/static/images/logo.svg" /></a>
-          {this.state.items.map(function(result) {
-              var className = result === selected ? 'active' : '';
-              return <NavItem 
-                  key={result} 
-                  data={result} 
-                  className={className} 
-                  navigate={self.handleClick} />;
-          })}
-          <a className="main-nav__toggle" onClick={this.toggleNav}><img className="icon" src="/static/images/icons/icomoon/list.svg" /></a>
+          <a href className="site-logo"><img className="icon" src="/static/images/logo.svg" /></a>
+          <a href className="site-logo main-nav__toggle" onClick={this.toggleNav}><img className="icon" src="/static/images/logo.svg" /></a>
+          <div className="main-nav__menu">
+              {this.state.items.map(function(result) {
+                  var className = result === selected ? 'active' : '';
+                  return <NavItem 
+                      key={result} 
+                      data={result} 
+                      className={className} 
+                      navigate={self.handleClick} />;
+              })}
+          </div>
           <div className="main-nav__social main-nav__break-right">
               <a className="main-nav__break-right"><img className="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
               <a className=""><img className="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
@@ -50,6 +52,7 @@ module.exports = React.createClass({
   },
 
   toggleNav: function(e) {
+      e.preventDefault();
       this.setState({
           isOpen: !this.state.isOpen,
           isClosed: !this.state.isClosed,
