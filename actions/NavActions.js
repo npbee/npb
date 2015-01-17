@@ -1,12 +1,16 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
+var NavConstants = require('../constants/NavConstants');
 
 var NavActions = {
-
-  navigate: function(page) {
-    AppDispatcher.handleViewAction({
-      actionType: 'NAVIGATE',
-      page: page
-    });
-  }
-
+    toggle: function() {
+        AppDispatcher.dispatch({
+            actionType: NavConstants.TOGGLE_NAV
+        });
+    },
+    close: function() {
+        AppDispatcher.dispatch({
+            actionType: NavConstants.CLOSE_NAV
+        });
+    }
+}
 module.exports = NavActions;

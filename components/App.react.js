@@ -18,9 +18,24 @@ var Login = require('./auth/login');
 var NavList = require('./nav/NavList.react');
 var RouterMixin = require('react-mini-router').RouterMixin;
 
+var NavStore = require('../stores/NavStore');
+var NavActions = require('../actions/NavActions');
+
 var App = React.createClass({
 
     mixins: [RouterMixin],
+
+    getInitialState: function() {
+        isNavOpen: NavStore.isOpen()
+    },
+
+    componentDidMount: function() {
+        NavStore.addChangeListener(this._onChange);
+    },
+
+    componentWillUnmount: function() {
+        NavStore.removeChangeListener(this._onChange);
+    },
 
     routes: {
         '/': 'home',
@@ -87,11 +102,22 @@ var App = React.createClass({
     },
 
     render: function() {
+        var _className;
         
-        return <main id="react-app">
+        if (this.state.isNavOpen) {
+            _className = 'main-nav--open';
+        }
+
+        return <main id="react-app" className={_className}>
             <NavList isAuthenticated={this.props.data.isAuthenticated} />
             {this.renderCurrentRoute()}
         </main>
+    },
+
+    _onChange: function() {
+        this.setState({
+            isNavOpen: NavStore.isOpen()
+        })
     }
 
 
