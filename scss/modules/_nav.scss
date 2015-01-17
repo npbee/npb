@@ -94,6 +94,7 @@
     width: 100%;
     z-index: -1;
     a {
+        transform: translate3d(0,0,0);
         opacity: 0;
         z-index: -1;
     }
@@ -129,16 +130,22 @@
 
 .main-nav--closed {
     .main-nav__menu {
+        opacity: 1;
+        z-index: 1;
         animation: slide-out-to-left 300ms 400ms forwards;
     }
+    .main-nav__menu a {
+        opacity: 1;
+        z-index: 1;
+    }
     .main-nav__menu a:first-child {
-        animation: slide-out-to-left 300ms 100ms forwards;
+        animation: slide-out-to-left 300ms 300ms forwards;
     }
     .main-nav__menu a:nth-child(2) {
         animation: slide-out-to-left 300ms 200ms forwards;
     }
     .main-nav__menu a:nth-child(3) {
-        animation: slide-out-to-left 300ms 300ms forwards;
+        animation: slide-out-to-left 300ms 200ms forwards;
     }
     .main-nav__menu,
     .main-nav__social {
