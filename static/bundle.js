@@ -216,90 +216,43 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/Table.js":[function(require,module,exports){
+},{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/admin/index.js":[function(require,module,exports){
 var React = require('react');
+var request = require('superagent');
+var Table = require('../table/Table');
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
-            data: this.props.data || [],
-            name: this.props.name || null
-        }
+            posts: this.props.data.posts || [],
+            projects: this.props.data.projects || []
+        };
     },
 
-    render: function() {
-        var columns = this.generateColumns(this.state.data);
-        var rows = this.generateRows(columns);
+    componentDidMount: function() {
+        var self = this;
 
-        return React.createElement("table", null, 
-            React.createElement("caption", null, this.state.name), 
-            React.createElement("thead", null, 
-                React.createElement("tr", null, 
-                    columns.map(function(column) {
-                        return React.createElement("th", {key: column}, column)
-                    })
-                )
-            ), 
-            React.createElement("tbody", null, 
-                this.state.data.map(function(row, index) {
-                    return React.createElement("tr", {key: index}, 
-                        columns.map(function(column, index) {
-                            return React.createElement("td", {key: index}, row[column])
-                        })
-                    )
-                })
-            )
+        request.get('/admin')
+        .query({ query: 'isClient' })
+        .end(function(res) {
+            self.setState({
+                posts: JSON.parse(res.text).posts
+            });
+        });
+    },
+
+    render: function(){
+        return React.createElement("section", {className: "admin"}, 
+            React.createElement(Table, {name: "Posts", data: this.state.posts, admin: "true"}), 
+            React.createElement(Table, {name: "Projects", data: this.state.projects, admin: "true"})
         )
-    },
 
-    generateColumns: function(data) {
-        var columns = Object.keys(data[0]);
-        return columns;
-    },
-
-    generateRows: function(columns) {
-        
     }
-});
-
-},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/admin/index.js":[function(require,module,exports){
-var React = require('react');
-var request = require('superagent');
-var Table = require('../Table');
-
-module.exports = React.createClass({displayName: 'exports',
-
-  getInitialState: function() {
-    return {
-        posts: this.props.data.posts || [],
-        projects: this.props.data.projects || []
-    };
-  },
-
-  componentDidMount: function() {
-    var self = this;
-
-    request.get('/admin')
-    .query({ query: 'isClient' })
-    .end(function(res) {
-      self.setState({
-        posts: JSON.parse(res.text).posts
-      });
-    });
-  },
-
-  render: function(){
-    return React.createElement("section", {className: "admin"}, 
-        React.createElement(Table, {name: "Posts", data: this.state.posts}), 
-        React.createElement(Table, {name: "Projects", data: this.state.projects})
-    )
-
-  }
 
 });
 
-},{"../Table":"/Users/npb/Projects/npb/components/Table.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/admin/nav.js":[function(require,module,exports){
+},{"../table/Table":"/Users/npb/Projects/npb/components/table/Table.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/admin/nav.js":[function(require,module,exports){
 var React = require('react');
 var AppStore = require('../../stores/AppStore');
 
@@ -751,35 +704,40 @@ var request = require('superagent');
 
 module.exports = React.createClass({displayName: 'exports',
 
-  getInitialState: function() {
-    return {
-      posts: this.props.posts || []
-    };
-  },
+    getInitialState: function() {
 
-  componentDidMount: function() {
-    var self = this;
+        return {
+            posts: this.props.posts || []
+        };
+    },
 
-    request.get('/posts')
-    .query({ query: 'isClient' })
-    .end(function(res) {
-      self.setState({
-        posts: JSON.parse(res.text).posts
-      });
-    });
-  },
+    componentDidMount: function() {
+        var hasId = this.props.data.every(function(item) {
+            return item['id'] !== null;
+        });
+        console.log(hasId);
+        var self = this;
 
-  render: function(){
+        request.get('/posts')
+        .query({ query: 'isClient' })
+        .end(function(res) {
+            self.setState({
+                posts: JSON.parse(res.text).posts
+            });
+        });
+    },
 
-    return (
-    	React.createElement("section", {className: "posts"}, 
-      		this.state.posts.map(function(post) {
-      			return React.createElement(Snippet, {key: post.id, title: post.excerpt, tagline: post.title, url: '/posts/' + post.slug})
-      		})
-      	)
-    )
+    render: function(){
 
-  }
+        return (
+            React.createElement("section", {className: "posts"}, 
+                this.state.posts.map(function(post) {
+                    return React.createElement(Snippet, {key: post.id, title: post.excerpt, tagline: post.title, url: '/posts/' + post.slug})
+                    })
+                )
+        )
+
+    }
 
 });
 
@@ -1244,7 +1202,67 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/table/Table.js":[function(require,module,exports){
+var React = require('react');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        var hasId = this.props.data.every(function(item) {
+            return item['id'] !== null;
+        });
+
+        if (!hasId) {
+            console.error("An admin table must supply id's for each row.");
+        }
+
+        return {
+            data: this.props.data || [],
+            name: this.props.name || null
+        }
+    },
+
+    componentDidMount: function() {
+    },
+
+    render: function() {
+        var columns = this.generateColumns(this.state.data);
+        var rows = this.generateRows(columns);
+
+        return React.createElement("table", null, 
+            React.createElement("caption", null, this.state.name), 
+            React.createElement("thead", null, 
+                React.createElement("tr", null, 
+                    columns.map(function(column) {
+                        return React.createElement("th", {key: column}, column)
+                    }), 
+                    React.createElement("th", null, "Actions")
+                )
+            ), 
+            React.createElement("tbody", null, 
+                this.state.data.map(function(row, index) {
+                    return React.createElement("tr", {key: index}, 
+                        columns.map(function(column, index) {
+                            return React.createElement("td", {key: index}, row[column])
+                        }), 
+                        React.createElement("td", null, "View / Edit / Delete")
+                    )
+                })
+            )
+        )
+    },
+
+    generateColumns: function(data) {
+        var columns = Object.keys(data[0]);
+        return columns;
+    },
+
+    generateRows: function(columns) {
+        
+    }
+});
+
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){
 module.exports = {
     NAVIGATE: 'NAVIGATE'
 };
