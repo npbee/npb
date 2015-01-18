@@ -62,6 +62,8 @@ var ProjectEdit = require('./project/edit');
 
 var Login = require('./auth/login');
 
+var Admin = require('./admin/index');
+
 var NavList = require('./nav/NavList.react');
 var RouterMixin = require('react-mini-router').RouterMixin;
 
@@ -102,7 +104,10 @@ var App = React.createClass({displayName: 'App',
         '/projects': 'projects',
         '/projects/new': 'projectNew',
         '/projects/:slug': 'projectShow',
-        '/projects/:id/edit': 'projectEdit'
+        '/projects/:id/edit': 'projectEdit',
+
+        // Admin
+        '/admin': 'admin'
     },
 
     home: function() {
@@ -153,6 +158,10 @@ var App = React.createClass({displayName: 'App',
         return React.createElement(ProjectEdit, {projectId: id});
     },
 
+    admin: function() {
+        return React.createElement(Admin, {data: this.props.data});
+    },
+
     render: function() {
         var _className;
         
@@ -179,7 +188,7 @@ var App = React.createClass({displayName: 'App',
 
 module.exports = App;
 
-},{"../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
+},{"../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./admin/index":"/Users/npb/Projects/npb/components/admin/index.js","./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
 var React = require('react');
 var NavActions = require('../actions/NavActions');
 var AppActions = require('../actions/AppActions');
@@ -207,7 +216,90 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/admin/nav.js":[function(require,module,exports){
+},{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/Table.js":[function(require,module,exports){
+var React = require('react');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {
+            data: this.props.data || [],
+            name: this.props.name || null
+        }
+    },
+
+    render: function() {
+        var columns = this.generateColumns(this.state.data);
+        var rows = this.generateRows(columns);
+
+        return React.createElement("table", null, 
+            React.createElement("caption", null, this.state.name), 
+            React.createElement("thead", null, 
+                React.createElement("tr", null, 
+                    columns.map(function(column) {
+                        return React.createElement("th", {key: column}, column)
+                    })
+                )
+            ), 
+            React.createElement("tbody", null, 
+                this.state.data.map(function(row, index) {
+                    return React.createElement("tr", {key: index}, 
+                        columns.map(function(column, index) {
+                            return React.createElement("td", {key: index}, row[column])
+                        })
+                    )
+                })
+            )
+        )
+    },
+
+    generateColumns: function(data) {
+        var columns = Object.keys(data[0]);
+        return columns;
+    },
+
+    generateRows: function(columns) {
+        
+    }
+});
+
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/admin/index.js":[function(require,module,exports){
+var React = require('react');
+var request = require('superagent');
+var Table = require('../Table');
+
+module.exports = React.createClass({displayName: 'exports',
+
+  getInitialState: function() {
+    return {
+        posts: this.props.data.posts || [],
+        projects: this.props.data.projects || []
+    };
+  },
+
+  componentDidMount: function() {
+    var self = this;
+
+    request.get('/admin')
+    .query({ query: 'isClient' })
+    .end(function(res) {
+      self.setState({
+        posts: JSON.parse(res.text).posts
+      });
+    });
+  },
+
+  render: function(){
+    return React.createElement("section", {className: "admin"}, 
+        React.createElement(Table, {name: "Posts", data: this.state.posts}), 
+        React.createElement(Table, {name: "Projects", data: this.state.projects})
+    )
+
+  }
+
+});
+
+},{"../Table":"/Users/npb/Projects/npb/components/Table.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/admin/nav.js":[function(require,module,exports){
 var React = require('react');
 var AppStore = require('../../stores/AppStore');
 

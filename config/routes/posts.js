@@ -10,8 +10,6 @@ var normalize = require('../routeHelpers/normalizeAPIResponse');
 // Post index
 // Show all posts
 exports.index = function *() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
-
     var posts = yield knex('posts')
                             .select('title', 'excerpt', 'slug', 'id');
     
@@ -22,7 +20,7 @@ exports.index = function *() {
         req: this
     });
 
-    if (isClient) {
+    if (this.request.isClient) {
         this.body = yield data;
         return;
     }
@@ -39,7 +37,6 @@ exports.index = function *() {
 
 // Show an individual post
 exports.show = function*() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
     var slug = this.params.slug;
     
     // Detect if the param passed is a number so that we can look up a post
@@ -53,7 +50,7 @@ exports.show = function*() {
         req: this
     });
 
-    if (isClient) {
+    if (this.request.isClient) {
         this.body = data;
         return;
     }
@@ -70,7 +67,6 @@ exports.show = function*() {
 
 // Show the new post form
 exports.new = function*() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
 
     var data = yield normalize({
         path: '/posts/new',
@@ -127,7 +123,6 @@ exports.create = function*() {
 
 // Show the edit post form
 exports.edit = function* () {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
 
     var id = this.params.id;
 

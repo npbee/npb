@@ -15,6 +15,8 @@ var ProjectEdit = require('./project/edit');
 
 var Login = require('./auth/login');
 
+var Admin = require('./admin/index');
+
 var NavList = require('./nav/NavList.react');
 var RouterMixin = require('react-mini-router').RouterMixin;
 
@@ -55,7 +57,10 @@ var App = React.createClass({
         '/projects': 'projects',
         '/projects/new': 'projectNew',
         '/projects/:slug': 'projectShow',
-        '/projects/:id/edit': 'projectEdit'
+        '/projects/:id/edit': 'projectEdit',
+
+        // Admin
+        '/admin': 'admin'
     },
 
     home: function() {
@@ -104,6 +109,10 @@ var App = React.createClass({
 
     projectEdit: function(id) {
         return <ProjectEdit projectId={id} />;
+    },
+
+    admin: function() {
+        return <Admin data={this.props.data} />;
     },
 
     render: function() {

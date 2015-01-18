@@ -10,7 +10,6 @@ var normalize = require('../routeHelpers/normalizeAPIResponse');
 // Post index
 // Show all projects
 exports.index = function *() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
 
     var projects = yield knex('projects')
                             .select('name', 'slug', 'id');
@@ -23,7 +22,7 @@ exports.index = function *() {
     });
 
 
-    if (isClient) {
+    if (this.request.isClient) {
         this.body = yield data;
         return;
     }
@@ -40,7 +39,6 @@ exports.index = function *() {
 
 // Show an individual project
 exports.show = function*() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
     var slug = this.params.slug;
 
     // Detect if the param passed is a number so that we can look up a project
@@ -56,7 +54,7 @@ exports.show = function*() {
     });
 
 
-    if (isClient) {
+    if (this.request.isClient) {
         this.body = yield data;
         return;
     }
@@ -73,7 +71,6 @@ exports.show = function*() {
 
 // Show the new project form
 exports.new = function*() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
 
     var data = yield normalize({
         path: '/projects/new',
@@ -137,7 +134,6 @@ exports.create = function*() {
 
 // Show the edit project form
 exports.edit = function* () {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
     var id = this.params.id;
 
     var data = yield normalize({
