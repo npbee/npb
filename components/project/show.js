@@ -16,19 +16,15 @@ module.exports = React.createClass({
        var self = this;
        var slug = this.state.slug;
 
-       // Only fetch a project if there is not one already there from the
-       // server
-       if (!Object.keys(this.state.project).length) {
-           request.get('/projects/' + slug)
-            .query({
-                query: 'isClient'
-            })
-            .end(function(res) {
-                self.setState({
-                    project: JSON.parse(res.text)
-                });
-            });
-       }
+       request.get('/projects/' + slug)
+       .query({
+           query: 'isClient'
+       })
+       .end(function(res) {
+           self.setState({
+               project: JSON.parse(res.text).project
+           });
+       });
     },
 
     render: function(){

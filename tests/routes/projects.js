@@ -37,7 +37,7 @@ describe('Projects API', function() {
             })
             .end();
 
-        var response = JSON.parse(res.text);
+        var response = JSON.parse(res.text).projects;
         response.should.have.length(1);
         response[0].should.have.property('name', 'My Project');
     });
@@ -49,7 +49,7 @@ describe('Projects API', function() {
         })
         .end();
 
-        var response = JSON.parse(res.text);
+        var response = JSON.parse(res.text).project;
         response.should.have.property('name', 'My Project');
     });
 

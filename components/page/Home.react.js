@@ -17,13 +17,13 @@ module.exports = React.createClass({
        if (!Object.keys(this.state.project).length) {
            request.get('/')
             .query({
-                query: 'isReact'
+                query: 'isClient'
             })
             .end(function(res) {
                 var data = JSON.parse(res.text);
                 self.setState({
-                    project: data.latestProject,
-                    post: data.latestPost
+                    project: data.project,
+                    post: data.post
                 });
             });
        }

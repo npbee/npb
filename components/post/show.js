@@ -16,19 +16,15 @@ module.exports = React.createClass({
        var self = this;
        var slug = this.state.slug;
 
-       // Only fetch a post if there is not one already there from the
-       // server
-       if (!Object.keys(this.state.post).length) {
-           request.get('/posts/' + slug)
-            .query({
-                query: 'isClient'
-            })
-            .end(function(res) {
-                self.setState({
-                    post: JSON.parse(res.text)
-                });
-            });
-       }
+       request.get('/posts/' + slug)
+       .query({
+           query: 'isClient'
+       })
+       .end(function(res) {
+           self.setState({
+               post: JSON.parse(res.text).post
+           });
+       });
     },
 
     render: function(){

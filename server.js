@@ -39,8 +39,6 @@ app.use(function *(next) {
   }
 });
 
-console.log(process.env.NODE_ENV);
-
 app.use(logger());
 
 // Routes
@@ -53,6 +51,7 @@ var secured = function *(next) {
 };
 
 app.get('/', routes.index); 
+
 // Blog post routes
 app.get('/posts', routes.posts.index);
 app.get('/posts/new', routes.posts.new);

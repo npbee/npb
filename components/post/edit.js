@@ -24,7 +24,7 @@ module.exports = React.createClass({
             })
             .end(function(res) {
                 self.setState({
-                    post: JSON.parse(res.text),
+                    post: JSON.parse(res.text).post,
                     loaded: true
                 });
             });

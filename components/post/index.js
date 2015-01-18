@@ -14,10 +14,10 @@ module.exports = React.createClass({
     var self = this;
 
     request.get('/posts')
-    .query({ query: 'isReact' })
+    .query({ query: 'isClient' })
     .end(function(res) {
       self.setState({
-        posts: JSON.parse(res.text)
+        posts: JSON.parse(res.text).posts
       });
     });
   },

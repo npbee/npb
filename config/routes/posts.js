@@ -5,26 +5,27 @@ var _ = require('lodash');
 var checkit = require('checkit');
 var validations = require('../validations');
 var knex = require('../../lib/db');
+var normalize = require('../routeHelpers/normalizeAPIResponse');
 
 // Post index
 // Show all posts
 exports.index = function *() {
-    var isReact = this.request.url.indexOf('isReact') !== -1;
+    var isClient = this.request.url.indexOf('isClient') !== -1;
 
     var posts = yield knex('posts')
                             .select('title', 'excerpt', 'slug', 'id');
     
 
-    if (isReact) {
-        this.body = yield posts;
-        return;
-    }
-
-    var data = {
+    var data = yield normalize({
         posts: posts,
         path: '/posts',
-        history: 'true'
-    };
+        req: this
+    });
+
+    if (isClient) {
+        this.body = yield data;
+        return;
+    }
 
     var markup = React.renderToString(
             <App data={data} history="true" path="/posts" />
@@ -45,19 +46,17 @@ exports.show = function*() {
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';
     var post = yield knex('posts').where(_id, slug);
-    
+
+    var data = yield normalize({
+        posts: post[0],
+        path: '/posts/' + slug,
+        req: this
+    });
+
     if (isClient) {
-        this.body = JSON.stringify(post[0]);
+        this.body = data;
         return;
     }
-
-    var data = {
-        post: post[0],
-        editableItem: post[0],
-        slug: slug,
-        path: '/posts/' + slug,
-        history: true
-    };
 
     var markup = React.renderToString(
             <App data={data} history="true" path={"/posts/" + slug} />
@@ -71,12 +70,12 @@ exports.show = function*() {
 
 // Show the new post form
 exports.new = function*() {
-    var isReact = this.request.url.indexOf('isReact') !== -1;
+    var isClient = this.request.url.indexOf('isClient') !== -1;
 
-    var data = {
+    var data = yield normalize({
         path: '/posts/new',
-        history: true
-    };
+        req: this
+    });
 
     var markup = React.renderToString(
             <App data={data} history="true" path="/posts/new" />
@@ -128,14 +127,14 @@ exports.create = function*() {
 
 // Show the edit post form
 exports.edit = function* () {
-    var isReact = this.request.url.indexOf('isClient') !== -1;
+    var isClient = this.request.url.indexOf('isClient') !== -1;
 
     var id = this.params.id;
 
-    var data = {
+    var data = yield normalize({
         path: '/posts/' + id +'/edit',
-        history: true
-    };
+        req: this
+    });
 
     var markup = React.renderToString(
             <App data={data} history="true" path={"/posts/" + id + "/edit"} />

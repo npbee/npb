@@ -107,8 +107,8 @@ var App = React.createClass({displayName: 'App',
 
     home: function() {
         return React.createElement(Home, {
-                post: this.props.data.latestPost, 
-                project: this.props.data.latestProject});
+                post: this.props.data.post, 
+                project: this.props.data.project});
     },
 
     // AUTH
@@ -409,13 +409,13 @@ module.exports = React.createClass({displayName: 'exports',
        if (!Object.keys(this.state.project).length) {
            request.get('/')
             .query({
-                query: 'isReact'
+                query: 'isClient'
             })
             .end(function(res) {
                 var data = JSON.parse(res.text);
                 self.setState({
-                    project: data.latestProject,
-                    post: data.latestPost
+                    project: data.project,
+                    post: data.post
                 });
             });
        }
@@ -483,7 +483,7 @@ module.exports = React.createClass({displayName: 'exports',
             })
             .end(function(res) {
                 self.setState({
-                    post: JSON.parse(res.text),
+                    post: JSON.parse(res.text).post,
                     loaded: true
                 });
             });
@@ -669,10 +669,10 @@ module.exports = React.createClass({displayName: 'exports',
     var self = this;
 
     request.get('/posts')
-    .query({ query: 'isReact' })
+    .query({ query: 'isClient' })
     .end(function(res) {
       self.setState({
-        posts: JSON.parse(res.text)
+        posts: JSON.parse(res.text).posts
       });
     });
   },
@@ -743,19 +743,15 @@ module.exports = React.createClass({displayName: 'exports',
        var self = this;
        var slug = this.state.slug;
 
-       // Only fetch a post if there is not one already there from the
-       // server
-       if (!Object.keys(this.state.post).length) {
-           request.get('/posts/' + slug)
-            .query({
-                query: 'isClient'
-            })
-            .end(function(res) {
-                self.setState({
-                    post: JSON.parse(res.text)
-                });
-            });
-       }
+       request.get('/posts/' + slug)
+       .query({
+           query: 'isClient'
+       })
+       .end(function(res) {
+           self.setState({
+               post: JSON.parse(res.text).post
+           });
+       });
     },
 
     render: function(){
@@ -800,7 +796,7 @@ module.exports = React.createClass({displayName: 'exports',
             })
             .end(function(res) {
                 self.setState({
-                    project: JSON.parse(res.text),
+                    project: JSON.parse(res.text).project,
                     loaded: true
                 });
             });
@@ -1060,7 +1056,7 @@ module.exports = React.createClass({displayName: 'exports',
         .query({ query: 'isClient' })
         .end(function(res) {
             self.setState({
-                projects: JSON.parse(res.text)
+                projects: JSON.parse(res.text).projects
             });
         });
     },
@@ -1131,19 +1127,15 @@ module.exports = React.createClass({displayName: 'exports',
        var self = this;
        var slug = this.state.slug;
 
-       // Only fetch a project if there is not one already there from the
-       // server
-       if (!Object.keys(this.state.project).length) {
-           request.get('/projects/' + slug)
-            .query({
-                query: 'isClient'
-            })
-            .end(function(res) {
-                self.setState({
-                    project: JSON.parse(res.text)
-                });
-            });
-       }
+       request.get('/projects/' + slug)
+       .query({
+           query: 'isClient'
+       })
+       .end(function(res) {
+           self.setState({
+               project: JSON.parse(res.text).project
+           });
+       });
     },
 
     render: function(){
