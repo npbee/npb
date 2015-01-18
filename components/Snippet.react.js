@@ -1,5 +1,6 @@
 var React = require('react');
 var NavActions = require('../actions/NavActions');
+var AppActions = require('../actions/AppActions');
 
 module.exports = React.createClass({
     render: function() {
@@ -20,5 +21,6 @@ module.exports = React.createClass({
 
     _onClick: function() {
         NavActions.close();
+        AppActions.navigate();
     }
 });

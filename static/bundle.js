@@ -12,7 +12,21 @@ React.render(
     document.getElementsByTagName('body')[0]
     );
 
-},{"./components/App.react":"/Users/npb/Projects/npb/components/App.react.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/actions/NavActions.js":[function(require,module,exports){
+},{"./components/App.react":"/Users/npb/Projects/npb/components/App.react.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/actions/AppActions.js":[function(require,module,exports){
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AppConstants = require('../constants/AppConstants');
+
+var AppActions = {
+    navigate: function() {
+        AppDispatcher.dispatch({
+            actionType: AppConstants.NAVIGATE
+        });
+    }
+};
+
+module.exports = AppActions;
+
+},{"../constants/AppConstants":"/Users/npb/Projects/npb/constants/AppConstants.js","../dispatcher/AppDispatcher":"/Users/npb/Projects/npb/dispatcher/AppDispatcher.js"}],"/Users/npb/Projects/npb/actions/NavActions.js":[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var NavConstants = require('../constants/NavConstants');
 
@@ -53,6 +67,8 @@ var RouterMixin = require('react-mini-router').RouterMixin;
 
 var NavStore = require('../stores/NavStore');
 var NavActions = require('../actions/NavActions');
+
+var AppStore = require('../stores/AppStore');
 
 var App = React.createClass({displayName: 'App',
 
@@ -123,7 +139,10 @@ var App = React.createClass({displayName: 'App',
     },
 
     projectShow: function(slug) {
-        return React.createElement(ProjectShow, {project: this.props.data.project, slug: slug});
+        return React.createElement(ProjectShow, {
+            project: this.props.data.project, 
+            slug: slug, 
+            isAuthenticated: this.props.data.isAuthenticated});
     },
 
     projectNew: function() {
@@ -142,7 +161,9 @@ var App = React.createClass({displayName: 'App',
         }
 
         return React.createElement("main", {id: "react-app", className: _className}, 
-            React.createElement(NavList, {isAuthenticated: this.props.data.isAuthenticated}), 
+            React.createElement(NavList, {
+                isAuthenticated: this.props.data.isAuthenticated, 
+                data: this.props.data}), 
             this.renderCurrentRoute()
         )
     },
@@ -158,9 +179,10 @@ var App = React.createClass({displayName: 'App',
 
 module.exports = App;
 
-},{"../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
+},{"../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
 var React = require('react');
 var NavActions = require('../actions/NavActions');
+var AppActions = require('../actions/AppActions');
 
 module.exports = React.createClass({displayName: 'exports',
     render: function() {
@@ -181,10 +203,42 @@ module.exports = React.createClass({displayName: 'exports',
 
     _onClick: function() {
         NavActions.close();
+        AppActions.navigate();
     }
 });
 
-},{"../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/auth/login.js":[function(require,module,exports){
+},{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/admin/nav.js":[function(require,module,exports){
+var React = require('react');
+var AppStore = require('../../stores/AppStore');
+
+
+module.exports = React.createClass({displayName: 'exports',
+
+    componentDidMount: function() {
+        AppStore.addChangeListener(this._onChange);
+    },
+
+    render: function() {
+        var editLink = this.props.data.editLink ?
+                        React.createElement("a", {href: this.props.data.editLink}, "Edit") : '';
+        return (
+            React.createElement("div", {className: "dropdown"}, 
+                React.createElement("a", null, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/user.svg"})), 
+                React.createElement("ul", null, 
+                    React.createElement("li", null, React.createElement("a", null, "Admin page")), 
+                    React.createElement("li", null, editLink), 
+                    React.createElement("li", null, React.createElement("a", {href: "/logout"}, "Logout"))
+                )
+            )
+        )
+    },
+
+    _onChange: function() {
+        console.log('we have changed');
+    }
+});
+
+},{"../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/auth/login.js":[function(require,module,exports){
 var React = require('react');
 var navigate = require('react-mini-router').navigate;
 var request = require('superagent');
@@ -271,6 +325,7 @@ var React = require('react');
 var NavItem = require('./NavItem.react');
 var NavActions = require('../../actions/NavActions');
 var NavStore = require('../../stores/NavStore');
+var AdminNav = require('../admin/nav');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -316,7 +371,7 @@ module.exports = React.createClass({displayName: 'exports',
               React.createElement("a", {className: ""}, React.createElement("img", {className: "icon", src: "/static/images/icons/icomoon/mail.svg"})), 
               React.createElement("a", {className: ""}, React.createElement("img", {className: "icon", src: "/static/images/icons/github/mark.svg"}))
           ), 
-          isAuthenticated ? React.createElement("a", {href: "/logout"}, "Logout") : ''
+          isAuthenticated ? React.createElement(AdminNav, {data: this.props.data}) : ''
       )
       )
   },
@@ -334,7 +389,7 @@ module.exports = React.createClass({displayName: 'exports',
   }
 });
 
-},{"../../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./NavItem.react":"/Users/npb/Projects/npb/components/nav/NavItem.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/page/Home.react.js":[function(require,module,exports){
+},{"../../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","../admin/nav":"/Users/npb/Projects/npb/components/admin/nav.js","./NavItem.react":"/Users/npb/Projects/npb/components/nav/NavItem.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/page/Home.react.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
@@ -1093,11 +1148,11 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function(){
         var html = marked(this.state.project.body || '');
+
         return (
             React.createElement("section", {className: "project"}, 
                 React.createElement("h1", null, this.state.project.name), 
-                React.createElement("article", {dangerouslySetInnerHTML: {__html: html}}), 
-                React.createElement("a", {href: "/projects/" + this.state.project.id + "/edit"}, "Edit")
+                React.createElement("article", {dangerouslySetInnerHTML: {__html: html}})
             )
         )
 
@@ -1105,10 +1160,16 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/constants/NavConstants.js":[function(require,module,exports){
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){
+module.exports = {
+    NAVIGATE: 'NAVIGATE'
+};
+
+},{}],"/Users/npb/Projects/npb/constants/NavConstants.js":[function(require,module,exports){
 module.exports = {
     TOGGLE_NAV: 'TOGGLE_NAV',
-    CLOSE_NAV: 'CLOSE_NAV'
+    CLOSE_NAV: 'CLOSE_NAV',
+    NAVIGATE: 'NAVIGATE'
 };
 
 },{}],"/Users/npb/Projects/npb/dispatcher/AppDispatcher.js":[function(require,module,exports){
@@ -29945,7 +30006,42 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-},{}],"/Users/npb/Projects/npb/stores/NavStore.js":[function(require,module,exports){
+},{}],"/Users/npb/Projects/npb/stores/AppStore.js":[function(require,module,exports){
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var EventEmitter = require('events').EventEmitter;
+var AppConstants = require('../constants/AppConstants.js');
+var assign = require('object-assign');
+
+var CHANGE_EVENT = 'change';
+
+var AppStore = assign({}, EventEmitter.prototype, {
+
+    emitChange: function() {
+        this.emit(CHANGE_EVENT);
+    },
+
+    addChangeListener: function(callback) {
+        this.on(CHANGE_EVENT, callback);
+    },
+
+    removeChangeListener: function(callback) {
+        this.removeListener(callback);
+    }
+});
+
+AppDispatcher.register(function(action) {
+    switch(action.actionType) {
+        case 'NAVIGATE':
+            AppStore.emitChange();
+            break;
+        default:
+            return true;
+    }
+});
+
+module.exports = AppStore;
+
+},{"../constants/AppConstants.js":"/Users/npb/Projects/npb/constants/AppConstants.js","../dispatcher/AppDispatcher":"/Users/npb/Projects/npb/dispatcher/AppDispatcher.js","events":"/Users/npb/Projects/npb/node_modules/browserify/node_modules/events/events.js","object-assign":"/Users/npb/Projects/npb/node_modules/object-assign/index.js"}],"/Users/npb/Projects/npb/stores/NavStore.js":[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var NavConstants = require('../constants/NavConstants.js');

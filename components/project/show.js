@@ -33,11 +33,11 @@ module.exports = React.createClass({
 
     render: function(){
         var html = marked(this.state.project.body || '');
+
         return (
             <section className="project">
                 <h1>{this.state.project.name}</h1>
                 <article dangerouslySetInnerHTML = {{__html: html }}></article>
-                <a href={"/projects/" + this.state.project.id + "/edit"}>Edit</a>
             </section>
         )
 

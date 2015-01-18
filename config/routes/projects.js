@@ -53,9 +53,11 @@ exports.show = function*() {
 
     var data = {
         project: project[0],
+        editLink: '/projects/' + project[0].id + '/edit',
         slug: slug,
         path: '/projects/' + slug,
-        history: true
+        history: true,
+        isAuthenticated: this.isAuthenticated()
     };
 
     var markup = React.renderToString(

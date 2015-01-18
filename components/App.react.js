@@ -21,6 +21,8 @@ var RouterMixin = require('react-mini-router').RouterMixin;
 var NavStore = require('../stores/NavStore');
 var NavActions = require('../actions/NavActions');
 
+var AppStore = require('../stores/AppStore');
+
 var App = React.createClass({
 
     mixins: [RouterMixin],
@@ -90,7 +92,10 @@ var App = React.createClass({
     },
 
     projectShow: function(slug) {
-        return <ProjectShow project={this.props.data.project} slug={slug} />;
+        return <ProjectShow 
+            project={this.props.data.project} 
+            slug={slug}
+            isAuthenticated={this.props.data.isAuthenticated} />;
     },
 
     projectNew: function() {
@@ -109,7 +114,9 @@ var App = React.createClass({
         }
 
         return <main id="react-app" className={_className}>
-            <NavList isAuthenticated={this.props.data.isAuthenticated} />
+            <NavList 
+                isAuthenticated={this.props.data.isAuthenticated}
+                data={this.props.data} />
             {this.renderCurrentRoute()}
         </main>
     },

@@ -53,6 +53,7 @@ exports.show = function*() {
 
     var data = {
         post: post[0],
+        editableItem: post[0],
         slug: slug,
         path: '/posts/' + slug,
         history: true
