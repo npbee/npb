@@ -23,6 +23,9 @@ var specific = {
             },
             migrations: {
                 tableName: 'knex_migrations'
+            },
+            seeds: {
+                directory: './seeds'
             }
         }
     },

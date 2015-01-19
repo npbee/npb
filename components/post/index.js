@@ -12,10 +12,6 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        var hasId = this.props.data.every(function(item) {
-            return item['id'] !== null;
-        });
-        console.log(hasId);
         var self = this;
 
         request.get('/posts')
