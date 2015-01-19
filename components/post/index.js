@@ -4,34 +4,39 @@ var request = require('superagent');
 
 module.exports = React.createClass({
 
-  getInitialState: function() {
-    return {
-      posts: this.props.posts || []
-    };
-  },
+    getInitialState: function() {
 
-  componentDidMount: function() {
-    var self = this;
+        return {
+            posts: this.props.posts || []
+        };
+    },
 
-    request.get('/posts')
-    .query({ query: 'isReact' })
-    .end(function(res) {
-      self.setState({
-        posts: JSON.parse(res.text)
-      });
-    });
-  },
+    componentDidMount: function() {
+        var hasId = this.props.data.every(function(item) {
+            return item['id'] !== null;
+        });
+        console.log(hasId);
+        var self = this;
 
-  render: function(){
+        request.get('/posts')
+        .query({ query: 'isClient' })
+        .end(function(res) {
+            self.setState({
+                posts: JSON.parse(res.text).posts
+            });
+        });
+    },
 
-    return (
-    	<section className="posts">
-      		{this.state.posts.map(function(post) {
-      			return <Snippet key={post.id} title={post.excerpt} tagline={post.title} url={'/posts/' + post.slug} />
-      		})}
-      	</section>
-    )
+    render: function(){
 
-  }
+        return (
+            <section className="posts">
+                {this.state.posts.map(function(post) {
+                    return <Snippet key={post.id} title={post.excerpt} tagline={post.title} url={'/posts/' + post.slug} />
+                    })}
+                </section>
+        )
+
+    }
 
 });

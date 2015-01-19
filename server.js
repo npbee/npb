@@ -13,6 +13,16 @@ var session = require('koa-generic-session');
 
 var app = koa();
 
+app.use(function *(next) {
+    if (this.request.url.indexOf('isClient') !== -1) {
+        this.request.isClient = true;
+        yield next;
+    } else {
+        this.request.isClient = false;
+        yield next;
+    }
+});
+
 var routes = require('./config/routes');
 var database = require('./config/database');
 var config = require('./config/app');
@@ -39,8 +49,6 @@ app.use(function *(next) {
   }
 });
 
-console.log(process.env.NODE_ENV);
-
 app.use(logger());
 
 // Routes
@@ -53,6 +61,7 @@ var secured = function *(next) {
 };
 
 app.get('/', routes.index); 
+
 // Blog post routes
 app.get('/posts', routes.posts.index);
 app.get('/posts/new', routes.posts.new);
@@ -72,7 +81,7 @@ app.put('/projects', routes.projects.put);
 app.del('/projects', routes.projects.del);
 
 // Admin routes
-app.get('/admin', secured, routes.admin.index);
+app.get('/admin', routes.admin.index);
 app.get('/login', routes.auth.loginForm);
 app.post('/login', routes.auth.login);
 app.get('/logout', routes.auth.logout);

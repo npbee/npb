@@ -1,6 +1,8 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var Home = require('./page/Home.react');
 
 var Posts = require('./post/index');
@@ -15,26 +17,35 @@ var ProjectEdit = require('./project/edit');
 
 var Login = require('./auth/login');
 
+var Admin = require('./admin/index');
+
 var NavList = require('./nav/NavList.react');
 var RouterMixin = require('react-mini-router').RouterMixin;
 
 var NavStore = require('../stores/NavStore');
 var NavActions = require('../actions/NavActions');
 
+var AppStore = require('../stores/AppStore');
+
 var App = React.createClass({
 
     mixins: [RouterMixin],
 
     getInitialState: function() {
-        isNavOpen: NavStore.isOpen()
+        return {
+            isNavOpen: NavStore.isOpen(),
+            undoCbs: AppStore.undoCbs()
+        }
     },
 
     componentDidMount: function() {
         NavStore.addChangeListener(this._onChange);
+        AppStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function() {
         NavStore.removeChangeListener(this._onChange);
+        AppStore.removeChangeListener(this._onChange);
     },
 
     routes: {
@@ -53,13 +64,16 @@ var App = React.createClass({
         '/projects': 'projects',
         '/projects/new': 'projectNew',
         '/projects/:slug': 'projectShow',
-        '/projects/:id/edit': 'projectEdit'
+        '/projects/:id/edit': 'projectEdit',
+
+        // Admin
+        '/admin': 'admin'
     },
 
     home: function() {
         return <Home
-                post={this.props.data.latestPost}
-                project={this.props.data.latestProject}/>;
+                post={this.props.data.post}
+                project={this.props.data.project}/>;
     },
 
     // AUTH
@@ -90,7 +104,10 @@ var App = React.createClass({
     },
 
     projectShow: function(slug) {
-        return <ProjectShow project={this.props.data.project} slug={slug} />;
+        return <ProjectShow 
+            project={this.props.data.project} 
+            slug={slug}
+            isAuthenticated={this.props.data.isAuthenticated} />;
     },
 
     projectNew: function() {
@@ -101,6 +118,10 @@ var App = React.createClass({
         return <ProjectEdit projectId={id} />;
     },
 
+    admin: function() {
+        return <Admin data={this.props.data} />;
+    },
+
     render: function() {
         var _className;
         
@@ -108,15 +129,33 @@ var App = React.createClass({
             _className = 'main-nav--open';
         }
 
+        // If typeof undlink === function?
+        var undoLinks = this.state.undoCbs.map(function(cb, index) {
+            if (typeof cb === 'function') {
+                return <div className="alert alert--warning" key={cb + index}>
+                    <img src="/static/images/icons/icomoon/user.svg" />
+                    <a onClick={cb}>Undo?</a> 
+                </div>
+            } else {
+                return null;
+            }
+        });
+
         return <main id="react-app" className={_className}>
-            <NavList isAuthenticated={this.props.data.isAuthenticated} />
+            <NavList 
+                isAuthenticated={this.props.data.isAuthenticated}
+                data={this.props.data} />
+            <ReactCSSTransitionGroup transitionName="fade">
+                {undoLinks}
+            </ReactCSSTransitionGroup>
             {this.renderCurrentRoute()}
         </main>
     },
 
     _onChange: function() {
         this.setState({
-            isNavOpen: NavStore.isOpen()
+            isNavOpen: NavStore.isOpen(),
+            undoCbs: AppStore.undoCbs()
         })
     }
 

@@ -17,7 +17,7 @@ module.exports = React.createClass({
         .query({ query: 'isClient' })
         .end(function(res) {
             self.setState({
-                projects: JSON.parse(res.text)
+                projects: JSON.parse(res.text).projects
             });
         });
     },

@@ -24,7 +24,7 @@ module.exports = React.createClass({
             })
             .end(function(res) {
                 self.setState({
-                    project: JSON.parse(res.text),
+                    project: JSON.parse(res.text).project,
                     loaded: true
                 });
             });

@@ -2,6 +2,7 @@ var React = require('react');
 var render = require('../lib/render');
 var App = require('../components/App.react');
 var db = require('../lib/db');
+var normalize = require('./routeHelpers/normalizeAPIResponse');
 
 exports.posts = require('./routes/posts');
 exports.projects = require('./routes/projects');
@@ -21,14 +22,13 @@ exports.index = function *() {
                                     .orderBy('created_at', 'desc')
                                     .limit(1);
 
-                                    
-    var data = {
-        latestPost: latestPost[0],
-        latestProject: latestProject[0],
-        path: '/',
-        history: true,
-        isAuthenticated: this.isAuthenticated()
-    };
+
+    var data = yield normalize({
+        posts: latestPost[0],
+        projects: latestProject[0],
+        req: this,
+        path: '/'
+    });
 
     if (isClient) {
         this.body = yield data;

@@ -5,26 +5,27 @@ var _ = require('lodash');
 var checkit = require('checkit');
 var validations = require('../validations');
 var knex = require('../../lib/db');
+var normalize = require('../routeHelpers/normalizeAPIResponse');
 
 // Post index
 // Show all projects
 exports.index = function *() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
 
     var projects = yield knex('projects')
                             .select('name', 'slug', 'id');
-    
 
-    if (isClient) {
-        this.body = yield projects;
-        return;
-    }
 
-    var data = {
+    var data = yield normalize({
         projects: projects,
         path: '/projects',
-        history: 'true'
-    };
+        req: this
+    });
+
+
+    if (this.request.isClient) {
+        this.body = yield data;
+        return;
+    }
 
     var markup = React.renderToString(
             <App data={data} history="true" path="/projects" />
@@ -38,7 +39,6 @@ exports.index = function *() {
 
 // Show an individual project
 exports.show = function*() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
     var slug = this.params.slug;
 
     // Detect if the param passed is a number so that we can look up a project
@@ -46,17 +46,18 @@ exports.show = function*() {
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';
     var project = yield knex('projects').where(_id, slug);
 
-    if (isClient) {
-        this.body = JSON.stringify(project[0]);
+
+    var data = yield normalize({
+        projects: project[0],
+        path: '/projects/' + slug,
+        req: this
+    });
+
+
+    if (this.request.isClient) {
+        this.body = yield data;
         return;
     }
-
-    var data = {
-        project: project[0],
-        slug: slug,
-        path: '/projects/' + slug,
-        history: true
-    };
 
     var markup = React.renderToString(
             <App data={data} history="true" path={"/projects/" + slug} />
@@ -70,12 +71,11 @@ exports.show = function*() {
 
 // Show the new project form
 exports.new = function*() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
 
-    var data = {
+    var data = yield normalize({
         path: '/projects/new',
-        history: true
-    };
+        req: this
+    });
 
     var markup = React.renderToString(
             <App data={data} history="true" path="/projects/new" />
@@ -134,13 +134,12 @@ exports.create = function*() {
 
 // Show the edit project form
 exports.edit = function* () {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
     var id = this.params.id;
 
-    var data = {
+    var data = yield normalize({
         path: '/projects/' + id +'/edit',
-        history: true
-    };
+        req: this
+    });
 
     var markup = React.renderToString(
             <App data={data} history="true" path={"/projects/" + id + "/edit"} />

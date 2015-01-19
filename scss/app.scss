@@ -1,17 +1,20 @@
 @import 'susy';
 
 
+
+/**
+ * Config
+ **/
+@import "config";
+
+
+
 /**
  * Mixins
  */
 @import "mixins/breakpoint";
 @import "mixins/animations";
 
-
-/**
- * Config
- **/
-@import "config";
 
 
 /**
@@ -46,6 +49,9 @@
 @import "modules/snippet";
 @import "modules/tagline";
 @import "modules/avatar";
+@import "modules/dropdown";
+@import "modules/table";
+@import "modules/alert";
 
 
 /**

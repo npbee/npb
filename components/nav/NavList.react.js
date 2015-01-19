@@ -2,6 +2,7 @@ var React = require('react');
 var NavItem = require('./NavItem.react');
 var NavActions = require('../../actions/NavActions');
 var NavStore = require('../../stores/NavStore');
+var AdminNav = require('../admin/nav');
 
 module.exports = React.createClass({
 
@@ -47,7 +48,7 @@ module.exports = React.createClass({
               <a className=""><img className="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
               <a className=""><img className="icon" src="/static/images/icons/github/mark.svg" /></a>
           </div>
-          {isAuthenticated ? <a href='/logout'>Logout</a> : ''}
+          {isAuthenticated ? <AdminNav data={this.props.data} /> : ''}
       </nav>
       )
   },

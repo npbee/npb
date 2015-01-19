@@ -2,14 +2,15 @@ var React = require('react');
 var App = require('../../components/App.react');
 var render = require('../../lib/render');
 var passport = require('../../lib/auth');
+var normalize = require('../routeHelpers/normalizeAPIResponse');
 
 exports.loginForm = function *() {
     var isClient = this.request.url.indexOf('isClient') !== -1;
 
-    var data = {
+    var data = yield normalize({
         path: '/login',
-        history: true
-    };
+        req: this
+    });
 
     var markup = React.renderToString(
         <App data={data} history="true" path="/login" />

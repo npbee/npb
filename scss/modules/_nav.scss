@@ -56,6 +56,12 @@
             max-width: 20px;
         }
     }
+    .dropdown {
+        display: none;
+        @include breakpoint($large) {
+            display: block;
+        }
+    }
 }
 
 

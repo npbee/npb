@@ -26,11 +26,11 @@ describe('Posts API', function() {
     it('should retrive all posts', function *() {
         var res = yield request.get('/posts')
             .query({
-                query: 'isReact'
+                query: 'isClient'
             })
             .end();
 
-       var response = JSON.parse(res.text);
+       var response = JSON.parse(res.text).posts;
        response.should.have.length(1);
        response[0].should.have.property('title', 'New Title');
     });
@@ -42,7 +42,7 @@ describe('Posts API', function() {
         })
         .end();
 
-        var response = JSON.parse(res.text);
+        var response = JSON.parse(res.text).post;
         response.should.have.property('title', 'New Title');
     });
 
