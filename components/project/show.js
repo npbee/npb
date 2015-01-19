@@ -33,7 +33,8 @@ module.exports = React.createClass({
         var date = parseDate(this.state.project.date_completed);
 
         return (
-            <section className="project skinny">
+            <section className="project section section--aside">
+                <aside>Hi</aside>
                 <header>
                     <h1 className="fun-font giga">{this.state.project.name}</h1>
                     <ul className="summary-list">

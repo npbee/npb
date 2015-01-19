@@ -1221,7 +1221,8 @@ module.exports = React.createClass({displayName: 'exports',
         var date = parseDate(this.state.project.date_completed);
 
         return (
-            React.createElement("section", {className: "project skinny"}, 
+            React.createElement("section", {className: "project section section--aside"}, 
+                React.createElement("aside", null, "Hi"), 
                 React.createElement("header", null, 
                     React.createElement("h1", {className: "fun-font giga"}, this.state.project.name), 
                     React.createElement("ul", {className: "summary-list"}, 
