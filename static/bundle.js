@@ -1190,6 +1190,7 @@ var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
 var marked = require('marked');
+var parseDate = require('../../lib/format_date');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1217,10 +1218,23 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function(){
         var html = marked(this.state.project.body || '');
+        var date = parseDate(this.state.project.date_completed);
 
         return (
-            React.createElement("section", {className: "project"}, 
-                React.createElement("h1", null, this.state.project.name), 
+            React.createElement("section", {className: "project skinny"}, 
+                React.createElement("header", null, 
+                    React.createElement("h1", {className: "fun-font giga"}, this.state.project.name), 
+                    React.createElement("ul", {className: "summary-list"}, 
+                        React.createElement("li", null, 
+                            React.createElement("h2", null, "Date Completed:"), 
+                            React.createElement("p", null, date)
+                        ), 
+                        React.createElement("li", null, 
+                            React.createElement("h2", null, "Role:"), 
+                            React.createElement("p", null, this.state.project.role)
+                        )
+                    )
+                ), 
                 React.createElement("article", {dangerouslySetInnerHTML: {__html: html}})
             )
         )
@@ -1229,7 +1243,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/table/Table.js":[function(require,module,exports){
+},{"../../lib/format_date":"/Users/npb/Projects/npb/lib/format_date.js","../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/table/Table.js":[function(require,module,exports){
 var React = require('react/addons');
 var request = require('superagent');
 var _ = require('lodash');
@@ -1381,7 +1395,13 @@ var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":"/Users/npb/Projects/npb/node_modules/flux/index.js"}],"/Users/npb/Projects/npb/node_modules/browserify/node_modules/events/events.js":[function(require,module,exports){
+},{"flux":"/Users/npb/Projects/npb/node_modules/flux/index.js"}],"/Users/npb/Projects/npb/lib/format_date.js":[function(require,module,exports){
+module.exports = function(datestring) {
+    var date = new Date(datestring);
+    return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+};
+
+},{}],"/Users/npb/Projects/npb/node_modules/browserify/node_modules/events/events.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a

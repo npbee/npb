@@ -2,6 +2,7 @@ var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
 var marked = require('marked');
+var parseDate = require('../../lib/format_date');
 
 module.exports = React.createClass({
 
@@ -29,10 +30,23 @@ module.exports = React.createClass({
 
     render: function(){
         var html = marked(this.state.project.body || '');
+        var date = parseDate(this.state.project.date_completed);
 
         return (
-            <section className="project">
-                <h1>{this.state.project.name}</h1>
+            <section className="project skinny">
+                <header>
+                    <h1 className="fun-font giga">{this.state.project.name}</h1>
+                    <ul className="summary-list">
+                        <li>
+                            <h2>Date Completed:</h2>
+                            <p>{date}</p>
+                        </li>
+                        <li>
+                            <h2>Role:</h2>
+                            <p>{this.state.project.role}</p>
+                        </li>
+                    </ul>
+                </header>
                 <article dangerouslySetInnerHTML = {{__html: html }}></article>
             </section>
         )

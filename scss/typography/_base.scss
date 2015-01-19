@@ -52,3 +52,17 @@ a:not(.button) {
         /*width: 100px;*/
     }
 }
+
+
+
+/******************************
+* FONT OVERRIDES
+******************************/
+.fun-font {
+    font-family: $fun-font;
+    font-weight: $fun-font-regular-weight;
+}
+
+.giga {
+    font-size: $typecsset-h1-size * 2;
+}
