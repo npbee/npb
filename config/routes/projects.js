@@ -12,7 +12,7 @@ var normalize = require('../routeHelpers/normalizeAPIResponse');
 exports.index = function *() {
 
     var projects = yield knex('projects')
-                            .select('name', 'slug', 'id');
+                            .select('name', 'slug', 'id', 'role');
 
 
     var data = yield normalize({

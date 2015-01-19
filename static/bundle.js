@@ -1143,7 +1143,7 @@ module.exports = React.createClass({displayName: 'exports',
         return (
             React.createElement("section", {className: "projects"}, 
             this.state.projects.map(function(project) {
-                return React.createElement(Snippet, {key: project.id, title: project.name, excerpt: "", url: '/projects/' + project.slug})
+                return React.createElement(Snippet, {key: project.id, title: project.role, tagline: project.name, url: '/projects/' + project.slug})
             })
             )
         )
