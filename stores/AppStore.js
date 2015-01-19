@@ -4,18 +4,13 @@ var AppConstants = require('../constants/AppConstants.js');
 var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
-var isUndoing = false;
-var undoCb = null;
-var doDb = null;
+var undoCbs = [];
+var doCbs = [];
 
 var AppStore = assign({}, EventEmitter.prototype, {
 
-    isUndoing: function() {
-        return isUndoing;
-    },
-
-    undoCb: function() {
-        return undoCb;
+    undoCbs: function() {
+        return undoCbs;
     },
 
     emitChange: function() {
@@ -31,9 +26,8 @@ var AppStore = assign({}, EventEmitter.prototype, {
     },
 
     resetUndo: function() {
-        isUndoing = false;
-        undoCb = null;
-        doCb = null;
+        undoCbs = [];
+        doCbs = [];
         AppStore.emitChange();
     }
 });
@@ -44,17 +38,19 @@ AppDispatcher.register(function(action) {
             AppStore.emitChange();
             break;
         case 'UNDO':
-            isUndoing = true;
-            undoCb = function() {
+            undoCbs.push(function() {
                 action.undoCb();
-                isUndoing = false;
-                AppStore.resetUndo();
-            };
+            });
+
+            doCbs.push(action.doCb);
+
             AppStore.emitChange();
 
-            if (isUndoing) {
+            if (undoCbs.length) {
                 setTimeout(function() {
-                    action.doCb();
+                    doCbs.forEach(function(cb) {
+                        cb();
+                    });
                     AppStore.resetUndo();
                 }, AppConstants.UNDOTIME);
             }

@@ -103,6 +103,10 @@ module.exports = React.createClass({
     realDelete: function(id) {
         var self = this;
 
+        var newData = self.state.data.filter(function(item) {
+            return item.id !== id;
+        });
+
         request.del('/' + self.state.name.toLowerCase())
         .send({
             id: id
@@ -122,8 +126,5 @@ module.exports = React.createClass({
     },
 
     _onChange: function() {
-        this.setState({
-            isUndoing: AppStore.isUndoing()
-        });
     }
 });

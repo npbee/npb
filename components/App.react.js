@@ -34,8 +34,7 @@ var App = React.createClass({
     getInitialState: function() {
         return {
             isNavOpen: NavStore.isOpen(),
-            isUndoing: AppStore.isUndoing(),
-            undoCb: AppStore.undoCb()
+            undoCbs: AppStore.undoCbs()
         }
     },
 
@@ -136,12 +135,19 @@ var App = React.createClass({
                 <a onClick={this.state.undoCb}>Undo?</a> 
             </div> : null;
 
+        var undoLinks = this.state.undoCbs.map(function(cb, index) {
+            return <div className="alert alert--warning" key={cb + index}>
+                <img src="/static/images/icons/icomoon/user.svg" />
+                <a onClick={cb}>Undo?</a> 
+            </div>
+        });
+
         return <main id="react-app" className={_className}>
             <NavList 
                 isAuthenticated={this.props.data.isAuthenticated}
                 data={this.props.data} />
             <ReactCSSTransitionGroup transitionName="fade">
-                {undoLink}
+                {undoLinks}
             </ReactCSSTransitionGroup>
             {this.renderCurrentRoute()}
         </main>
@@ -150,8 +156,7 @@ var App = React.createClass({
     _onChange: function() {
         this.setState({
             isNavOpen: NavStore.isOpen(),
-            isUndoing: AppStore.isUndoing(),
-            undoCb: AppStore.undoCb()
+            undoCbs: AppStore.undoCbs()
         })
     }
 
