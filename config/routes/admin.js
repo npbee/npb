@@ -8,8 +8,8 @@ var normalize = require('../routeHelpers/normalizeAPIResponse');
 
 exports.index = function* () {
 
-    var posts = yield knex('posts').select('title', 'excerpt', 'slug', 'id');
-    var projects = yield knex('projects').select('name', 'slug', 'id');
+    var posts = yield knex('posts').select('title', 'excerpt', 'slug', 'id', 'published');
+    var projects = yield knex('projects').select('name', 'slug', 'id', 'published');
 
     var data = yield normalize({
         projects: projects,

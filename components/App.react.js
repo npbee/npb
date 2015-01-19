@@ -1,6 +1,8 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var Home = require('./page/Home.react');
 
 var Posts = require('./post/index');
@@ -30,15 +32,21 @@ var App = React.createClass({
     mixins: [RouterMixin],
 
     getInitialState: function() {
-        isNavOpen: NavStore.isOpen()
+        return {
+            isNavOpen: NavStore.isOpen(),
+            isUndoing: AppStore.isUndoing(),
+            undoCb: AppStore.undoCb()
+        }
     },
 
     componentDidMount: function() {
         NavStore.addChangeListener(this._onChange);
+        AppStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function() {
         NavStore.removeChangeListener(this._onChange);
+        AppStore.removeChangeListener(this._onChange);
     },
 
     routes: {
@@ -122,17 +130,28 @@ var App = React.createClass({
             _className = 'main-nav--open';
         }
 
+        var undoLink = this.state.isUndoing ? 
+            <div className="alert alert--warning" key={this.state.undoCb}>
+                <img src="/static/images/icons/icomoon/user.svg" />
+                <a onClick={this.state.undoCb}>Undo?</a> 
+            </div> : null;
+
         return <main id="react-app" className={_className}>
             <NavList 
                 isAuthenticated={this.props.data.isAuthenticated}
                 data={this.props.data} />
+            <ReactCSSTransitionGroup transitionName="fade">
+                {undoLink}
+            </ReactCSSTransitionGroup>
             {this.renderCurrentRoute()}
         </main>
     },
 
     _onChange: function() {
         this.setState({
-            isNavOpen: NavStore.isOpen()
+            isNavOpen: NavStore.isOpen(),
+            isUndoing: AppStore.isUndoing(),
+            undoCb: AppStore.undoCb()
         })
     }
 

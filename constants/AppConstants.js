@@ -1,3 +1,5 @@
 module.exports = {
-    NAVIGATE: 'NAVIGATE'
+    NAVIGATE: 'NAVIGATE',
+    UNDO: 'UNDO',
+    UNDOTIME: 10000
 };

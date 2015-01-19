@@ -6,6 +6,14 @@ var AppActions = {
         AppDispatcher.dispatch({
             actionType: AppConstants.NAVIGATE
         });
+    },
+
+    undo: function(undoCb, doCb) {
+        AppDispatcher.dispatch({
+            actionType: AppConstants.UNDO,
+            undoCb: undoCb,
+            doCb: doCb
+        });
     }
 };
 
