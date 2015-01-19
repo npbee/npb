@@ -38,8 +38,12 @@ AppDispatcher.register(function(action) {
             AppStore.emitChange();
             break;
         case 'UNDO':
+            var currentLength = undoCbs.length;
             undoCbs.push(function() {
                 action.undoCb();
+                undoCbs[currentLength] = null;
+                doCbs[currentLength] = null;
+                AppStore.emitChange();
             });
 
             doCbs.push(action.doCb);
@@ -49,7 +53,9 @@ AppDispatcher.register(function(action) {
             if (undoCbs.length) {
                 setTimeout(function() {
                     doCbs.forEach(function(cb) {
-                        cb();
+                        if (typeof cb === 'function') {
+                            cb();
+                        }
                     });
                     AppStore.resetUndo();
                 }, AppConstants.UNDOTIME);

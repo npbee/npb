@@ -129,17 +129,16 @@ var App = React.createClass({
             _className = 'main-nav--open';
         }
 
-        var undoLink = this.state.isUndoing ? 
-            <div className="alert alert--warning" key={this.state.undoCb}>
-                <img src="/static/images/icons/icomoon/user.svg" />
-                <a onClick={this.state.undoCb}>Undo?</a> 
-            </div> : null;
-
+        // If typeof undlink === function?
         var undoLinks = this.state.undoCbs.map(function(cb, index) {
-            return <div className="alert alert--warning" key={cb + index}>
-                <img src="/static/images/icons/icomoon/user.svg" />
-                <a onClick={cb}>Undo?</a> 
-            </div>
+            if (typeof cb === 'function') {
+                return <div className="alert alert--warning" key={cb + index}>
+                    <img src="/static/images/icons/icomoon/user.svg" />
+                    <a onClick={cb}>Undo?</a> 
+                </div>
+            } else {
+                return null;
+            }
         });
 
         return <main id="react-app" className={_className}>

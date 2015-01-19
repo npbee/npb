@@ -184,17 +184,16 @@ var App = React.createClass({displayName: 'App',
             _className = 'main-nav--open';
         }
 
-        var undoLink = this.state.isUndoing ? 
-            React.createElement("div", {className: "alert alert--warning", key: this.state.undoCb}, 
-                React.createElement("img", {src: "/static/images/icons/icomoon/user.svg"}), 
-                React.createElement("a", {onClick: this.state.undoCb}, "Undo?")
-            ) : null;
-
+        // If typeof undlink === function?
         var undoLinks = this.state.undoCbs.map(function(cb, index) {
-            return React.createElement("div", {className: "alert alert--warning", key: cb + index}, 
-                React.createElement("img", {src: "/static/images/icons/icomoon/user.svg"}), 
-                React.createElement("a", {onClick: cb}, "Undo?")
-            )
+            if (typeof cb === 'function') {
+                return React.createElement("div", {className: "alert alert--warning", key: cb + index}, 
+                    React.createElement("img", {src: "/static/images/icons/icomoon/user.svg"}), 
+                    React.createElement("a", {onClick: cb}, "Undo?")
+                )
+            } else {
+                return null;
+            }
         });
 
         return React.createElement("main", {id: "react-app", className: _className}, 
@@ -1302,7 +1301,8 @@ module.exports = React.createClass({displayName: 'exports',
             ), 
             React.createElement(ReactCSSTransitionGroup, {transitionName: "table-row", component: "tbody"}, 
                 rows
-            )
+            ), 
+            rows.length ? null : React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, "Nothing here...")))
         )
 
     },
@@ -31979,8 +31979,12 @@ AppDispatcher.register(function(action) {
             AppStore.emitChange();
             break;
         case 'UNDO':
+            var currentLength = undoCbs.length;
             undoCbs.push(function() {
                 action.undoCb();
+                undoCbs[currentLength] = null;
+                doCbs[currentLength] = null;
+                AppStore.emitChange();
             });
 
             doCbs.push(action.doCb);
@@ -31990,7 +31994,9 @@ AppDispatcher.register(function(action) {
             if (undoCbs.length) {
                 setTimeout(function() {
                     doCbs.forEach(function(cb) {
-                        cb();
+                        if (typeof cb === 'function') {
+                            cb();
+                        }
                     });
                     AppStore.resetUndo();
                 }, AppConstants.UNDOTIME);

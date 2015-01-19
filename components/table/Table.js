@@ -66,6 +66,7 @@ module.exports = React.createClass({
             <ReactCSSTransitionGroup transitionName="table-row" component="tbody">
                 {rows}
             </ReactCSSTransitionGroup>
+            {rows.length ? null : <tbody><tr><td>Nothing here...</td></tr></tbody>}
         </table>
 
     },
