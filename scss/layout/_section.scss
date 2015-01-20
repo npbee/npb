@@ -59,7 +59,6 @@
 /*}*/
 
 .single-item {
-    max-width: 1000px;
     margin: 0 auto;
     article {
         @extend .skinny;
@@ -67,22 +66,54 @@
 }
 
 .single-item header {
+    background: rgba($grey, 0.2);
     align-items: center;
     display: flex;
+    flex-direction: column;
     margin-bottom: $typecsset-base-line-height;
+    @include breakpoint($large) {
+        flex-direction: row;
+    }
     .aside-1,
     .aside-2 {
         flex: 1;
-    }
-    .aside-1 {
-        text-align: right;
+        text-align: center;
+        width: 100%;
         li:after {
             margin-left: auto;
+            margin-right: auto;
+            @include breakpoint($large) {
+                margin-left: inherit;
+                margin-right: inherit;
+            }
+        }
+        @include breakpoint($large) {
+            text-align: inherit;
+            width: auto;
         }
     }
+    .aside-1 {
+        order: 2;
+        @include breakpoint($large) {
+            order: 1;
+            text-align: right;
+            li:after {
+                margin-left: auto;
+            }
+        }
+    }
+    .aside-2 {
+        order: 3;
+    }
     h1 {
+        @extend .skinny;
         flex: 2;
         margin-bottom: 0;
+        order: 1;
         text-align: center;
+        @include breakpoint($large) {
+            min-width: 700px;
+            order: 2;
+        }
     }
 }
