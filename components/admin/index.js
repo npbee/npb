@@ -1,6 +1,6 @@
 var React = require('react');
 var request = require('superagent');
-var Table = require('../table/Table');
+var Table = require('../shared/Table');
 
 module.exports = React.createClass({
 

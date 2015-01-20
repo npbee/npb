@@ -250,7 +250,7 @@ module.exports = React.createClass({displayName: 'exports',
 },{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/admin/index.js":[function(require,module,exports){
 var React = require('react');
 var request = require('superagent');
-var Table = require('../table/Table');
+var Table = require('../shared/Table');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -283,7 +283,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../table/Table":"/Users/npb/Projects/npb/components/table/Table.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/admin/nav.js":[function(require,module,exports){
+},{"../shared/Table":"/Users/npb/Projects/npb/components/shared/Table.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/admin/nav.js":[function(require,module,exports){
 var React = require('react');
 var AppStore = require('../../stores/AppStore');
 
@@ -1188,6 +1188,7 @@ module.exports = React.createClass({displayName: 'exports',
 },{"./form":"/Users/npb/Projects/npb/components/project/form.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/project/show.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../Snippet.react');
+var SingleItem = require('../shared/SingleItem');
 var request = require('superagent');
 var marked = require('marked');
 var parseDate = require('../../lib/format_date');
@@ -1219,32 +1220,91 @@ module.exports = React.createClass({displayName: 'exports',
     render: function(){
         var html = marked(this.state.project.body || '');
         var date = parseDate(this.state.project.date_completed);
+        
+        var metaOne = [
+            {
+                title: 'Date Completed',
+                value: date
+            },
+            {
+                title: 'Role',
+                value: this.state.project.role
+            }
+        ];
 
-        return (
-            React.createElement("section", {className: "project section section--aside"}, 
-                React.createElement("aside", null, "Hi"), 
-                React.createElement("header", null, 
-                    React.createElement("h1", {className: "fun-font giga"}, this.state.project.name), 
-                    React.createElement("ul", {className: "summary-list"}, 
-                        React.createElement("li", null, 
-                            React.createElement("h2", null, "Date Completed:"), 
-                            React.createElement("p", null, date)
-                        ), 
-                        React.createElement("li", null, 
-                            React.createElement("h2", null, "Role:"), 
-                            React.createElement("p", null, this.state.project.role)
-                        )
-                    )
-                ), 
-                React.createElement("article", {dangerouslySetInnerHTML: {__html: html}})
-            )
-        )
+        var metaTwo = [
+            {
+                title: 'Site URL',
+                value: this.state.project.url
+            },
+            {
+                title: 'Tags',
+                value: 'Some, tags, and, stuff'
+            }
+        ];
+
+        return React.createElement(SingleItem, {
+            metaOne: metaOne, 
+            metaTwo: metaTwo, 
+            title: this.state.project.name, 
+            content: html}
+        ) 
 
     }
 
 });
 
-},{"../../lib/format_date":"/Users/npb/Projects/npb/lib/format_date.js","../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/table/Table.js":[function(require,module,exports){
+},{"../../lib/format_date":"/Users/npb/Projects/npb/lib/format_date.js","../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/SingleItem":"/Users/npb/Projects/npb/components/shared/SingleItem.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/shared/SingleItem.js":[function(require,module,exports){
+/**********
+ * SINGLE ITEM
+ *
+ * This component is for blog posts, project posts, etc.  Anything that needs
+ * to be displayed with the side bar and long text body
+ **********/
+var React = require('react');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {};
+    },
+
+    componentDidMount: function() {
+        
+    },
+
+    render: function() {
+        var metaOne = this.props.metaOne.map(function(item) {
+            return React.createElement("li", {key: item.value}, 
+                React.createElement("h2", {className: "meta__header"}, item.title), 
+                React.createElement("p", {className: "meta__value"}, item.value)
+            )
+        });
+
+        var metaTwo = this.props.metaTwo.map(function(item) {
+            return React.createElement("li", {key: item.value}, 
+                React.createElement("h2", {className: "meta__header"}, item.title), 
+                React.createElement("p", {className: "meta__value"}, item.value)
+            )
+        });
+
+        return React.createElement("section", {className: "project single-item"}, 
+            React.createElement("header", null, 
+                React.createElement("aside", {className: "aside-1"}, 
+                    React.createElement("ul", {className: "meta"}, metaOne)
+                ), 
+                React.createElement("h1", {className: "fun-font giga"}, this.props.title), 
+                React.createElement("aside", {className: "aside-2"}, 
+                    React.createElement("ul", {className: "meta"}, metaTwo)
+                )
+            ), 
+            React.createElement("article", {dangerouslySetInnerHTML: {__html: this.props.content}})
+        )
+    }
+
+});
+
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/shared/Table.js":[function(require,module,exports){
 var React = require('react/addons');
 var request = require('superagent');
 var _ = require('lodash');

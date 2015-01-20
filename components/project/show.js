@@ -1,5 +1,6 @@
 var React = require('react');
 var Snippet = require('../Snippet.react');
+var SingleItem = require('../shared/SingleItem');
 var request = require('superagent');
 var marked = require('marked');
 var parseDate = require('../../lib/format_date');
@@ -31,26 +32,35 @@ module.exports = React.createClass({
     render: function(){
         var html = marked(this.state.project.body || '');
         var date = parseDate(this.state.project.date_completed);
+        
+        var metaOne = [
+            {
+                title: 'Date Completed',
+                value: date
+            },
+            {
+                title: 'Role',
+                value: this.state.project.role
+            }
+        ];
 
-        return (
-            <section className="project section section--aside">
-                <aside>Hi</aside>
-                <header>
-                    <h1 className="fun-font giga">{this.state.project.name}</h1>
-                    <ul className="summary-list">
-                        <li>
-                            <h2>Date Completed:</h2>
-                            <p>{date}</p>
-                        </li>
-                        <li>
-                            <h2>Role:</h2>
-                            <p>{this.state.project.role}</p>
-                        </li>
-                    </ul>
-                </header>
-                <article dangerouslySetInnerHTML = {{__html: html }}></article>
-            </section>
-        )
+        var metaTwo = [
+            {
+                title: 'Site URL',
+                value: this.state.project.url
+            },
+            {
+                title: 'Tags',
+                value: 'Some, tags, and, stuff'
+            }
+        ];
+
+        return <SingleItem 
+            metaOne={metaOne}
+            metaTwo={metaTwo}
+            title={this.state.project.name}
+            content={html}
+        /> 
 
     }
 
