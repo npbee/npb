@@ -806,6 +806,8 @@ var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
 var marked = require('marked');
+var parseDate = require('../../lib/format_date');
+var SingleItem = require('../shared/SingleItem');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -833,20 +835,34 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function(){
         var html = marked(this.state.post.body || '');
+        var date = parseDate(this.state.post.created_at);
         
-        return (
-            React.createElement("section", {className: "post"}, 
-                React.createElement("h1", null, this.state.post.title), 
-                React.createElement("article", {dangerouslySetInnerHTML: {__html: html}}), 
-                React.createElement("a", {href: "/posts/" + this.state.post.id + "/edit"}, "Edit")
-            )
-        )
+        var metaOne = [
+            {
+                title: 'Date Posted',
+                value: date
+            }
+        ];
+
+        var metaTwo = [
+            {
+                title: 'Tags',
+                value: 'Some, tags, and, stuff'
+            }
+        ];
+
+        return React.createElement(SingleItem, {
+            metaOne: metaOne, 
+            metaTwo: metaTwo, 
+            title: this.state.post.title, 
+            content: html}
+        ) 
 
     }
 
 });
 
-},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/project/edit.js":[function(require,module,exports){
+},{"../../lib/format_date":"/Users/npb/Projects/npb/lib/format_date.js","../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/SingleItem":"/Users/npb/Projects/npb/components/shared/SingleItem.js","marked":"/Users/npb/Projects/npb/node_modules/marked/lib/marked.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/project/edit.js":[function(require,module,exports){
 var React = require('react'); var navigate = require('react-mini-router').navigate;
 var ProjectForm = require('./form');
 var request = require('superagent');
@@ -1262,6 +1278,7 @@ module.exports = React.createClass({displayName: 'exports',
  * to be displayed with the side bar and long text body
  **********/
 var React = require('react');
+var SlabText = require('./SlabText');
 var slab = require('../../lib/vanilla_slab');
 
 module.exports = React.createClass({displayName: 'exports',
@@ -1296,13 +1313,33 @@ module.exports = React.createClass({displayName: 'exports',
                 React.createElement("aside", {className: "aside-1"}, 
                     React.createElement("ul", {className: "meta"}, metaOne)
                 ), 
-                React.createElement("h1", {className: "fun-font js-vanilla-slab"}, this.props.title), 
+                React.createElement(SlabText, {klass: "fun-font giga", value: this.props.title}), 
                 React.createElement("aside", {className: "aside-2"}, 
                     React.createElement("ul", {className: "meta"}, metaTwo)
                 )
             ), 
             React.createElement("article", {dangerouslySetInnerHTML: {__html: this.props.content}})
         )
+    }
+
+});
+
+},{"../../lib/vanilla_slab":"/Users/npb/Projects/npb/lib/vanilla_slab.js","./SlabText":"/Users/npb/Projects/npb/components/shared/SlabText.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/shared/SlabText.js":[function(require,module,exports){
+var React = require('react');
+var slab = require('../../lib/vanilla_slab');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {};
+    },
+
+    componentDidMount: function() {
+        slab.init();
+    },
+
+    render: function() {
+        return React.createElement("h1", {className: this.props.klass + ' giga js-vanilla-slab'}, this.props.value)
     }
 
 });
@@ -1467,7 +1504,9 @@ module.exports = function(datestring) {
 
 },{}],"/Users/npb/Projects/npb/lib/vanilla_slab.js":[function(require,module,exports){
 var VanillaSlab = require('vanilla-slab');
-var slab = new VanillaSlab();
+var slab = new VanillaSlab({
+    minWordsPerLine: 2
+});
 module.exports = slab;
 
 },{"vanilla-slab":"/Users/npb/Projects/npb/node_modules/vanilla-slab/lib/index.js"}],"/Users/npb/Projects/npb/node_modules/browserify/node_modules/events/events.js":[function(require,module,exports){
