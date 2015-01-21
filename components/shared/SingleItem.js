@@ -5,6 +5,7 @@
  * to be displayed with the side bar and long text body
  **********/
 var React = require('react');
+var slab = require('../../lib/vanilla_slab');
 
 module.exports = React.createClass({
 
@@ -13,7 +14,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        
+        slab.init();
     },
 
     render: function() {
@@ -36,7 +37,7 @@ module.exports = React.createClass({
                 <aside className="aside-1">
                     <ul className="meta">{metaOne}</ul>
                 </aside>
-                <h1 className="fun-font giga">{this.props.title}</h1>
+                <h1 className="fun-font js-vanilla-slab">{this.props.title}</h1>
                 <aside className="aside-2">
                     <ul className="meta">{metaTwo}</ul>
                 </aside>
