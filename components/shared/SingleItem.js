@@ -14,7 +14,9 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        slab.init();
+        setTimeout(function() {
+            slab.init();
+        }, 100);
     },
 
     render: function() {
