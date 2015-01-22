@@ -1,5 +1,5 @@
 var React = require('react');
-var slab = require('../../lib/vanilla_slab');
+//var slab = require('../../lib/vanilla_slab');
 
 module.exports = React.createClass({
 
@@ -8,11 +8,11 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        slab.init();
+        //slab.init();
     },
 
     render: function() {
-        return <h1 className={this.props.klass + ' giga js-vanilla-slab'}>{this.props.value}</h1>
+        return <h1 className={this.props.klass + ' js-vanilla-slab'}>{this.props.value}</h1>
     }
 
 });

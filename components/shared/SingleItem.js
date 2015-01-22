@@ -6,7 +6,6 @@
  **********/
 var React = require('react');
 var SlabText = require('./SlabText');
-var slab = require('../../lib/vanilla_slab');
 
 module.exports = React.createClass({
 
@@ -15,9 +14,6 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        setTimeout(function() {
-            slab.init();
-        }, 100);
     },
 
     render: function() {
@@ -40,7 +36,7 @@ module.exports = React.createClass({
                 <aside className="aside-1">
                     <ul className="meta">{metaOne}</ul>
                 </aside>
-                <SlabText klass='fun-font giga' value={this.props.title} />
+                <SlabText klass='fun-font mega' value={this.props.title} />
                 <aside className="aside-2">
                     <ul className="meta">{metaTwo}</ul>
                 </aside>
