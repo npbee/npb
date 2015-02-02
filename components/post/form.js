@@ -15,52 +15,63 @@ module.exports = React.createClass({
         return (
             <section>
             <form 
-            action={this.props.action} 
-            method={this.props.method} 
-            onSubmit={this.handleSubmit}>
-            <label htmlFor="title">Title</label>
-            <input type="text" 
-            name="title"
-            ref="title" 
-            value={this.props.post.title} 
-            onChange={this.props.onChange}
-            />
-            <br/>
+                action={this.props.action} 
+                method={this.props.method} 
+                onSubmit={this.handleSubmit}>
+                <div className="form-row">
+                    <label htmlFor="title">Title</label>
+                    <input type="text" 
+                        name="title"
+                        ref="title" 
+                        value={this.props.post.title} 
+                        onChange={this.props.onChange}
+                    />
+                </div>
 
-            <textarea 
-            name="body" 
-            ref="body"
-            value={this.props.post.body}
-            onChange={this.props.onChange}></textarea>
-            <br/>
+                <div className="form-row">
+                    <label htmlFor="body">Body</label>
+                    <textarea 
+                        name="body" 
+                        ref="body"
+                        value={this.props.post.body}
+                        onChange={this.props.onChange}></textarea>
+                </div>
 
-            <label htmlFor="slug">Slug</label>
-            <input 
-            type="text" 
-            name="slug" 
-            ref="slug"
-            value={this.props.post.slug}
-            onChange={this.props.onChange} />
-                <br/>
+                <div className="form-row">
+                    <label htmlFor="slug">Slug</label>
+                    <input 
+                        type="text" 
+                        name="slug" 
+                        ref="slug"
+                        value={this.props.post.slug}
+                        onChange={this.props.onChange} />
+                </div>
 
-                <label htmlFor="tags">Tags</label>
-                <input type="text" name="tags" ref="tags" />
-                <br/>
+                <div className="form-row">
+                    <label htmlFor="tags">Tags</label>
+                    <input type="text" name="tags" ref="tags" />
+                </div>
 
-                <label htmlFor="excerpt">Excerpt</label>
-                <input 
-                type="text" 
-                name="excerpt" 
-                ref="excerpt"
-                value={this.props.post.excerpt}
-            onChange={this.props.onChange} />
-                <br/>
+                <div className="form-row">
+                    <label htmlFor="excerpt">Excerpt</label>
+                    <input 
+                        type="text" 
+                        name="excerpt" 
+                        ref="excerpt"
+                        value={this.props.post.excerpt}
+                        onChange={this.props.onChange} />
+                </div>
 
-                <label htmlFor="published">Published?</label>
-                <input type="checkbox" name="published" ref="published" />
-                <br/>
+                <div className="form-row">
+                    <div className="checkbox">
+                        <input type="checkbox" name="published" ref="published" />
+                        <label htmlFor="published">Published?</label>
+                    </div>
+                </div>
 
-                <button type="submit">Submit</button>
+                <div className="form-row">
+                    <button type="submit">Submit</button>
+                </div>
 
                 <pre>{this.state.errors}</pre>
                 </form>
