@@ -1,0 +1,30 @@
+/******************************
+* META
+******************************/
+.meta {
+    /*background: rgba($grey, 0.2);*/
+    border-radius: $round;
+    list-style: none;
+    margin: 0;
+    padding: $base-spacing-unit;
+    li:after {
+        background: $grey;
+        content: '';
+        display: block;
+        height: 1px;
+        margin-top: $base-spacing-unit;
+        margin-bottom: $base-spacing-unit;
+        width: 30px;
+    }
+}
+
+.meta__header {
+    font-size: $typecsset-h6-size;
+    margin-bottom: $base-spacing-unit / 2;
+}
+
+.meta__value {
+    font-size: $small-font;
+    font-style: italic;
+    margin-bottom: $base-spacing-unit;
+}

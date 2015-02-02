@@ -1,0 +1,14 @@
+/******************************
+* SINGLE ITEM
+* This is for long form items 
+* as seen in a post or project
+******************************/
+.single-item {
+    > article > p,
+    > article > ul {
+        font-size: $big-font;
+    }
+    img {
+        max-width: 100%;
+    }
+}

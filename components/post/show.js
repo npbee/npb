@@ -1,7 +1,9 @@
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
-var marked = require('marked');
+var marked = require('../../lib/marked');
+var parseDate = require('../../lib/format_date');
+var SingleItem = require('../shared/SingleItem');
 
 module.exports = React.createClass({
 
@@ -29,14 +31,28 @@ module.exports = React.createClass({
 
     render: function(){
         var html = marked(this.state.post.body || '');
+        var date = parseDate(this.state.post.created_at);
         
-        return (
-            <section className="post">
-                <h1>{this.state.post.title}</h1>
-                <article dangerouslySetInnerHTML = {{__html: html }}></article>
-                <a href={"/posts/" + this.state.post.id + "/edit"}>Edit</a>
-            </section>
-        )
+        var metaOne = [
+            {
+                title: 'Date Posted',
+                value: date
+            }
+        ];
+
+        var metaTwo = [
+            {
+                title: 'Tags',
+                value: 'Some, tags, and, stuff'
+            }
+        ];
+
+        return <SingleItem 
+            metaOne={metaOne}
+            metaTwo={metaTwo}
+            title={this.state.post.title}
+            content={html}
+        /> 
 
     }
 
