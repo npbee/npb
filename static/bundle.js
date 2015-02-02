@@ -1331,7 +1331,9 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
-        //slab.init();
+        //slab.init({
+            //minWordsPerLine: 2
+        //});
     },
 
     render: function() {
