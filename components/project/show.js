@@ -2,8 +2,9 @@ var React = require('react');
 var Snippet = require('../Snippet.react');
 var SingleItem = require('../shared/SingleItem');
 var request = require('superagent');
-var marked = require('marked');
 var parseDate = require('../../lib/format_date');
+var marked = require('../../lib/marked');
+var SingleItem = require('../shared/SingleItem');
 
 module.exports = React.createClass({
 

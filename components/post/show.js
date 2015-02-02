@@ -1,7 +1,7 @@
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
-var marked = require('marked');
+var marked = require('../../lib/marked');
 var parseDate = require('../../lib/format_date');
 var SingleItem = require('../shared/SingleItem');
 
