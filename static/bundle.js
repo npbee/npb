@@ -602,6 +602,7 @@ module.exports = React.createClass({displayName: 'exports',
 var React = require('react');
 var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
+var Tabs = require('../shared/tabs/Tabs');
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -631,6 +632,9 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.createElement("div", {className: "form-row"}, 
                     React.createElement("label", {htmlFor: "body"}, "Body"), 
+                    React.createElement(Tabs, {
+                        onSelect: this.handleSelected}
+                    ), 
                     React.createElement("textarea", {
                         name: "body", 
                         ref: "body", 
@@ -739,7 +743,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
+},{"../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
@@ -1485,7 +1489,25 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){
+},{"../../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js":[function(require,module,exports){
+var React = require('react');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {};
+    },
+
+    componentDidMount: function() {
+    },
+
+    render: function() {
+        return React.createElement("h1", {className: this.props.klass + ' js-vanilla-slab'}, this.props.value)
+    }
+
+});
+
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){
 module.exports = {
     NAVIGATE: 'NAVIGATE',
     UNDO: 'UNDO',

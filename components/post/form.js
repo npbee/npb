@@ -1,6 +1,7 @@
 var React = require('react');
 var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
+var Tabs = require('../shared/tabs/Tabs');
 
 
 module.exports = React.createClass({
@@ -30,6 +31,9 @@ module.exports = React.createClass({
 
                 <div className="form-row">
                     <label htmlFor="body">Body</label>
+                    <Tabs
+                        onSelect={this.handleSelected} >
+                    </Tabs>
                     <textarea 
                         name="body" 
                         ref="body"
