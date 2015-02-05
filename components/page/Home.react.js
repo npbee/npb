@@ -38,7 +38,7 @@ module.exports = React.createClass({
                         <img className="avatar__image" src="/static/images/me.png" />
                         <div className="avatar__summary">
                             <p className="avatar__summary__item">
-                                Nick Ball
+                            Nick Ball
                             </p>
                             <p className="avatar__summary__position avatar__summary__item">
                                 Jr. Software Engineer

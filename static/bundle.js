@@ -506,7 +506,7 @@ module.exports = React.createClass({displayName: 'exports',
                         React.createElement("img", {className: "avatar__image", src: "/static/images/me.png"}), 
                         React.createElement("div", {className: "avatar__summary"}, 
                             React.createElement("p", {className: "avatar__summary__item"}, 
-                                "Nick Ball"
+                            "Nick Ball"
                             ), 
                             React.createElement("p", {className: "avatar__summary__position avatar__summary__item"}, 
                                 "Jr. Software Engineer"
@@ -604,7 +604,6 @@ var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
 var Tabs = require('../shared/tabs/Tabs');
 
-
 module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
@@ -632,8 +631,13 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.createElement("div", {className: "form-row"}, 
                     React.createElement("label", {htmlFor: "body"}, "Body"), 
-                    React.createElement(Tabs, {
-                        onSelect: this.handleSelected}
+                    React.createElement(Tabs, {tabActive: "1"}, 
+                        React.createElement(Tabs.Panel, {title: "Tab #1"}, 
+                            React.createElement("h2", null, "Content #1")
+                        ), 
+                        React.createElement(Tabs.Panel, {title: "Tab #2"}, 
+                            React.createElement("h2", null, "Content #2")
+                        )
                     ), 
                     React.createElement("textarea", {
                         name: "body", 
@@ -1492,20 +1496,70 @@ module.exports = React.createClass({displayName: 'exports',
 },{"../../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js":[function(require,module,exports){
 var React = require('react');
 
-module.exports = React.createClass({displayName: 'exports',
+var Tabs = React.createClass({
+
+    displayName: 'Tabs',
 
     getInitialState: function() {
-        return {};
+        return {
+            tabActive: this.props.tabActive
+        };
     },
 
     componentDidMount: function() {
+        var index = this.state.tabActive;
+        var $selectedPanel = this.refs['tab-panel'];
+        var $selectedMenu = this.refs['tab-menu-' + index];
+
+        if (this.props.onMount) {
+            this.props.onMount(index, $selectedPanel, $selectedMenu);
+        }
+    },
+
+    componentWillReceiveProps: function(newProps) {
+        if (newProps.tabActive) {
+            this.setState({
+                tabActive: newProps.tabActive
+            });
+        }
     },
 
     render: function() {
-        return React.createElement("h1", {className: this.props.klass + ' js-vanilla-slab'}, this.props.value)
+        return (
+            React.createElement("div", {className: "tabs"}, 
+                this._getMenuItems()
+            )
+        );
+    },
+
+    _getMenuItems: function() {
+        var $menuItems = this.props.children.map(function($panel, index) {
+            var ref = 'tab-menu-' + (index + 1);
+            var title = $panel.props.title;
+
+            return (
+                React.createElement("li", {ref: ref, key: index}, 
+                    title
+                )
+            );
+        });
+
+        return (
+            React.createElement("nav", {className: "tabs-navigation"}, 
+                React.createElement("ul", {className: "tabs-menu"}, $menuItems)
+            )
+        );
     }
 
 });
+
+Tabs.Panel = React.createClass({displayName: 'Panel',
+    render: function() {
+        return React.createElement("div", null, this.props.children);
+    }
+});
+
+module.exports = Tabs;
 
 },{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){
 module.exports = {

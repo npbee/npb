@@ -3,7 +3,6 @@ var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
 var Tabs = require('../shared/tabs/Tabs');
 
-
 module.exports = React.createClass({
     getInitialState: function() {
         return {
@@ -31,8 +30,13 @@ module.exports = React.createClass({
 
                 <div className="form-row">
                     <label htmlFor="body">Body</label>
-                    <Tabs
-                        onSelect={this.handleSelected} >
+                    <Tabs tabActive="1">
+                        <Tabs.Panel title="Tab #1">
+                            <h2>Content #1</h2>
+                        </Tabs.Panel>
+                        <Tabs.Panel title="Tab #2">
+                            <h2>Content #2</h2>
+                        </Tabs.Panel>
                     </Tabs>
                     <textarea 
                         name="body" 
