@@ -30,19 +30,18 @@ module.exports = React.createClass({
 
                 <div className="form-row">
                     <label htmlFor="body">Body</label>
-                    <Tabs tabActive="1">
-                        <Tabs.Panel title="Tab #1">
-                            <h2>Content #1</h2>
+                    <Tabs>
+                        <Tabs.Panel title="Markdown">
+                            <textarea 
+                                name="body" 
+                                ref="body"
+                                value={this.props.post.body}
+                                onChange={this.props.onChange}></textarea>
                         </Tabs.Panel>
-                        <Tabs.Panel title="Tab #2">
+                        <Tabs.Panel title="Preview">
                             <h2>Content #2</h2>
                         </Tabs.Panel>
                     </Tabs>
-                    <textarea 
-                        name="body" 
-                        ref="body"
-                        value={this.props.post.body}
-                        onChange={this.props.onChange}></textarea>
                 </div>
 
                 <div className="form-row">

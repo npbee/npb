@@ -631,19 +631,18 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.createElement("div", {className: "form-row"}, 
                     React.createElement("label", {htmlFor: "body"}, "Body"), 
-                    React.createElement(Tabs, {tabActive: "1"}, 
-                        React.createElement(Tabs.Panel, {title: "Tab #1"}, 
-                            React.createElement("h2", null, "Content #1")
+                    React.createElement(Tabs, null, 
+                        React.createElement(Tabs.Panel, {title: "Markdown"}, 
+                            React.createElement("textarea", {
+                                name: "body", 
+                                ref: "body", 
+                                value: this.props.post.body, 
+                                onChange: this.props.onChange})
                         ), 
-                        React.createElement(Tabs.Panel, {title: "Tab #2"}, 
+                        React.createElement(Tabs.Panel, {title: "Preview"}, 
                             React.createElement("h2", null, "Content #2")
                         )
-                    ), 
-                    React.createElement("textarea", {
-                        name: "body", 
-                        ref: "body", 
-                        value: this.props.post.body, 
-                        onChange: this.props.onChange})
+                    )
                 ), 
 
                 React.createElement("div", {className: "form-row"}, 
@@ -1500,6 +1499,12 @@ var Tabs = React.createClass({
 
     displayName: 'Tabs',
 
+    getDefaultProps: function() {
+        return {
+            tabActive: 1
+        };
+    },
+
     getInitialState: function() {
         return {
             tabActive: this.props.tabActive
@@ -1517,28 +1522,58 @@ var Tabs = React.createClass({
     },
 
     componentWillReceiveProps: function(newProps) {
-        if (newProps.tabActive) {
-            this.setState({
-                tabActive: newProps.tabActive
-            });
-        }
+        //if (newProps.tabActive) {
+            //this.setState({
+                //tabActive: newProps.tabActive
+            //});
+        //}
     },
 
     render: function() {
         return (
             React.createElement("div", {className: "tabs"}, 
-                this._getMenuItems()
+                this._getMenuItems(), 
+                this._getSelectedPanel()
             )
         );
     },
 
+    setActive: function(index, e) {
+        var onAfterChange = this.props.onAfterChange;
+        var onBeforeChange = this.props.onBeforeChange;
+        var $selectedPanel = this.refs['tab-panel'];
+        var $selectedTabMenu = this.refs['tab-menu' + index];
+
+        if (onBeforeChange) {
+            onBeforeChange(index, $selectedPanel, $selectedTabMenu);
+        }
+
+        this.setState({ tabActive: index }, function() {
+            if (onAfterChange) {
+                onAfterChange(index, selectedPanel, $selectedTabMenu);
+            }
+        });
+
+        e.preventDefault();
+    },
+
     _getMenuItems: function() {
+        var self = this;
         var $menuItems = this.props.children.map(function($panel, index) {
             var ref = 'tab-menu-' + (index + 1);
             var title = $panel.props.title;
+            var cls = 'tabs-menu-item';
+            if (self.state.tabActive === (index + 1)) {
+                cls = 'tabs-menu-item tabs-menu-item--active';
+            }
+
 
             return (
-                React.createElement("li", {ref: ref, key: index}, 
+                React.createElement("a", {href: "#", 
+                    onClick: self.setActive.bind(self, index+1), 
+                    ref: ref, 
+                    key: index, 
+                    className: cls}, 
                     title
                 )
             );
@@ -1546,7 +1581,18 @@ var Tabs = React.createClass({
 
         return (
             React.createElement("nav", {className: "tabs-navigation"}, 
-                React.createElement("ul", {className: "tabs-menu"}, $menuItems)
+                $menuItems
+            )
+        );
+    },
+
+    _getSelectedPanel: function() {
+        var index = this.state.tabActive - 1;
+        var $panel = this.props.children[index];
+
+        return (
+            React.createElement("article", {ref: "tab-panel", className: "tab-panel"}, 
+                $panel
             )
         );
     }
