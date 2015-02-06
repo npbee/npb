@@ -2,12 +2,27 @@ var React = require('react');
 var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
 var Tabs = require('../shared/tabs/Tabs');
+var marked = require('../../lib/marked');
 
 module.exports = React.createClass({
     getInitialState: function() {
         return {
-            errors: {}
+            errors: {},
+            previewText: ''
         }
+    },
+
+    handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
+        var html = marked(this.props.post.body) || '';
+        this.setState({
+            previewText: html
+        });
+    },
+
+    onChange: function(event) {
+        this.setState({
+            previewText: event.target.value
+        });
     },
 
     render: function() {
@@ -30,7 +45,8 @@ module.exports = React.createClass({
 
                 <div className="form-row">
                     <label htmlFor="body">Body</label>
-                    <Tabs>
+                    <Tabs
+                        onBeforeChange={this.handleBefore}>
                         <Tabs.Panel title="Markdown">
                             <textarea 
                                 name="body" 
@@ -39,7 +55,7 @@ module.exports = React.createClass({
                                 onChange={this.props.onChange}></textarea>
                         </Tabs.Panel>
                         <Tabs.Panel title="Preview">
-                            <h2>Content #2</h2>
+                            <article dangerouslySetInnerHTML = {{__html: this.state.previewText }}></article>
                         </Tabs.Panel>
                     </Tabs>
                 </div>

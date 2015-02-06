@@ -603,12 +603,27 @@ var React = require('react');
 var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
 var Tabs = require('../shared/tabs/Tabs');
+var marked = require('../../lib/marked');
 
 module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
-            errors: {}
+            errors: {},
+            previewText: ''
         }
+    },
+
+    handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
+        var html = marked(this.props.post.body) || '';
+        this.setState({
+            previewText: html
+        });
+    },
+
+    onChange: function(event) {
+        this.setState({
+            previewText: event.target.value
+        });
     },
 
     render: function() {
@@ -631,7 +646,8 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.createElement("div", {className: "form-row"}, 
                     React.createElement("label", {htmlFor: "body"}, "Body"), 
-                    React.createElement(Tabs, null, 
+                    React.createElement(Tabs, {
+                        onBeforeChange: this.handleBefore}, 
                         React.createElement(Tabs.Panel, {title: "Markdown"}, 
                             React.createElement("textarea", {
                                 name: "body", 
@@ -640,7 +656,7 @@ module.exports = React.createClass({displayName: 'exports',
                                 onChange: this.props.onChange})
                         ), 
                         React.createElement(Tabs.Panel, {title: "Preview"}, 
-                            React.createElement("h2", null, "Content #2")
+                            React.createElement("article", {dangerouslySetInnerHTML: {__html: this.state.previewText}})
                         )
                     )
                 ), 
@@ -746,7 +762,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
+},{"../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
