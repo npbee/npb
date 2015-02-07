@@ -506,7 +506,7 @@ module.exports = React.createClass({displayName: 'exports',
                         React.createElement("img", {className: "avatar__image", src: "/static/images/me.png"}), 
                         React.createElement("div", {className: "avatar__summary"}, 
                             React.createElement("p", {className: "avatar__summary__item"}, 
-                                "Nick Ball"
+                            "Nick Ball"
                             ), 
                             React.createElement("p", {className: "avatar__summary__position avatar__summary__item"}, 
                                 "Jr. Software Engineer"
@@ -602,13 +602,22 @@ module.exports = React.createClass({displayName: 'exports',
 var React = require('react');
 var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
-
+var Tabs = require('../shared/tabs/Tabs');
+var marked = require('../../lib/marked');
 
 module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
-            errors: {}
+            errors: {},
+            previewText: ''
         }
+    },
+
+    handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
+        var html = marked(this.props.post.body) || '';
+        this.setState({
+            previewText: html
+        });
     },
 
     render: function() {
@@ -616,52 +625,71 @@ module.exports = React.createClass({displayName: 'exports',
         return (
             React.createElement("section", null, 
             React.createElement("form", {
-            action: this.props.action, 
-            method: this.props.method, 
-            onSubmit: this.handleSubmit}, 
-            React.createElement("label", {htmlFor: "title"}, "Title"), 
-            React.createElement("input", {type: "text", 
-            name: "title", 
-            ref: "title", 
-            value: this.props.post.title, 
-            onChange: this.props.onChange}
-            ), 
-            React.createElement("br", null), 
+                action: this.props.action, 
+                method: this.props.method, 
+                onSubmit: this.handleSubmit}, 
+                React.createElement("div", {className: "form-row"}, 
+                    React.createElement("label", {htmlFor: "title"}, "Title"), 
+                    React.createElement("input", {type: "text", 
+                        name: "title", 
+                        ref: "title", 
+                        value: this.props.post.title, 
+                        onChange: this.props.onChange}
+                    )
+                ), 
 
-            React.createElement("textarea", {
-            name: "body", 
-            ref: "body", 
-            value: this.props.post.body, 
-            onChange: this.props.onChange}), 
-            React.createElement("br", null), 
+                React.createElement("div", {className: "form-row"}, 
+                    React.createElement("label", {htmlFor: "body"}, "Body"), 
+                    React.createElement(Tabs, {
+                        onBeforeChange: this.handleBefore}, 
+                        React.createElement(Tabs.Panel, {title: "Markdown"}, 
+                            React.createElement("textarea", {
+                                name: "body", 
+                                ref: "body", 
+                                value: this.props.post.body, 
+                                onChange: this.props.onChange})
+                        ), 
+                        React.createElement(Tabs.Panel, {title: "Preview"}, 
+                            React.createElement("article", {dangerouslySetInnerHTML: {__html: this.state.previewText}})
+                        )
+                    )
+                ), 
 
-            React.createElement("label", {htmlFor: "slug"}, "Slug"), 
-            React.createElement("input", {
-            type: "text", 
-            name: "slug", 
-            ref: "slug", 
-            value: this.props.post.slug, 
-            onChange: this.props.onChange}), 
-                React.createElement("br", null), 
+                React.createElement("div", {className: "form-row"}, 
+                    React.createElement("label", {htmlFor: "slug"}, "Slug"), 
+                    React.createElement("input", {
+                        type: "text", 
+                        name: "slug", 
+                        ref: "slug", 
+                        value: this.props.post.slug, 
+                        onChange: this.props.onChange})
+                ), 
 
-                React.createElement("label", {htmlFor: "tags"}, "Tags"), 
-                React.createElement("input", {type: "text", name: "tags", ref: "tags"}), 
-                React.createElement("br", null), 
+                React.createElement("div", {className: "form-row"}, 
+                    React.createElement("label", {htmlFor: "tags"}, "Tags"), 
+                    React.createElement("input", {type: "text", name: "tags", ref: "tags"})
+                ), 
 
-                React.createElement("label", {htmlFor: "excerpt"}, "Excerpt"), 
-                React.createElement("input", {
-                type: "text", 
-                name: "excerpt", 
-                ref: "excerpt", 
-                value: this.props.post.excerpt, 
-            onChange: this.props.onChange}), 
-                React.createElement("br", null), 
+                React.createElement("div", {className: "form-row"}, 
+                    React.createElement("label", {htmlFor: "excerpt"}, "Excerpt"), 
+                    React.createElement("input", {
+                        type: "text", 
+                        name: "excerpt", 
+                        ref: "excerpt", 
+                        value: this.props.post.excerpt, 
+                        onChange: this.props.onChange})
+                ), 
 
-                React.createElement("label", {htmlFor: "published"}, "Published?"), 
-                React.createElement("input", {type: "checkbox", name: "published", ref: "published"}), 
-                React.createElement("br", null), 
+                React.createElement("div", {className: "form-row"}, 
+                    React.createElement("div", {className: "checkbox"}, 
+                        React.createElement("input", {type: "checkbox", name: "published", ref: "published"}), 
+                        React.createElement("label", {htmlFor: "published"}, "Published?")
+                    )
+                ), 
 
-                React.createElement("button", {type: "submit"}, "Submit"), 
+                React.createElement("div", {className: "form-row"}, 
+                    React.createElement("button", {type: "submit"}, "Submit")
+                ), 
 
                 React.createElement("pre", null, this.state.errors)
                 ), 
@@ -728,7 +756,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
+},{"../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
@@ -1474,7 +1502,122 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){
+},{"../../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js":[function(require,module,exports){
+var React = require('react');
+
+var Tabs = React.createClass({
+
+    displayName: 'Tabs',
+
+    getDefaultProps: function() {
+        return {
+            tabActive: 1
+        };
+    },
+
+    getInitialState: function() {
+        return {
+            tabActive: this.props.tabActive
+        };
+    },
+
+    componentDidMount: function() {
+        var index = this.state.tabActive;
+        var $selectedPanel = this.refs['tab-panel'];
+        var $selectedMenu = this.refs['tab-menu-' + index];
+
+        if (this.props.onMount) {
+            this.props.onMount(index, $selectedPanel, $selectedMenu);
+        }
+    },
+
+    componentWillReceiveProps: function(newProps) {
+        //if (newProps.tabActive) {
+            //this.setState({
+                //tabActive: newProps.tabActive
+            //});
+        //}
+    },
+
+    render: function() {
+        return (
+            React.createElement("div", {className: "tabs"}, 
+                this._getMenuItems(), 
+                this._getSelectedPanel()
+            )
+        );
+    },
+
+    setActive: function(index, e) {
+        var onAfterChange = this.props.onAfterChange;
+        var onBeforeChange = this.props.onBeforeChange;
+        var $selectedPanel = this.refs['tab-panel'];
+        var $selectedTabMenu = this.refs['tab-menu' + index];
+
+        if (onBeforeChange) {
+            onBeforeChange(index, $selectedPanel, $selectedTabMenu);
+        }
+
+        this.setState({ tabActive: index }, function() {
+            if (onAfterChange) {
+                onAfterChange(index, selectedPanel, $selectedTabMenu);
+            }
+        });
+
+        e.preventDefault();
+    },
+
+    _getMenuItems: function() {
+        var self = this;
+        var $menuItems = this.props.children.map(function($panel, index) {
+            var ref = 'tab-menu-' + (index + 1);
+            var title = $panel.props.title;
+            var cls = 'tabs-menu-item';
+            if (self.state.tabActive === (index + 1)) {
+                cls = 'tabs-menu-item tabs-menu-item--active';
+            }
+
+
+            return (
+                React.createElement("a", {href: "#", 
+                    onClick: self.setActive.bind(self, index+1), 
+                    ref: ref, 
+                    key: index, 
+                    className: cls}, 
+                    title
+                )
+            );
+        });
+
+        return (
+            React.createElement("nav", {className: "tabs-navigation"}, 
+                $menuItems
+            )
+        );
+    },
+
+    _getSelectedPanel: function() {
+        var index = this.state.tabActive - 1;
+        var $panel = this.props.children[index];
+
+        return (
+            React.createElement("article", {ref: "tab-panel", className: "tab-panel"}, 
+                $panel
+            )
+        );
+    }
+
+});
+
+Tabs.Panel = React.createClass({displayName: 'Panel',
+    render: function() {
+        return React.createElement("div", null, this.props.children);
+    }
+});
+
+module.exports = Tabs;
+
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){
 module.exports = {
     NAVIGATE: 'NAVIGATE',
     UNDO: 'UNDO',
