@@ -620,12 +620,6 @@ module.exports = React.createClass({displayName: 'exports',
         });
     },
 
-    onChange: function(event) {
-        this.setState({
-            previewText: event.target.value
-        });
-    },
-
     render: function() {
 
         return (

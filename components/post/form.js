@@ -19,12 +19,6 @@ module.exports = React.createClass({
         });
     },
 
-    onChange: function(event) {
-        this.setState({
-            previewText: event.target.value
-        });
-    },
-
     render: function() {
 
         return (
