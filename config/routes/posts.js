@@ -6,6 +6,7 @@ var checkit = require('checkit');
 var validations = require('../validations');
 var knex = require('../../lib/db');
 var normalize = require('../routeHelpers/normalizeAPIResponse');
+var Promise = require('bluebird');
 
 // Post index
 // Show all posts
@@ -42,10 +43,20 @@ exports.show = function*() {
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';
-    var post = yield knex('posts').where(_id, slug);
+    var _post = yield knex('posts').where(_id, slug);
+    var post = _post[0];
+
+    var tags = yield knex('tags as t')
+        .join('tag_relationships as tr', 't.id', '=', 'tr.tag_id')
+        .where('tr.reference_type', 'post')
+        .andWhere('tr.reference_id', post.id);
+
+    post.tags = tags.map(function(tag) {
+        return tag.name;
+    }).join(', ');
 
     var data = yield normalize({
-        posts: post[0],
+        posts: post,
         path: '/posts/' + slug,
         req: this
     });
@@ -95,6 +106,8 @@ exports.create = function*() {
         error = err;
     }
 
+    var tags = body.tags.split(',').map(function(tag) { return tag.trim(); });
+
     if (error) {
         this.body = {
             success: false,
@@ -102,19 +115,45 @@ exports.create = function*() {
         };
 
     } else {
-        var _post = yield knex('posts').insert({
-            title: body.title,
-            body: body.body,
-            slug: body.slug,
-            excerpt: body.excerpt,
-            published: body.published,
-            created_at: new Date(),
-            updated_at: new Date()
-        }, 'id');
+        var postId;
+        try {
+            yield knex.transaction(function(trx) {
+                return trx('posts').insert({
+                    title: body.title,
+                    body: body.body,
+                    slug: body.slug,
+                    excerpt: body.excerpt,
+                    published: body.published,
+                    created_at: new Date(),
+                    updated_at: new Date()
+                }, 'id').then(function(id) {
+                    postId = id[0];
+                    return Promise.map(tags, function(tag) {
+                        return trx('tags').insert({
+                            name: tag,
+                            created_at: new Date(),
+                            updated_at: new Date()
+                        }, 'id');
+                    });
+                }).then(function(tagIds) {
+                    return Promise.map(tagIds, function(tagId) {
+                        return trx('tag_relationships').insert({
+                            reference_id: postId,
+                            reference_type: 'post',
+                            tag_id: tagId[0],
+                            created_at: new Date(),
+                            updated_at: new Date()
+                        });
+                    });
+                });
+            });
+        } catch(err) {
+            error = err;
+        }
 
         this.body = {
             success: true,
-            post_id: _post[0]
+            post_id: postId
         };
     }
 

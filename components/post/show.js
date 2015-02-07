@@ -43,7 +43,7 @@ module.exports = React.createClass({
         var metaTwo = [
             {
                 title: 'Tags',
-                value: 'Some, tags, and, stuff'
+                value: this.state.post.tags
             }
         ];
 

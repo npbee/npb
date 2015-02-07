@@ -667,7 +667,8 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.createElement("div", {className: "form-row"}, 
                     React.createElement("label", {htmlFor: "tags"}, "Tags"), 
-                    React.createElement("input", {type: "text", name: "tags", ref: "tags"})
+                    React.createElement("input", {type: "text", name: "tags", ref: "tags", 
+                        value: this.props.post.tags})
                 ), 
 
                 React.createElement("div", {className: "form-row"}, 
@@ -875,7 +876,7 @@ module.exports = React.createClass({displayName: 'exports',
         var metaTwo = [
             {
                 title: 'Tags',
-                value: 'Some, tags, and, stuff'
+                value: this.state.post.tags
             }
         ];
 
