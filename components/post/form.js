@@ -67,7 +67,8 @@ module.exports = React.createClass({
                 <div className="form-row">
                     <label htmlFor="tags">Tags</label>
                     <input type="text" name="tags" ref="tags" 
-                        value={this.props.post.tags} />
+                        value={this.props.post.tags}
+                        onChange={this.props.onChange} />
                 </div>
 
                 <div className="form-row">

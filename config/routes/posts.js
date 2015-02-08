@@ -98,6 +98,12 @@ exports.new = function*() {
 exports.create = function*() {
     var body = this.request.body;
     var error;
+    var postId;
+    var tags = [];
+
+    if (body.tags.length) {
+        body.tags.split(',').map(function(tag) { return tags.push(tag.trim()); });
+    }
 
     // Validations
     try {
@@ -106,51 +112,47 @@ exports.create = function*() {
         error = err;
     }
 
-    var tags = body.tags.split(',').map(function(tag) { return tag.trim(); });
+    try {
+        yield knex.transaction(function(trx) {
+            return trx('posts').insert({
+                title: body.title,
+                body: body.body,
+                slug: body.slug,
+                excerpt: body.excerpt,
+                published: body.published,
+                created_at: new Date(),
+                updated_at: new Date()
+            }, 'id').then(function(id) {
+                postId = id[0];
+                return Promise.map(tags, function(tag) {
+                    return trx('tags').insert({
+                        name: tag,
+                        created_at: new Date(),
+                        updated_at: new Date()
+                    }, 'id');
+                });
+            }).then(function(tagIds) {
+                return Promise.map(tagIds, function(tagId) {
+                    return trx('tag_relationships').insert({
+                        reference_id: postId,
+                        reference_type: 'post',
+                        tag_id: tagId[0],
+                        created_at: new Date(),
+                        updated_at: new Date()
+                    });
+                });
+            });
+        });
+    } catch(err) {
+        error = err;
+    }
 
     if (error) {
         this.body = {
             success: false,
             errors: JSON.stringify(error)
         };
-
     } else {
-        var postId;
-        try {
-            yield knex.transaction(function(trx) {
-                return trx('posts').insert({
-                    title: body.title,
-                    body: body.body,
-                    slug: body.slug,
-                    excerpt: body.excerpt,
-                    published: body.published,
-                    created_at: new Date(),
-                    updated_at: new Date()
-                }, 'id').then(function(id) {
-                    postId = id[0];
-                    return Promise.map(tags, function(tag) {
-                        return trx('tags').insert({
-                            name: tag,
-                            created_at: new Date(),
-                            updated_at: new Date()
-                        }, 'id');
-                    });
-                }).then(function(tagIds) {
-                    return Promise.map(tagIds, function(tagId) {
-                        return trx('tag_relationships').insert({
-                            reference_id: postId,
-                            reference_type: 'post',
-                            tag_id: tagId[0],
-                            created_at: new Date(),
-                            updated_at: new Date()
-                        });
-                    });
-                });
-            });
-        } catch(err) {
-            error = err;
-        }
-
         this.body = {
             success: true,
             post_id: postId
@@ -186,36 +188,111 @@ exports.put = function* () {
     var body = this.request.body;
     var id = body.id;
     var error;
+    var tags = [];
 
-    // Validations
+    if (body.tags.length) {
+        body.tags.split(',').map(function(tag) { return tags.push(tag.trim()); });
+    }
+
     try {
-        yield checkit(validations.post.update).run(body);
+        yield knex.transaction(function(trx) {
+            return trx('posts').where('id', id).update({
+                title: body.title,
+                body: body.body,
+                slug: body.slug,
+                excerpt: body.excerpt,
+                published: body.published,
+                created_at: new Date(),
+                updated_at: new Date()
+            }, 'id').then(function(id) {
+                return Promise.map(tags, function(tag) {
+
+                    // We need to check if the tag exists.  If it does, resolve
+                    // with that ID.  If not, then return create a new tag
+                    // and resolve with the new ID.
+                    return new Promise(function(resolve, reject) {
+                        trx('tags').where('name', tag).select('id')
+                        .then(function(tags) {
+                            if (tags.length) {
+                                resolve(tags);
+                            } else {
+                                return trx('tags').insert({
+                                    name: tag,
+                                    created_at: new Date(),
+                                    updated_at: new Date()
+                                }, 'id').then(resolve);
+                            }
+                        });
+                    });
+                });
+            }).then(function(tagIds) {
+                // The knex functions return an array, so we flatten everything
+                // down.  
+                var flattened = _.flatten(tagIds, true);
+
+                // If we've return a tag that already exists, it will be an
+                // object, so we need to flatten again with just the id.
+                var preppedTagIds = flattened.map(function(tag) {
+                    if (tag.id) {
+                        return tag.id;
+                    } else {
+                        return tag;
+                    }
+                });
+                return Promise.map(preppedTagIds, function(tagId) {
+                    return new Promise(function(resolve, reject) {
+                        trx('tag_relationships')
+                        .where('tag_id', tagId)
+                        .andWhere('reference_id', id)
+                        .then(function(relationships) {
+                            if (relationships.length) {
+                                resolve();
+                            } else {
+                                trx('tag_relationships').insert({
+                                    reference_id: id,
+                                    reference_type: 'post',
+                                    tag_id: tagId,
+                                    created_at: new Date(),
+                                    updated_at: new Date()
+                                }).then(resolve);
+                            }
+                        });
+
+                    });
+                });
+            });
+        });
     } catch(err) {
         error = err;
     }
 
-     if (error) {
+    if (error) {
         this.body = {
             success: false,
             errors: JSON.stringify(error)
         };
-
     } else {
-        var update = yield knex('posts')
-            .where('id', id)
-            .update({
-            title: body.title,
-            body: body.body,
-            slug: body.slug,
-            excerpt: body.excerpt,
-            published: body.published,
-            updated_at: new Date()
-        }, 'id');
         this.body = {
             success: true,
-            post_id: update[0]
+            post_id: id
         };
     }
+
+        //var update = yield knex('posts')
+            //.where('id', id)
+            //.update({
+            //title: body.title,
+            //body: body.body,
+            //slug: body.slug,
+            //excerpt: body.excerpt,
+            //published: body.published,
+            //updated_at: new Date()
+        //}, 'id');
+        //this.body = {
+            //success: true,
+            //post_id: update[0]
+        //};
+    //}
 
 };
 

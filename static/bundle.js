@@ -668,7 +668,8 @@ module.exports = React.createClass({displayName: 'exports',
                 React.createElement("div", {className: "form-row"}, 
                     React.createElement("label", {htmlFor: "tags"}, "Tags"), 
                     React.createElement("input", {type: "text", name: "tags", ref: "tags", 
-                        value: this.props.post.tags})
+                        value: this.props.post.tags, 
+                        onChange: this.props.onChange})
                 ), 
 
                 React.createElement("div", {className: "form-row"}, 
