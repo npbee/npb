@@ -208,11 +208,7 @@ exports.put = function* () {
     var body = this.request.body;
     var id = body.id;
     var error;
-    var tags = [];
-
-    if (body.tags.length) {
-        body.tags.split(',').map(function(tag) { return tags.push(tag.trim()); });
-    }
+    var tags = body.tags;
 
     try {
         yield knex.transaction(function(trx) {
@@ -226,40 +222,50 @@ exports.put = function* () {
                 updated_at: new Date()
             }, 'id').then(function(id) {
                 return Promise.map(tags, function(tag) {
-
-                    // We need to check if the tag exists.  If it does, resolve
-                    // with that ID.  If not, then return create a new tag
-                    // and resolve with the new ID.
+                    // If the tag object has an ID, look it up and return it
                     return new Promise(function(resolve, reject) {
-                        trx('tags').where('name', tag).select('id')
-                        .then(function(tags) {
-                            if (tags.length) {
-                                resolve(tags);
-                            } else {
-                                return trx('tags').insert({
-                                    name: tag,
-                                    created_at: new Date(),
-                                    updated_at: new Date()
-                                }, 'id').then(resolve);
-                            }
-                        });
+                        // If the tag has an ID, it already exists in the db
+                        if (tag.id) {
+                            resolve(tag);
+                        } else {
+                            return trx('tags').insert({
+                                name: tag.name,
+                                created_at: new Date(),
+                                updated_at: new Date()
+                            }, 'id').then(resolve);
+                        }
                     });
                 });
             }).then(function(tagIds) {
-                // The knex functions return an array, so we flatten everything
-                // down.  
+
+                 //The knex functions return an array, so we flatten everything
+                 //down.  
                 var flattened = _.flatten(tagIds, true);
 
-                // If we've return a tag that already exists, it will be an
-                // object, so we need to flatten again with just the id.
-                var preppedTagIds = flattened.map(function(tag) {
+                // Filter out the tag relationships to delete
+                var tagsToAdd = flattened.filter(function(tag) {
+                    return !tag._delete;
+                });
+
+                var tagsToDelete = flattened.filter(function(tag) {
+                    return tag._delete;
+                });
+
+                 //If we've return a tag that already exists, it will be an
+                 //object, so we need to flatten again with just the id.
+                var preppedTagsToAdd = tagsToAdd.map(function(tag) {
                     if (tag.id) {
                         return tag.id;
                     } else {
                         return tag;
                     }
                 });
-                return Promise.map(preppedTagIds, function(tagId) {
+
+                var preppedTagsToDelete = tagsToDelete.map(function(tag) {
+                    return tag.id;
+                });
+
+                return Promise.map(preppedTagsToAdd, function(tagId) {
                     return new Promise(function(resolve, reject) {
                         trx('tag_relationships')
                         .where('tag_id', tagId)
@@ -277,7 +283,13 @@ exports.put = function* () {
                                 }).then(resolve);
                             }
                         });
-
+                    }).then(function() {
+                        return Promise.map(preppedTagsToDelete, function(tagId) {
+                            return trx('tag_relationships')
+                            .where('tag_id', tagId)
+                            .andWhere('reference_id', id)
+                            .del();
+                        });
                     });
                 });
             });

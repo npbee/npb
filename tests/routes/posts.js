@@ -2,6 +2,7 @@ var app = require('../../server');
 var request = require('co-supertest').agent(app.listen());
 var should = require('should');
 var db = require('../../lib/db');
+var _ = require('lodash');
 
 describe('Posts API', function() {
     var _id;
@@ -61,16 +62,18 @@ describe('Posts API', function() {
         var response = JSON.parse(res.text).post;
         response.should.have.property('title', 'New Title');
 
-        var _tag = response.tags[0];
+        _tag = response.tags[0];
         response.tags[0].should.have.property('name', 'testing');
     });
 
     it('should update a post', function *() {
+        var extended = [].concat(_tag, { name: "Second tag" });
+
         var res = yield request.put('/posts')
         .send({
             'id': _id,
             'title': 'My Edited Title',
-            'tags': [_tag, 'second-tag']
+            'tags': extended
         })
         .end();
 
@@ -88,7 +91,7 @@ describe('Posts API', function() {
 
         var response = JSON.parse(res.text);
         _secondTag = response.post.tags[1];
-        response.post.tags[0].should.equal(_tag);
+        response.post.tags[0].name.should.equal('testing');
     });
 
     it('should allow for removal of a tag', function *() {
@@ -107,7 +110,7 @@ describe('Posts API', function() {
 
         var response = JSON.parse(res.text);
         response.post.tags.should.have.length(1);
-        response.post.tags[0].should.equal(_secondTag);
+        response.post.tags[0].name.should.equal("Second tag");
     });
 
     it('should create a post', function *() {
@@ -138,7 +141,8 @@ describe('Posts API', function() {
 
         var response = JSON.parse(res.text).post;
         response.should.have.property('tags');
-        response.tags.should.equal('javascript, ruby');
+        response.tags[0].name.should.equal('javascript');
+        response.tags[1].name.should.equal('ruby');
     });
 
     it('should delete a post', function *() {

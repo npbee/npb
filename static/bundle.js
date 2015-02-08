@@ -604,6 +604,7 @@ var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
 var Tabs = require('../shared/tabs/Tabs');
 var marked = require('../../lib/marked');
+var _ = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
@@ -628,9 +629,9 @@ module.exports = React.createClass({displayName: 'exports',
     addTag: function(e) {
         if (e.key === 'Enter') {
             var tags = this.refs.tags.getDOMNode().value.trim();
-            var newTags = this.state.tags.concat(tags);
-
-            this.refs.tags.getDOMNode().value = '';
+            var newTags = this.state.tags.concat({
+                name: tags
+            });
 
             this.setState({
                 tags: newTags
@@ -691,8 +692,8 @@ module.exports = React.createClass({displayName: 'exports',
                     React.createElement("input", {type: "text", name: "tags", ref: "tags", 
                         onKeyDown: this.addTag}), 
                     this.state.tags.map(function(tag, index) {
-                        return React.createElement("a", {key: index}, tag.name || tag);
-                    })
+                        return React.createElement("a", {onClick: this.flagTagForDelete.bind(this, index), key: index}, tag.name);
+                    }, this)
                 ), 
 
                 React.createElement("div", {className: "form-row"}, 
@@ -723,6 +724,11 @@ module.exports = React.createClass({displayName: 'exports',
         );
     },
 
+    flagTagForDelete: function(i) {
+        var tag = this.state.tags[i];
+        _.extend(tag, { _delete: true });
+    },
+
     handleSubmit: function(e) {
         var self = this;
 
@@ -731,7 +737,7 @@ module.exports = React.createClass({displayName: 'exports',
         var title = this.refs.title.getDOMNode().value.trim();
         var body = this.refs.body.getDOMNode().value.trim();
         var slug = this.refs.slug.getDOMNode().value.trim();
-        var tags = this.refs.tags.getDOMNode().value.trim();
+        var tags = this.state.tags;
         var excerpt = this.refs.excerpt.getDOMNode().value.trim();
         var published = this.refs.published.getDOMNode().value.trim();
 
@@ -781,7 +787,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
+},{"../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');

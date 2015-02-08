@@ -3,6 +3,7 @@ var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
 var Tabs = require('../shared/tabs/Tabs');
 var marked = require('../../lib/marked');
+var _ = require('lodash');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -27,9 +28,9 @@ module.exports = React.createClass({
     addTag: function(e) {
         if (e.key === 'Enter') {
             var tags = this.refs.tags.getDOMNode().value.trim();
-            var newTags = this.state.tags.concat(tags);
-
-            this.refs.tags.getDOMNode().value = '';
+            var newTags = this.state.tags.concat({
+                name: tags
+            });
 
             this.setState({
                 tags: newTags
@@ -90,8 +91,8 @@ module.exports = React.createClass({
                     <input type="text" name="tags" ref="tags" 
                         onKeyDown={this.addTag} />
                     {this.state.tags.map(function(tag, index) {
-                        return <a key={index}>{tag.name || tag}</a>;
-                    })}
+                        return <a onClick={this.flagTagForDelete.bind(this, index)} key={index}>{tag.name}</a>;
+                    }, this)}
                 </div>
 
                 <div className="form-row">
@@ -122,6 +123,11 @@ module.exports = React.createClass({
         );
     },
 
+    flagTagForDelete: function(i) {
+        var tag = this.state.tags[i];
+        _.extend(tag, { _delete: true });
+    },
+
     handleSubmit: function(e) {
         var self = this;
 
@@ -130,7 +136,7 @@ module.exports = React.createClass({
         var title = this.refs.title.getDOMNode().value.trim();
         var body = this.refs.body.getDOMNode().value.trim();
         var slug = this.refs.slug.getDOMNode().value.trim();
-        var tags = this.refs.tags.getDOMNode().value.trim();
+        var tags = this.state.tags;
         var excerpt = this.refs.excerpt.getDOMNode().value.trim();
         var published = this.refs.published.getDOMNode().value.trim();
 
