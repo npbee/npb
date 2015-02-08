@@ -46,14 +46,13 @@ exports.show = function*() {
     var _post = yield knex('posts').where(_id, slug);
     var post = _post[0];
 
-    var tags = yield knex('tags as t')
-        .join('tag_relationships as tr', 't.id', '=', 'tr.tag_id')
-        .where('tr.reference_type', 'post')
-        .andWhere('tr.reference_id', post.id);
+    var subquery = knex('tag_relationships')
+                        .where('reference_type', 'post')
+                        .andWhere('reference_id', post.id).select('tag_id');
 
-    post.tags = tags.map(function(tag) {
-        return tag.name;
-    }).join(', ');
+    var tags = yield knex('tags').where('id', 'in', subquery);
+
+    post.tags = tags;
 
     var data = yield normalize({
         posts: post,
@@ -161,27 +160,48 @@ exports.create = function*() {
 
 };
 
-
 // Show the edit post form
 exports.edit = function* () {
 
-    var id = this.params.id;
+    var slug = this.params.slug;
+
+    // Detect if the param passed is a number so that we can look up a post
+    // by id or by slug
+    var _id = isNaN(Number(slug)) ? 'slug' : 'id';
+    var _post = yield knex('posts').where(_id, slug);
+    var post = _post[0];
+
+    var subquery = knex('tag_relationships')
+                        .where('reference_type', 'post')
+                        .andWhere('reference_id', post.id).select('tag_id');
+
+    var tags = yield knex('tags').where('id', 'in', subquery);
+
+    post.tags = tags;
 
     var data = yield normalize({
-        path: '/posts/' + id +'/edit',
+        posts: post,
+        path: '/posts/' + slug + '/edit',
         req: this
     });
 
+    if (this.request.isClient) {
+        this.body = data;
+        return;
+    }
+
     var markup = React.renderToString(
-            <App data={data} history="true" path={"/posts/" + id + "/edit"} />
+        <App data={data} history="true" path={"/posts/" + slug + "/edit"} />
             );
 
-    this.body = yield render('default', {
+    this.body = yield render('default', { 
         markup: markup,
         state: JSON.stringify(data)
     });
 
 };
+
+
 
 // Update a post
 exports.put = function* () {

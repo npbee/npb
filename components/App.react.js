@@ -58,7 +58,7 @@ var App = React.createClass({
         '/posts': 'posts',
         '/posts/new': 'postNew',
         '/posts/:slug': 'postShow',
-        '/posts/:id/edit': 'postEdit',
+        '/posts/:slug/edit': 'postEdit',
 
         // Projects
         '/projects': 'projects',
@@ -94,8 +94,8 @@ var App = React.createClass({
         return <PostNew />;
     },
 
-    postEdit: function(id) {
-        return <PostEdit postId={id} />;
+    postEdit: function(slug) {
+        return <PostEdit post={this.props.data.post} slug={slug} />;
     },
 
     // PROJECTS

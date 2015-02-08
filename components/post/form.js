@@ -8,8 +8,13 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             errors: {},
-            previewText: ''
+            previewText: '',
+            tags: this.props.post.tags || []
         }
+    },
+
+    componentDidMount: function() {
+        
     },
 
     handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
@@ -17,6 +22,22 @@ module.exports = React.createClass({
         this.setState({
             previewText: html
         });
+    },
+
+    addTag: function(e) {
+        if (e.key === 'Enter') {
+            var tags = this.refs.tags.getDOMNode().value.trim();
+            var newTags = this.state.tags.concat(tags);
+
+            this.refs.tags.getDOMNode().value = '';
+
+            this.setState({
+                tags: newTags
+            });
+
+            // Stop the form from submitting
+            e.preventDefault();
+        }
     },
 
     render: function() {
@@ -67,8 +88,10 @@ module.exports = React.createClass({
                 <div className="form-row">
                     <label htmlFor="tags">Tags</label>
                     <input type="text" name="tags" ref="tags" 
-                        value={this.props.post.tags}
-                        onChange={this.props.onChange} />
+                        onKeyDown={this.addTag} />
+                    {this.state.tags.map(function(tag, index) {
+                        return <a key={index}>{tag.name || tag}</a>;
+                    })}
                 </div>
 
                 <div className="form-row">

@@ -1,6 +1,5 @@
 require('node-jsx').install(); 
 var logger = require('koa-logger');
-var route = require('koa-route');
 var router = require('koa-router');
 var koa = require('koa');
 var koaPg = require('koa-pg');
@@ -66,7 +65,7 @@ app.get('/', routes.index);
 app.get('/posts', routes.posts.index);
 app.get('/posts/new', routes.posts.new);
 app.get('/posts/:slug', routes.posts.show);
-app.get('/posts/:id/edit', routes.posts.edit);
+app.get('/posts/:slug/edit', routes.posts.edit);
 app.post('/posts', routes.posts.create);
 app.put('/posts', routes.posts.put);
 app.del('/posts', routes.posts.del);

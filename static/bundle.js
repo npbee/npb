@@ -113,7 +113,7 @@ var App = React.createClass({displayName: 'App',
         '/posts': 'posts',
         '/posts/new': 'postNew',
         '/posts/:slug': 'postShow',
-        '/posts/:id/edit': 'postEdit',
+        '/posts/:slug/edit': 'postEdit',
 
         // Projects
         '/projects': 'projects',
@@ -149,8 +149,8 @@ var App = React.createClass({displayName: 'App',
         return React.createElement(PostNew, null);
     },
 
-    postEdit: function(id) {
-        return React.createElement(PostEdit, {postId: id});
+    postEdit: function(slug) {
+        return React.createElement(PostEdit, {post: this.props.data.post, slug: slug});
     },
 
     // PROJECTS
@@ -609,8 +609,13 @@ module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
             errors: {},
-            previewText: ''
+            previewText: '',
+            tags: this.props.post.tags || []
         }
+    },
+
+    componentDidMount: function() {
+        
     },
 
     handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
@@ -618,6 +623,22 @@ module.exports = React.createClass({displayName: 'exports',
         this.setState({
             previewText: html
         });
+    },
+
+    addTag: function(e) {
+        if (e.key === 'Enter') {
+            var tags = this.refs.tags.getDOMNode().value.trim();
+            var newTags = this.state.tags.concat(tags);
+
+            this.refs.tags.getDOMNode().value = '';
+
+            this.setState({
+                tags: newTags
+            });
+
+            // Stop the form from submitting
+            e.preventDefault();
+        }
     },
 
     render: function() {
@@ -668,8 +689,10 @@ module.exports = React.createClass({displayName: 'exports',
                 React.createElement("div", {className: "form-row"}, 
                     React.createElement("label", {htmlFor: "tags"}, "Tags"), 
                     React.createElement("input", {type: "text", name: "tags", ref: "tags", 
-                        value: this.props.post.tags, 
-                        onChange: this.props.onChange})
+                        onKeyDown: this.addTag}), 
+                    this.state.tags.map(function(tag, index) {
+                        return React.createElement("a", {key: index}, tag.name || tag);
+                    })
                 ), 
 
                 React.createElement("div", {className: "form-row"}, 
@@ -866,7 +889,10 @@ module.exports = React.createClass({displayName: 'exports',
     render: function(){
         var html = marked(this.state.post.body || '');
         var date = parseDate(this.state.post.created_at);
-        
+        var tags = this.state.post.tags.map(function(tag) {
+            return tag.name;
+        }).join(', '); 
+
         var metaOne = [
             {
                 title: 'Date Posted',
@@ -877,7 +903,7 @@ module.exports = React.createClass({displayName: 'exports',
         var metaTwo = [
             {
                 title: 'Tags',
-                value: this.state.post.tags
+                value: tags
             }
         ];
 

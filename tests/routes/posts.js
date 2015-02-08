@@ -5,7 +5,9 @@ var db = require('../../lib/db');
 
 describe('Posts API', function() {
     var _id;
+    var _tag;
     var _secondId;
+    var _secondTag;
 
     before(function(done) {
         db('posts').insert({
@@ -58,6 +60,9 @@ describe('Posts API', function() {
 
         var response = JSON.parse(res.text).post;
         response.should.have.property('title', 'New Title');
+
+        var _tag = response.tags[0];
+        response.tags[0].should.have.property('name', 'testing');
     });
 
     it('should update a post', function *() {
@@ -65,7 +70,7 @@ describe('Posts API', function() {
         .send({
             'id': _id,
             'title': 'My Edited Title',
-            'tags': 'testing, second-tag'
+            'tags': [_tag, 'second-tag']
         })
         .end();
 
@@ -82,14 +87,16 @@ describe('Posts API', function() {
         .end();
 
         var response = JSON.parse(res.text);
-        response.post.tags.should.equal('testing, second-tag');
+        _secondTag = response.post.tags[1];
+        response.post.tags[0].should.equal(_tag);
     });
 
     it('should allow for removal of a tag', function *() {
+        var removedTag = _.extend(_tag, { _delete: true });
         var req = yield request.put('/posts')
         .send({
             'id': _id,
-            'tags': 'testing'
+            'tags': [removedTag, _secondTag]
         })
         .end();
 
@@ -99,7 +106,8 @@ describe('Posts API', function() {
         }).end();
 
         var response = JSON.parse(res.text);
-        response.post.tags.should.equal('testing');
+        response.post.tags.should.have.length(1);
+        response.post.tags[0].should.equal(_secondTag);
     });
 
     it('should create a post', function *() {
