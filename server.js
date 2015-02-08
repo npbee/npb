@@ -74,7 +74,7 @@ app.del('/posts', routes.posts.del);
 app.get('/projects', routes.projects.index);
 app.get('/projects/new', routes.projects.new);
 app.get('/projects/:slug', routes.projects.show);
-app.get('/projects/:id/edit', routes.projects.edit);
+app.get('/projects/:slug/edit', routes.projects.edit);
 app.post('/projects', routes.projects.create);
 app.put('/projects', routes.projects.put);
 app.del('/projects', routes.projects.del);

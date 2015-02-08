@@ -7,6 +7,7 @@ var validations = require('../validations');
 var knex = require('../../lib/db');
 var normalize = require('../routeHelpers/normalizeAPIResponse');
 var Promise = require('bluebird');
+var tagHelper = require('../routeHelpers/tagHelper');
 
 // Post index
 // Show all posts
@@ -98,11 +99,7 @@ exports.create = function*() {
     var body = this.request.body;
     var error;
     var postId;
-    var tags = [];
-
-    if (body.tags.length) {
-        body.tags.split(',').map(function(tag) { return tags.push(tag.trim()); });
-    }
+    var tags = body.tags;
 
     // Validations
     try {
@@ -123,23 +120,9 @@ exports.create = function*() {
                 updated_at: new Date()
             }, 'id').then(function(id) {
                 postId = id[0];
-                return Promise.map(tags, function(tag) {
-                    return trx('tags').insert({
-                        name: tag,
-                        created_at: new Date(),
-                        updated_at: new Date()
-                    }, 'id');
-                });
+                return tagHelper.createTagIfNot(trx, body.tags);
             }).then(function(tagIds) {
-                return Promise.map(tagIds, function(tagId) {
-                    return trx('tag_relationships').insert({
-                        reference_id: postId,
-                        reference_type: 'post',
-                        tag_id: tagId[0],
-                        created_at: new Date(),
-                        updated_at: new Date()
-                    });
-                });
+                return tagHelper.createTagRelationship(trx, tagIds, postId, 'post');
             });
         });
     } catch(err) {
@@ -221,77 +204,9 @@ exports.put = function* () {
                 created_at: new Date(),
                 updated_at: new Date()
             }, 'id').then(function(id) {
-                return Promise.map(tags, function(tag) {
-                    // If the tag object has an ID, look it up and return it
-                    return new Promise(function(resolve, reject) {
-                        // If the tag has an ID, it already exists in the db
-                        if (tag.id) {
-                            resolve(tag);
-                        } else {
-                            return trx('tags').insert({
-                                name: tag.name,
-                                created_at: new Date(),
-                                updated_at: new Date()
-                            }, 'id').then(resolve);
-                        }
-                    });
-                });
+                return tagHelper.collect(trx, tags);
             }).then(function(tagIds) {
-
-                 //The knex functions return an array, so we flatten everything
-                 //down.  
-                var flattened = _.flatten(tagIds, true);
-
-                // Filter out the tag relationships to delete
-                var tagsToAdd = flattened.filter(function(tag) {
-                    return !tag._delete;
-                });
-
-                var tagsToDelete = flattened.filter(function(tag) {
-                    return tag._delete;
-                });
-
-                 //If we've return a tag that already exists, it will be an
-                 //object, so we need to flatten again with just the id.
-                var preppedTagsToAdd = tagsToAdd.map(function(tag) {
-                    if (tag.id) {
-                        return tag.id;
-                    } else {
-                        return tag;
-                    }
-                });
-
-                var preppedTagsToDelete = tagsToDelete.map(function(tag) {
-                    return tag.id;
-                });
-
-                return Promise.map(preppedTagsToAdd, function(tagId) {
-                    return new Promise(function(resolve, reject) {
-                        trx('tag_relationships')
-                        .where('tag_id', tagId)
-                        .andWhere('reference_id', id)
-                        .then(function(relationships) {
-                            if (relationships.length) {
-                                resolve();
-                            } else {
-                                trx('tag_relationships').insert({
-                                    reference_id: id,
-                                    reference_type: 'post',
-                                    tag_id: tagId,
-                                    created_at: new Date(),
-                                    updated_at: new Date()
-                                }).then(resolve);
-                            }
-                        });
-                    }).then(function() {
-                        return Promise.map(preppedTagsToDelete, function(tagId) {
-                            return trx('tag_relationships')
-                            .where('tag_id', tagId)
-                            .andWhere('reference_id', id)
-                            .del();
-                        });
-                    });
-                });
+                return tagHelper.upsert(trx, tagIds, id, 'post');
             });
         });
     } catch(err) {
@@ -309,22 +224,6 @@ exports.put = function* () {
             post_id: id
         };
     }
-
-        //var update = yield knex('posts')
-            //.where('id', id)
-            //.update({
-            //title: body.title,
-            //body: body.body,
-            //slug: body.slug,
-            //excerpt: body.excerpt,
-            //published: body.published,
-            //updated_at: new Date()
-        //}, 'id');
-        //this.body = {
-            //success: true,
-            //post_id: update[0]
-        //};
-    //}
 
 };
 

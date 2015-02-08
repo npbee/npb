@@ -120,7 +120,7 @@ describe('Posts API', function() {
                 'body': 'My second body',
                 'slug': 'my-second-title',
                 'excerpt': 'The second excerpt',
-                tags: 'javascript, ruby',
+                tags: [{name: 'javascript'}, {name: 'ruby'}],
                 published: false,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -141,8 +141,7 @@ describe('Posts API', function() {
 
         var response = JSON.parse(res.text).post;
         response.should.have.property('tags');
-        response.tags[0].name.should.equal('javascript');
-        response.tags[1].name.should.equal('ruby');
+        response.tags.should.matchEach(/[ruby|javascript]/);
     });
 
     it('should delete a post', function *() {

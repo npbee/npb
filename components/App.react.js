@@ -64,7 +64,7 @@ var App = React.createClass({
         '/projects': 'projects',
         '/projects/new': 'projectNew',
         '/projects/:slug': 'projectShow',
-        '/projects/:id/edit': 'projectEdit',
+        '/projects/:slug/edit': 'projectEdit',
 
         // Admin
         '/admin': 'admin'
@@ -114,8 +114,8 @@ var App = React.createClass({
         return <ProjectNew />;
     },
 
-    projectEdit: function(id) {
-        return <ProjectEdit projectId={id} />;
+    projectEdit: function(slug) {
+        return <ProjectEdit project={this.props.data.project} slug={slug} />;
     },
 
     admin: function() {

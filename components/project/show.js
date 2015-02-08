@@ -33,6 +33,9 @@ module.exports = React.createClass({
     render: function(){
         var html = marked(this.state.project.body || '');
         var date = parseDate(this.state.project.date_completed);
+        var tags = this.state.project.tags ? this.state.project.tags.map(function(tag) {
+            return tag.name;
+        }).join(', ') : ""; 
         
         var metaOne = [
             {
@@ -52,7 +55,7 @@ module.exports = React.createClass({
             },
             {
                 title: 'Tags',
-                value: 'Some, tags, and, stuff'
+                value: tags
             }
         ];
 

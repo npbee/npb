@@ -1,12 +1,39 @@
 var React = require('react');
 var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
-
+var Tabs = require('../shared/tabs/Tabs');
+var marked = require('../../lib/marked');
+var _ = require('lodash');
 
 module.exports = React.createClass({
     getInitialState: function() {
         return {
-            errors: {}
+            errors: {},
+            previewText: '',
+            tags: this.props.project.tags || []
+        }
+    },
+
+    handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
+        var html = marked(this.props.post.body) || '';
+        this.setState({
+            previewText: html
+        });
+    },
+
+    addTag: function(e) {
+        if (e.key === 'Enter') {
+            var tags = this.refs.tags.getDOMNode().value.trim();
+            var newTags = this.state.tags.concat({
+                name: tags
+            });
+
+            this.setState({
+                tags: newTags
+            });
+
+            // Stop the form from submitting
+            e.preventDefault();
         }
     },
 
@@ -18,114 +45,152 @@ module.exports = React.createClass({
                     action={this.props.action} 
                     method={this.props.method} 
                     onSubmit={this.handleSubmit}>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" 
-                        name="name"
-                        ref="name" 
-                        value={this.props.project.name} 
-                        onChange={this.props.onChange}
-                    />
-                    <br/>
+                    <div className="form-row">
+                        <label htmlFor="name">Name</label>
+                        <input type="text" 
+                            name="name"
+                            ref="name" 
+                            value={this.props.project.name} 
+                            onChange={this.props.onChange}
+                        />
+                    </div>
 
-                    <label htmlFor="url">URL</label>
-                    <input type="text"
-                        name="url"
-                        ref="url"
-                        value={this.props.project.url}
-                        onChange={this.props.onChange}
-                    />
-                    <br />
+                    <div className="form-row">
+                        <label htmlFor="url">URL</label>
+                        <input type="text"
+                            name="url"
+                            ref="url"
+                            value={this.props.project.url}
+                            onChange={this.props.onChange}
+                        />
+                    </div>
 
-                    <label htmlFor="role">Role</label>
-                    <input type="text"
-                        name="role"
-                        ref="role"
-                        value={this.props.project.role}
-                        onChange={this.props.onChange}
-                    />
-                    <br />
+                    <div className="form-row">
+                        <label htmlFor="role">Role</label>
+                        <input type="text"
+                            name="role"
+                            ref="role"
+                            value={this.props.project.role}
+                            onChange={this.props.onChange}
+                        />
+                    </div>
 
-                    <label htmlFor="date_completed">Date Completed</label>
-                    <input type="text"
-                        name="date_completed"
-                        ref="date_completed"
-                        value={this.props.project.date_completed}
-                        onChange={this.props.onChange}
-                    />
-                    <br />
+                    <div className="form-row">
+                        <label htmlFor="date_completed">Date Completed</label>
+                        <input type="text"
+                            name="date_completed"
+                            ref="date_completed"
+                            value={this.props.project.date_completed}
+                            onChange={this.props.onChange}
+                        />
+                    </div>
+                    
+                    <div className="form-row">
+                        <label htmlFor="logo">Logo</label>
+                        <input type="text"
+                            name="logo"
+                            ref="logo"
+                            value={this.props.project.logo}
+                            onChange={this.props.onChange}
+                        />
+                    </div>
 
-                    <label htmlFor="logo">Logo</label>
-                    <input type="text"
-                        name="logo"
-                        ref="logo"
-                        value={this.props.project.logo}
-                        onChange={this.props.onChange}
-                    />
-                    <br />
+                    <div className="form-row">
+                        <label htmlFor="thumbnail">Thumbnail</label>
+                        <input type="text"
+                            name="thumbnail"
+                            ref="thumbnail"
+                            value={this.props.project.thumbnail}
+                            onChange={this.props.onChange}
+                        />
+                    </div>
 
-                    <label htmlFor="thumbnail">Thumbnail</label>
-                    <input type="text"
-                        name="thumbnail"
-                        ref="thumbnail"
-                        value={this.props.project.thumbnail}
-                        onChange={this.props.onChange}
-                    />
-                    <br />
+                    <div className="form-row">
+                        <label htmlFor="small_screen">Small Screen</label>
+                        <input type="text"
+                            name="small_screen"
+                            ref="small_screen"
+                            value={this.props.project.small_screen}
+                            onChange={this.props.onChange}
+                        />
+                    </div>
 
-                    <label htmlFor="small_screen">Small Screen</label>
-                    <input type="text"
-                        name="small_screen"
-                        ref="small_screen"
-                        value={this.props.project.small_screen}
-                        onChange={this.props.onChange}
-                    />
-                    <br />
+                    <div className="form-row">
+                        <label htmlFor="medium_screen">Medium Screen</label>
+                        <input type="text"
+                            name="medium_screen"
+                            ref="medium_screen"
+                            value={this.props.project.medium_screen}
+                            onChange={this.props.onChange}
+                        />
+                    </div>
 
-                    <label htmlFor="medium_screen">Medium Screen</label>
-                    <input type="text"
-                        name="medium_screen"
-                        ref="medium_screen"
-                        value={this.props.project.medium_screen}
-                        onChange={this.props.onChange}
-                    />
-                    <br />
+                    <div className="form-row">
+                        <label htmlFor="large_screen">Large Screen</label>
+                        <input type="text"
+                            name="large_screen"
+                            ref="large_screen"
+                            value={this.props.project.large_screen}
+                            onChange={this.props.onChange}
+                        />
+                    </div>
 
-                    <label htmlFor="large_screen">Large Screen</label>
-                    <input type="text"
-                        name="large_screen"
-                        ref="large_screen"
-                        value={this.props.project.large_screen}
-                        onChange={this.props.onChange}
-                    />
-                    <br />
+                    <div className="form-row">
+                        <Tabs
+                            onBeforeChange={this.handleBefore}>
+                            <Tabs.Panel title="Markdown">
+                                <textarea 
+                                    name="body" 
+                                    ref="body"
+                                    value={this.props.project.body}
+                                    onChange={this.props.onChange}></textarea>
+                            </Tabs.Panel>
+                            <Tabs.Panel title="Preview">
+                                <article dangerouslySetInnerHTML = {{__html: this.state.previewText }}></article>
+                            </Tabs.Panel>
+                        </Tabs>
+                    </div>
 
-                    <textarea 
-                        name="body" 
-                        ref="body"
-                        value={this.props.project.body}
-                        onChange={this.props.onChange}></textarea>
-                    <br/>
+                    <div className="form-row">
+                        <label htmlFor="slug">Slug</label>
+                        <input 
+                            type="text" 
+                            name="slug" 
+                            ref="slug"
+                            value={this.props.project.slug}
+                            onChange={this.props.onChange} />
+                    </div>
 
-                    <label htmlFor="slug">Slug</label>
-                    <input 
-                        type="text" 
-                        name="slug" 
-                        ref="slug"
-                        value={this.props.project.slug}
-                        onChange={this.props.onChange} />
-                    <br/>
+                    <div className="form-row">
+                        <label htmlFor="tags">Tags</label>
+                        <input type="text" name="tags" ref="tags" 
+                            onKeyDown={this.addTag} />
+                        {this.state.tags.map(function(tag, index) {
+                            return <a onClick={this.flagTagForDelete.bind(this, index)} key={index}>{tag.name}</a>;
+                        }, this)}
+                    </div>
 
-                    <label htmlFor="published">Published?</label>
-                    <input type="checkbox" name="published" ref="published" />
-                    <br/>
+                    <div className="form-row">
+                        <div className="checkbox">
+                            <input type="checkbox" name="published" ref="published" />
+                            <label htmlFor="published">Published?</label>
+                        </div>
+                    </div>
 
-                    <button type="submit">Submit</button>
+                    <div className="form-row">
+                        <button type="submit">Submit</button>
+                    </div>
 
                     <pre>{this.state.errors}</pre>
                 </form>
                 <a id="delete" onClick={this.handleDelete} >Delete</a>
             </section>
         );
+    },
+
+    flagTagForDelete: function(i) {
+        var tag = this.state.tags[i];
+        _.extend(tag, { _delete: true });
     },
 
     handleSubmit: function(e) {
@@ -145,6 +210,7 @@ module.exports = React.createClass({
         var large_screen = this.refs.large_screen.getDOMNode().value.trim();
         var slug = this.refs.slug.getDOMNode().value.trim();
         var published = this.refs.published.getDOMNode().value.trim();
+        var tags = this.state.tags;
 
         request[this.props.method](this.props.action)
         .send({
@@ -160,7 +226,8 @@ module.exports = React.createClass({
             medium_screen: medium_screen,
             large_screen: large_screen,
             slug: slug,
-            published: published
+            published: published,
+            tags: tags
         })
         .end(function(res) {
             var response = JSON.parse(res.text);
