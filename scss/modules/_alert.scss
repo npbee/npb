@@ -36,3 +36,8 @@
         background: darken($warning, 10%);
     }
 }
+
+.alert--error {
+    background: $error;
+    color: $white;
+}

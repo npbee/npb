@@ -1,13 +1,14 @@
 var React = require('react');
 var navigate = require('react-mini-router').navigate;
 var request = require('superagent');
+var ErrorList = require('../shared/ErrorList');
 
 module.exports = React.createClass({
 
     getInitialState: function() {
         return {
             hasErrors: false,
-            errors: {}
+            errors: []
         };
     },
 
@@ -37,6 +38,7 @@ module.exports = React.createClass({
 
                     <button type="submit">Submit</button>
                 </form>
+                <ErrorList errors={this.state.errors} />
             </section>
         );
 
@@ -44,18 +46,29 @@ module.exports = React.createClass({
 
     handleSubmit: function(e) {
         var self = this;
-        //e.preventDefault();
-        //var username = this.refs.username.getDOMNode().value.trim();
-        //var password = this.refs.password.getDOMNode().value.trim();
+        e.preventDefault();
+        var username = this.refs.username.getDOMNode().value.trim();
+        var password = this.refs.password.getDOMNode().value.trim();
 
-        //request.post('/login')
-        //.send({
-            //username: username,
-            //password: password
-        //})
-        //.end(function(res) {
-            //console.log(res);
-        //});
+        request.post('/login')
+        .query({
+            query: 'isClient'
+        })
+        .send({
+            username: username,
+            password: password
+        })
+        .end(function(res) {
+            var resp = JSON.parse(res.text);
+            if (resp.success) {
+                console.log(resp);
+                navigate('/admin');
+            } else {
+                self.setState({
+                    errors: resp.errors
+                });
+            }
+        });
     }
 
     

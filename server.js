@@ -80,7 +80,7 @@ app.put('/projects', routes.projects.put);
 app.del('/projects', routes.projects.del);
 
 // Admin routes
-app.get('/admin', routes.admin.index);
+app.get('/admin', secured, routes.admin.index);
 app.get('/login', routes.auth.loginForm);
 app.post('/login', routes.auth.login);
 app.get('/logout', routes.auth.logout);
