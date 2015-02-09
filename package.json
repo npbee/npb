@@ -4,7 +4,7 @@
   "description": "Personal blog and portfolio",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=testing node --harmony `which gulp` test"
+    "test": "NODE_ENV=testing gulp test"
   },
   "author": "Nick Ball <nick@npbee.me> (http://npbee.me/)",
   "license": "ISC",
@@ -40,6 +40,7 @@
     "swig": "^1.4.2"
   },
   "devDependencies": {
+    "6to5ify": "^4.1.0",
     "autoprefixer-core": "^5.0.0",
     "browserify": "^7.0.2",
     "co-supertest": "0.0.7",
