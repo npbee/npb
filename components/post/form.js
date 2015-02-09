@@ -2,6 +2,7 @@ var React = require('react');
 var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
 var Tabs = require('../shared/tabs/Tabs');
+var TagList = require('../shared/TagList');
 var marked = require('../../lib/marked');
 var _ = require('lodash');
 
@@ -27,14 +28,14 @@ module.exports = React.createClass({
 
     addTag: function(e) {
         if (e.key === 'Enter') {
-            var tags = this.refs.tags.getDOMNode().value.trim();
-            var newTags = this.state.tags.concat({
-                name: tags
-            });
+            var node = this.refs.tags.getDOMNode();
+            var tag = node.value.trim();
 
             this.setState({
-                tags: newTags
+                tags: this.state.tags.concat({name: tag})
             });
+
+            node.value = '';
 
             // Stop the form from submitting
             e.preventDefault();
@@ -90,9 +91,10 @@ module.exports = React.createClass({
                     <label htmlFor="tags">Tags</label>
                     <input type="text" name="tags" ref="tags" 
                         onKeyDown={this.addTag} />
-                    {this.state.tags.map(function(tag, index) {
-                        return <a onClick={this.flagTagForDelete.bind(this, index)} key={index}>{tag.name}</a>;
-                    }, this)}
+                    <TagList 
+                        tags={this.state.tags} 
+                        onTagChange={this.onTagChange}
+                    />
                 </div>
 
                 <div className="form-row">
@@ -123,9 +125,8 @@ module.exports = React.createClass({
         );
     },
 
-    flagTagForDelete: function(i) {
-        var tag = this.state.tags[i];
-        _.extend(tag, { _delete: true });
+    onTagChange: function(tags) {
+        this.setState(tags);
     },
 
     handleSubmit: function(e) {

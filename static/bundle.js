@@ -603,6 +603,7 @@ var React = require('react');
 var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
 var Tabs = require('../shared/tabs/Tabs');
+var TagList = require('../shared/TagList');
 var marked = require('../../lib/marked');
 var _ = require('lodash');
 
@@ -628,14 +629,14 @@ module.exports = React.createClass({displayName: 'exports',
 
     addTag: function(e) {
         if (e.key === 'Enter') {
-            var tags = this.refs.tags.getDOMNode().value.trim();
-            var newTags = this.state.tags.concat({
-                name: tags
-            });
+            var node = this.refs.tags.getDOMNode();
+            var tag = node.value.trim();
 
             this.setState({
-                tags: newTags
+                tags: this.state.tags.concat({name: tag})
             });
+
+            node.value = '';
 
             // Stop the form from submitting
             e.preventDefault();
@@ -691,9 +692,10 @@ module.exports = React.createClass({displayName: 'exports',
                     React.createElement("label", {htmlFor: "tags"}, "Tags"), 
                     React.createElement("input", {type: "text", name: "tags", ref: "tags", 
                         onKeyDown: this.addTag}), 
-                    this.state.tags.map(function(tag, index) {
-                        return React.createElement("a", {onClick: this.flagTagForDelete.bind(this, index), key: index}, tag.name);
-                    }, this)
+                    React.createElement(TagList, {
+                        tags: this.state.tags, 
+                        onTagChange: this.onTagChange}
+                    )
                 ), 
 
                 React.createElement("div", {className: "form-row"}, 
@@ -724,9 +726,8 @@ module.exports = React.createClass({displayName: 'exports',
         );
     },
 
-    flagTagForDelete: function(i) {
-        var tag = this.state.tags[i];
-        _.extend(tag, { _delete: true });
+    onTagChange: function(tags) {
+        this.setState(tags);
     },
 
     handleSubmit: function(e) {
@@ -787,7 +788,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
+},{"../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../shared/TagList":"/Users/npb/Projects/npb/components/shared/TagList.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/post/index.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
@@ -995,6 +996,7 @@ var React = require('react');
 var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
 var Tabs = require('../shared/tabs/Tabs');
+var TagList = require('../shared/TagList');
 var marked = require('../../lib/marked');
 var _ = require('lodash');
 
@@ -1002,13 +1004,13 @@ module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
             errors: {},
-            previewText: '',
+            previewText: this.props.project.body || '',
             tags: this.props.project.tags || []
         }
     },
 
     handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
-        var html = marked(this.props.post.body) || '';
+        var html = marked(this.props.project.body) || '';
         this.setState({
             previewText: html
         });
@@ -1016,14 +1018,14 @@ module.exports = React.createClass({displayName: 'exports',
 
     addTag: function(e) {
         if (e.key === 'Enter') {
-            var tags = this.refs.tags.getDOMNode().value.trim();
-            var newTags = this.state.tags.concat({
-                name: tags
-            });
+            var node = this.refs.tags.getDOMNode();
+            var tag = node.value.trim();
 
             this.setState({
-                tags: newTags
+                tags: this.state.tags.concat({name: tag})
             });
+
+            node.value = '';
 
             // Stop the form from submitting
             e.preventDefault();
@@ -1158,9 +1160,9 @@ module.exports = React.createClass({displayName: 'exports',
                         React.createElement("label", {htmlFor: "tags"}, "Tags"), 
                         React.createElement("input", {type: "text", name: "tags", ref: "tags", 
                             onKeyDown: this.addTag}), 
-                        this.state.tags.map(function(tag, index) {
-                            return React.createElement("a", {onClick: this.flagTagForDelete.bind(this, index), key: index}, tag.name);
-                        }, this)
+                        React.createElement(TagList, {
+                            tags: this.state.tags, 
+                            onTagChange: this.onTagChange})
                     ), 
 
                     React.createElement("div", {className: "form-row"}, 
@@ -1181,9 +1183,8 @@ module.exports = React.createClass({displayName: 'exports',
         );
     },
 
-    flagTagForDelete: function(i) {
-        var tag = this.state.tags[i];
-        _.extend(tag, { _delete: true });
+    onTagChange: function(tags) {
+        this.setState(tags);
     },
 
     handleSubmit: function(e) {
@@ -1258,7 +1259,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/project/index.js":[function(require,module,exports){
+},{"../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../shared/TagList":"/Users/npb/Projects/npb/components/shared/TagList.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/project/index.js":[function(require,module,exports){
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
@@ -1606,7 +1607,58 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js":[function(require,module,exports){
+},{"../../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/shared/TagList.js":[function(require,module,exports){
+var React = require('react');
+var _ = require('lodash');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {
+            tags: this.props.tags
+        };
+    },
+
+    componentWillReceiveProps: function(props) {
+        this.setState({
+            tags: props.tags
+        });
+    },
+
+    render: function() {
+        return React.createElement("div", {className: "tag-list"}, 
+            this.state.tags.map(function(tag, index) {
+                var cls = tag._delete ? 'tag tag--delete' : 'tag';
+                return React.createElement("a", {
+                    className: cls, 
+                    onClick: this.flagTagForDelete.bind(this, index), key: index}, tag.name);
+            }, this)
+        );
+    },
+
+    
+    flagTagForDelete: function(i) {
+        var tag = this.state.tags[i];
+
+        // Tag has an id and not already flagged for deletion, then it needs to be deleted
+        if (tag.id && !tag._delete) {
+            _.extend(tag, { _delete: true });
+        } else if (tag.id && tag._delete) {
+            tag._delete = false;
+        } else if (!tag.id) {
+            this.state.tags.splice(i, 1);
+        }
+
+        this.setState({
+            tags: this.state.tags
+        });
+
+        this.props.onTagChange(this.state);
+    }
+
+});
+
+},{"lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js":[function(require,module,exports){
 var React = require('react');
 
 var Tabs = React.createClass({
