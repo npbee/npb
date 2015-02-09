@@ -32,7 +32,10 @@ module.exports = React.createClass({
     render: function(){
         var html = marked(this.state.post.body || '');
         var date = parseDate(this.state.post.created_at);
-        
+        var tags = this.state.post.tags ? this.state.post.tags.map(function(tag) {
+            return tag.name;
+        }).join(', ') : ""; 
+
         var metaOne = [
             {
                 title: 'Date Posted',
@@ -43,7 +46,7 @@ module.exports = React.createClass({
         var metaTwo = [
             {
                 title: 'Tags',
-                value: 'Some, tags, and, stuff'
+                value: tags
             }
         ];
 

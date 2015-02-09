@@ -6,6 +6,8 @@ var checkit = require('checkit');
 var validations = require('../validations');
 var knex = require('../../lib/db');
 var normalize = require('../routeHelpers/normalizeAPIResponse');
+var Promise = require('bluebird');
+var tagHelper = require('../routeHelpers/tagHelper');
 
 // Post index
 // Show all posts
@@ -42,10 +44,19 @@ exports.show = function*() {
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';
-    var post = yield knex('posts').where(_id, slug);
+    var _post = yield knex('posts').where(_id, slug);
+    var post = _post[0];
+
+    var subquery = knex('tag_relationships')
+                        .where('reference_type', 'post')
+                        .andWhere('reference_id', post.id).select('tag_id');
+
+    var tags = yield knex('tags').where('id', 'in', subquery);
+
+    post.tags = tags;
 
     var data = yield normalize({
-        posts: post[0],
+        posts: post,
         path: '/posts/' + slug,
         req: this
     });
@@ -87,10 +98,33 @@ exports.new = function*() {
 exports.create = function*() {
     var body = this.request.body;
     var error;
+    var postId;
+    var tags = body.tags;
 
     // Validations
     try {
         yield checkit(validations.post.new).run(body);
+    } catch(err) {
+        error = err;
+    }
+
+    try {
+        yield knex.transaction(function(trx) {
+            return trx('posts').insert({
+                title: body.title,
+                body: body.body,
+                slug: body.slug,
+                excerpt: body.excerpt,
+                published: body.published,
+                created_at: new Date(),
+                updated_at: new Date()
+            }, 'id').then(function(id) {
+                postId = id[0];
+                return tagHelper.createTagIfNot(trx, body.tags);
+            }).then(function(tagIds) {
+                return tagHelper.createTagRelationship(trx, tagIds, postId, 'post');
+            });
+        });
     } catch(err) {
         error = err;
     }
@@ -100,81 +134,94 @@ exports.create = function*() {
             success: false,
             errors: JSON.stringify(error)
         };
-
     } else {
-        var _post = yield knex('posts').insert({
-            title: body.title,
-            body: body.body,
-            slug: body.slug,
-            excerpt: body.excerpt,
-            published: body.published,
-            created_at: new Date(),
-            updated_at: new Date()
-        }, 'id');
-
         this.body = {
             success: true,
-            post_id: _post[0]
+            post_id: postId
         };
     }
 
 };
 
-
 // Show the edit post form
 exports.edit = function* () {
 
-    var id = this.params.id;
+    var slug = this.params.slug;
+
+    // Detect if the param passed is a number so that we can look up a post
+    // by id or by slug
+    var _id = isNaN(Number(slug)) ? 'slug' : 'id';
+    var _post = yield knex('posts').where(_id, slug);
+    var post = _post[0];
+
+    var subquery = knex('tag_relationships')
+                        .where('reference_type', 'post')
+                        .andWhere('reference_id', post.id).select('tag_id');
+
+    var tags = yield knex('tags').where('id', 'in', subquery);
+
+    post.tags = tags;
 
     var data = yield normalize({
-        path: '/posts/' + id +'/edit',
+        posts: post,
+        path: '/posts/' + slug + '/edit',
         req: this
     });
 
+    if (this.request.isClient) {
+        this.body = data;
+        return;
+    }
+
     var markup = React.renderToString(
-            <App data={data} history="true" path={"/posts/" + id + "/edit"} />
+        <App data={data} history="true" path={"/posts/" + slug + "/edit"} />
             );
 
-    this.body = yield render('default', {
+    this.body = yield render('default', { 
         markup: markup,
         state: JSON.stringify(data)
     });
 
 };
 
+
+
 // Update a post
 exports.put = function* () {
     var body = this.request.body;
     var id = body.id;
     var error;
+    var tags = body.tags;
 
-    // Validations
     try {
-        yield checkit(validations.post.update).run(body);
+        yield knex.transaction(function(trx) {
+            return trx('posts').where('id', id).update({
+                title: body.title,
+                body: body.body,
+                slug: body.slug,
+                excerpt: body.excerpt,
+                published: body.published,
+                created_at: new Date(),
+                updated_at: new Date()
+            }, 'id').then(function(id) {
+                return tagHelper.collect(trx, tags);
+            }).then(function(tagIds) {
+                return tagHelper.upsert(trx, tagIds, id, 'post');
+            });
+        });
     } catch(err) {
         error = err;
     }
 
-     if (error) {
+    if (error) {
         this.body = {
             success: false,
             errors: JSON.stringify(error)
         };
-
     } else {
-        var update = yield knex('posts')
-            .where('id', id)
-            .update({
-            title: body.title,
-            body: body.body,
-            slug: body.slug,
-            excerpt: body.excerpt,
-            published: body.published,
-            updated_at: new Date()
-        }, 'id');
         this.body = {
             success: true,
-            post_id: update[0]
+            post_id: id
         };
     }
 

@@ -58,13 +58,13 @@ var App = React.createClass({
         '/posts': 'posts',
         '/posts/new': 'postNew',
         '/posts/:slug': 'postShow',
-        '/posts/:id/edit': 'postEdit',
+        '/posts/:slug/edit': 'postEdit',
 
         // Projects
         '/projects': 'projects',
         '/projects/new': 'projectNew',
         '/projects/:slug': 'projectShow',
-        '/projects/:id/edit': 'projectEdit',
+        '/projects/:slug/edit': 'projectEdit',
 
         // Admin
         '/admin': 'admin'
@@ -94,8 +94,8 @@ var App = React.createClass({
         return <PostNew />;
     },
 
-    postEdit: function(id) {
-        return <PostEdit postId={id} />;
+    postEdit: function(slug) {
+        return <PostEdit post={this.props.data.post} slug={slug} />;
     },
 
     // PROJECTS
@@ -114,8 +114,8 @@ var App = React.createClass({
         return <ProjectNew />;
     },
 
-    projectEdit: function(id) {
-        return <ProjectEdit projectId={id} />;
+    projectEdit: function(slug) {
+        return <ProjectEdit project={this.props.data.project} slug={slug} />;
     },
 
     admin: function() {

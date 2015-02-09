@@ -2,14 +2,21 @@ var React = require('react');
 var request = require('superagent');
 var navigate = require('react-mini-router').navigate;
 var Tabs = require('../shared/tabs/Tabs');
+var TagList = require('../shared/TagList');
 var marked = require('../../lib/marked');
+var _ = require('lodash');
 
 module.exports = React.createClass({
     getInitialState: function() {
         return {
             errors: {},
-            previewText: ''
+            previewText: '',
+            tags: this.props.post.tags || []
         }
+    },
+
+    componentDidMount: function() {
+        
     },
 
     handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
@@ -17,6 +24,22 @@ module.exports = React.createClass({
         this.setState({
             previewText: html
         });
+    },
+
+    addTag: function(e) {
+        if (e.key === 'Enter') {
+            var node = this.refs.tags.getDOMNode();
+            var tag = node.value.trim();
+
+            this.setState({
+                tags: this.state.tags.concat({name: tag})
+            });
+
+            node.value = '';
+
+            // Stop the form from submitting
+            e.preventDefault();
+        }
     },
 
     render: function() {
@@ -66,7 +89,12 @@ module.exports = React.createClass({
 
                 <div className="form-row">
                     <label htmlFor="tags">Tags</label>
-                    <input type="text" name="tags" ref="tags" />
+                    <input type="text" name="tags" ref="tags" 
+                        onKeyDown={this.addTag} />
+                    <TagList 
+                        tags={this.state.tags} 
+                        onTagChange={this.onTagChange}
+                    />
                 </div>
 
                 <div className="form-row">
@@ -97,6 +125,10 @@ module.exports = React.createClass({
         );
     },
 
+    onTagChange: function(tags) {
+        this.setState(tags);
+    },
+
     handleSubmit: function(e) {
         var self = this;
 
@@ -105,7 +137,7 @@ module.exports = React.createClass({
         var title = this.refs.title.getDOMNode().value.trim();
         var body = this.refs.body.getDOMNode().value.trim();
         var slug = this.refs.slug.getDOMNode().value.trim();
-        var tags = this.refs.tags.getDOMNode().value.trim();
+        var tags = this.state.tags;
         var excerpt = this.refs.excerpt.getDOMNode().value.trim();
         var published = this.refs.published.getDOMNode().value.trim();
 
