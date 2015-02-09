@@ -14,6 +14,7 @@ var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer-core');
+var to5ify = require('6to5ify');
 
 var config = require('./config/paths');
 var paths = config.paths;
@@ -48,7 +49,7 @@ gulp.task('scss-dev', function () {
  *********/
 var bundler = watchify(browserify({
     entries: ['./app.js'],
-    transform: [reactify],
+    transform: [to5ify],
     debug: true,
     cache: {},
     packageCache: {},
@@ -78,7 +79,6 @@ gulp.task('server', function() {
     nodemon({
         script: 'server.js',
         ext: 'html js',
-        nodeArgs: ['--harmony'],
         env: {
             'NODE_ENV': process.env.NODE_ENV || 'development'
         }
