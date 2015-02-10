@@ -15,14 +15,14 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        AppActions.authenticate();
-
         var self = this;
 
         request.get('/admin')
         .query({ isClient: true })
         .end(function(res) {
-            self.setState(JSON.parse(res.text));
+            var response = JSON.parse(res.text);
+            self.setState(response);
+            AppActions.authenticate(response.isAuthenticated);
         });
     },
 

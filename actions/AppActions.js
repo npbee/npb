@@ -16,9 +16,10 @@ var AppActions = {
         });
     },
 
-    authenticate: function() {
+    authenticate: function(isAuthenticated) {
         AppDispatcher.dispatch({
-            actionType: AppConstants.AUTHENTICATE
+            actionType: AppConstants.AUTHENTICATE,
+            isAuthenticated: isAuthenticated
         });
     }
 };

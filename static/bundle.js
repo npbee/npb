@@ -33,9 +33,10 @@ var AppActions = {
         });
     },
 
-    authenticate: function () {
+    authenticate: function (isAuthenticated) {
         AppDispatcher.dispatch({
-            actionType: AppConstants.AUTHENTICATE
+            actionType: AppConstants.AUTHENTICATE,
+            isAuthenticated: isAuthenticated
         });
     }
 };
@@ -93,6 +94,7 @@ var NavStore = require("../stores/NavStore");
 var NavActions = require("../actions/NavActions");
 
 var AppStore = require("../stores/AppStore");
+var AppActions = require("../actions/AppActions");
 
 var App = React.createClass({
     displayName: "App",
@@ -103,13 +105,16 @@ var App = React.createClass({
     getInitialState: function () {
         return {
             isNavOpen: NavStore.isOpen(),
-            undoCbs: AppStore.undoCbs()
+            undoCbs: AppStore.undoCbs(),
+            isAuthenticated: AppStore.isAuthenticated()
         };
     },
 
     componentDidMount: function () {
         NavStore.addChangeListener(this._onChange);
         AppStore.addChangeListener(this._onChange);
+
+        AppActions.authenticate(this.props.data.isAuthenticated);
     },
 
     componentWillUnmount: function () {
@@ -208,14 +213,16 @@ var App = React.createClass({
         });
 
         return React.createElement("main", { id: "react-app", className: _className }, React.createElement(NavList, {
-            isAuthenticated: this.props.data.isAuthenticated,
+            isAuthenticated: this.state.isAuthenticated,
             data: this.props.data }), React.createElement(ReactCSSTransitionGroup, { transitionName: "fade" }, undoLinks), this.renderCurrentRoute());
     },
 
     _onChange: function () {
+        console.log(AppStore.isAuthenticated());
         this.setState({
             isNavOpen: NavStore.isOpen(),
-            undoCbs: AppStore.undoCbs()
+            undoCbs: AppStore.undoCbs(),
+            isAuthenticated: AppStore.isAuthenticated()
         });
     }
 
@@ -225,7 +232,7 @@ var App = React.createClass({
 module.exports = App;
 
 
-},{"../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./admin/index":"/Users/npb/Projects/npb/components/admin/index.js","./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
+},{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./admin/index":"/Users/npb/Projects/npb/components/admin/index.js","./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -271,12 +278,12 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function () {
-        AppActions.authenticate();
-
         var self = this;
 
         request.get("/admin").query({ isClient: true }).end(function (res) {
-            self.setState(JSON.parse(res.text));
+            var response = JSON.parse(res.text);
+            self.setState(response);
+            AppActions.authenticate(response.isAuthenticated);
         });
     },
 
@@ -418,7 +425,6 @@ var NavItem = require("./NavItem.react");
 var NavActions = require("../../actions/NavActions");
 var NavStore = require("../../stores/NavStore");
 var AdminNav = require("../admin/nav");
-var AppStore = require("../../stores/AppStore");
 
 module.exports = React.createClass({
     displayName: "exports",
@@ -436,12 +442,10 @@ module.exports = React.createClass({
 
     componentDidMount: function () {
         NavStore.addChangeListener(this._onChange);
-        AppStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function () {
         NavStore.removeChangeListener(this._onChange);
-        AppStore.removeChangeListener(this._onChange);
     },
 
     render: function () {
@@ -468,13 +472,11 @@ module.exports = React.createClass({
         NavActions.close();
     },
 
-    _onChange: function () {
-        this.setState();
-    }
+    _onChange: function () {}
 });
 
 
-},{"../../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","../admin/nav":"/Users/npb/Projects/npb/components/admin/nav.js","./NavItem.react":"/Users/npb/Projects/npb/components/nav/NavItem.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/page/Home.react.js":[function(require,module,exports){
+},{"../../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","../admin/nav":"/Users/npb/Projects/npb/components/admin/nav.js","./NavItem.react":"/Users/npb/Projects/npb/components/nav/NavItem.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/page/Home.react.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42103,11 +42105,16 @@ var assign = require("object-assign");
 var CHANGE_EVENT = "change";
 var undoCbs = [];
 var doCbs = [];
+var isAuthenticated = false;
 
 var AppStore = assign({}, EventEmitter.prototype, {
 
     undoCbs: function () {
         return undoCbs;
+    },
+
+    isAuthenticated: function () {
+        return isAuthenticated;
     },
 
     emitChange: function () {
@@ -42132,6 +42139,7 @@ var AppStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function (action) {
     switch (action.actionType) {
         case "AUTHENTICATE":
+            isAuthenticated = action.isAuthenticated;
             AppStore.emitChange();
             break;
         case "NAVIGATE":

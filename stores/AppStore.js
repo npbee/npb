@@ -6,11 +6,16 @@ var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
 var undoCbs = [];
 var doCbs = [];
+var isAuthenticated = false;
 
 var AppStore = assign({}, EventEmitter.prototype, {
 
     undoCbs: function() {
         return undoCbs;
+    },
+
+    isAuthenticated: function() {
+        return isAuthenticated;
     },
 
     emitChange: function() {
@@ -35,6 +40,7 @@ var AppStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
         case 'AUTHENTICATE':
+            isAuthenticated = action.isAuthenticated;
             AppStore.emitChange();
             break;
         case 'NAVIGATE':

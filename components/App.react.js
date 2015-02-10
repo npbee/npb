@@ -26,6 +26,7 @@ var NavStore = require('../stores/NavStore');
 var NavActions = require('../actions/NavActions');
 
 var AppStore = require('../stores/AppStore');
+var AppActions = require('../actions/AppActions');
 
 var App = React.createClass({
 
@@ -34,13 +35,16 @@ var App = React.createClass({
     getInitialState: function() {
         return {
             isNavOpen: NavStore.isOpen(),
-            undoCbs: AppStore.undoCbs()
+            undoCbs: AppStore.undoCbs(),
+            isAuthenticated: AppStore.isAuthenticated()
         }
     },
 
     componentDidMount: function() {
         NavStore.addChangeListener(this._onChange);
         AppStore.addChangeListener(this._onChange);
+
+        AppActions.authenticate(this.props.data.isAuthenticated);
     },
 
     componentWillUnmount: function() {
@@ -143,7 +147,7 @@ var App = React.createClass({
 
         return <main id="react-app" className={_className}>
             <NavList 
-                isAuthenticated={this.props.data.isAuthenticated}
+                isAuthenticated={this.state.isAuthenticated}
                 data={this.props.data} />
             <ReactCSSTransitionGroup transitionName="fade">
                 {undoLinks}
@@ -155,7 +159,8 @@ var App = React.createClass({
     _onChange: function() {
         this.setState({
             isNavOpen: NavStore.isOpen(),
-            undoCbs: AppStore.undoCbs()
+            undoCbs: AppStore.undoCbs(),
+            isAuthenticated: AppStore.isAuthenticated()
         })
     }
 
