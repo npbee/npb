@@ -34,6 +34,9 @@ var AppStore = assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
+        case 'AUTHENTICATE':
+            AppStore.emitChange();
+            break;
         case 'NAVIGATE':
             AppStore.emitChange();
             break;

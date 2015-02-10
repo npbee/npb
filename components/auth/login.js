@@ -61,7 +61,6 @@ module.exports = React.createClass({
         .end(function(res) {
             var resp = JSON.parse(res.text);
             if (resp.success) {
-                console.log(resp);
                 navigate('/admin');
             } else {
                 self.setState({

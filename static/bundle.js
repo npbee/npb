@@ -31,6 +31,12 @@ var AppActions = {
             undoCb: undoCb,
             doCb: doCb
         });
+    },
+
+    authenticate: function () {
+        AppDispatcher.dispatch({
+            actionType: AppConstants.AUTHENTICATE
+        });
     }
 };
 
@@ -249,6 +255,9 @@ module.exports = React.createClass({
 var React = require("react");
 var request = require("superagent");
 var Table = require("../shared/Table");
+var AppActions = require("../../actions/AppActions");
+
+var sort = "ASC";
 
 module.exports = React.createClass({
     displayName: "exports",
@@ -262,23 +271,39 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function () {
+        AppActions.authenticate();
+
         var self = this;
 
-        request.get("/admin").query({ query: "isClient" }).end(function (res) {
-            self.setState({
-                posts: JSON.parse(res.text).posts
-            });
+        request.get("/admin").query({ isClient: true }).end(function (res) {
+            self.setState(JSON.parse(res.text));
         });
     },
 
     render: function () {
-        return React.createElement("section", { className: "admin" }, React.createElement(Table, { name: "Posts", data: this.state.posts, admin: "true" }), React.createElement(Table, { name: "Projects", data: this.state.projects, admin: "true" }));
-    }
+        return React.createElement("section", { className: "admin" }, React.createElement(Table, {
+            onSort: this.handleSort,
+            name: "Posts", data: this.state.posts, admin: "true" }), React.createElement(Table, {
+            onSort: this.handleSort,
+            name: "Projects", data: this.state.projects, admin: "true" }));
+    },
 
-});
+    handleSort: function (column) {
+        var self = this;
+
+        request.get("/admin").query({
+            isClient: true,
+            orderBy: column,
+            sort: sort
+        }).end(function (res) {
+            self.setState(JSON.parse(res.text));
+        });
+
+        sort = sort == "ASC" ? "DESC" : "ASC";
+    } });
 
 
-},{"../shared/Table":"/Users/npb/Projects/npb/components/shared/Table.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/admin/nav.js":[function(require,module,exports){
+},{"../../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../shared/Table":"/Users/npb/Projects/npb/components/shared/Table.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/admin/nav.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -351,7 +376,6 @@ module.exports = React.createClass({
         }).end(function (res) {
             var resp = JSON.parse(res.text);
             if (resp.success) {
-                console.log(resp);
                 navigate("/admin");
             } else {
                 self.setState({
@@ -394,6 +418,7 @@ var NavItem = require("./NavItem.react");
 var NavActions = require("../../actions/NavActions");
 var NavStore = require("../../stores/NavStore");
 var AdminNav = require("../admin/nav");
+var AppStore = require("../../stores/AppStore");
 
 module.exports = React.createClass({
     displayName: "exports",
@@ -411,10 +436,12 @@ module.exports = React.createClass({
 
     componentDidMount: function () {
         NavStore.addChangeListener(this._onChange);
+        AppStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function () {
         NavStore.removeChangeListener(this._onChange);
+        AppStore.removeChangeListener(this._onChange);
     },
 
     render: function () {
@@ -441,11 +468,13 @@ module.exports = React.createClass({
         NavActions.close();
     },
 
-    _onChange: function () {}
+    _onChange: function () {
+        this.setState();
+    }
 });
 
 
-},{"../../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","../admin/nav":"/Users/npb/Projects/npb/components/admin/nav.js","./NavItem.react":"/Users/npb/Projects/npb/components/nav/NavItem.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/page/Home.react.js":[function(require,module,exports){
+},{"../../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","../admin/nav":"/Users/npb/Projects/npb/components/admin/nav.js","./NavItem.react":"/Users/npb/Projects/npb/components/nav/NavItem.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/page/Home.react.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -1307,30 +1336,31 @@ module.exports = React.createClass({
 
         return {
             data: this.props.data || [],
-            name: this.props.name || null
+            name: this.props.name || null,
+            admin: this.props.admin || false
         };
     },
 
-    componentDidMount: function () {
-        AppStore.addChangeListener(this._onChange);
+    componentWillReceiveProps: function (newProps) {
+        this.setState(newProps);
     },
 
-    componentWillUnmount: function () {
-        AppStore.removeChangeListener(this._onChange);
-    },
+    componentDidMount: function () {},
+
+    componentWillUnmount: function () {},
 
     render: function () {
         var self = this;
-        var columns = this.generateColumns(this.state.data);
-        var rows = this.state.data.map((function (row, index) {
+        var columns = this.generateColumns(this.props.data);
+        var rows = this.props.data.map((function (row, index) {
             return React.createElement("tr", { key: row.id }, columns.map(function (column, index) {
                 return React.createElement("td", { key: row[column] }, row[column].toString());
-            }), self.props.admin ? React.createElement("td", null, React.createElement("a", { href: self.state.name.toLowerCase() + "/" + row.id }, "View"), "/", React.createElement("a", { href: self.state.name.toLowerCase() + "/" + row.id + "/edit" }, "Edit"), "/", React.createElement("a", { "data-id": row.id, onClick: self.handleDelete.bind(null, row.id) }, "Delete")) : "");
+            }), self.state.admin ? React.createElement("td", null, React.createElement("a", { href: self.state.name.toLowerCase() + "/" + row.id }, "View"), "/", React.createElement("a", { href: self.state.name.toLowerCase() + "/" + row.id + "/edit" }, "Edit"), "/", React.createElement("a", { "data-id": row.id, onClick: self.handleDelete.bind(null, row.id) }, "Delete")) : "");
         }).bind(this));
 
-        return React.createElement("table", null, React.createElement("caption", null, this.state.name), React.createElement("thead", null, React.createElement("tr", null, columns.map(function (column) {
-            return React.createElement("th", { key: column }, column);
-        }), this.props.admin ? React.createElement("th", null, "Actions") : "")), React.createElement(ReactCSSTransitionGroup, { transitionName: "table-row", component: "tbody" }, rows), rows.length ? null : React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, "Nothing here..."))));
+        return React.createElement("table", null, React.createElement("caption", null, this.props.name), React.createElement("thead", null, React.createElement("tr", null, columns.map(function (column) {
+            return React.createElement("th", { key: column }, React.createElement("a", { onClick: this.props.onSort.bind(null, column) }, column));
+        }, this), this.props.admin ? React.createElement("th", null, "Actions") : "")), React.createElement(ReactCSSTransitionGroup, { transitionName: "table-row", component: "tbody" }, rows), rows.length ? null : React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, "Nothing here..."))));
     },
 
     generateColumns: function (data) {
@@ -1387,6 +1417,8 @@ module.exports = React.createClass({
 
     _onChange: function () {}
 });
+//AppStore.addChangeListener(this._onChange);
+//AppStore.removeChangeListener(this._onChange);
 
 
 },{"../../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/shared/TagList.js":[function(require,module,exports){
@@ -1550,7 +1582,8 @@ module.exports = Tabs;
 module.exports = {
     NAVIGATE: "NAVIGATE",
     UNDO: "UNDO",
-    UNDOTIME: 10000
+    UNDOTIME: 10000,
+    AUTHENTICATE: "AUTHENTICATE"
 };
 
 
@@ -42098,6 +42131,9 @@ var AppStore = assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register(function (action) {
     switch (action.actionType) {
+        case "AUTHENTICATE":
+            AppStore.emitChange();
+            break;
         case "NAVIGATE":
             AppStore.emitChange();
             break;

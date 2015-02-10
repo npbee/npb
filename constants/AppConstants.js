@@ -1,5 +1,6 @@
 module.exports = {
     NAVIGATE: 'NAVIGATE',
     UNDO: 'UNDO',
-    UNDOTIME: 10000
+    UNDOTIME: 10000,
+    AUTHENTICATE: 'AUTHENTICATE'
 };

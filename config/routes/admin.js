@@ -8,8 +8,18 @@ var normalize = require('../routeHelpers/normalizeAPIResponse');
 
 exports.index = function* () {
 
-    var posts = yield knex('posts').select('title', 'excerpt', 'slug', 'id', 'published');
-    var projects = yield knex('projects').select('name', 'slug', 'id', 'published');
+    var orderBy = this.request.query.orderBy || 'id';
+    var sort = this.request.query.sort || 'ASC';
+
+    postOrder = orderBy = 'name' ? 'title' : orderBy;
+    var posts = yield knex('posts')
+                    .select('title', 'excerpt', 'slug', 'id', 'published')
+                    .orderBy(postOrder, sort);
+
+    projectOrder = orderBy = 'title' ? 'name' : orderBy;
+    var projects = yield knex('projects').
+        select('name', 'slug', 'id', 'published')
+        .orderBy(projectOrder, sort);
 
     var data = yield normalize({
         projects: projects,
@@ -18,7 +28,7 @@ exports.index = function* () {
         req: this
     });
 
-    if (this.request.isClient) {
+    if (this.request.query.isClient) {
         this.body = yield data;
         return;
     }

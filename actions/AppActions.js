@@ -14,6 +14,12 @@ var AppActions = {
             undoCb: undoCb,
             doCb: doCb
         });
+    },
+
+    authenticate: function() {
+        AppDispatcher.dispatch({
+            actionType: AppConstants.AUTHENTICATE
+        });
     }
 };
 

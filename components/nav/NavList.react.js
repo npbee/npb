@@ -3,6 +3,7 @@ var NavItem = require('./NavItem.react');
 var NavActions = require('../../actions/NavActions');
 var NavStore = require('../../stores/NavStore');
 var AdminNav = require('../admin/nav');
+var AppStore = require('../../stores/AppStore);
 
 module.exports = React.createClass({
 
