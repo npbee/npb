@@ -43,7 +43,7 @@ describe('Posts API', function() {
     it('should retrive all posts', function *() {
         var res = yield request.get('/posts')
             .query({
-                query: 'isClient'
+                isClient: true
             })
             .end();
 
@@ -55,7 +55,7 @@ describe('Posts API', function() {
     it('should retrieve a specific post', function *() {
         var res = yield request.get('/posts/' + _id)
         .query({
-            query: 'isClient'
+            isClient: true
         })
         .end();
 
@@ -85,7 +85,7 @@ describe('Posts API', function() {
     it('should not duplicate the tags', function *() {
         var res = yield request.get('/posts/' + _id)
         .query({
-            query: 'isClient'
+            isClient: true
         })
         .end();
 
@@ -105,7 +105,7 @@ describe('Posts API', function() {
 
         var res = yield request.get('/posts/' + _id)
         .query({
-            query: 'isClient'
+            isClient: true
         }).end();
 
         var response = JSON.parse(res.text);
@@ -135,7 +135,7 @@ describe('Posts API', function() {
     it('should create the tags', function *() {
         var res = yield request.get('/posts/' + _secondId)
         .query({
-            query: 'isClient'
+            isClient: true
         })
         .end();
 

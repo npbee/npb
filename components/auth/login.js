@@ -56,7 +56,7 @@ module.exports = React.createClass({
 
         request.post('/login')
         .query({
-            query: 'isClient'
+            isClient: true
         })
         .send({
             username: username,

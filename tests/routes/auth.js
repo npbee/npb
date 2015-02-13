@@ -44,15 +44,19 @@ describe('Authentication routes', function() {
     context('when logged in', function() {
 
         before(function *() {
-            var res = yield request.post('/login')
+        });
+
+        it('should display the contents of the page', function *() {
+            var req = yield request.post('/login')
+            .query({
+                isClient: true
+            })
             .send({
                 username: 'Nick',
                 password: 'test',
             })
             .end();
-        });
 
-        it('should display the contents of the page', function *() {
             var res = yield request.get('/admin').expect(200).end();
         });
     });

@@ -272,26 +272,17 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             posts: this.props.data.posts || [],
-            projects: this.props.data.projects || []
+            projects: this.props.data.projects || [],
+            tags: this.props.data.tags || []
         };
     },
 
     componentDidMount: function () {
         var self = this;
 
-        request.get("/posts").query({ isClient: true }).end(function (res) {
+        request.get("/admin").query({ isClient: true }).end(function (res) {
             var response = JSON.parse(res.text);
-            self.setState({
-                posts: response.posts
-            });
-            AppActions.authenticate(response.isAuthenticated);
-        });
-
-        request.get("/projects").query({ isClient: true }).end(function (res) {
-            var response = JSON.parse(res.text);
-            self.setState({
-                projects: response.projects
-            });
+            self.setState(response);
             AppActions.authenticate(response.isAuthenticated);
         });
     },
@@ -301,19 +292,22 @@ module.exports = React.createClass({
             onSort: this.handlePostSort,
             name: "Posts", data: this.state.posts, admin: "true" }), React.createElement(Table, {
             onSort: this.handleProjectSort,
-            name: "Projects", data: this.state.projects, admin: "true" }));
+            name: "Projects", data: this.state.projects, admin: "true" }), React.createElement(Table, {
+            onSort: this.handleTagSort,
+            name: "Tags", data: this.state.tags, admin: "true" }));
     },
 
     handlePostSort: function (column) {
         var self = this;
 
-        request.get("/posts").query({
+        request.get("/admin").query({
             isClient: true,
             orderBy: column,
-            sort: sort
+            sort: sort,
+            limit: "posts"
         }).end(function (res) {
             self.setState({
-                posts: JSON.parse(res.text)
+                posts: JSON.parse(res.text).posts
             });
         });
 
@@ -323,13 +317,31 @@ module.exports = React.createClass({
     handleProjectSort: function (column) {
         var self = this;
 
-        request.get("/projects").query({
+        request.get("/admin").query({
             isClient: true,
             orderBy: column,
-            sort: sort
+            sort: sort,
+            limit: "projects"
         }).end(function (res) {
             self.setState({
-                projects: JSON.parse(res.text)
+                projects: JSON.parse(res.text).projects
+            });
+        });
+
+        sort = sort == "ASC" ? "DESC" : "ASC";
+    },
+
+    handleTagSort: function (column) {
+        var self = this;
+
+        request.get("/admin").query({
+            isClient: true,
+            orderBy: column,
+            sort: sort,
+            limit: "tags"
+        }).end(function (res) {
+            self.setState({
+                tags: JSON.parse(res.text).tags
             });
         });
 
@@ -403,7 +415,7 @@ module.exports = React.createClass({
         var password = this.refs.password.getDOMNode().value.trim();
 
         request.post("/login").query({
-            query: "isClient"
+            isClient: true
         }).send({
             username: username,
             password: password
@@ -526,7 +538,7 @@ module.exports = React.createClass({
 
         if (!Object.keys(this.state.project).length) {
             request.get("/").query({
-                query: "isClient"
+                isClient: true
             }).end(function (res) {
                 var data = JSON.parse(res.text);
                 self.setState({
@@ -570,7 +582,7 @@ module.exports = React.createClass({
 
         if (!Object.keys(this.state.post).length) {
             request.get("/posts/" + this.props.slug).query({
-                query: "isClient"
+                isClient: true
             }).end(function (res) {
                 self.setState({
                     post: JSON.parse(res.text).post,
@@ -763,7 +775,7 @@ module.exports = React.createClass({
     componentDidMount: function () {
         var self = this;
 
-        request.get("/posts").query({ query: "isClient" }).end(function (res) {
+        request.get("/posts").query({ isClient: true }).end(function (res) {
             self.setState({
                 posts: JSON.parse(res.text).posts
             });
@@ -836,7 +848,7 @@ module.exports = React.createClass({
         var slug = this.state.slug;
 
         request.get("/posts/" + slug).query({
-            query: "isClient"
+            isClient: true
         }).end(function (res) {
             self.setState({
                 post: JSON.parse(res.text).post
@@ -898,7 +910,7 @@ module.exports = React.createClass({
 
         if (!Object.keys(this.state.project).length) {
             request.get("/projects/" + this.props.projectId).query({
-                query: "isClient"
+                isClient: true
             }).end(function (res) {
                 self.setState({
                     project: JSON.parse(res.text).project,
@@ -1137,7 +1149,7 @@ module.exports = React.createClass({
     componentDidMount: function () {
         var self = this;
 
-        request.get("/projects").query({ query: "isClient" }).end(function (res) {
+        request.get("/projects").query({ isClient: true }).end(function (res) {
             self.setState({
                 projects: JSON.parse(res.text).projects
             });
@@ -1211,7 +1223,7 @@ module.exports = React.createClass({
         var slug = this.state.slug;
 
         request.get("/projects/" + slug).query({
-            query: "isClient"
+            isClient: true
         }).end(function (res) {
             self.setState({
                 project: JSON.parse(res.text).project

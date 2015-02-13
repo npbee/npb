@@ -20,7 +20,7 @@ module.exports = React.createClass({
         if (!Object.keys(this.state.post).length) {
            request.get('/posts/' + this.props.slug)
             .query({
-                query: 'isClient'
+                isClient: true
             })
             .end(function(res) {
                 self.setState({

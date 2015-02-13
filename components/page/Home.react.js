@@ -17,7 +17,7 @@ module.exports = React.createClass({
        if (!Object.keys(this.state.project).length) {
            request.get('/')
             .query({
-                query: 'isClient'
+                isClient: true
             })
             .end(function(res) {
                 var data = JSON.parse(res.text);

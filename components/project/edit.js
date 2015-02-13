@@ -20,7 +20,7 @@ module.exports = React.createClass({
         if (!Object.keys(this.state.project).length) {
            request.get('/projects/' + this.props.projectId)
             .query({
-                query: 'isClient'
+                isClient: true
             })
             .end(function(res) {
                 self.setState({

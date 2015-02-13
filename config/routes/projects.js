@@ -64,7 +64,7 @@ exports.show = function*() {
     });
 
 
-    if (this.request.isClient) {
+    if (this.request.query.isClient) {
         this.body = yield data;
         return;
     }
@@ -179,7 +179,7 @@ exports.edit = function* () {
     });
 
 
-    if (this.request.isClient) {
+    if (this.request.query.isClient) {
         this.body = yield data;
         return;
     }

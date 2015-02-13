@@ -79,6 +79,13 @@ app.post('/projects', routes.projects.create);
 app.put('/projects', routes.projects.put);
 app.del('/projects', routes.projects.del);
 
+// Tag routes
+app.get('/tags', routes.tags.index);
+app.get('/tags/:slug', routes.tags.show);
+app.get('/tags/:slug/edit', routes.tags.edit);
+app.put('/tags', routes.tags.put);
+app.del('/tags', routes.tags.del);
+
 // Admin routes
 app.get('/admin', secured, routes.admin.index);
 app.get('/login', routes.auth.loginForm);

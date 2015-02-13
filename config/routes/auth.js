@@ -5,7 +5,7 @@ var passport = require('../../lib/auth');
 var normalize = require('../routeHelpers/normalizeAPIResponse');
 
 exports.loginForm = function *() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
+    var isClient = this.request.query.isClient;
 
     var data = yield normalize({
         path: '/login',
@@ -26,7 +26,7 @@ exports.login = function*(next) {
     var ctx = this;
     yield passport.authenticate('local', function *(err, user) {
         if (err) throw err;
-        var isClient = ctx.request.url.indexOf('isClient') !== -1;
+        var isClient = ctx.request.query.isClient;
 
         if (isClient) {
             if (err) {
