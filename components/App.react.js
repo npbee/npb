@@ -15,6 +15,10 @@ var ProjectShow = require('./project/show');
 var ProjectNew = require('./project/new');
 var ProjectEdit = require('./project/edit');
 
+var Tags = require('./tag/index');
+var TagShow = require('./tag/show');
+var TagEdit = require('./tag/edit');
+
 var Login = require('./auth/login');
 
 var Admin = require('./admin/index');
@@ -70,6 +74,11 @@ var App = React.createClass({
         '/projects/:slug': 'projectShow',
         '/projects/:slug/edit': 'projectEdit',
 
+        // Tags
+        '/tags': 'tags',
+        '/tags/:slug': 'tagShow',
+        '/tags/:slug/edit': 'tagEdit',
+
         // Admin
         '/admin': 'admin'
     },
@@ -120,6 +129,22 @@ var App = React.createClass({
 
     projectEdit: function(slug) {
         return <ProjectEdit project={this.props.data.project} slug={slug} />;
+    },
+
+    // Tags
+    tags: function() {
+        return <Tags tags={this.props.data.tags} />;
+    },
+
+    tagShow: function(slug) {
+        return <TagShow 
+            tag={this.props.data.tag} 
+            slug={slug}
+            isAuthenticated={this.props.data.isAuthenticated} />;
+    },
+
+    tagEdit: function(slug) {
+        return <TagEdit project={this.props.data.tag} slug={slug} />;
     },
 
     admin: function() {

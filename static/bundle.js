@@ -83,6 +83,10 @@ var ProjectShow = require("./project/show");
 var ProjectNew = require("./project/new");
 var ProjectEdit = require("./project/edit");
 
+var Tags = require("./tag/index");
+var TagShow = require("./tag/show");
+var TagEdit = require("./tag/edit");
+
 var Login = require("./auth/login");
 
 var Admin = require("./admin/index");
@@ -140,6 +144,11 @@ var App = React.createClass({
         "/projects/:slug": "projectShow",
         "/projects/:slug/edit": "projectEdit",
 
+        // Tags
+        "/tags": "tags",
+        "/tags/:slug": "tagShow",
+        "/tags/:slug/edit": "tagEdit",
+
         // Admin
         "/admin": "admin"
     },
@@ -192,6 +201,22 @@ var App = React.createClass({
         return React.createElement(ProjectEdit, { project: this.props.data.project, slug: slug });
     },
 
+    // Tags
+    tags: function () {
+        return React.createElement(Tags, { tags: this.props.data.tags });
+    },
+
+    tagShow: function (slug) {
+        return React.createElement(TagShow, {
+            tag: this.props.data.tag,
+            slug: slug,
+            isAuthenticated: this.props.data.isAuthenticated });
+    },
+
+    tagEdit: function (slug) {
+        return React.createElement(TagEdit, { project: this.props.data.tag, slug: slug });
+    },
+
     admin: function () {
         return React.createElement(Admin, { data: this.props.data });
     },
@@ -231,7 +256,7 @@ var App = React.createClass({
 module.exports = App;
 
 
-},{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./admin/index":"/Users/npb/Projects/npb/components/admin/index.js","./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
+},{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./admin/index":"/Users/npb/Projects/npb/components/admin/index.js","./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","./tag/edit":"/Users/npb/Projects/npb/components/tag/edit.js","./tag/index":"/Users/npb/Projects/npb/components/tag/index.js","./tag/show":"/Users/npb/Projects/npb/components/tag/show.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -1617,7 +1642,349 @@ module.exports = Tabs;
 //}
 
 
-},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/tag/edit.js":[function(require,module,exports){
+"use strict";
+
+var React = require("react");var navigate = require("react-mini-router").navigate;
+var ProjectForm = require("./form");
+var request = require("superagent");
+var _ = require("lodash");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+
+    getInitialState: function () {
+        return {
+            hasErrors: false,
+            errors: {},
+            project: this.props.project || {},
+            loaded: false
+        };
+    },
+
+    componentDidMount: function () {
+        var self = this;
+
+        if (!Object.keys(this.state.project).length) {
+            request.get("/projects/" + this.props.projectId).query({
+                isClient: true
+            }).end(function (res) {
+                self.setState({
+                    project: JSON.parse(res.text).project,
+                    loaded: true
+                });
+            });
+        }
+    },
+
+    render: function () {
+        return React.createElement("section", { className: "project" }, React.createElement("h1", null, "New Post"), React.createElement(ProjectForm, {
+            project: this.state.project,
+            onChange: this.handleChange,
+            method: "put",
+            action: "/projects" }));
+    },
+
+    handleChange: function (event) {
+        var attr = event.target.name;
+        var value = event.target.value;
+
+        var newData = {};
+        newData[attr] = value;
+
+        var previousState = this.state.project;
+        var newState = _.assign(previousState, newData);
+
+        this.setState({
+            project: newState
+        });
+    }
+
+
+});
+
+
+},{"./form":"/Users/npb/Projects/npb/components/tag/form.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/form.js":[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var request = require("superagent");
+var navigate = require("react-mini-router").navigate;
+var Tabs = require("../shared/tabs/Tabs");
+var TagList = require("../shared/TagList");
+var marked = require("../../lib/marked");
+var _ = require("lodash");
+
+module.exports = React.createClass({
+    displayName: "exports",
+    getInitialState: function () {
+        return {
+            errors: {},
+            previewText: this.props.project.body || "",
+            tags: this.props.project.tags || []
+        };
+    },
+
+    handleBefore: function (selectedIndex, $selectedPanel, $selectedTabMenu) {
+        var html = marked(this.props.project.body) || "";
+        this.setState({
+            previewText: html
+        });
+    },
+
+    addTag: function (e) {
+        if (e.key === "Enter") {
+            var node = this.refs.tags.getDOMNode();
+            var tag = node.value.trim();
+
+            this.setState({
+                tags: this.state.tags.concat({ name: tag })
+            });
+
+            node.value = "";
+
+            // Stop the form from submitting
+            e.preventDefault();
+        }
+    },
+
+    render: function () {
+        return React.createElement("section", null, React.createElement("form", {
+            action: this.props.action,
+            method: this.props.method,
+            onSubmit: this.handleSubmit }, React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "name" }, "Name"), React.createElement("input", { type: "text",
+            name: "name",
+            ref: "name",
+            value: this.props.project.name,
+            onChange: this.props.onChange
+        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "url" }, "URL"), React.createElement("input", { type: "text",
+            name: "url",
+            ref: "url",
+            value: this.props.project.url,
+            onChange: this.props.onChange
+        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "role" }, "Role"), React.createElement("input", { type: "text",
+            name: "role",
+            ref: "role",
+            value: this.props.project.role,
+            onChange: this.props.onChange
+        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "date_completed" }, "Date Completed"), React.createElement("input", { type: "text",
+            name: "date_completed",
+            ref: "date_completed",
+            value: this.props.project.date_completed,
+            onChange: this.props.onChange
+        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "logo" }, "Logo"), React.createElement("input", { type: "text",
+            name: "logo",
+            ref: "logo",
+            value: this.props.project.logo,
+            onChange: this.props.onChange
+        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "thumbnail" }, "Thumbnail"), React.createElement("input", { type: "text",
+            name: "thumbnail",
+            ref: "thumbnail",
+            value: this.props.project.thumbnail,
+            onChange: this.props.onChange
+        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "small_screen" }, "Small Screen"), React.createElement("input", { type: "text",
+            name: "small_screen",
+            ref: "small_screen",
+            value: this.props.project.small_screen,
+            onChange: this.props.onChange
+        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "medium_screen" }, "Medium Screen"), React.createElement("input", { type: "text",
+            name: "medium_screen",
+            ref: "medium_screen",
+            value: this.props.project.medium_screen,
+            onChange: this.props.onChange
+        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "large_screen" }, "Large Screen"), React.createElement("input", { type: "text",
+            name: "large_screen",
+            ref: "large_screen",
+            value: this.props.project.large_screen,
+            onChange: this.props.onChange
+        })), React.createElement("div", { className: "form-row" }, React.createElement(Tabs, {
+            onBeforeChange: this.handleBefore }, React.createElement(Tabs.Panel, { title: "Markdown" }, React.createElement("textarea", {
+            name: "body",
+            ref: "body",
+            value: this.props.project.body,
+            onChange: this.props.onChange })), React.createElement(Tabs.Panel, { title: "Preview" }, React.createElement("article", { dangerouslySetInnerHTML: { __html: this.state.previewText } })))), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "slug" }, "Slug"), React.createElement("input", {
+            type: "text",
+            name: "slug",
+            ref: "slug",
+            value: this.props.project.slug,
+            onChange: this.props.onChange })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "tags" }, "Tags"), React.createElement("input", { type: "text", name: "tags", ref: "tags",
+            onKeyDown: this.addTag }), React.createElement(TagList, {
+            tags: this.state.tags,
+            onTagChange: this.onTagChange })), React.createElement("div", { className: "form-row" }, React.createElement("div", { className: "checkbox" }, React.createElement("input", { type: "checkbox", name: "published", ref: "published" }), React.createElement("label", { htmlFor: "published" }, "Published?"))), React.createElement("div", { className: "form-row" }, React.createElement("button", { className: "button", type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
+    },
+
+    onTagChange: function (tags) {
+        this.setState(tags);
+    },
+
+    handleSubmit: function (e) {
+        var self = this;
+
+        e.preventDefault();
+        var id = this.props.project.id || null;
+        var name = this.refs.name.getDOMNode().value.trim();
+        var role = this.refs.role.getDOMNode().value.trim();
+        var url = this.refs.url.getDOMNode().value.trim();
+        var date_completed = this.refs.date_completed.getDOMNode().value.trim();
+        var body = this.refs.body.getDOMNode().value.trim();
+        var logo = this.refs.logo.getDOMNode().value.trim();
+        var thumbnail = this.refs.thumbnail.getDOMNode().value.trim();
+        var small_screen = this.refs.small_screen.getDOMNode().value.trim();
+        var medium_screen = this.refs.medium_screen.getDOMNode().value.trim();
+        var large_screen = this.refs.large_screen.getDOMNode().value.trim();
+        var slug = this.refs.slug.getDOMNode().value.trim();
+        var published = this.refs.published.getDOMNode().value.trim();
+        var tags = this.state.tags;
+
+        request[this.props.method](this.props.action).send({
+            id: id,
+            name: name,
+            role: role,
+            url: url,
+            date_completed: date_completed,
+            body: body,
+            logo: logo,
+            thumbnail: thumbnail,
+            small_screen: small_screen,
+            medium_screen: medium_screen,
+            large_screen: large_screen,
+            slug: slug,
+            published: published,
+            tags: tags
+        }).end(function (res) {
+            var response = JSON.parse(res.text);
+            if (response.success) {
+                navigate("/projects");
+            } else {
+                self.setState({
+                    errors: response.errors
+                });
+            }
+        });
+    },
+
+    handleDelete: function (e) {
+        var self = this;
+
+        e.preventDefault();
+        var id = this.props.project.id;
+
+        request.del(this.props.action).send({
+            id: id
+        }).end(function (res) {
+            var response = JSON.parse(res.text);
+            if (response.success) {
+                navigate("/projects");
+            } else {
+                self.setState({
+                    errors: response.errors
+                });
+            }
+        });
+    }
+
+});
+
+
+},{"../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../shared/TagList":"/Users/npb/Projects/npb/components/shared/TagList.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/index.js":[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var Snippet = require("../Snippet.react");
+var request = require("superagent");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+
+    getInitialState: function () {
+        return {
+            tags: this.props.tags || []
+        };
+    },
+
+    componentDidMount: function () {
+        var self = this;
+
+        request.get("/tags").query({ isClient: true }).end(function (res) {
+            self.setState({
+                tags: JSON.parse(res.text).tags
+            });
+        });
+    },
+
+    render: function () {
+        return React.createElement("section", { className: "tags" }, this.state.tags.map(function (tag) {
+            var count = tag.count > 1 ? "" + tag.count + " tags" : "" + tag.count + " tag";
+            return React.createElement(Snippet, { key: tag.id, title: count, tagline: tag.name, url: "/tags/" + tag.name });
+        }));
+    }
+
+});
+
+
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/show.js":[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var Snippet = require("../Snippet.react");
+var SingleItem = require("../shared/SingleItem");
+var request = require("superagent");
+var parseDate = require("../../lib/format_date");
+var marked = require("../../lib/marked");
+var SingleItem = require("../shared/SingleItem");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+
+    getInitialState: function () {
+        return {
+            tag: this.props.tag || {},
+            slug: this.props.slug || ""
+        };
+    },
+
+    componentDidMount: function () {
+        var self = this;
+        var slug = this.state.slug;
+
+        request.get("/tags/" + slug).query({
+            isClient: true
+        }).end(function (res) {
+            self.setState({
+                tag: JSON.parse(res.text).tag
+            });
+        });
+    },
+
+    render: function () {
+        var html = "<p>The tab</p>";
+        var date = parseDate(this.state.tag.created_at);
+
+        var metaOne = [{
+            title: "Created At",
+            value: date
+        }];
+
+        var metaTwo = [{
+            title: "Tagged Items",
+            value: this.state.tag.count
+        }];
+
+        return React.createElement(SingleItem, {
+            metaOne: metaOne,
+            metaTwo: metaTwo,
+            title: this.state.tag.name,
+            content: html
+        });
+    }
+
+});
+
+
+},{"../../lib/format_date":"/Users/npb/Projects/npb/lib/format_date.js","../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/SingleItem":"/Users/npb/Projects/npb/components/shared/SingleItem.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){
 "use strict";
 
 module.exports = {
