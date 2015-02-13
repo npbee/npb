@@ -17,26 +17,30 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <section className="login">
+            <section className="login skinny">
                 <h1>Login</h1>
                 <form action="/login" method="post" onSubmit={this.handleSubmit}>
-                    <label htmlFor="username">Username</label>
-                    <input 
-                        type="text" 
-                        name="username" 
-                        ref="username"
-                    />
-                    <br />
+                    <div className='form-row'>
+                        <label htmlFor="username">Username</label>
+                        <input 
+                            type="text" 
+                            name="username" 
+                            ref="username"
+                        />
+                    </div>
 
-                    <label htmlFor="password">Password</label>
-                    <input 
-                        type="password"
-                        name="password"
-                        ref="password"
-                    />
-                    <br />
+                    <div className='form-row'>
+                        <label htmlFor="password">Password</label>
+                        <input 
+                            type="password"
+                            name="password"
+                            ref="password"
+                        />
+                    </div>
 
-                    <button type="submit">Submit</button>
+                    <div className='form-row'>
+                        <button className="button" type="submit">Submit</button>
+                    </div>
                 </form>
                 <ErrorList errors={this.state.errors} />
             </section>

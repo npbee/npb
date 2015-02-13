@@ -148,6 +148,7 @@ exports.edit = function* () {
 
     var slug = this.params.slug;
 
+    console.log(this.params);
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';

@@ -179,7 +179,7 @@ module.exports = React.createClass({
                     </div>
 
                     <div className="form-row">
-                        <button type="submit">Submit</button>
+                        <button className="button" type="submit">Submit</button>
                     </div>
 
                     <pre>{this.state.errors}</pre>

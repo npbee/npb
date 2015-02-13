@@ -218,7 +218,6 @@ var App = React.createClass({
     },
 
     _onChange: function () {
-        console.log(AppStore.isAuthenticated());
         this.setState({
             isNavOpen: NavStore.isOpen(),
             undoCbs: AppStore.undoCbs(),
@@ -358,15 +357,15 @@ module.exports = React.createClass({
     componentDidMount: function () {},
 
     render: function () {
-        return React.createElement("section", { className: "login" }, React.createElement("h1", null, "Login"), React.createElement("form", { action: "/login", method: "post", onSubmit: this.handleSubmit }, React.createElement("label", { htmlFor: "username" }, "Username"), React.createElement("input", {
+        return React.createElement("section", { className: "login skinny" }, React.createElement("h1", null, "Login"), React.createElement("form", { action: "/login", method: "post", onSubmit: this.handleSubmit }, React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "username" }, "Username"), React.createElement("input", {
             type: "text",
             name: "username",
             ref: "username"
-        }), React.createElement("br", null), React.createElement("label", { htmlFor: "password" }, "Password"), React.createElement("input", {
+        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "password" }, "Password"), React.createElement("input", {
             type: "password",
             name: "password",
             ref: "password"
-        }), React.createElement("br", null), React.createElement("button", { type: "submit" }, "Submit")), React.createElement(ErrorList, { errors: this.state.errors }));
+        })), React.createElement("div", { className: "form-row" }, React.createElement("button", { className: "button", type: "submit" }, "Submit"))), React.createElement(ErrorList, { errors: this.state.errors }));
     },
 
     handleSubmit: function (e) {
@@ -654,7 +653,7 @@ module.exports = React.createClass({
             name: "excerpt",
             ref: "excerpt",
             value: this.props.post.excerpt,
-            onChange: this.props.onChange })), React.createElement("div", { className: "form-row" }, React.createElement("div", { className: "checkbox" }, React.createElement("input", { type: "checkbox", name: "published", ref: "published" }), React.createElement("label", { htmlFor: "published" }, "Published?"))), React.createElement("div", { className: "form-row" }, React.createElement("button", { type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
+            onChange: this.props.onChange })), React.createElement("div", { className: "form-row" }, React.createElement("div", { className: "checkbox" }, React.createElement("input", { type: "checkbox", name: "published", ref: "published" }), React.createElement("label", { htmlFor: "published" }, "Published?"))), React.createElement("div", { className: "form-row" }, React.createElement("button", { className: "button", type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
     },
 
     onTagChange: function (tags) {
@@ -1014,7 +1013,7 @@ module.exports = React.createClass({
             onChange: this.props.onChange })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "tags" }, "Tags"), React.createElement("input", { type: "text", name: "tags", ref: "tags",
             onKeyDown: this.addTag }), React.createElement(TagList, {
             tags: this.state.tags,
-            onTagChange: this.onTagChange })), React.createElement("div", { className: "form-row" }, React.createElement("div", { className: "checkbox" }, React.createElement("input", { type: "checkbox", name: "published", ref: "published" }), React.createElement("label", { htmlFor: "published" }, "Published?"))), React.createElement("div", { className: "form-row" }, React.createElement("button", { type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
+            onTagChange: this.onTagChange })), React.createElement("div", { className: "form-row" }, React.createElement("div", { className: "checkbox" }, React.createElement("input", { type: "checkbox", name: "published", ref: "published" }), React.createElement("label", { htmlFor: "published" }, "Published?"))), React.createElement("div", { className: "form-row" }, React.createElement("button", { className: "button", type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
     },
 
     onTagChange: function (tags) {
