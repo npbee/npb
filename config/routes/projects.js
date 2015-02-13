@@ -12,9 +12,10 @@ var tagHelper = require('../routeHelpers/tagHelper');
 // Show all projects
 exports.index = function *() {
 
-    var projects = yield knex('projects')
-                            .select('name', 'slug', 'id', 'role');
-
+    var orderBy = this.request.query.orderBy || 'name';
+    var sort = this.request.query.sort || 'ASC';
+    
+    var projects = yield knex('projects').orderBy(orderBy, sort);
 
     var data = yield normalize({
         projects: projects,
@@ -23,7 +24,7 @@ exports.index = function *() {
     });
 
 
-    if (this.request.isClient) {
+    if (this.request.query.isClient) {
         this.body = yield data;
         return;
     }

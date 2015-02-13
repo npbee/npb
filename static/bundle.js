@@ -279,30 +279,58 @@ module.exports = React.createClass({
     componentDidMount: function () {
         var self = this;
 
-        request.get("/admin").query({ isClient: true }).end(function (res) {
+        request.get("/posts").query({ isClient: true }).end(function (res) {
             var response = JSON.parse(res.text);
-            self.setState(response);
+            self.setState({
+                posts: response.posts
+            });
+            AppActions.authenticate(response.isAuthenticated);
+        });
+
+        request.get("/projects").query({ isClient: true }).end(function (res) {
+            var response = JSON.parse(res.text);
+            self.setState({
+                projects: response.projects
+            });
             AppActions.authenticate(response.isAuthenticated);
         });
     },
 
     render: function () {
         return React.createElement("section", { className: "admin" }, React.createElement(Table, {
-            onSort: this.handleSort,
+            onSort: this.handlePostSort,
             name: "Posts", data: this.state.posts, admin: "true" }), React.createElement(Table, {
-            onSort: this.handleSort,
+            onSort: this.handleProjectSort,
             name: "Projects", data: this.state.projects, admin: "true" }));
     },
 
-    handleSort: function (column) {
+    handlePostSort: function (column) {
         var self = this;
 
-        request.get("/admin").query({
+        request.get("/posts").query({
             isClient: true,
             orderBy: column,
             sort: sort
         }).end(function (res) {
-            self.setState(JSON.parse(res.text));
+            self.setState({
+                posts: JSON.parse(res.text)
+            });
+        });
+
+        sort = sort == "ASC" ? "DESC" : "ASC";
+    },
+
+    handleProjectSort: function (column) {
+        var self = this;
+
+        request.get("/projects").query({
+            isClient: true,
+            orderBy: column,
+            sort: sort
+        }).end(function (res) {
+            self.setState({
+                projects: JSON.parse(res.text)
+            });
         });
 
         sort = sort == "ASC" ? "DESC" : "ASC";
@@ -541,7 +569,7 @@ module.exports = React.createClass({
         var self = this;
 
         if (!Object.keys(this.state.post).length) {
-            request.get("/posts/" + this.props.postId).query({
+            request.get("/posts/" + this.props.slug).query({
                 query: "isClient"
             }).end(function (res) {
                 self.setState({
@@ -1361,7 +1389,7 @@ module.exports = React.createClass({
 
         return React.createElement("table", null, React.createElement("caption", null, this.props.name), React.createElement("thead", null, React.createElement("tr", null, columns.map(function (column) {
             return React.createElement("th", { key: column }, React.createElement("a", { onClick: this.props.onSort.bind(null, column) }, column));
-        }, this), this.props.admin ? React.createElement("th", null, "Actions") : "")), React.createElement(ReactCSSTransitionGroup, { transitionName: "table-row", component: "tbody" }, rows), rows.length ? null : React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, "Nothing here..."))));
+        }, this), this.props.admin ? React.createElement("th", null, React.createElement("a", null, "Actions")) : "")), React.createElement(ReactCSSTransitionGroup, { transitionName: "table-row", component: "tbody" }, rows), rows.length ? null : React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, "Nothing here..."))));
     },
 
     generateColumns: function (data) {

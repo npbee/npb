@@ -65,7 +65,7 @@ module.exports = React.createClass({
                     {columns.map(function(column) {
                         return <th key={column}><a onClick={this.props.onSort.bind(null, column)}>{column}</a></th>
                     }, this)}
-                    {this.props.admin ? <th>Actions</th> : ''}
+                    {this.props.admin ? <th><a>Actions</a></th> : ''}
                 </tr>
             </thead>
             <ReactCSSTransitionGroup transitionName="table-row" component="tbody">

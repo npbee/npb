@@ -12,8 +12,11 @@ var tagHelper = require('../routeHelpers/tagHelper');
 // Post index
 // Show all posts
 exports.index = function *() {
-    var posts = yield knex('posts')
-                            .select('title', 'excerpt', 'slug', 'id');
+
+    var orderBy = this.request.query.orderBy || 'title';
+    var sort = this.request.query.sort || 'ASC';
+
+    var posts = yield knex('posts').orderBy(orderBy, sort);
     
 
     var data = yield normalize({
@@ -22,7 +25,7 @@ exports.index = function *() {
         req: this
     });
 
-    if (this.request.isClient) {
+    if (this.request.query.isClient) {
         this.body = yield data;
         return;
     }
@@ -148,7 +151,6 @@ exports.edit = function* () {
 
     var slug = this.params.slug;
 
-    console.log(this.params);
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';

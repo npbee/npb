@@ -11,12 +11,13 @@ exports.index = function* () {
     var orderBy = this.request.query.orderBy || 'id';
     var sort = this.request.query.sort || 'ASC';
 
-    postOrder = orderBy = 'name' ? 'title' : orderBy;
+    postOrder = orderBy === 'name' ? 'title' : orderBy;
+    console.log(postOrder);
     var posts = yield knex('posts')
                     .select('title', 'excerpt', 'slug', 'id', 'published')
                     .orderBy(postOrder, sort);
 
-    projectOrder = orderBy = 'title' ? 'name' : orderBy;
+    projectOrder = orderBy === 'title' ? 'name' : orderBy;
     var projects = yield knex('projects').
         select('name', 'slug', 'id', 'published')
         .orderBy(projectOrder, sort);
