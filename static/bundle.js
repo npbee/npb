@@ -1290,7 +1290,38 @@ module.exports = React.createClass({
 });
 
 
-},{"../../lib/format_date":"/Users/npb/Projects/npb/lib/format_date.js","../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/SingleItem":"/Users/npb/Projects/npb/components/shared/SingleItem.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/shared/ErrorList.js":[function(require,module,exports){
+},{"../../lib/format_date":"/Users/npb/Projects/npb/lib/format_date.js","../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/SingleItem":"/Users/npb/Projects/npb/components/shared/SingleItem.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/shared/Cloud.js":[function(require,module,exports){
+"use strict";
+
+/**********
+ * Cloud
+ **********/
+var React = require("react");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+
+    getInitialState: function () {
+        return {};
+    },
+
+    componentDidMount: function () {},
+
+    render: function () {
+        return React.createElement("div", { className: "cloud" }, this.props.items.map(function (item) {
+            var divStyle = {
+                fontSize: 16 * (1 + 1 / item.count)
+            };
+            return React.createElement("span", {
+                style: divStyle }, item.name);
+        }));
+    }
+
+});
+
+
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/shared/ErrorList.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -1893,6 +1924,7 @@ module.exports = React.createClass({
 var React = require("react");
 var Snippet = require("../Snippet.react");
 var request = require("superagent");
+var Cloud = require("../shared/Cloud");
 
 module.exports = React.createClass({
     displayName: "exports",
@@ -1915,16 +1947,13 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "tags" }, this.state.tags.map(function (tag) {
-            var count = tag.count > 1 ? "" + tag.count + " tags" : "" + tag.count + " tag";
-            return React.createElement(Snippet, { key: tag.id, title: count, tagline: tag.name, url: "/tags/" + tag.name });
-        }));
+        return React.createElement("section", { className: "tags" }, React.createElement("h1", null, "Tags"), React.createElement(Cloud, { items: this.props.tags }));
     }
 
 });
 
 
-},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/show.js":[function(require,module,exports){
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/Cloud":"/Users/npb/Projects/npb/components/shared/Cloud.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/show.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");

@@ -1,6 +1,7 @@
 var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
+var Cloud = require('../shared/Cloud');
 
 module.exports = React.createClass({
 
@@ -26,10 +27,8 @@ module.exports = React.createClass({
 
         return (
             <section className="tags">
-            {this.state.tags.map(function(tag) {
-                var count = tag.count > 1 ? `${tag.count} tags` : `${tag.count} tag`;
-                return <Snippet key={tag.id} title={count} tagline={tag.name} url={'/tags/' + tag.name} />
-            })}
+                <h1>Tags</h1>
+                <Cloud items={this.props.tags} />
             </section>
         )
 
