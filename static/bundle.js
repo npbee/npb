@@ -1937,7 +1937,7 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             tags: this.props.tags || [],
-            tag: {},
+            tagId: null,
             savedTags: this.props.tags || []
         };
     },
@@ -1956,14 +1956,14 @@ module.exports = React.createClass({
         return React.createElement("section", { className: "tags" }, React.createElement("h1", null, "Tags"), React.createElement(Cloud, {
             items: this.state.tags,
             onItemClick: this.onCloudItemClick }), React.createElement(TagQuickView, {
-            tag: this.state.tag
+            tagId: this.state.tagId
         }), React.createElement("a", { onClick: this.resetCloud }, "Back"));
     },
 
     onCloudItemClick: function (tag) {
         this.setState({
             tags: [],
-            tag: tag
+            tagId: tag.id
         });
     },
 
@@ -1989,18 +1989,41 @@ module.exports = React.createClass({
 
     getInitialState: function () {
         return {
-            tagRelationship: {}
+            tagRelationship: {},
+            tag: {},
+            tagId: this.props.tagId || null
         };
     },
 
-    componentDidMount: function () {
+    componentWillReceiveProps: function (newProps) {
         var self = this;
 
+        this.setState({
+            tagId: newProps.tagId
+        });
+
         // get the tag relationship
+        if (newProps.tagId) {
+            request.get("/tags/" + newProps.tagId).query({ isClient: true }).end(function (res) {
+                var response = JSON.parse(res.text);
+                self.setState({
+                    tag: response.tag
+                });
+            });
+        }
     },
 
+    componentDidMount: function () {},
+
     render: function () {
-        return React.createElement("div", { className: "quick-tag" }, React.createElement("h1", null, this.props.tag.name), React.createElement("p", null, this.props.tag.count));
+        var posts = this.state.tag.posts || [];
+        var projects = this.state.tag.projects || [];
+
+        return React.createElement("div", { className: "quick-tag" }, React.createElement("h1", null, this.state.tag.name), React.createElement("h2", null, "Posts"), posts.map(function (post) {
+            return React.createElement("h3", null, post.title);
+        }), React.createElement("h2", null, "Projects"), projects.map(function (project) {
+            return React.createElement("h3", null, project.name);
+        }));
     }
 
 });

@@ -59,9 +59,23 @@ exports.show = function*() {
     var _tag = yield knex('tags').where(_id, slug);
     var tag = _tag[0];
 
-    var relationships = yield knex('tag_relationships').count('*').where('tag_id', tag.id);
+    var relationships = yield knex('tag_relationships').where('tag_id', tag.id);
 
     tag.count = relationships[0].count;
+
+    relationships.forEach(function(relationship) {
+        if (relationship.reference_type === 'post') {
+            knex('posts').where('id', relationship.reference_id)
+            .then(function(posts) {
+                tag.posts = posts;
+            });
+        } else if (relationship.reference_type === 'project') {
+            knex('projects').where('id', relationship.reference_id)
+            .then(function(projects) {
+                tag.projects = projects;
+            });
+        }
+    });
 
     var data = yield normalize({
         tags: tag,

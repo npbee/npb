@@ -9,7 +9,7 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             tags: this.props.tags || [],
-            tag: {},
+            tagId: null,
             savedTags: this.props.tags || []
         };
     },
@@ -34,7 +34,7 @@ module.exports = React.createClass({
                     items={this.state.tags}
                     onItemClick={this.onCloudItemClick} />
                 <TagQuickView
-                    tag={this.state.tag}
+                    tagId={this.state.tagId}
                 />
                 <a onClick={this.resetCloud}>Back</a>
             </section>
@@ -45,7 +45,7 @@ module.exports = React.createClass({
     onCloudItemClick: function(tag) {
         this.setState({
             tags: [],
-            tag: tag
+            tagId: tag.id
         });
     },
 
