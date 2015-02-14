@@ -15,6 +15,10 @@ var ProjectShow = require('./project/show');
 var ProjectNew = require('./project/new');
 var ProjectEdit = require('./project/edit');
 
+var Tags = require('./tag/index');
+var TagShow = require('./tag/show');
+var TagEdit = require('./tag/edit');
+
 var Login = require('./auth/login');
 
 var Admin = require('./admin/index');
@@ -26,6 +30,7 @@ var NavStore = require('../stores/NavStore');
 var NavActions = require('../actions/NavActions');
 
 var AppStore = require('../stores/AppStore');
+var AppActions = require('../actions/AppActions');
 
 var App = React.createClass({
 
@@ -34,13 +39,16 @@ var App = React.createClass({
     getInitialState: function() {
         return {
             isNavOpen: NavStore.isOpen(),
-            undoCbs: AppStore.undoCbs()
+            undoCbs: AppStore.undoCbs(),
+            isAuthenticated: AppStore.isAuthenticated()
         }
     },
 
     componentDidMount: function() {
         NavStore.addChangeListener(this._onChange);
         AppStore.addChangeListener(this._onChange);
+
+        AppActions.authenticate(this.props.data.isAuthenticated);
     },
 
     componentWillUnmount: function() {
@@ -65,6 +73,11 @@ var App = React.createClass({
         '/projects/new': 'projectNew',
         '/projects/:slug': 'projectShow',
         '/projects/:slug/edit': 'projectEdit',
+
+        // Tags
+        '/tags': 'tags',
+        '/tags/:slug': 'tagShow',
+        '/tags/:slug/edit': 'tagEdit',
 
         // Admin
         '/admin': 'admin'
@@ -118,6 +131,22 @@ var App = React.createClass({
         return <ProjectEdit project={this.props.data.project} slug={slug} />;
     },
 
+    // Tags
+    tags: function() {
+        return <Tags tags={this.props.data.tags} />;
+    },
+
+    tagShow: function(slug) {
+        return <TagShow 
+            tag={this.props.data.tag} 
+            slug={slug}
+            isAuthenticated={this.props.data.isAuthenticated} />;
+    },
+
+    tagEdit: function(slug) {
+        return <TagEdit project={this.props.data.tag} slug={slug} />;
+    },
+
     admin: function() {
         return <Admin data={this.props.data} />;
     },
@@ -143,7 +172,7 @@ var App = React.createClass({
 
         return <main id="react-app" className={_className}>
             <NavList 
-                isAuthenticated={this.props.data.isAuthenticated}
+                isAuthenticated={this.state.isAuthenticated}
                 data={this.props.data} />
             <ReactCSSTransitionGroup transitionName="fade">
                 {undoLinks}
@@ -155,7 +184,8 @@ var App = React.createClass({
     _onChange: function() {
         this.setState({
             isNavOpen: NavStore.isOpen(),
-            undoCbs: AppStore.undoCbs()
+            undoCbs: AppStore.undoCbs(),
+            isAuthenticated: AppStore.isAuthenticated()
         })
     }
 

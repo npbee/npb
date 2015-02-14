@@ -6,18 +6,18 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            projects: this.props.projects || []
+            tags: this.props.tags || []
         };
     },
 
     componentDidMount: function() {
         var self = this;
 
-        request.get('/projects')
+        request.get('/tags')
         .query({isClient: true})
         .end(function(res) {
             self.setState({
-                projects: JSON.parse(res.text).projects
+                tags: JSON.parse(res.text).tags
             });
         });
     },
@@ -25,9 +25,10 @@ module.exports = React.createClass({
     render: function(){
 
         return (
-            <section className="projects">
-            {this.state.projects.map(function(project) {
-                return <Snippet key={project.id} title={project.role} tagline={project.name} url={'/projects/' + project.slug} />
+            <section className="tags">
+            {this.state.tags.map(function(tag) {
+                var count = tag.count > 1 ? `${tag.count} tags` : `${tag.count} tag`;
+                return <Snippet key={tag.id} title={count} tagline={tag.name} url={'/tags/' + tag.name} />
             })}
             </section>
         )

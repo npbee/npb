@@ -8,9 +8,10 @@ exports.posts = require('./routes/posts');
 exports.projects = require('./routes/projects');
 exports.admin = require('./routes/admin');
 exports.auth = require('./routes/auth');
+exports.tags = require('./routes/tags');
 
 exports.index = function *() {
-    var isClient = this.request.url.indexOf('isClient') !== -1;
+    var isClient = this.request.query.isClient;
     
     var latestPost = yield db('posts')
                                     .select('title', 'slug')

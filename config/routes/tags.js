@@ -10,18 +10,27 @@ var Promise = require('bluebird');
 var tagHelper = require('../routeHelpers/tagHelper');
 
 // Post index
-// Show all posts
 exports.index = function *() {
 
-    var orderBy = this.request.query.orderBy || 'title';
+    var orderBy = this.request.query.orderBy || 'name';
     var sort = this.request.query.sort || 'ASC';
 
-    var posts = yield knex('posts').orderBy(orderBy, sort);
+    var tags = yield knex('tags').orderBy(orderBy, sort);
+
+    tags.map(function(tag) {
+        var tagRelationships;
+        knex('tag_relationships')
+        .count('*')
+        .where('tag_id', tag.id)
+        .then(function(relationships) {
+            tag.count = relationships[0].count;
+        });
+    });
     
 
     var data = yield normalize({
-        posts: posts,
-        path: '/posts',
+        tags: tags,
+        path: '/tags',
         req: this
     });
 
@@ -31,7 +40,7 @@ exports.index = function *() {
     }
 
     var markup = React.renderToString(
-            <App data={data} history="true" path="/posts" />
+            <App data={data} history="true" path="/tags" />
             );
 
     this.body = yield render('default', { 
@@ -40,27 +49,23 @@ exports.index = function *() {
     });
 };
 
-// Show an individual post
+// Show an individual tag
 exports.show = function*() {
     var slug = this.params.slug;
     
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
-    var _id = isNaN(Number(slug)) ? 'slug' : 'id';
-    var _post = yield knex('posts').where(_id, slug);
-    var post = _post[0];
+    var _id = isNaN(Number(slug)) ? 'name' : 'id';
+    var _tag = yield knex('tags').where(_id, slug);
+    var tag = _tag[0];
 
-    var subquery = knex('tag_relationships')
-                        .where('reference_type', 'post')
-                        .andWhere('reference_id', post.id).select('tag_id');
+    var relationships = yield knex('tag_relationships').count('*').where('tag_id', tag.id);
 
-    var tags = yield knex('tags').where('id', 'in', subquery);
-
-    post.tags = tags;
+    tag.count = relationships[0].count;
 
     var data = yield normalize({
-        posts: post,
-        path: '/posts/' + slug,
+        tags: tag,
+        path: '/tags/' + slug,
         req: this
     });
 
@@ -70,7 +75,7 @@ exports.show = function*() {
     }
 
     var markup = React.renderToString(
-            <App data={data} history="true" path={"/posts/" + slug} />
+            <App data={data} history="true" path={"/tags/" + slug} />
             );
 
     this.body = yield render('default', { 
@@ -80,71 +85,71 @@ exports.show = function*() {
 };
 
 // Show the new post form
-exports.new = function*() {
+//exports.new = function*() {
 
-    var data = yield normalize({
-        path: '/posts/new',
-        req: this
-    });
+    //var data = yield normalize({
+        //path: '/posts/new',
+        //req: this
+    //});
 
-    var markup = React.renderToString(
-            <App data={data} history="true" path="/posts/new" />
-            );
+    //var markup = React.renderToString(
+            //<App data={data} history="true" path="/posts/new" />
+            //);
 
-    this.body = yield render('default', {
-        markup: markup,
-        state: JSON.stringify(data)
-    });
-};
+    //this.body = yield render('default', {
+        //markup: markup,
+        //state: JSON.stringify(data)
+    //});
+//};
 
 // Create a post
-exports.create = function*() {
-    var body = this.request.body;
-    var error;
-    var postId;
-    var tags = body.tags;
+//exports.create = function*() {
+    //var body = this.request.body;
+    //var error;
+    //var postId;
+    //var tags = body.tags;
 
-    // Validations
-    try {
-        yield checkit(validations.post.new).run(body);
-    } catch(err) {
-        error = err;
-    }
+     //Validations
+    //try {
+        //yield checkit(validations.post.new).run(body);
+    //} catch(err) {
+        //error = err;
+    //}
 
-    try {
-        yield knex.transaction(function(trx) {
-            return trx('posts').insert({
-                title: body.title,
-                body: body.body,
-                slug: body.slug,
-                excerpt: body.excerpt,
-                published: body.published,
-                created_at: new Date(),
-                updated_at: new Date()
-            }, 'id').then(function(id) {
-                postId = id[0];
-                return tagHelper.createTagIfNot(trx, body.tags);
-            }).then(function(tagIds) {
-                return tagHelper.createTagRelationship(trx, tagIds, postId, 'post');
-            });
-        });
-    } catch(err) {
-        error = err;
-    }
+    //try {
+        //yield knex.transaction(function(trx) {
+            //return trx('posts').insert({
+                //title: body.title,
+                //body: body.body,
+                //slug: body.slug,
+                //excerpt: body.excerpt,
+                //published: body.published,
+                //created_at: new Date(),
+                //updated_at: new Date()
+            //}, 'id').then(function(id) {
+                //postId = id[0];
+                //return tagHelper.createTagIfNot(trx, body.tags);
+            //}).then(function(tagIds) {
+                //return tagHelper.createTagRelationship(trx, tagIds, postId, 'post');
+            //});
+        //});
+    //} catch(err) {
+        //error = err;
+    //}
 
-    if (error) {
-        this.body = {
-            success: false,
-            errors: JSON.stringify(error)
-        };
-    } else {
-        this.body = {
-            success: true,
-            post_id: postId
-        };
-    }
+    //if (error) {
+        //this.body = {
+            //success: false,
+            //errors: JSON.stringify(error)
+        //};
+    //} else {
+        //this.body = {
+            //success: true,
+            //post_id: postId
+        //};
+    //}
 
-};
+//};
 
 // Show the edit post form
 exports.edit = function* () {
@@ -154,20 +159,12 @@ exports.edit = function* () {
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';
-    var _post = yield knex('posts').where(_id, slug);
-    var post = _post[0];
-
-    var subquery = knex('tag_relationships')
-                        .where('reference_type', 'post')
-                        .andWhere('reference_id', post.id).select('tag_id');
-
-    var tags = yield knex('tags').where('id', 'in', subquery);
-
-    post.tags = tags;
+    var _tag = yield knex('tags').where(_id, slug);
+    var tag = _tag[0];
 
     var data = yield normalize({
-        posts: post,
-        path: '/posts/' + slug + '/edit',
+        tags: tag,
+        path: '/tags/' + slug + '/edit',
         req: this
     });
 
@@ -177,7 +174,7 @@ exports.edit = function* () {
     }
 
     var markup = React.renderToString(
-        <App data={data} history="true" path={"/posts/" + slug + "/edit"} />
+        <App data={data} history="true" path={"/tags/" + slug + "/edit"} />
             );
 
     this.body = yield render('default', { 
@@ -194,7 +191,6 @@ exports.put = function* () {
     var body = this.request.body;
     var id = body.id;
     var error;
-    var tags = body.tags;
 
     try {
         yield knex.transaction(function(trx) {

@@ -1,0 +1,18 @@
+/******************************
+* BUTTONS
+******************************/
+.button {
+    background: $brand-main;
+    border: 1px solid $black;
+    border-radius: 3px;
+    color: $white;
+    cursor: pointer;
+    font-family: $body-font;
+    font-size: $typecsset-h4-size;
+    outline: none;
+    padding: $base-spacing-unit $typecsset-base-line-height;
+    transition: background 300ms;
+    &:hover {
+        background: darken($brand-main, 10%);
+    }
+}

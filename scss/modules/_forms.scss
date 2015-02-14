@@ -12,6 +12,7 @@ form {
             font-size: $typecsset-h2-size;
         }
         input[type="text"],
+        input[type="password"],
         textarea {
             border: 1px solid $grey;
             border-radius: 3px;

@@ -15,7 +15,7 @@ module.exports = React.createClass({
         var self = this;
 
         request.get('/posts')
-        .query({ query: 'isClient' })
+        .query({isClient: true})
         .end(function(res) {
             self.setState({
                 posts: JSON.parse(res.text).posts

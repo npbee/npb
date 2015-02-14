@@ -10,7 +10,7 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            project: this.props.project || {},
+            tag: this.props.tag || {},
             slug: this.props.slug || ''
         };
     },
@@ -19,50 +19,39 @@ module.exports = React.createClass({
        var self = this;
        var slug = this.state.slug;
 
-       request.get('/projects/' + slug)
+       request.get('/tags/' + slug)
        .query({
            isClient: true
        })
        .end(function(res) {
            self.setState({
-               project: JSON.parse(res.text).project
+               tag: JSON.parse(res.text).tag
            });
        });
     },
 
     render: function(){
-        var html = marked(this.state.project.body || '');
-        var date = parseDate(this.state.project.date_completed);
-        var tags = this.state.project.tags ? this.state.project.tags.map(function(tag) {
-            return tag.name;
-        }).join(', ') : ""; 
+        var html = '<p>The tab</p>';
+        var date = parseDate(this.state.tag.created_at);
         
         var metaOne = [
             {
-                title: 'Date Completed',
+                title: 'Created At',
                 value: date
-            },
-            {
-                title: 'Role',
-                value: this.state.project.role
             }
         ];
 
         var metaTwo = [
             {
-                title: 'Site URL',
-                value: this.state.project.url
-            },
-            {
-                title: 'Tags',
-                value: tags
+                title: 'Tagged Items',
+                value: this.state.tag.count
             }
         ];
 
         return <SingleItem 
             metaOne={metaOne}
             metaTwo={metaTwo}
-            title={this.state.project.name}
+            title={this.state.tag.name}
             content={html}
         /> 
 

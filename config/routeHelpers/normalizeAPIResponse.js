@@ -31,6 +31,9 @@ module.exports = function* (options) {
     // Check for many projects
     yield assignMulti(options.projects, 'project', response);
 
+    // Check for many tags
+    yield assignMulti(options.tags, 'tag', response);
+
     response.path = options.path;
 
     response.isAuthenticated = options.req.isAuthenticated() || false;

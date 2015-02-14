@@ -18,28 +18,33 @@ module.exports = React.createClass({
 
         return {
             data: this.props.data || [],
-            name: this.props.name || null
+            name: this.props.name || null,
+            admin: this.props.admin || false
         }
     },
 
+    componentWillReceiveProps: function(newProps) {
+        this.setState(newProps);
+    },
+
     componentDidMount: function() {
-        AppStore.addChangeListener(this._onChange);
+        //AppStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function() {
-        AppStore.removeChangeListener(this._onChange);
+        //AppStore.removeChangeListener(this._onChange);
     },
 
     render: function() {
         var self = this;
-        var columns = this.generateColumns(this.state.data);
-        var rows = this.state.data.map(function(row, index) {
+        var columns = this.generateColumns(this.props.data);
+        var rows = this.props.data.map(function(row, index) {
             return (
                <tr key={row.id}>
                 {columns.map(function(column, index) {
                     return <td key={row[column]}>{row[column].toString()}</td>
                     })}
-                    {self.props.admin ? 
+                    {self.state.admin ? 
                         <td>
                             <a href={self.state.name.toLowerCase() + '/' + row.id}>View</a>
                             / 
@@ -54,13 +59,13 @@ module.exports = React.createClass({
         }.bind(this));
 
         return <table>
-            <caption>{this.state.name}</caption>
+            <caption>{this.props.name}</caption>
             <thead>
                 <tr>
                     {columns.map(function(column) {
-                        return <th key={column}>{column}</th>
-                    })}
-                    {this.props.admin ? <th>Actions</th> : ''}
+                        return <th key={column}><a onClick={this.props.onSort.bind(null, column)}>{column}</a></th>
+                    }, this)}
+                    {this.props.admin ? <th><a>Actions</a></th> : ''}
                 </tr>
             </thead>
             <ReactCSSTransitionGroup transitionName="table-row" component="tbody">

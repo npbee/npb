@@ -5,20 +5,65 @@ var checkit = require('checkit');
 var validations = require('../validations');
 var knex = require('../../lib/db');
 var normalize = require('../routeHelpers/normalizeAPIResponse');
+var _ = require('lodash');
 
 exports.index = function* () {
 
-    var posts = yield knex('posts').select('title', 'excerpt', 'slug', 'id', 'published');
-    var projects = yield knex('projects').select('name', 'slug', 'id', 'published');
+    var orderBy = this.request.query.orderBy || 'id';
+    var sort = this.request.query.sort || 'ASC';
+    var limit = this.request.query.limit || null;
 
-    var data = yield normalize({
-        projects: projects,
-        posts: posts,
+    var payload = {
         path: '/admin',
         req: this
-    });
+    };
 
-    if (this.request.isClient) {
+    if (limit === 'posts') {
+        var posts = yield knex('posts')
+            .select('title', 'excerpt', 'slug', 'id', 'published')
+            .orderBy(orderBy, sort);
+
+            _.assign(payload, {
+                posts: posts
+            });
+
+    } else if (limit==='projects') {
+        var projects = yield knex('projects').
+            select('name', 'slug', 'id', 'published')
+            .orderBy(orderBy, sort);
+
+        _.assign(payload, {
+            projects: projects
+        });
+    } if (limit === 'tags') {
+        var tags = yield knex('tags').select('name', 'id')
+            .orderBy(orderBy, sort);
+
+        _.assign(payload, {
+            tags: tags
+        });
+    } else {
+        var posts = yield knex('posts')
+            .select('title', 'excerpt', 'slug', 'id', 'published')
+            .orderBy(orderBy, sort);
+
+        var projects = yield knex('projects').
+            select('name', 'slug', 'id', 'published')
+            .orderBy(orderBy, sort);
+
+        var tags = yield knex('tags').select('name', 'id')
+            .orderBy(orderBy, sort);
+
+        _.assign(payload, {
+            projects: projects,
+            posts: posts,
+            tags: tags
+        });
+    }
+
+    var data = yield normalize(payload);
+
+    if (this.request.query.isClient) {
         this.body = yield data;
         return;
     }

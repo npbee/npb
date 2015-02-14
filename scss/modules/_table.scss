@@ -13,15 +13,31 @@ caption {
     text-align: left;
 }
 
-
 th {
     background: $brand-main;
     color: $white;
+    cursor: pointer;
+    padding: 0;
+    transition: background 200ms;
+    a {
+        cursor: pointer;
+        display: block;
+        padding: $base-spacing-unit;
+        &:hover {
+            color: $white;
+        }
+    }
     &:first-child {
         border-radius: 3px 0 0 0;
     }
     &:last-child {
         border-radius: 0 3px 0 0;
+    }
+    &:hover {
+        background: darken($brand-main, 10%);
+        a {
+            color: $white;
+        }
     }
 }
 

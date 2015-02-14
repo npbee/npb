@@ -50,7 +50,7 @@ describe('Projects API', function() {
     it('should retrive all projects', function *() {
         var res = yield request.get('/projects')
             .query({
-                query: 'isClient'
+                isClient: true
             })
             .end();
 
@@ -62,7 +62,7 @@ describe('Projects API', function() {
     it('should retrieve a specific project', function *() {
         var res = yield request.get('/projects/' + _id)
         .query({
-            query: 'isClient'
+            isClient: true
         })
         .end();
 
@@ -91,7 +91,7 @@ describe('Projects API', function() {
     it('should not duplicate the tags', function *() {
         var res = yield request.get('/projects/' + _id)
         .query({
-            query: 'isClient'
+            isClient: true
         })
         .end();
 
@@ -111,7 +111,7 @@ describe('Projects API', function() {
 
         var res = yield request.get('/projects/' + _id)
         .query({
-            query: 'isClient'
+            isClient: true
         }).end();
 
         var response = JSON.parse(res.text);
@@ -147,7 +147,7 @@ describe('Projects API', function() {
     it('should create the tags', function *() {
         var res = yield request.get('/projects/' + _secondId)
         .query({
-            query: 'isClient'
+            isClient: true
         })
         .end();
 
