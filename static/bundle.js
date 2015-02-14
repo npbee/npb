@@ -1309,11 +1309,13 @@ module.exports = React.createClass({
     componentDidMount: function () {},
 
     render: function () {
-        return React.createElement("div", { className: "cloud" }, this.props.items.map(function (item) {
+        return React.createElement("div", { className: "cloud" }, this.props.items.map(function (item, index) {
+            var fontSize = item.count ? 16 * (1 + 1 / item.count) : 1;
             var divStyle = {
-                fontSize: 16 * (1 + 1 / item.count)
+                fontSize: fontSize + "px"
             };
             return React.createElement("span", {
+                key: index,
                 style: divStyle }, item.name);
         }));
     }
@@ -1947,7 +1949,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "tags" }, React.createElement("h1", null, "Tags"), React.createElement(Cloud, { items: this.props.tags }));
+        return React.createElement("section", { className: "tags" }, React.createElement("h1", null, "Tags"), React.createElement(Cloud, { items: this.state.tags }));
     }
 
 });

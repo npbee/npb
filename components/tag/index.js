@@ -24,11 +24,10 @@ module.exports = React.createClass({
     },
 
     render: function(){
-
         return (
             <section className="tags">
                 <h1>Tags</h1>
-                <Cloud items={this.props.tags} />
+                <Cloud items={this.state.tags} />
             </section>
         )
 
