@@ -1310,14 +1310,15 @@ module.exports = React.createClass({
 
     render: function () {
         return React.createElement("div", { className: "cloud" }, this.props.items.map(function (item, index) {
-            var fontSize = item.count ? 16 * (1 + 1 / item.count) : 1;
+            var fontSize = item.count ? 1 * (1 + 1 / item.count) : 1;
             var divStyle = {
-                fontSize: fontSize + "px"
+                fontSize: fontSize + "em"
             };
             return React.createElement("span", {
                 key: index,
-                style: divStyle }, item.name);
-        }));
+                style: divStyle,
+                onClick: this.props.onItemClick.bind(null, item) }, item.name);
+        }, this));
     }
 
 });
@@ -1927,6 +1928,7 @@ var React = require("react");
 var Snippet = require("../Snippet.react");
 var request = require("superagent");
 var Cloud = require("../shared/Cloud");
+var TagQuickView = require("./quickView");
 
 module.exports = React.createClass({
     displayName: "exports",
@@ -1934,7 +1936,9 @@ module.exports = React.createClass({
 
     getInitialState: function () {
         return {
-            tags: this.props.tags || []
+            tags: this.props.tags || [],
+            tag: {},
+            savedTags: this.props.tags || []
         };
     },
 
@@ -1949,13 +1953,60 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "tags" }, React.createElement("h1", null, "Tags"), React.createElement(Cloud, { items: this.state.tags }));
+        return React.createElement("section", { className: "tags" }, React.createElement("h1", null, "Tags"), React.createElement(Cloud, {
+            items: this.state.tags,
+            onItemClick: this.onCloudItemClick }), React.createElement(TagQuickView, {
+            tag: this.state.tag
+        }), React.createElement("a", { onClick: this.resetCloud }, "Back"));
+    },
+
+    onCloudItemClick: function (tag) {
+        this.setState({
+            tags: [],
+            tag: tag
+        });
+    },
+
+    resetCloud: function () {
+        this.setState({
+            tags: this.state.savedTags,
+            tag: {}
+        });
     }
 
 });
 
 
-},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/Cloud":"/Users/npb/Projects/npb/components/shared/Cloud.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/show.js":[function(require,module,exports){
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/Cloud":"/Users/npb/Projects/npb/components/shared/Cloud.js","./quickView":"/Users/npb/Projects/npb/components/tag/quickView.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/quickView.js":[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var request = require("superagent");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+
+    getInitialState: function () {
+        return {
+            tagRelationship: {}
+        };
+    },
+
+    componentDidMount: function () {
+        var self = this;
+
+        // get the tag relationship
+    },
+
+    render: function () {
+        return React.createElement("div", { className: "quick-tag" }, React.createElement("h1", null, this.props.tag.name), React.createElement("p", null, this.props.tag.count));
+    }
+
+});
+
+
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/show.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");

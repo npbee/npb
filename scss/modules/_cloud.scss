@@ -5,5 +5,6 @@
     text-align: center;
     span {
         padding: $base-spacing-unit;
+        word-break: break-all;
     }
 }

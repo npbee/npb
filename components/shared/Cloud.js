@@ -16,14 +16,15 @@ module.exports = React.createClass({
     render: function() {
         return <div className="cloud">
             {this.props.items.map(function(item, index) {
-                var fontSize = item.count ? 16 * (1 + (1/item.count)) : 1;
+                var fontSize = item.count ? 1 * (1 + (1/item.count)) : 1;
                 var divStyle = {
-                    fontSize: fontSize + 'px'
+                    fontSize: fontSize + 'em'
                 };
                 return <span
                     key={index}
-                    style={divStyle}>{item.name}</span>
-            })}
+                    style={divStyle}
+                    onClick={this.props.onItemClick.bind(null, item)}>{item.name}</span>
+            }, this)}
         </div>
     }
 
