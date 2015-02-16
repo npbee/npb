@@ -20,10 +20,10 @@ module.exports = React.createClass({
                 var divStyle = {
                     fontSize: fontSize + 'em'
                 };
-                return <span
-                    key={index}
+                return <a
                     style={divStyle}
-                    onClick={this.props.onItemClick.bind(null, item)}>{item.name}</span>
+                    key={item.id}
+                    href={'/' + this.props.kind + '/' + item.name}>{item.name}</a>
             }, this)}
         </div>
     }

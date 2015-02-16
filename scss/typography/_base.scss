@@ -17,12 +17,20 @@ h4, h5, h6 {
 
 
 
+/*
+* $LINKS
+******************************/
+
 a {
     text-decoration: none;
     color: inherit;
     &:hover {
         color: $brand-main;
     }
+}
+
+.block-link {
+    display: block;
 }
 
 

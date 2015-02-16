@@ -1314,10 +1314,10 @@ module.exports = React.createClass({
             var divStyle = {
                 fontSize: fontSize + "em"
             };
-            return React.createElement("span", {
-                key: index,
+            return React.createElement("a", {
                 style: divStyle,
-                onClick: this.props.onItemClick.bind(null, item) }, item.name);
+                key: item.id,
+                href: "/" + this.props.kind + "/" + item.name }, item.name);
         }, this));
     }
 
@@ -1928,7 +1928,6 @@ var React = require("react");
 var Snippet = require("../Snippet.react");
 var request = require("superagent");
 var Cloud = require("../shared/Cloud");
-var TagQuickView = require("./quickView");
 
 module.exports = React.createClass({
     displayName: "exports",
@@ -1955,81 +1954,14 @@ module.exports = React.createClass({
     render: function () {
         return React.createElement("section", { className: "tags" }, React.createElement("h1", null, "Tags"), React.createElement(Cloud, {
             items: this.state.tags,
-            onItemClick: this.onCloudItemClick }), React.createElement(TagQuickView, {
-            tagId: this.state.tagId
-        }), React.createElement("a", { onClick: this.resetCloud }, "Back"));
-    },
-
-    onCloudItemClick: function (tag) {
-        this.setState({
-            tags: [],
-            tagId: tag.id
-        });
-    },
-
-    resetCloud: function () {
-        this.setState({
-            tags: this.state.savedTags,
-            tag: {}
-        });
-    }
-
-});
-
-
-},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/Cloud":"/Users/npb/Projects/npb/components/shared/Cloud.js","./quickView":"/Users/npb/Projects/npb/components/tag/quickView.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/quickView.js":[function(require,module,exports){
-"use strict";
-
-var React = require("react");
-var request = require("superagent");
-
-module.exports = React.createClass({
-    displayName: "exports",
-
-
-    getInitialState: function () {
-        return {
-            tagRelationship: {},
-            tag: {},
-            tagId: this.props.tagId || null
-        };
-    },
-
-    componentWillReceiveProps: function (newProps) {
-        var self = this;
-
-        this.setState({
-            tagId: newProps.tagId
-        });
-
-        // get the tag relationship
-        if (newProps.tagId) {
-            request.get("/tags/" + newProps.tagId).query({ isClient: true }).end(function (res) {
-                var response = JSON.parse(res.text);
-                self.setState({
-                    tag: response.tag
-                });
-            });
-        }
-    },
-
-    componentDidMount: function () {},
-
-    render: function () {
-        var posts = this.state.tag.posts || [];
-        var projects = this.state.tag.projects || [];
-
-        return React.createElement("div", { className: "quick-tag" }, React.createElement("h1", null, this.state.tag.name), React.createElement("h2", null, "Posts"), posts.map(function (post) {
-            return React.createElement("h3", null, post.title);
-        }), React.createElement("h2", null, "Projects"), projects.map(function (project) {
-            return React.createElement("h3", null, project.name);
+            kind: "tags"
         }));
     }
 
 });
 
 
-},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/show.js":[function(require,module,exports){
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/Cloud":"/Users/npb/Projects/npb/components/shared/Cloud.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/show.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -2040,8 +1972,8 @@ var parseDate = require("../../lib/format_date");
 var marked = require("../../lib/marked");
 var SingleItem = require("../shared/SingleItem");
 
-module.exports = React.createClass({
-    displayName: "exports",
+var TagShow = React.createClass({
+    displayName: "TagShow",
 
 
     getInitialState: function () {
@@ -2065,7 +1997,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        var html = "<p>The tab</p>";
+        var html = "";
         var date = parseDate(this.state.tag.created_at);
 
         var metaOne = [{
@@ -2078,6 +2010,22 @@ module.exports = React.createClass({
             value: this.state.tag.count
         }];
 
+        if (this.state.tag.posts && this.state.tag.posts.length) {
+            html += "<h2>Posts</h2>";
+            this.state.tag.posts.forEach(function (post) {
+                html += "<a href=\"posts/" + post.slug + "\">" + post.title + "</a>";
+            });
+            html += "<hr class=\"rule--small\" />";
+        }
+
+        if (this.state.tag.projects && this.state.tag.projects.length) {
+            html += "<h2>Projects</h2>";
+            this.state.tag.projects.forEach(function (project) {
+                html += "<a href=\"projects/" + project.slug + "\">" + project.name + "</a>";
+            });
+        }
+
+
         return React.createElement(SingleItem, {
             metaOne: metaOne,
             metaTwo: metaTwo,
@@ -2087,6 +2035,8 @@ module.exports = React.createClass({
     }
 
 });
+
+module.exports = TagShow;
 
 
 },{"../../lib/format_date":"/Users/npb/Projects/npb/lib/format_date.js","../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","../shared/SingleItem":"/Users/npb/Projects/npb/components/shared/SingleItem.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/constants/AppConstants.js":[function(require,module,exports){

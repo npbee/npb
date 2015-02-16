@@ -17,9 +17,8 @@ exports.index = function *() {
 
     var tags = yield knex('tags').orderBy(orderBy, sort);
 
-    tags.map(function(tag) {
-        var tagRelationships;
-        knex('tag_relationships')
+    yield Promise.map(tags, function(tag) {
+        return knex('tag_relationships')
         .count('*')
         .where('tag_id', tag.id)
         .then(function(relationships) {
@@ -59,23 +58,22 @@ exports.show = function*() {
     var _tag = yield knex('tags').where(_id, slug);
     var tag = _tag[0];
 
-    var relationships = yield knex('tag_relationships').where('tag_id', tag.id);
-
+    var relationships = yield knex('tag_relationships').count('*').where('tag_id', tag.id);
     tag.count = relationships[0].count;
 
-    relationships.forEach(function(relationship) {
-        if (relationship.reference_type === 'post') {
-            knex('posts').where('id', relationship.reference_id)
-            .then(function(posts) {
-                tag.posts = posts;
-            });
-        } else if (relationship.reference_type === 'project') {
-            knex('projects').where('id', relationship.reference_id)
-            .then(function(projects) {
-                tag.projects = projects;
-            });
-        }
-    });
+    var postSubQuery = knex('tag_relationships')
+        .select('reference_id')
+        .where('reference_type', 'post')
+        .andWhere('tag_id', tag.id);
+
+    tag.posts = yield knex('posts').where('id', 'in', postSubQuery);
+
+    var projectSubQuery = knex('tag_relationships')
+        .select('reference_id')
+        .where('reference_type', 'project')
+        .andWhere('tag_id', tag.id);
+
+    tag.projects = yield knex('projects').where('id', 'in', projectSubQuery);
 
     var data = yield normalize({
         tags: tag,

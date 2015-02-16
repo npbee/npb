@@ -2,7 +2,6 @@ var React = require('react');
 var Snippet = require('../Snippet.react');
 var request = require('superagent');
 var Cloud = require('../shared/Cloud');
-var TagQuickView = require('./quickView');
 
 module.exports = React.createClass({
 
@@ -32,28 +31,11 @@ module.exports = React.createClass({
                 <h1>Tags</h1>
                 <Cloud 
                     items={this.state.tags}
-                    onItemClick={this.onCloudItemClick} />
-                <TagQuickView
-                    tagId={this.state.tagId}
+                    kind="tags"
                 />
-                <a onClick={this.resetCloud}>Back</a>
             </section>
         )
 
-    },
-
-    onCloudItemClick: function(tag) {
-        this.setState({
-            tags: [],
-            tagId: tag.id
-        });
-    },
-
-    resetCloud: function() {
-        this.setState({
-            tags: this.state.savedTags,
-            tag: {}
-        });
     }
 
 });

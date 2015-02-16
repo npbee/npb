@@ -6,7 +6,7 @@ var parseDate = require('../../lib/format_date');
 var marked = require('../../lib/marked');
 var SingleItem = require('../shared/SingleItem');
 
-module.exports = React.createClass({
+var TagShow = React.createClass({
 
     getInitialState: function() {
         return {
@@ -31,9 +31,9 @@ module.exports = React.createClass({
     },
 
     render: function(){
-        var html = '<p>The tab</p>';
+        var html = '';
         var date = parseDate(this.state.tag.created_at);
-        
+
         var metaOne = [
             {
                 title: 'Created At',
@@ -48,6 +48,22 @@ module.exports = React.createClass({
             }
         ];
 
+        if (this.state.tag.posts && this.state.tag.posts.length) {
+            html += '<h2>Posts</h2>';
+            this.state.tag.posts.forEach(function(post) {
+                html+= `<a href="/posts/${post.slug}">${post.title}</a>`;
+            });
+            html += '<hr class="rule--small" />';
+        }
+
+        if (this.state.tag.projects && this.state.tag.projects.length) {
+            html += '<h2>Projects</h2>';
+            this.state.tag.projects.forEach(function(project) {
+                html+= `<a href="/projects/${project.slug}">${project.name}</a>`;
+            });
+        }
+
+
         return <SingleItem 
             metaOne={metaOne}
             metaTwo={metaTwo}
@@ -58,3 +74,5 @@ module.exports = React.createClass({
     }
 
 });
+
+module.exports = TagShow;
