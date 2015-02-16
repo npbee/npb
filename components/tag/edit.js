@@ -1,5 +1,5 @@
 var React = require('react'); var navigate = require('react-mini-router').navigate;
-var ProjectForm = require('./form');
+var TagForm = require('./form');
 var request = require('superagent');
 var _ = require('lodash');
 
@@ -9,7 +9,7 @@ module.exports = React.createClass({
         return {
             hasErrors: false,
             errors: {},
-            project: this.props.project || {},
+            tag: this.props.tag || {},
             loaded: false
         };
     },
@@ -17,14 +17,14 @@ module.exports = React.createClass({
     componentDidMount: function() {
         var self = this;
         
-        if (!Object.keys(this.state.project).length) {
-           request.get('/projects/' + this.props.projectId)
+        if (!Object.keys(this.state.tag).length) {
+           request.get('/tags/' + this.props.slug)
             .query({
                 isClient: true
             })
             .end(function(res) {
                 self.setState({
-                    project: JSON.parse(res.text).project,
+                    tag: JSON.parse(res.text).tag,
                     loaded: true
                 });
             });
@@ -33,13 +33,13 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <section className="project">
+            <section className="tag">
                 <h1>New Post</h1>
-                <ProjectForm 
-                    project={this.state.project} 
+                <TagForm 
+                    tag={this.state.tag} 
                     onChange={this.handleChange}
                     method="put"
-                    action="/projects" />
+                    action="/tags" />
             </section>
         );
     },
@@ -51,11 +51,11 @@ module.exports = React.createClass({
         var newData = {};
         newData[attr] = value;
 
-        var previousState = this.state.project;
+        var previousState = this.state.tag;
         var newState = _.assign(previousState, newData);
 
         this.setState({
-            project: newState
+            tag: newState
         });
 
     }

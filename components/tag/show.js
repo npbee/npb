@@ -6,7 +6,7 @@ var parseDate = require('../../lib/format_date');
 var marked = require('../../lib/marked');
 var SingleItem = require('../shared/SingleItem');
 
-module.exports = React.createClass({
+var TagShow = React.createClass({
 
     getInitialState: function() {
         return {
@@ -31,9 +31,9 @@ module.exports = React.createClass({
     },
 
     render: function(){
-        var html = '<p>The tab</p>';
+        var html = '';
         var date = parseDate(this.state.tag.created_at);
-        
+
         var metaOne = [
             {
                 title: 'Created At',
@@ -53,8 +53,11 @@ module.exports = React.createClass({
             metaTwo={metaTwo}
             title={this.state.tag.name}
             content={html}
+            tag={this.state.tag}
         /> 
 
     }
 
 });
+
+module.exports = TagShow;

@@ -33,9 +33,15 @@ module.exports = React.createClass({
     render: function(){
         var html = marked(this.state.project.body || '');
         var date = parseDate(this.state.project.date_completed);
-        var tags = this.state.project.tags ? this.state.project.tags.map(function(tag) {
-            return tag.name;
-        }).join(', ') : ""; 
+        
+        var tags;
+        if (this.state.project.tags) {
+            tags = <div className="tag-list--comma">
+                {this.state.project.tags.map((tag, index) => <a 
+                    key={index} href={"/tags/" + tag.name}>{tag.name}</a>
+                )}
+            </div>;
+        }
         
         var metaOne = [
             {

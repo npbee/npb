@@ -27,3 +27,15 @@
         text-decoration: line-through;
     }
 }
+
+.tag-list--comma {
+    > a {
+        &:after {
+            content: ",\00a0";
+            display: inline-block;
+        }
+        &:last-child:after {
+            content: "";
+        }
+    }
+}

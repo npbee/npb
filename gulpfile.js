@@ -77,7 +77,7 @@ bundler.on('update', bundle);
  *********/
 gulp.task('server', function() {
     nodemon({
-        script: 'server.js',
+        script: 'start.js',
         ext: 'html js',
         env: {
             'NODE_ENV': process.env.NODE_ENV || 'development'
