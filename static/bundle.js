@@ -214,7 +214,7 @@ var App = React.createClass({
     },
 
     tagEdit: function (slug) {
-        return React.createElement(TagEdit, { project: this.props.data.tag, slug: slug });
+        return React.createElement(TagEdit, { tag: this.props.data.tag, slug: slug });
     },
 
     admin: function () {
@@ -808,7 +808,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "posts" }, this.state.posts.map(function (post) {
+        return React.createElement("section", { className: "posts" }, React.createElement("h1", null, "Posts"), this.state.posts.map(function (post) {
             return React.createElement(Snippet, { key: post.id, title: post.excerpt, tagline: post.title, url: "/posts/" + post.slug });
         }));
     }
@@ -884,9 +884,14 @@ module.exports = React.createClass({
     render: function () {
         var html = marked(this.state.post.body || "");
         var date = parseDate(this.state.post.created_at);
-        var tags = this.state.post.tags ? this.state.post.tags.map(function (tag) {
-            return tag.name;
-        }).join(", ") : "";
+
+        var tags;
+        if (this.state.post.tags) {
+            tags = React.createElement("div", { className: "tag-list--comma" }, this.state.post.tags.map(function (tag, index) {
+                return React.createElement("a", {
+                    key: index, href: "/tags/" + tag.name }, tag.name);
+            }));
+        }
 
         var metaOne = [{
             title: "Date Posted",
@@ -1182,7 +1187,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "projects" }, this.state.projects.map(function (project) {
+        return React.createElement("section", { className: "projects" }, React.createElement("h1", null, "Projects"), this.state.projects.map(function (project) {
             return React.createElement(Snippet, { key: project.id, title: project.role, tagline: project.name, url: "/projects/" + project.slug });
         }));
     }
@@ -1259,9 +1264,14 @@ module.exports = React.createClass({
     render: function () {
         var html = marked(this.state.project.body || "");
         var date = parseDate(this.state.project.date_completed);
-        var tags = this.state.project.tags ? this.state.project.tags.map(function (tag) {
-            return tag.name;
-        }).join(", ") : "";
+
+        var tags;
+        if (this.state.project.tags) {
+            tags = React.createElement("div", { className: "tag-list--comma" }, this.state.project.tags.map(function (tag, index) {
+                return React.createElement("a", {
+                    key: index, href: "/tags/" + tag.name }, tag.name);
+            }));
+        }
 
         var metaOne = [{
             title: "Date Completed",
@@ -1373,15 +1383,30 @@ module.exports = React.createClass({
     componentDidMount: function () {},
 
     render: function () {
-        var metaOne = this.props.metaOne.map(function (item) {
-            return React.createElement("li", { key: item.value }, React.createElement("h2", { className: "meta__header" }, item.title), React.createElement("p", { className: "meta__value" }, item.value));
+        var metaOne = this.props.metaOne.map(function (item, index) {
+            return React.createElement("li", { key: index }, React.createElement("h2", { className: "meta__header" }, item.title), React.createElement("p", { className: "meta__value" }, item.value));
         });
 
-        var metaTwo = this.props.metaTwo.map(function (item) {
-            return React.createElement("li", { key: item.value }, React.createElement("h2", { className: "meta__header" }, item.title), React.createElement("p", { className: "meta__value" }, item.value));
+        var metaTwo = this.props.metaTwo.map(function (item, index) {
+            return React.createElement("li", { key: index }, React.createElement("h2", { className: "meta__header" }, item.title), React.createElement("p", { className: "meta__value" }, item.value));
         });
 
-        return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("aside", { className: "aside-1" }, React.createElement("ul", { className: "meta" }, metaOne)), React.createElement(SlabText, { klass: "fun-font mega", value: this.props.title }), React.createElement("aside", { className: "aside-2" }, React.createElement("ul", { className: "meta" }, metaTwo))), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }));
+        var tag;
+        if (this.props.tag) {
+            tag = React.createElement("article", null, React.createElement("h2", null, "Posts"), React.createElement("p", null, this.props.tag.posts && this.props.tag.posts.map(function (post) {
+                return React.createElement("a", {
+                    key: post.id,
+                    className: "block-link",
+                    href: "/posts/" + post.slug }, post.title);
+            })), React.createElement("h2", null, "Projects"), React.createElement("p", null, this.props.tag.projects && this.props.tag.projects.map(function (project) {
+                return React.createElement("a", {
+                    key: project.id,
+                    className: "block-link",
+                    href: "/projects/" + project.slug }, project.name);
+            })));
+        }
+
+        return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("aside", { className: "aside-1" }, React.createElement("ul", { className: "meta" }, metaOne)), React.createElement(SlabText, { klass: "fun-font mega", value: this.props.title }), React.createElement("aside", { className: "aside-2" }, React.createElement("ul", { className: "meta" }, metaTwo))), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), tag);
     }
 
 });
@@ -1680,7 +1705,7 @@ module.exports = Tabs;
 "use strict";
 
 var React = require("react");var navigate = require("react-mini-router").navigate;
-var ProjectForm = require("./form");
+var TagForm = require("./form");
 var request = require("superagent");
 var _ = require("lodash");
 
@@ -1692,7 +1717,7 @@ module.exports = React.createClass({
         return {
             hasErrors: false,
             errors: {},
-            project: this.props.project || {},
+            tag: this.props.tag || {},
             loaded: false
         };
     },
@@ -1700,12 +1725,12 @@ module.exports = React.createClass({
     componentDidMount: function () {
         var self = this;
 
-        if (!Object.keys(this.state.project).length) {
-            request.get("/projects/" + this.props.projectId).query({
+        if (!Object.keys(this.state.tag).length) {
+            request.get("/tags/" + this.props.slug).query({
                 isClient: true
             }).end(function (res) {
                 self.setState({
-                    project: JSON.parse(res.text).project,
+                    tag: JSON.parse(res.text).tag,
                     loaded: true
                 });
             });
@@ -1713,11 +1738,11 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "project" }, React.createElement("h1", null, "New Post"), React.createElement(ProjectForm, {
-            project: this.state.project,
+        return React.createElement("section", { className: "tag" }, React.createElement("h1", null, "New Post"), React.createElement(TagForm, {
+            tag: this.state.tag,
             onChange: this.handleChange,
             method: "put",
-            action: "/projects" }));
+            action: "/tags" }));
     },
 
     handleChange: function (event) {
@@ -1727,11 +1752,11 @@ module.exports = React.createClass({
         var newData = {};
         newData[attr] = value;
 
-        var previousState = this.state.project;
+        var previousState = this.state.tag;
         var newState = _.assign(previousState, newData);
 
         this.setState({
-            project: newState
+            tag: newState
         });
     }
 
@@ -1747,40 +1772,14 @@ var request = require("superagent");
 var navigate = require("react-mini-router").navigate;
 var Tabs = require("../shared/tabs/Tabs");
 var TagList = require("../shared/TagList");
-var marked = require("../../lib/marked");
 var _ = require("lodash");
 
 module.exports = React.createClass({
     displayName: "exports",
     getInitialState: function () {
         return {
-            errors: {},
-            previewText: this.props.project.body || "",
-            tags: this.props.project.tags || []
+            errors: {}
         };
-    },
-
-    handleBefore: function (selectedIndex, $selectedPanel, $selectedTabMenu) {
-        var html = marked(this.props.project.body) || "";
-        this.setState({
-            previewText: html
-        });
-    },
-
-    addTag: function (e) {
-        if (e.key === "Enter") {
-            var node = this.refs.tags.getDOMNode();
-            var tag = node.value.trim();
-
-            this.setState({
-                tags: this.state.tags.concat({ name: tag })
-            });
-
-            node.value = "";
-
-            // Stop the form from submitting
-            e.preventDefault();
-        }
     },
 
     render: function () {
@@ -1790,106 +1789,24 @@ module.exports = React.createClass({
             onSubmit: this.handleSubmit }, React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "name" }, "Name"), React.createElement("input", { type: "text",
             name: "name",
             ref: "name",
-            value: this.props.project.name,
+            value: this.props.tag.name,
             onChange: this.props.onChange
-        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "url" }, "URL"), React.createElement("input", { type: "text",
-            name: "url",
-            ref: "url",
-            value: this.props.project.url,
-            onChange: this.props.onChange
-        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "role" }, "Role"), React.createElement("input", { type: "text",
-            name: "role",
-            ref: "role",
-            value: this.props.project.role,
-            onChange: this.props.onChange
-        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "date_completed" }, "Date Completed"), React.createElement("input", { type: "text",
-            name: "date_completed",
-            ref: "date_completed",
-            value: this.props.project.date_completed,
-            onChange: this.props.onChange
-        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "logo" }, "Logo"), React.createElement("input", { type: "text",
-            name: "logo",
-            ref: "logo",
-            value: this.props.project.logo,
-            onChange: this.props.onChange
-        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "thumbnail" }, "Thumbnail"), React.createElement("input", { type: "text",
-            name: "thumbnail",
-            ref: "thumbnail",
-            value: this.props.project.thumbnail,
-            onChange: this.props.onChange
-        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "small_screen" }, "Small Screen"), React.createElement("input", { type: "text",
-            name: "small_screen",
-            ref: "small_screen",
-            value: this.props.project.small_screen,
-            onChange: this.props.onChange
-        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "medium_screen" }, "Medium Screen"), React.createElement("input", { type: "text",
-            name: "medium_screen",
-            ref: "medium_screen",
-            value: this.props.project.medium_screen,
-            onChange: this.props.onChange
-        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "large_screen" }, "Large Screen"), React.createElement("input", { type: "text",
-            name: "large_screen",
-            ref: "large_screen",
-            value: this.props.project.large_screen,
-            onChange: this.props.onChange
-        })), React.createElement("div", { className: "form-row" }, React.createElement(Tabs, {
-            onBeforeChange: this.handleBefore }, React.createElement(Tabs.Panel, { title: "Markdown" }, React.createElement("textarea", {
-            name: "body",
-            ref: "body",
-            value: this.props.project.body,
-            onChange: this.props.onChange })), React.createElement(Tabs.Panel, { title: "Preview" }, React.createElement("article", { dangerouslySetInnerHTML: { __html: this.state.previewText } })))), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "slug" }, "Slug"), React.createElement("input", {
-            type: "text",
-            name: "slug",
-            ref: "slug",
-            value: this.props.project.slug,
-            onChange: this.props.onChange })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "tags" }, "Tags"), React.createElement("input", { type: "text", name: "tags", ref: "tags",
-            onKeyDown: this.addTag }), React.createElement(TagList, {
-            tags: this.state.tags,
-            onTagChange: this.onTagChange })), React.createElement("div", { className: "form-row" }, React.createElement("div", { className: "checkbox" }, React.createElement("input", { type: "checkbox", name: "published", ref: "published" }), React.createElement("label", { htmlFor: "published" }, "Published?"))), React.createElement("div", { className: "form-row" }, React.createElement("button", { className: "button", type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
-    },
-
-    onTagChange: function (tags) {
-        this.setState(tags);
+        })), React.createElement("div", { className: "form-row" }, React.createElement("button", { className: "button", type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
     },
 
     handleSubmit: function (e) {
         var self = this;
 
         e.preventDefault();
-        var id = this.props.project.id || null;
         var name = this.refs.name.getDOMNode().value.trim();
-        var role = this.refs.role.getDOMNode().value.trim();
-        var url = this.refs.url.getDOMNode().value.trim();
-        var date_completed = this.refs.date_completed.getDOMNode().value.trim();
-        var body = this.refs.body.getDOMNode().value.trim();
-        var logo = this.refs.logo.getDOMNode().value.trim();
-        var thumbnail = this.refs.thumbnail.getDOMNode().value.trim();
-        var small_screen = this.refs.small_screen.getDOMNode().value.trim();
-        var medium_screen = this.refs.medium_screen.getDOMNode().value.trim();
-        var large_screen = this.refs.large_screen.getDOMNode().value.trim();
-        var slug = this.refs.slug.getDOMNode().value.trim();
-        var published = this.refs.published.getDOMNode().value.trim();
-        var tags = this.state.tags;
 
         request[this.props.method](this.props.action).send({
-            id: id,
-            name: name,
-            role: role,
-            url: url,
-            date_completed: date_completed,
-            body: body,
-            logo: logo,
-            thumbnail: thumbnail,
-            small_screen: small_screen,
-            medium_screen: medium_screen,
-            large_screen: large_screen,
-            slug: slug,
-            published: published,
-            tags: tags
+            id: this.props.tag.id,
+            name: name
         }).end(function (res) {
             var response = JSON.parse(res.text);
             if (response.success) {
-                navigate("/projects");
+                navigate("/admin");
             } else {
                 self.setState({
                     errors: response.errors
@@ -1902,14 +1819,14 @@ module.exports = React.createClass({
         var self = this;
 
         e.preventDefault();
-        var id = this.props.project.id;
+        var id = this.props.tag.id;
 
         request.del(this.props.action).send({
             id: id
         }).end(function (res) {
             var response = JSON.parse(res.text);
             if (response.success) {
-                navigate("/projects");
+                navigate("/admin");
             } else {
                 self.setState({
                     errors: response.errors
@@ -1921,7 +1838,7 @@ module.exports = React.createClass({
 });
 
 
-},{"../../lib/marked":"/Users/npb/Projects/npb/lib/marked.js","../shared/TagList":"/Users/npb/Projects/npb/components/shared/TagList.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/index.js":[function(require,module,exports){
+},{"../shared/TagList":"/Users/npb/Projects/npb/components/shared/TagList.js","../shared/tabs/Tabs":"/Users/npb/Projects/npb/components/shared/tabs/Tabs.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/tag/index.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -2010,27 +1927,12 @@ var TagShow = React.createClass({
             value: this.state.tag.count
         }];
 
-        if (this.state.tag.posts && this.state.tag.posts.length) {
-            html += "<h2>Posts</h2>";
-            this.state.tag.posts.forEach(function (post) {
-                html += "<a href=\"posts/" + post.slug + "\">" + post.title + "</a>";
-            });
-            html += "<hr class=\"rule--small\" />";
-        }
-
-        if (this.state.tag.projects && this.state.tag.projects.length) {
-            html += "<h2>Projects</h2>";
-            this.state.tag.projects.forEach(function (project) {
-                html += "<a href=\"projects/" + project.slug + "\">" + project.name + "</a>";
-            });
-        }
-
-
         return React.createElement(SingleItem, {
             metaOne: metaOne,
             metaTwo: metaTwo,
             title: this.state.tag.name,
-            content: html
+            content: html,
+            tag: this.state.tag
         });
     }
 

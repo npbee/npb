@@ -1,4 +1,4 @@
-require('node-jsx').install(); 
+//require('node-jsx').install(); 
 var logger = require('koa-logger');
 var router = require('koa-router');
 var koa = require('koa');

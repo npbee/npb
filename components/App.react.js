@@ -144,7 +144,7 @@ var App = React.createClass({
     },
 
     tagEdit: function(slug) {
-        return <TagEdit project={this.props.data.tag} slug={slug} />;
+        return <TagEdit tag={this.props.data.tag} slug={slug} />;
     },
 
     admin: function() {

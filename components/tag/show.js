@@ -48,27 +48,12 @@ var TagShow = React.createClass({
             }
         ];
 
-        if (this.state.tag.posts && this.state.tag.posts.length) {
-            html += '<h2>Posts</h2>';
-            this.state.tag.posts.forEach(function(post) {
-                html+= `<a href="/posts/${post.slug}">${post.title}</a>`;
-            });
-            html += '<hr class="rule--small" />';
-        }
-
-        if (this.state.tag.projects && this.state.tag.projects.length) {
-            html += '<h2>Projects</h2>';
-            this.state.tag.projects.forEach(function(project) {
-                html+= `<a href="/projects/${project.slug}">${project.name}</a>`;
-            });
-        }
-
-
         return <SingleItem 
             metaOne={metaOne}
             metaTwo={metaTwo}
             title={this.state.tag.name}
             content={html}
+            tag={this.state.tag}
         /> 
 
     }

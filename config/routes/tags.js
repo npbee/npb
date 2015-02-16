@@ -96,72 +96,6 @@ exports.show = function*() {
     });
 };
 
-// Show the new post form
-//exports.new = function*() {
-
-    //var data = yield normalize({
-        //path: '/posts/new',
-        //req: this
-    //});
-
-    //var markup = React.renderToString(
-            //<App data={data} history="true" path="/posts/new" />
-            //);
-
-    //this.body = yield render('default', {
-        //markup: markup,
-        //state: JSON.stringify(data)
-    //});
-//};
-
-// Create a post
-//exports.create = function*() {
-    //var body = this.request.body;
-    //var error;
-    //var postId;
-    //var tags = body.tags;
-
-     //Validations
-    //try {
-        //yield checkit(validations.post.new).run(body);
-    //} catch(err) {
-        //error = err;
-    //}
-
-    //try {
-        //yield knex.transaction(function(trx) {
-            //return trx('posts').insert({
-                //title: body.title,
-                //body: body.body,
-                //slug: body.slug,
-                //excerpt: body.excerpt,
-                //published: body.published,
-                //created_at: new Date(),
-                //updated_at: new Date()
-            //}, 'id').then(function(id) {
-                //postId = id[0];
-                //return tagHelper.createTagIfNot(trx, body.tags);
-            //}).then(function(tagIds) {
-                //return tagHelper.createTagRelationship(trx, tagIds, postId, 'post');
-            //});
-        //});
-    //} catch(err) {
-        //error = err;
-    //}
-
-    //if (error) {
-        //this.body = {
-            //success: false,
-            //errors: JSON.stringify(error)
-        //};
-    //} else {
-        //this.body = {
-            //success: true,
-            //post_id: postId
-        //};
-    //}
-
-//};
 
 // Show the edit post form
 exports.edit = function* () {
@@ -170,7 +104,7 @@ exports.edit = function* () {
 
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
-    var _id = isNaN(Number(slug)) ? 'slug' : 'id';
+    var _id = isNaN(Number(slug)) ? 'name' : 'id';
     var _tag = yield knex('tags').where(_id, slug);
     var tag = _tag[0];
 
@@ -179,6 +113,7 @@ exports.edit = function* () {
         path: '/tags/' + slug + '/edit',
         req: this
     });
+
 
     if (this.request.query.isClient) {
         this.body = data;
@@ -204,21 +139,12 @@ exports.put = function* () {
     var id = body.id;
     var error;
 
+
     try {
         yield knex.transaction(function(trx) {
-            return trx('posts').where('id', id).update({
-                title: body.title,
-                body: body.body,
-                slug: body.slug,
-                excerpt: body.excerpt,
-                published: body.published,
-                created_at: new Date(),
-                updated_at: new Date()
-            }, 'id').then(function(id) {
-                return tagHelper.collect(trx, tags);
-            }).then(function(tagIds) {
-                return tagHelper.upsert(trx, tagIds, id, 'post');
-            });
+            return trx('tags').where('id', id).update({
+                name: body.name
+            }, 'id');
         });
     } catch(err) {
         error = err;
@@ -232,7 +158,7 @@ exports.put = function* () {
     } else {
         this.body = {
             success: true,
-            post_id: id
+            tag_id: id
         };
     }
 
@@ -243,13 +169,27 @@ exports.put = function* () {
 exports.del = function* () {
     var body = this.request.body;
     var id = body.id;
+    var error;
 
-    var deletion = yield knex('posts')
-                    .where('id', id)
-                    .del();
-    
-    this.body = {
-        success: true,
-        affected_rows: deletion
-    };
+    try {
+        yield knex.transaction(function(trx) {
+            return trx('tags').where('id', id).del()
+            .then(function() {
+                return trx('tag_relationships').where('tag_id', id).del();
+            });
+        });
+    } catch(err) {
+        error = err;
+    }
+
+    if (error) {
+        this.body = {
+            success: false,
+            errors: JSON.stringify(error)
+        };
+    } else {
+        this.body = {
+            success: true
+        };
+    }
 };

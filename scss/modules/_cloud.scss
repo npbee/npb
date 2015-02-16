@@ -3,8 +3,8 @@
 ******************************/
 .cloud {
     text-align: center;
-    span {
+    a {
+        display: inline-block;
         padding: $base-spacing-unit;
-        word-break: break-all;
     }
 }

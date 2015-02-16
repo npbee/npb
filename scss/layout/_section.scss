@@ -79,3 +79,15 @@
         }
     }
 }
+
+
+
+/*
+* General Section
+******************************/
+section {
+    >h1:first-of-type {
+        @include typecsset-space(margin-bottom);
+        text-align: center;
+    }
+}

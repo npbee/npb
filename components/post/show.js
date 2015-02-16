@@ -32,9 +32,15 @@ module.exports = React.createClass({
     render: function(){
         var html = marked(this.state.post.body || '');
         var date = parseDate(this.state.post.created_at);
-        var tags = this.state.post.tags ? this.state.post.tags.map(function(tag) {
-            return tag.name;
-        }).join(', ') : ""; 
+
+        var tags;
+        if (this.state.post.tags) {
+            tags = <div className="tag-list--comma">
+                {this.state.post.tags.map((tag, index) => <a 
+                    key={index} href={"/tags/" + tag.name}>{tag.name}</a>
+                )}
+            </div>;
+        }
 
         var metaOne = [
             {
