@@ -46,9 +46,12 @@ a {
 }
 
     .rule--small {
-        max-width: 30%;
-        margin-left: auto;
-        margin-right: auto;
+        background: $grey;
+        border: none;
+        height: 1px;
+        margin: $typecsset-base-line-height auto;
+        outline: none;
+        width: 100px;
     }
 
 
