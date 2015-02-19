@@ -1,6 +1,16 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+
 main {
     @include container;
-
+    flex: 1;
+    min-height: 100%;
+    width: 100%;
     nav {
         @include breakpoint($large) {
         }
@@ -13,12 +23,4 @@ main {
 
 }
 
-.rule--small {
-    background: $grey;
-    border: none;
-    height: 1px;
-    margin: $typecsset-base-line-height 0;
-    outline: none;
-    width: 100px;
-}
 
