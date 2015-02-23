@@ -45,3 +45,27 @@ exports.index = function *() {
         state: JSON.stringify(data)
     });
 };
+
+exports.connect = function *() {
+    var isClient = this.request.query.isClient;
+
+    var data = yield normalize({
+        req: this,
+        path: '/connect'
+    });
+
+    if (isClient) {
+        this.body = yield data;
+        return;
+    }
+
+
+    var markup = React.renderToString(
+            <App data={data} history="true" path="/connect" />
+            );
+
+    this.body = yield render('default', { 
+        markup: markup,
+        state: JSON.stringify(data)
+    });
+};

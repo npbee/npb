@@ -9,7 +9,7 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       selected: 'home',
-      items: ['projects', 'posts', 'connect'],
+      items: ['/projects', '/posts', '/connect'],
       isOpen: NavStore.isOpen(),
       isClosed: true,
       isFirstLoad: true
@@ -35,13 +35,13 @@ module.exports = React.createClass({
           <a href="#" className="site-logo main-nav__toggle" onClick={this._onClick}><img className="icon" src="/static/images/logo.svg" /></a>
           <div className="main-nav__menu">
               {this.state.items.map(function(result) {
-                  var className = result === selected ? 'active' : '';
+                  var className = result === this.props.path ? 'active' : '';
                   return <NavItem 
                       key={result} 
-                      data={result} 
+                      path={result} 
                       className={className} 
                       navigate={self._onNavigate} />;
-              })}
+              }, this )}
           </div>
           <div className="main-nav__social main-nav__break-right">
               <a className="main-nav__break-right"><img className="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>

@@ -86,6 +86,9 @@ app.get('/tags/:slug/edit', routes.tags.edit);
 app.put('/tags', routes.tags.put);
 app.del('/tags', routes.tags.del);
 
+// Connect
+app.get('/connect', routes.connect);
+
 // Admin routes
 app.get('/admin', secured, routes.admin.index);
 app.get('/login', routes.auth.loginForm);
