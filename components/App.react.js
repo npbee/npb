@@ -4,6 +4,7 @@ var React = require('react/addons');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var Home = require('./page/Home.react');
+var Connect = require('./page/connect');
 
 var Posts = require('./post/index');
 var PostShow = require('./post/show');
@@ -18,6 +19,7 @@ var ProjectEdit = require('./project/edit');
 var Tags = require('./tag/index');
 var TagShow = require('./tag/show');
 var TagEdit = require('./tag/edit');
+
 
 var Login = require('./auth/login');
 
@@ -59,6 +61,8 @@ var App = React.createClass({
     routes: {
         '/': 'home',
 
+        '/connect': 'connect',
+
         // Auth
         '/login': 'login',
 
@@ -87,6 +91,10 @@ var App = React.createClass({
         return <Home
                 post={this.props.data.post}
                 project={this.props.data.project}/>;
+    },
+
+    connect: function() {
+        return <Connect />
     },
 
     // AUTH
@@ -158,6 +166,7 @@ var App = React.createClass({
             _className = 'main-nav--open';
         }
 
+
         // If typeof undlink === function?
         var undoLinks = this.state.undoCbs.map(function(cb, index) {
             if (typeof cb === 'function') {
@@ -173,6 +182,7 @@ var App = React.createClass({
         return <main id="react-app" className={_className}>
             <NavList 
                 isAuthenticated={this.state.isAuthenticated}
+                path={this.state.path}
                 data={this.props.data} />
             <ReactCSSTransitionGroup transitionName="fade">
                 {undoLinks}

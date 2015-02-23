@@ -72,6 +72,7 @@ var React = require("react/addons");
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var Home = require("./page/Home.react");
+var Connect = require("./page/connect");
 
 var Posts = require("./post/index");
 var PostShow = require("./post/show");
@@ -86,6 +87,7 @@ var ProjectEdit = require("./project/edit");
 var Tags = require("./tag/index");
 var TagShow = require("./tag/show");
 var TagEdit = require("./tag/edit");
+
 
 var Login = require("./auth/login");
 
@@ -129,6 +131,8 @@ var App = React.createClass({
     routes: {
         "/": "home",
 
+        "/connect": "connect",
+
         // Auth
         "/login": "login",
 
@@ -157,6 +161,10 @@ var App = React.createClass({
         return React.createElement(Home, {
             post: this.props.data.post,
             project: this.props.data.project });
+    },
+
+    connect: function () {
+        return React.createElement(Connect, null);
     },
 
     // AUTH
@@ -228,6 +236,7 @@ var App = React.createClass({
             _className = "main-nav--open";
         }
 
+
         // If typeof undlink === function?
         var undoLinks = this.state.undoCbs.map(function (cb, index) {
             if (typeof cb === "function") {
@@ -239,6 +248,7 @@ var App = React.createClass({
 
         return React.createElement("main", { id: "react-app", className: _className }, React.createElement(NavList, {
             isAuthenticated: this.state.isAuthenticated,
+            path: this.state.path,
             data: this.props.data }), React.createElement(ReactCSSTransitionGroup, { transitionName: "fade" }, undoLinks), this.renderCurrentRoute());
     },
 
@@ -256,7 +266,7 @@ var App = React.createClass({
 module.exports = App;
 
 
-},{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./admin/index":"/Users/npb/Projects/npb/components/admin/index.js","./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","./tag/edit":"/Users/npb/Projects/npb/components/tag/edit.js","./tag/index":"/Users/npb/Projects/npb/components/tag/index.js","./tag/show":"/Users/npb/Projects/npb/components/tag/show.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
+},{"../actions/AppActions":"/Users/npb/Projects/npb/actions/AppActions.js","../actions/NavActions":"/Users/npb/Projects/npb/actions/NavActions.js","../stores/AppStore":"/Users/npb/Projects/npb/stores/AppStore.js","../stores/NavStore":"/Users/npb/Projects/npb/stores/NavStore.js","./admin/index":"/Users/npb/Projects/npb/components/admin/index.js","./auth/login":"/Users/npb/Projects/npb/components/auth/login.js","./nav/NavList.react":"/Users/npb/Projects/npb/components/nav/NavList.react.js","./page/Home.react":"/Users/npb/Projects/npb/components/page/Home.react.js","./page/connect":"/Users/npb/Projects/npb/components/page/connect.js","./post/edit":"/Users/npb/Projects/npb/components/post/edit.js","./post/index":"/Users/npb/Projects/npb/components/post/index.js","./post/new":"/Users/npb/Projects/npb/components/post/new.js","./post/show":"/Users/npb/Projects/npb/components/post/show.js","./project/edit":"/Users/npb/Projects/npb/components/project/edit.js","./project/index":"/Users/npb/Projects/npb/components/project/index.js","./project/new":"/Users/npb/Projects/npb/components/project/new.js","./project/show":"/Users/npb/Projects/npb/components/project/show.js","./tag/edit":"/Users/npb/Projects/npb/components/tag/edit.js","./tag/index":"/Users/npb/Projects/npb/components/tag/index.js","./tag/show":"/Users/npb/Projects/npb/components/tag/show.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js","react/addons":"/Users/npb/Projects/npb/node_modules/react/addons.js"}],"/Users/npb/Projects/npb/components/Snippet.react.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -470,11 +480,12 @@ module.exports = React.createClass({
 
 
   render: function () {
-    var title = this.props.data;
+    var path = this.props.path;
     var className = this.props.className;
+    var title = path.slice(1);
 
 
-    return React.createElement("a", { href: "/" + title, className: className, onClick: this.props.navigate }, title);
+    return React.createElement("a", { href: path, className: className, onClick: this.props.navigate }, title);
   }
 
 
@@ -497,7 +508,7 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             selected: "home",
-            items: ["projects", "posts", "connect"],
+            items: ["/projects", "/posts", "/connect"],
             isOpen: NavStore.isOpen(),
             isClosed: true,
             isFirstLoad: true
@@ -518,13 +529,13 @@ module.exports = React.createClass({
         var isAuthenticated = this.props.isAuthenticated;
 
         return React.createElement("nav", { className: "main-nav" }, React.createElement("a", { href: "/", className: "site-logo" }, React.createElement("img", { className: "icon", src: "/static/images/logo.svg" })), React.createElement("a", { href: "#", className: "site-logo main-nav__toggle", onClick: this._onClick }, React.createElement("img", { className: "icon", src: "/static/images/logo.svg" })), React.createElement("div", { className: "main-nav__menu" }, this.state.items.map(function (result) {
-            var className = result === selected ? "active" : "";
+            var className = result === this.props.path ? "active" : "";
             return React.createElement(NavItem, {
                 key: result,
-                data: result,
+                path: result,
                 className: className,
                 navigate: self._onNavigate });
-        })), React.createElement("div", { className: "main-nav__social main-nav__break-right" }, React.createElement("a", { className: "main-nav__break-right" }, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/twitter.svg" })), React.createElement("a", { className: "" }, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/mail.svg" })), React.createElement("a", { className: "" }, React.createElement("img", { className: "icon", src: "/static/images/icons/github/mark.svg" }))), isAuthenticated ? React.createElement(AdminNav, { data: this.props.data }) : "");
+        }, this)), React.createElement("div", { className: "main-nav__social main-nav__break-right" }, React.createElement("a", { className: "main-nav__break-right" }, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/twitter.svg" })), React.createElement("a", { className: "" }, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/mail.svg" })), React.createElement("a", { className: "" }, React.createElement("img", { className: "icon", src: "/static/images/icons/github/mark.svg" }))), isAuthenticated ? React.createElement(AdminNav, { data: this.props.data }) : "");
     },
 
     _onClick: function (e) {
@@ -576,6 +587,32 @@ module.exports = React.createClass({
 
     render: function () {
         return React.createElement("section", { className: "home skinny" }, React.createElement("div", { className: "grid grid--centered" }, React.createElement("div", { className: "avatar grid--1-4 grid--push-1-4 grid--left" }, React.createElement("img", { className: "avatar__image", src: "/static/images/me.png" }), React.createElement("div", { className: "avatar__summary" }, React.createElement("p", { className: "avatar__summary__item" }, "Nick Ball"), React.createElement("p", { className: "avatar__summary__position avatar__summary__item" }, "Jr. Software Engineer"), React.createElement("p", { className: "avatar__summary__employer avatar__summary__item" }, "@ Loudr"))), React.createElement("div", { className: "tagline grid--1-2 grid--last" }, React.createElement("p", { className: "tagline__item" }, "Development +"), React.createElement("p", { className: "tagline__item" }, "Design +"), React.createElement("p", { className: "tagline__item" }, "Me"))), React.createElement("hr", { className: "rule rule--small" }), React.createElement(Snippet, { title: this.state.post.title, tagline: "Latest Post", url: "posts/" + this.state.post.slug }), React.createElement(Snippet, { title: this.state.project.name, tagline: "Latest Project", url: "projects/" + this.state.project.slug }));
+    }
+
+});
+
+
+},{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/connect.js":[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var Snippet = require("../Snippet.react");
+var request = require("superagent");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+
+    getInitialState: function () {
+        return {};
+    },
+
+    componentDidMount: function () {},
+
+    render: function () {
+        var blurb = "And welcome.  My name is Nick.  I am a self-professed nerd \n        and web development apprentice.  My main focus so far has been Javascript\n         and the front-end, but I'm eager to expand.  I'm currently a Jr. \n        Software Engineer at <a href=\"http://loudr.fm\">Loudr</a>.";
+
+        return React.createElement("section", { className: "connect skinny single-item" }, React.createElement("h1", { className: "giga" }, "Welcome"), React.createElement("article", null, React.createElement("p", null, "And hello.  My name is Nick.  I am a self-professed nerd· and self-taught web development apprentice.  My main focus so far has been Javascript and the front-end, but I'm eager to expand.  I'm currently a Jr. Software Engineer at", React.createElement("a", { href: "http://loudr.fm" }, "Loudr"), " working on a large KnockoutJS application."), React.createElement("p", null, "You can find me on ", React.createElement("a", { className: "standout-link", href: "http://github.com/npbee" }, "Github"), ", ", React.createElement("a", { className: "standout-link", href: "http://twitter.com/npbeep" }, "Twitter"), ", or ", React.createElement("a", { className: "standout-link", href: "mailto: nick@npbee.me" }, "Email"), "."), React.createElement("p", null, "This site was built with:", React.createElement("ul", null, React.createElement("li", null, React.createElement("a", { href: "https://iojs.org" }, "iojs (NodeJS)")), React.createElement("li", null, React.createElement("a", { href: "http://www.postgresql.org/" }, "Postgresql")), React.createElement("li", null, React.createElement("a", { href: "http://facebook.github.io/react/" }, "React")), React.createElement("li", null, React.createElement("a", { href: "https://facebook.github.io/flux/" }, "Flux")), React.createElement("li", null, React.createElement("a", { href: "http://browserify.org/" }, "Browserify")), React.createElement("li", null, React.createElement("a", { href: "https://babeljs.io/" }, "Babel")), React.createElement("li", null, React.createElement("a", { href: "http://sass-lang.com/" }, "SASS")), React.createElement("li", null, React.createElement("a", { href: "http://csswizardry.com/typecsset/" }, "Typecsset")), React.createElement("li", null, React.createElement("a", { href: "http://gulpjs.com/" }, "Gulp")))), React.createElement("p", null, "Thank you for looking!")));
     }
 
 });
