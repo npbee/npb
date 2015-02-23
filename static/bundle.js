@@ -864,7 +864,8 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             post: this.props.post || {},
-            slug: this.props.slug || ""
+            slug: this.props.slug || "",
+            loaded: false
         };
     },
 
@@ -876,7 +877,8 @@ module.exports = React.createClass({
             isClient: true
         }).end(function (res) {
             self.setState({
-                post: JSON.parse(res.text).post
+                post: JSON.parse(res.text).post,
+                loaded: true
             });
         });
     },
@@ -907,7 +909,8 @@ module.exports = React.createClass({
             metaOne: metaOne,
             metaTwo: metaTwo,
             title: this.state.post.title,
-            content: html
+            content: html,
+            loaded: this.state.loaded
         });
     }
 
@@ -1244,7 +1247,8 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             project: this.props.project || {},
-            slug: this.props.slug || ""
+            slug: this.props.slug || "",
+            loaded: false
         };
     },
 
@@ -1256,7 +1260,8 @@ module.exports = React.createClass({
             isClient: true
         }).end(function (res) {
             self.setState({
-                project: JSON.parse(res.text).project
+                project: JSON.parse(res.text).project,
+                loaded: true
             });
         });
     },
@@ -1293,7 +1298,8 @@ module.exports = React.createClass({
             metaOne: metaOne,
             metaTwo: metaTwo,
             title: this.state.project.name,
-            content: html
+            content: html,
+            loaded: this.state.loaded
         });
     }
 
@@ -1383,6 +1389,7 @@ module.exports = React.createClass({
     componentDidMount: function () {},
 
     render: function () {
+        console.log(this.props.loaded);
         var metaOne = this.props.metaOne.map(function (item, index) {
             return React.createElement("li", { key: index }, React.createElement("h2", { className: "meta__header" }, item.title), React.createElement("p", { className: "meta__value" }, item.value));
         });
@@ -1406,7 +1413,12 @@ module.exports = React.createClass({
             })));
         }
 
-        return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("aside", { className: "aside-1" }, React.createElement("ul", { className: "meta" }, metaOne)), React.createElement(SlabText, { klass: "fun-font mega", value: this.props.title }), React.createElement("aside", { className: "aside-2" }, React.createElement("ul", { className: "meta" }, metaTwo))), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), tag);
+
+        if (this.props.loaded) {
+            return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("aside", { className: "aside-1" }, React.createElement("ul", { className: "meta" }, metaOne)), React.createElement(SlabText, { klass: "fun-font mega", value: this.props.title }), React.createElement("aside", { className: "aside-2" }, React.createElement("ul", { className: "meta" }, metaTwo))), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), tag);
+        } else {
+            return React.createElement("div", { className: "loader" });
+        }
     }
 
 });

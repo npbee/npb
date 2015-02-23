@@ -1,0 +1,50 @@
+/******************************
+* LOADER
+******************************/
+$size: 80px;
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    position: relative;
+    &:before, 
+    &:after {
+        border-radius: 50%;
+        content: '';
+        transition: opacity 200ms;
+    }
+    &:before {
+        animation: rotation 1.0s infinite ease-in-out;
+        border-left: 8px solid $black;
+        border-right: 8px solid $black;
+        border-top: 8px solid $white;
+        border-bottom: 8px solid $white;
+        height: $size;
+        width: $size;
+    }
+    &:after {
+        animation: rotation 1.0s 500ms infinite ease-in-out;
+        border-left: 6px solid $black;
+        border-right: 6px solid $black;
+        border-top: 6px solid $white;
+        border-bottom: 6px solid $white;
+        height: $size/2;
+        left: 50%;
+        margin-left: -($size/4 + 6);
+        position: absolute;
+        top: $size/4;
+        width: $size/2;
+    }
+}
+
+@keyframes rotation {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(360deg);
+    }
+}
+
