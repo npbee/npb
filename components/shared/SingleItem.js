@@ -17,6 +17,7 @@ module.exports = React.createClass({
     },
 
     render: function() {
+        console.log(this.props.loaded);
         var metaOne = this.props.metaOne.map(function(item, index) {
             return <li key={index}>
                 <h2 className="meta__header">{item.title}</h2>
@@ -51,19 +52,24 @@ module.exports = React.createClass({
             </article>;
         }
 
-        return <section className="project single-item">
-            <header>
-                <aside className="aside-1">
-                    <ul className="meta">{metaOne}</ul>
-                </aside>
-                <SlabText klass='fun-font mega' value={this.props.title} />
-                <aside className="aside-2">
-                    <ul className="meta">{metaTwo}</ul>
-                </aside>
-            </header>
-            <article dangerouslySetInnerHTML = {{__html: this.props.content }}></article>
-            {tag}
-        </section>
+
+        if (this.props.loaded) {
+            return <section className="project single-item">
+                <header>
+                    <aside className="aside-1">
+                        <ul className="meta">{metaOne}</ul>
+                    </aside>
+                    <SlabText klass='fun-font mega' value={this.props.title} />
+                    <aside className="aside-2">
+                        <ul className="meta">{metaTwo}</ul>
+                    </aside>
+                </header>
+                <article dangerouslySetInnerHTML = {{__html: this.props.content }}></article>
+                {tag}
+            </section>
+        } else {
+            return <div className="loader" />;
+        }
     }
 
 });

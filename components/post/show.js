@@ -10,7 +10,8 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             post: this.props.post || {},
-            slug: this.props.slug || ''
+            slug: this.props.slug || '',
+            loaded: false
         };
     },
 
@@ -24,7 +25,8 @@ module.exports = React.createClass({
        })
        .end(function(res) {
            self.setState({
-               post: JSON.parse(res.text).post
+               post: JSON.parse(res.text).post,
+               loaded: true
            });
        });
     },
@@ -61,6 +63,7 @@ module.exports = React.createClass({
             metaTwo={metaTwo}
             title={this.state.post.title}
             content={html}
+            loaded={this.state.loaded}
         /> 
 
     }

@@ -11,7 +11,8 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             project: this.props.project || {},
-            slug: this.props.slug || ''
+            slug: this.props.slug || '',
+            loaded: false
         };
     },
 
@@ -25,7 +26,8 @@ module.exports = React.createClass({
        })
        .end(function(res) {
            self.setState({
-               project: JSON.parse(res.text).project
+               project: JSON.parse(res.text).project,
+               loaded: true
            });
        });
     },
@@ -70,6 +72,7 @@ module.exports = React.createClass({
             metaTwo={metaTwo}
             title={this.state.project.name}
             content={html}
+            loaded={this.state.loaded}
         /> 
 
     }
