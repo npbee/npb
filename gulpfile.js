@@ -95,6 +95,7 @@ gulp.task('server', function() {
  * TESTS
  *********/
 gulp.task('test', function() {
+    require('babel/register');
     return gulp.src('./tests/**/*.js')
         .pipe(mocha({
             reporter: 'nyan'
