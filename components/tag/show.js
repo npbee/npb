@@ -11,7 +11,8 @@ var TagShow = React.createClass({
     getInitialState: function() {
         return {
             tag: this.props.tag || {},
-            slug: this.props.slug || ''
+            slug: this.props.slug || '',
+            loaded: false
         };
     },
 
@@ -25,7 +26,8 @@ var TagShow = React.createClass({
        })
        .end(function(res) {
            self.setState({
-               tag: JSON.parse(res.text).tag
+               tag: JSON.parse(res.text).tag,
+               loaded: true
            });
        });
     },
@@ -54,6 +56,7 @@ var TagShow = React.createClass({
             title={this.state.tag.name}
             content={html}
             tag={this.state.tag}
+            loaded={this.state.loaded}
         /> 
 
     }

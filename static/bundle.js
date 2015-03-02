@@ -400,8 +400,18 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        var editLink = this.props.data.editLink ? React.createElement("a", { href: this.props.data.editLink }, "Edit") : "";
-        return React.createElement("div", { className: "dropdown" }, React.createElement("a", null, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/user.svg" })), React.createElement("ul", null, React.createElement("li", null, React.createElement("a", null, "Admin page")), React.createElement("li", null, editLink), React.createElement("li", null, React.createElement("a", { href: "/logout" }, "Logout"))));
+        var editTypes = ["post", "project"];
+        var editLink;
+
+        for (var _iterator = editTypes[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
+            var type = _step.value;
+            if (this.props.data[type]) {
+                editLink = React.createElement("a", { href: this.props.data.path + "/edit" }, "Edit");
+            }
+        }
+
+
+        return React.createElement("div", { className: "dropdown" }, React.createElement("a", null, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/user.svg" })), React.createElement("ul", null, React.createElement("li", null, React.createElement("a", { href: "/admin" }, "Admin page")), React.createElement("li", null, editLink), React.createElement("li", null, React.createElement("a", { href: "/logout" }, "Logout"))));
     },
 
     _onChange: function () {
@@ -1426,7 +1436,6 @@ module.exports = React.createClass({
     componentDidMount: function () {},
 
     render: function () {
-        console.log(this.props.loaded);
         var metaOne = this.props.metaOne.map(function (item, index) {
             return React.createElement("li", { key: index }, React.createElement("h2", { className: "meta__header" }, item.title), React.createElement("p", { className: "meta__value" }, item.value));
         });
@@ -1945,7 +1954,8 @@ var TagShow = React.createClass({
     getInitialState: function () {
         return {
             tag: this.props.tag || {},
-            slug: this.props.slug || ""
+            slug: this.props.slug || "",
+            loaded: false
         };
     },
 
@@ -1957,7 +1967,8 @@ var TagShow = React.createClass({
             isClient: true
         }).end(function (res) {
             self.setState({
-                tag: JSON.parse(res.text).tag
+                tag: JSON.parse(res.text).tag,
+                loaded: true
             });
         });
     },
@@ -1981,7 +1992,8 @@ var TagShow = React.createClass({
             metaTwo: metaTwo,
             title: this.state.tag.name,
             content: html,
-            tag: this.state.tag
+            tag: this.state.tag,
+            loaded: this.state.loaded
         });
     }
 

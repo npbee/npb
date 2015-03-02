@@ -17,7 +17,6 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        console.log(this.props.loaded);
         var metaOne = this.props.metaOne.map(function(item, index) {
             return <li key={index}>
                 <h2 className="meta__header">{item.title}</h2>
