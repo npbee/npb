@@ -48,9 +48,17 @@ node --harmony ./lib/create_user {password}
 Connect on the command line:
 psql -U username database_name
 
-On VPS:
+## VPS Dependencies
 
-Switch to postgres user:
+[PM2](https://github.com/Unitech/pm2) for process management:  
+
+`$ npm install pm2 -g`
+
+Then start the server:
+
+`$ pm2 start start.js`
+
+
 
 ### Tests
 We're using generators here, so tests are using gulp-mocha-co and the gulp 
