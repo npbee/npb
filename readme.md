@@ -18,48 +18,6 @@ Blog, portfolio, & ramblings.
 - Superagent
 
 
-
-
-Start postgres database:
-pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
-
-Create user:
-createuser username
-
-create db:
-createdb -Ousername -Eutf8 database_name
-
-USER:
-nick
-
-Reseed:
-psql -U nick -d npb.com_dev -f /Users/npb/Dropbox/npb.prod.dump.sql
-
-Initialize test DB
-====
-psql -U nick -d npb.com_test -f /Users/npb/Dropbox/npb.test.sql
-
-### Dev Database
-npb.com_dev
-
-### Create a user
-node --harmony ./lib/create_user {password}
-
-Connect on the command line:
-psql -U username database_name
-
-## VPS Dependencies
-
-[PM2](https://github.com/Unitech/pm2) for process management:  
-
-`$ npm install pm2 -g`
-
-Then start the server:
-
-`$ pm2 start start.js`
-
-
-
 ### Tests
 We're using generators here, so tests are using gulp-mocha-co and the gulp 
 commands must be run with the harmony flag.  So to run the tests, just run 
@@ -69,3 +27,58 @@ the following command:
 
 This will set the node env to "testing," set the `--harmony` flag, start the 
 server, and run the "test" gulp task.
+
+Reseed:
+psql -U nick -d npb.com_dev -f /Users/npb/Dropbox/npb.prod.dump.sql
+
+#### Initialize test DB
+
+```bash
+$ psql -U nick -d npb.com_test -f /Users/npb/Dropbox/npb.test.sql
+```
+
+
+## VPS Dependencies
+
+### Postgres
+
+Create db:
+
+```bash
+createdb -Ousername -Eutf8 database_name
+```
+
+Start postgres database:
+
+```bash
+$ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+```
+
+Create user:
+
+```bash
+$ iojs ./lib/create_user {password}
+```
+
+Connect on the command line:
+
+```bash
+$ psql -U username database_name
+```
+
+### Redis
+
+Start Redis
+
+```bash
+$ redis-server
+```
+
+### [PM2](https://github.com/Unitech/pm2) for process management:  
+
+`$ npm install pm2 -g`
+
+Then start the server:
+
+`$ pm2 start start.js`
+

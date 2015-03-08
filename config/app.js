@@ -21,7 +21,7 @@ var specific = {
     },
     production: {
         app: {
-            key: ['prod-keys']
+            keys: ['prod-keys']
         },
         db: knexfile.production
     }

@@ -9,6 +9,7 @@ var render = require('./lib/render');
 var knex = require('koa-knex');
 var passport = require('./lib/auth');
 var session = require('koa-generic-session');
+var redisStore = require('koa-redis');
 
 var app = koa();
 
@@ -27,9 +28,14 @@ var config = require('./config/app');
 
 app.keys = config.app.keys;
 
+//app.use(session({
+    //key: 'nbp.sid'
+//}));
+
 app.use(session({
-    key: 'nbp.sid'
+    store: redisStore()
 }));
+
 app.use(bodyParser());
 
 
