@@ -1,0 +1,14 @@
+{
+    "apps": [
+        {
+            "name": "npb",
+            "script": "start.js",
+            "cwd": "./",
+            "log_date_format": "YYYY-MM-DD HH:mm Z",
+            "node_args": "",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        }
+    ]
+}

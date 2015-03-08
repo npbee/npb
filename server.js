@@ -23,7 +23,6 @@ app.use(function *(next) {
 });
 
 var routes = require('./config/routes');
-var database = require('./config/database');
 var config = require('./config/app');
 
 app.keys = config.app.keys;

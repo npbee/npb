@@ -2,6 +2,7 @@
 var _ = require('lodash');
 
 var env = process.env.NODE_ENV || 'development';
+var knexfile = require('../knexfile');
 
 var base = {};
 
@@ -10,42 +11,19 @@ var specific = {
         app: {
             keys: ['super-secret-keys']
         },
-        db: {
-            client: 'pg',
-            connection: {
-                host: 'localhost',
-                user: 'nick',
-                password: '',
-                database: 'npb.com_dev'
-            },
-            pool: {
-                max: 10
-            },
-            migrations: {
-                tableName: 'knex_migrations'
-            },
-            seeds: {
-                directory: './seeds'
-            }
-        }
+        db: knexfile.development,
     },
     testing: {
         app: {
             keys: ['testing-keys']
         },
-        db: {
-            client: 'pg',
-            connection: {
-                host: 'localhost',
-                user: 'nick',
-                password: '',
-                database: 'npb.com_test'
-            },
-            migrations: {
-                tableName: 'knex_migrations'
-            }
+        db: knexfile.testing,
+    },
+    production: {
+        app: {
+            key: ['prod-keys']
         },
-
+        db: knexfile.production
     }
 };
 

@@ -15,6 +15,8 @@ var livereload = require('gulp-livereload');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer-core');
 var to5ify = require('6to5ify');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
 
 var config = require('./config/paths');
 var paths = config.paths;
@@ -22,7 +24,7 @@ var paths = config.paths;
 
 
 /**********
- * SCSS
+ * SCSS DEV
  *********/
 gulp.task('scss-dev', function () {
     return sass('scss/app.scss', {
@@ -43,9 +45,27 @@ gulp.task('scss-dev', function () {
 });
 
 
+/**********
+ * SCSS BUILD
+ *********/
+gulp.task('scss-build', function() {
+    return sass('scss/app.scss', {
+        require: 'susy',
+        style: 'compressed'
+    })
+    .pipe(postcss([
+        autoprefixer({
+            browsers: ['last 2 version']
+        })
+    ]))
+    .pipe(rename('app.min.css'))
+    .pipe(gulp.dest('./static/css'))
+});
+
+
 
 /**********
- * JS
+ * JS DEV
  *********/
 var bundler = watchify(browserify({
     entries: ['./app.js'],
@@ -70,6 +90,20 @@ function bundle() {
 
 bundler.on('update', bundle);
 
+/**********
+ * JS BUILD
+ *********/
+gulp.task('js-build', function() {
+    return browserify({
+            entries: ['./app.js'],
+            transform: [to5ify]
+        })
+        .bundle()
+        .pipe(source('bundle.min.js'))
+        .pipe(buffer())
+        .pipe(uglify())
+        .pipe(gulp.dest('./static/'));
+});
 
 
 /**********
@@ -116,4 +150,6 @@ gulp.task('scss', function() {
     });
 });
 gulp.task('js', bundle);
+
+gulp.task('build', ['js-build', 'scss-build']);
 gulp.task('default', ['server', 'js', 'scss']);
