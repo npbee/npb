@@ -35,7 +35,7 @@ module.exports = React.createClass({
             <section className="home skinny">
                 <div className="grid grid--centered">
                     <div className="avatar grid--1-4 grid--push-1-4 grid--left">
-                        <img className="avatar__image" src="/static/images/me.png" />
+                        <img className="avatar__image" src="/static/images/me_alt.jpeg" />
                         <div className="avatar__summary">
                             <p className="avatar__summary__item">
                             Nick Ball
