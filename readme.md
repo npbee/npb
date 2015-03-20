@@ -82,3 +82,15 @@ Then start the server:
 
 `$ pm2 start start.js`
 
+### Ansible
+
+Server 
+```bash
+$ ansible-playbook npb.yml --ask-sudo-pass
+```
+
+### Deployment
+
+```bash
+$ shipit production deploy
+```

@@ -37,6 +37,8 @@
     "pg": "^4.1.1",
     "react": "^0.12.1",
     "react-mini-router": "^1.0.0",
+    "shipit-deploy": "^1.1.1",
+    "shipit-npm": "0.0.5",
     "superagent": "^0.21.0",
     "swig": "^1.4.2"
   },

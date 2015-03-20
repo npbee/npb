@@ -105,7 +105,7 @@ app.use(serve('.'));
 
 
 // Listen
-app.listen(9000);
-console.log('listening on post 9000');
+app.listen(3000);
+console.log('listening on post 3000');
 
 module.exports = app;
