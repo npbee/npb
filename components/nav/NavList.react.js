@@ -9,7 +9,7 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       selected: 'home',
-      items: ['/projects', '/posts', '/connect'],
+      items: ['/connect'],
       isOpen: NavStore.isOpen(),
       isClosed: true,
       isFirstLoad: true
