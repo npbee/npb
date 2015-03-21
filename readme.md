@@ -94,3 +94,10 @@ $ ansible-playbook npb.yml --ask-sudo-pass
 ```bash
 $ shipit production deploy
 ```
+
+### TODO
+- git ignore prod database settings
+- install PM2
+    - start with env = production
+- install knex for migrations
+    - migrate 

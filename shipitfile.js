@@ -1,6 +1,5 @@
 module.exports = function (shipit) {
     require('shipit-deploy')(shipit);
-    //require('shipit-npm')(shipit);
 
     shipit.initConfig({
         default: {
@@ -15,6 +14,17 @@ module.exports = function (shipit) {
         production: {
             servers: 'deploy@npbee.me'
         }
+    });
+
+    shipit.task('npm-install', function() {
+        shipit.remote('bash -l -c "cd /home/deploy/current && npm install"')
+        .then(function(res) {
+            console.log(res);
+        });
+    });
+
+    shipit.on('cleaned', function() {
+        shipit.start('npm-install');
     });
 
 };

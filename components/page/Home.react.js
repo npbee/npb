@@ -55,11 +55,11 @@ module.exports = React.createClass({
                     </div>
                 </div>
                 <hr className="rule rule--small" />
-                <Snippet title={this.state.post.title} tagline="Latest Post" url={'posts/' + this.state.post.slug} />
-                <Snippet title={this.state.project.name} tagline="Latest Project" url={'projects/' + this.state.project.slug} />
             </section>
             )
 
     }
 
 });
+//<Snippet title={this.state.post.title} tagline="Latest Post" url={'posts/' + this.state.post.slug} />
+//<Snippet title={this.state.project.name} tagline="Latest Project" url={'projects/' + this.state.project.slug} />
