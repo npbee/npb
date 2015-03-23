@@ -4,7 +4,8 @@
   "description": "Personal blog and portfolio",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=testing gulp test"
+    "test": "NODE_ENV=testing gulp test",
+    "start": "node start.js"
   },
   "author": "Nick Ball <nick@npbee.me> (http://npbee.me/)",
   "license": "ISC",
