@@ -678,6 +678,10 @@ module.exports = React.createClass({
         var attr = event.target.name;
         var value = event.target.value;
 
+        if (attr === "published") {
+            value = !this.state.post.published;
+        }
+
         var newData = {};
         newData[attr] = value;
 
@@ -767,7 +771,12 @@ module.exports = React.createClass({
             name: "excerpt",
             ref: "excerpt",
             value: this.props.post.excerpt,
-            onChange: this.props.onChange })), React.createElement("div", { className: "form-row" }, React.createElement("div", { className: "checkbox" }, React.createElement("input", { type: "checkbox", name: "published", ref: "published" }), React.createElement("label", { htmlFor: "published" }, "Published?"))), React.createElement("div", { className: "form-row" }, React.createElement("button", { className: "button", type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
+            onChange: this.props.onChange })), React.createElement("div", { className: "form-row" }, React.createElement("div", { className: "checkbox" }, React.createElement("input", {
+            onChange: this.props.onChange,
+            checked: this.props.post.published,
+            type: "checkbox",
+            name: "published",
+            ref: "published" }), React.createElement("label", { htmlFor: "published" }, "Published?"))), React.createElement("div", { className: "form-row" }, React.createElement("button", { className: "button", type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
     },
 
     onTagChange: function (tags) {
@@ -784,7 +793,7 @@ module.exports = React.createClass({
         var slug = this.refs.slug.getDOMNode().value.trim();
         var tags = this.state.tags;
         var excerpt = this.refs.excerpt.getDOMNode().value.trim();
-        var published = this.refs.published.getDOMNode().value.trim();
+        var published = this.refs.published.getDOMNode().checked;
 
         request[this.props.method](this.props.action).send({
             id: id,

@@ -47,7 +47,11 @@ module.exports = React.createClass({
     handleChange: function(event) {
         var attr = event.target.name;
         var value = event.target.value;
-        
+
+        if (attr === 'published') {
+            value = !this.state.post.published;
+        }
+
         var newData = {};
         newData[attr] = value;
 

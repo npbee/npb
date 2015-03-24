@@ -109,7 +109,12 @@ module.exports = React.createClass({
 
                 <div className="form-row">
                     <div className="checkbox">
-                        <input type="checkbox" name="published" ref="published" />
+                        <input 
+                            onChange={this.props.onChange}
+                            checked={this.props.post.published}
+                            type="checkbox" 
+                            name="published" 
+                            ref="published" />
                         <label htmlFor="published">Published?</label>
                     </div>
                 </div>
@@ -139,7 +144,7 @@ module.exports = React.createClass({
         var slug = this.refs.slug.getDOMNode().value.trim();
         var tags = this.state.tags;
         var excerpt = this.refs.excerpt.getDOMNode().value.trim();
-        var published = this.refs.published.getDOMNode().value.trim();
+        var published = this.refs.published.getDOMNode().checked;
 
         request[this.props.method](this.props.action)
             .send({

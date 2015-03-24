@@ -16,7 +16,7 @@ exports.index = function *() {
     var orderBy = this.request.query.orderBy || 'title';
     var sort = this.request.query.sort || 'ASC';
 
-    var posts = yield knex('posts').orderBy(orderBy, sort);
+    var posts = yield knex('posts').where('published', true).orderBy(orderBy, sort);
     
 
     var data = yield normalize({
