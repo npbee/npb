@@ -538,14 +538,14 @@ module.exports = React.createClass({
         var self = this;
         var isAuthenticated = this.props.isAuthenticated;
 
-        return React.createElement("nav", { className: "main-nav" }, React.createElement("a", { href: "/", className: "site-logo" }, React.createElement("img", { className: "icon", src: "/static/images/logo.svg" })), React.createElement("a", { href: "#", className: "site-logo main-nav__toggle", onClick: this._onClick }, React.createElement("img", { className: "icon", src: "/static/images/logo.svg" })), React.createElement("div", { className: "main-nav__menu" }, this.state.items.map(function (result) {
+        return React.createElement("nav", { className: "main-nav" }, React.createElement("a", { href: "/", className: "site-logo" }, React.createElement("img", { className: "icon", src: "/static/images/logo.svg" })), React.createElement("a", { href: "#", className: "main-nav__toggle", onClick: this._onClick }, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/list.svg" })), React.createElement("div", { className: "main-nav__menu" }, this.state.items.map(function (result) {
             var className = result === this.props.path ? "active" : "";
             return React.createElement(NavItem, {
                 key: result,
                 path: result,
                 className: className,
                 navigate: self._onNavigate });
-        }, this)), React.createElement("div", { className: "main-nav__social main-nav__break-right" }, React.createElement("a", { className: "main-nav__break-right" }, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/twitter.svg" })), React.createElement("a", { className: "" }, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/mail.svg" })), React.createElement("a", { className: "" }, React.createElement("img", { className: "icon", src: "/static/images/icons/github/mark.svg" }))), isAuthenticated ? React.createElement(AdminNav, { data: this.props.data }) : "");
+        }, this)), React.createElement("div", { className: "main-nav__social main-nav__break-right" }, React.createElement("a", { href: "http://twitter.com/npbeep", className: "main-nav__break-right" }, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/twitter.svg" })), React.createElement("a", { href: "mailto:nick@npbee.me", className: "" }, React.createElement("img", { className: "icon", src: "/static/images/icons/icomoon/mail.svg" })), React.createElement("a", { href: "http://github.com/npbee", className: "" }, React.createElement("img", { className: "icon", src: "/static/images/icons/github/mark.svg" }))), isAuthenticated ? React.createElement(AdminNav, { data: this.props.data }) : "");
     },
 
     _onClick: function (e) {
@@ -596,7 +596,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "home skinny" }, React.createElement("div", { className: "grid grid--centered" }, React.createElement("div", { className: "avatar grid--1-4 grid--push-1-4 grid--left" }, React.createElement("img", { className: "avatar__image", src: "/static/images/me_alt.jpeg" }), React.createElement("div", { className: "avatar__summary" }, React.createElement("p", { className: "avatar__summary__item" }, "Nick Ball"), React.createElement("p", { className: "avatar__summary__position avatar__summary__item" }, "Jr. Software Engineer"), React.createElement("p", { className: "avatar__summary__employer avatar__summary__item" }, "@ Loudr"))), React.createElement("div", { className: "tagline grid--1-2 grid--last" }, React.createElement("p", { className: "tagline__item" }, "Development +"), React.createElement("p", { className: "tagline__item" }, "Design +"), React.createElement("p", { className: "tagline__item" }, "Me"))), React.createElement("hr", { className: "rule rule--small" }));
+        return React.createElement("section", { className: "home skinny" }, React.createElement("div", { className: "grid grid--centered" }, React.createElement("div", { className: "avatar grid--1-2 grid--left" }, React.createElement("img", { className: "avatar__image", src: "/static/images/me_alt.jpeg" }), React.createElement("div", { className: "avatar__summary" }, React.createElement("p", { className: "avatar__summary__item" }, "Nick Ball"), React.createElement("p", { className: "avatar__summary__position avatar__summary__item" }, "Jr. Software Engineer"), React.createElement("p", { className: "avatar__summary__employer avatar__summary__item" }, "@ Loudr"))), React.createElement("div", { className: "tagline grid--1-2 grid--last" }, React.createElement("p", { className: "tagline__item" }, "Development +"), React.createElement("p", { className: "tagline__item" }, "Design +"), React.createElement("p", { className: "tagline__item" }, "Etc."))), React.createElement("hr", { className: "rule rule--small" }));
     }
 
 });

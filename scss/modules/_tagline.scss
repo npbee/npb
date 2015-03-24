@@ -1,12 +1,12 @@
 .tagline {
     font-family: $fun-font;
     font-weight: $fun-font-regular-weight;
-    font-size: $typecsset-h2-size;
     text-align: center;
     .tagline__item {
         margin-bottom: $base-spacing-unit;
     }
     @include breakpoint($large) {
+        font-size: $typecsset-h2-size;
         text-align: left;
     }
 }

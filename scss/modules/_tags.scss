@@ -30,6 +30,7 @@
 
 .tag-list--comma {
     > a {
+        /*font-size: $small-font;*/
         &:after {
             content: ",\00a0";
             display: inline-block;

@@ -5,8 +5,11 @@
     @include breakpoint($large) {
         text-align: left;
     }
+    .snippet__tagline, 
+    .snippet__item {
+        font-size: $typecsset-h5-size;
+    }
     .snippet__tagline {
-        font-size: $typecsset-h6-size;
         margin-bottom: 0;
     }
     .snippet__item {

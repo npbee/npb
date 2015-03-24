@@ -34,7 +34,7 @@ module.exports = React.createClass({
         return (
             <section className="home skinny">
                 <div className="grid grid--centered">
-                    <div className="avatar grid--1-4 grid--push-1-4 grid--left">
+                    <div className="avatar grid--1-2 grid--left">
                         <img className="avatar__image" src="/static/images/me_alt.jpeg" />
                         <div className="avatar__summary">
                             <p className="avatar__summary__item">
@@ -51,7 +51,7 @@ module.exports = React.createClass({
                     <div className="tagline grid--1-2 grid--last">
                         <p className="tagline__item">Development +</p>
                         <p className="tagline__item">Design +</p>
-                        <p className="tagline__item">Me</p>
+                        <p className="tagline__item">Etc.</p>
                     </div>
                 </div>
                 <hr className="rule rule--small" />

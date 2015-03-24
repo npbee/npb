@@ -4,10 +4,12 @@
 .main-nav {
     align-items: center;
     display: flex;
-    font-size: $typecsset-base-font-size * 2;
     height: $nav-height * 2;
     justify-content: flex-start;
     padding-bottom: $typecsset-base-line-height;
+    @include breakpoint($retina) {
+        height: $nav-height * 4;
+    }
     @include breakpoint($large) {
         font-size: $typecsset-base-font-size;
         height: $nav-height;
@@ -21,12 +23,11 @@
         }
     }
     .site-logo {
-        display: none;
-        line-height: $nav-height * 2;
-        margin-right: $typecsset-base-line-height;
-        text-align: center;
-        /*width: $nav-height * 2;*/
-        z-index: 2;
+        display: block;
+        text-align: right;
+        order: 2; // Put the site logo to the right on mobile
+        width: 100%;
+        /*z-index: 2;*/
         img {
             align-self: flex-start;
             @include breakpoint($large) {
@@ -35,7 +36,8 @@
         }
         @include breakpoint($large) {
             display: inline;
-            margin-right: 0;
+            line-height: $nav-height * 2;
+            order: 0;
             padding-right: $base-spacing-unit;
             padding-left: 0;
             width: auto;
@@ -43,7 +45,8 @@
     }
     .main-nav__toggle {
         display: block;
-        padding-right: 0;
+        padding-right: $base-spacing-unit * 2;
+        width: 25%;
         z-index: 2;
         @include breakpoint($large) {
             display: none;
@@ -54,6 +57,9 @@
         width: 60px;
         @include breakpoint($large) {
             max-width: 20px;
+        }
+        @include breakpoint($retina) {
+            width: 120px;
         }
     }
     .dropdown {
@@ -75,50 +81,87 @@
 
 
 .main-nav__menu {
-    animation: slide-out-to-left $animation-speed forwards;
+    animation: slide-up $animation-speed forwards;
+    left: $typecsset-base-line-height;
     opacity: 0;
+    position: absolute;
+    top: $nav-height * 3 + $typecsset-base-line-height;
+    @include breakpoint($retina) {
+        font-size: $typecsset-base-font-size * 6;
+    }
+    > a {
+        padding: $base-spacing-unit;
+    }
+}
+
+.main-nav__social {
+    animation: slide-out-to-left $animation-speed forwards;
+    display: flex;
+    width: 100%;
     @include breakpoint($large) {
         animation: none;
         display: block;
         opacity: 1;
+        width: auto;
     }
-    a {
-        display: inline-block;
-        padding: 0 $typecsset-base-line-height;
+    > a {
+        flex: 1;
         text-align: center;
         @include breakpoint($large) {
-            padding: 0 $base-spacing-unit;
+            display: inline-block;
             width: auto;
         }
     }
 }
 
+/*.main-nav__menu {*/
+    /*animation: slide-out-to-left $animation-speed forwards;*/
+    /*opacity: 0;*/
+    /*@include breakpoint($large) {*/
+        /*animation: none;*/
+        /*display: block;*/
+        /*opacity: 1;*/
+    /*}*/
+    /*a {*/
+        /*display: inline-block;*/
+        /*padding: 0 $typecsset-base-line-height;*/
+        /*text-align: center;*/
+        /*@include breakpoint($large) {*/
+            /*padding: 0 $base-spacing-unit;*/
+            /*width: auto;*/
+        /*}*/
+    /*}*/
+/*}*/
 
-.main-nav__social {
-    animation: slide-up $animation-speed forwards;
-    flex-direction: column;
-    opacity: 0;
-    position: absolute;
-    left: $typecsset-base-line-height;
-    text-align: center;
-    top: $nav-height * 2 + $typecsset-base-line-height;
-    a {
-        display: block;
-        margin: $typecsset-base-line-height 0;
-        width: auto;
-        @include breakpoint($large) {
-            display: inline;
-        }
-    }
-    @include breakpoint($large) {
-        animation: none;
-        display: block;
-        margin-left: auto;
-        opacity: 1;
-        position: static;
-        width: auto;
-    }
-}
+
+/*.main-nav__social {*/
+    /*animation: slide-up $animation-speed forwards;*/
+    /*flex-direction: column;*/
+    /*opacity: 0;*/
+    /*position: absolute;*/
+    /*left: $typecsset-base-line-height;*/
+    /*text-align: center;*/
+    /*top: $nav-height * 1 + $typecsset-base-line-height;*/
+    /*@include breakpoint($retina) {*/
+        /*top: $nav-height * 3 + $typecsset-base-line-height;*/
+    /*}*/
+    /*a {*/
+        /*display: block;*/
+        /*margin: $typecsset-base-line-height 0;*/
+        /*width: auto;*/
+        /*@include breakpoint($large) {*/
+            /*display: inline;*/
+        /*}*/
+    /*}*/
+    /*@include breakpoint($large) {*/
+        /*animation: none;*/
+        /*display: block;*/
+        /*margin-left: auto;*/
+        /*opacity: 1;*/
+        /*position: static;*/
+        /*width: auto;*/
+    /*}*/
+/*}*/
 
 
 
@@ -133,15 +176,20 @@ main > section {
 .main-nav--open {
     .main-nav__social,
     .main-nav__menu {
+        z-index: 1;
     }
     .main-nav__menu {
-        animation: slide-in-from-left 200ms forwards;
+        animation: slide-down $animation-speed 200ms forwards;
     }
     .main-nav__social {
-        animation: slide-down $animation-speed 200ms forwards;
+        animation: slide-in-from-left 200ms forwards;
+    }
+    .site-logo {
+        display: none;
     }
     > section {
         opacity: 0.1;
+        position: relative; // Need this for the z-index to work
         z-index: -1;
     }
 }

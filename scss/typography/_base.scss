@@ -6,6 +6,12 @@ html, body {
     font-family: $body-font;
     font-weight: 200;
     font-style: normal;
+    @include breakpoint($retina) {
+        font-size: $typecsset-base-font-size * 2;
+    }
+    @include breakpoint($large) {
+        font-size: $typecsset-base-font-size * 1.5;
+    }
 }
 
 h1, h2, h3, 
@@ -93,8 +99,11 @@ a {
 
 .mega {
     font-size: $typecsset-h1-size * 1.5;
+    @include breakpoint($retina) {
+        font-size: $typecsset-h1-size * 1.2;
+    }
 }
 
 .giga {
-    font-size: $typecsset-h1-size * 2;
+    font-size: $typecsset-h1-size * 1.5;
 }

@@ -4,7 +4,10 @@
 .skinny {
     margin-left: auto;
     margin-right: auto;
-    max-width: 700px;
+    max-width: 95%;
+    @include breakpoint($large) {
+        max-width: 700px;
+    }
 }
 
 
@@ -87,7 +90,7 @@
 ******************************/
 section {
     >h1:first-of-type {
-        @include typecsset-space(margin-bottom);
+        /*@include typecsset-space(margin-bottom);*/
         text-align: center;
     }
 }

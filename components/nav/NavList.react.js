@@ -32,7 +32,7 @@ module.exports = React.createClass({
     return (
       <nav className='main-nav' >
           <a href="/" className="site-logo"><img className="icon" src="/static/images/logo.svg" /></a>
-          <a href="#" className="site-logo main-nav__toggle" onClick={this._onClick}><img className="icon" src="/static/images/logo.svg" /></a>
+          <a href="#" className="main-nav__toggle" onClick={this._onClick}><img className="icon" src="/static/images/icons/icomoon/list.svg" /></a>
           <div className="main-nav__menu">
               {this.state.items.map(function(result) {
                   var className = result === this.props.path ? 'active' : '';
@@ -44,9 +44,9 @@ module.exports = React.createClass({
               }, this )}
           </div>
           <div className="main-nav__social main-nav__break-right">
-              <a className="main-nav__break-right"><img className="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
-              <a className=""><img className="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
-              <a className=""><img className="icon" src="/static/images/icons/github/mark.svg" /></a>
+              <a href="http://twitter.com/npbeep" className="main-nav__break-right"><img className="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
+              <a href="mailto:nick@npbee.me" className=""><img className="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
+              <a href="http://github.com/npbee" className=""><img className="icon" src="/static/images/icons/github/mark.svg" /></a>
           </div>
           {isAuthenticated ? <AdminNav data={this.props.data} /> : ''}
       </nav>
