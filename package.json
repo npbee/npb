@@ -51,6 +51,7 @@
     "gulp": "^3.8.10",
     "gulp-exit": "0.0.2",
     "gulp-livereload": "^3.2.0",
+    "gulp-mocha-co": "^0.4.1-co.3",
     "gulp-nodemon": "^1.0.4",
     "gulp-postcss": "^4.0.1",
     "gulp-rename": "^1.2.0",
@@ -68,6 +69,6 @@
     "watchify": "^2.2.1"
   },
   "engines": {
-      "iojs": "1.6.2"
+    "iojs": "1.6.2"
   }
 }

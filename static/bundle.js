@@ -518,7 +518,7 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             selected: "home",
-            items: ["/projects", "/posts", "/connect"],
+            items: ["/connect"],
             isOpen: NavStore.isOpen(),
             isClosed: true,
             isFirstLoad: true
@@ -596,10 +596,12 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "home skinny" }, React.createElement("div", { className: "grid grid--centered" }, React.createElement("div", { className: "avatar grid--1-4 grid--push-1-4 grid--left" }, React.createElement("img", { className: "avatar__image", src: "/static/images/me_alt.jpeg" }), React.createElement("div", { className: "avatar__summary" }, React.createElement("p", { className: "avatar__summary__item" }, "Nick Ball"), React.createElement("p", { className: "avatar__summary__position avatar__summary__item" }, "Jr. Software Engineer"), React.createElement("p", { className: "avatar__summary__employer avatar__summary__item" }, "@ Loudr"))), React.createElement("div", { className: "tagline grid--1-2 grid--last" }, React.createElement("p", { className: "tagline__item" }, "Development +"), React.createElement("p", { className: "tagline__item" }, "Design +"), React.createElement("p", { className: "tagline__item" }, "Me"))), React.createElement("hr", { className: "rule rule--small" }), React.createElement(Snippet, { title: this.state.post.title, tagline: "Latest Post", url: "posts/" + this.state.post.slug }), React.createElement(Snippet, { title: this.state.project.name, tagline: "Latest Project", url: "projects/" + this.state.project.slug }));
+        return React.createElement("section", { className: "home skinny" }, React.createElement("div", { className: "grid grid--centered" }, React.createElement("div", { className: "avatar grid--1-4 grid--push-1-4 grid--left" }, React.createElement("img", { className: "avatar__image", src: "/static/images/me_alt.jpeg" }), React.createElement("div", { className: "avatar__summary" }, React.createElement("p", { className: "avatar__summary__item" }, "Nick Ball"), React.createElement("p", { className: "avatar__summary__position avatar__summary__item" }, "Jr. Software Engineer"), React.createElement("p", { className: "avatar__summary__employer avatar__summary__item" }, "@ Loudr"))), React.createElement("div", { className: "tagline grid--1-2 grid--last" }, React.createElement("p", { className: "tagline__item" }, "Development +"), React.createElement("p", { className: "tagline__item" }, "Design +"), React.createElement("p", { className: "tagline__item" }, "Me"))), React.createElement("hr", { className: "rule rule--small" }));
     }
 
 });
+//<Snippet title={this.state.post.title} tagline="Latest Post" url={'posts/' + this.state.post.slug} />
+//<Snippet title={this.state.project.name} tagline="Latest Project" url={'projects/' + this.state.project.slug} />
 
 
 },{"../Snippet.react":"/Users/npb/Projects/npb/components/Snippet.react.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","superagent":"/Users/npb/Projects/npb/node_modules/superagent/lib/client.js"}],"/Users/npb/Projects/npb/components/page/connect.js":[function(require,module,exports){
@@ -3622,7 +3624,6 @@ hljs.registerLanguage('x86asm', require('./languages/x86asm'));
 hljs.registerLanguage('xl', require('./languages/xl'));
 
 module.exports = hljs;
-
 },{"./highlight":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/highlight.js","./languages/1c":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/1c.js","./languages/actionscript":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/actionscript.js","./languages/apache":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/apache.js","./languages/applescript":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/applescript.js","./languages/asciidoc":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/asciidoc.js","./languages/aspectj":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/aspectj.js","./languages/autohotkey":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/autohotkey.js","./languages/avrasm":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/avrasm.js","./languages/axapta":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/axapta.js","./languages/bash":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/bash.js","./languages/brainfuck":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/brainfuck.js","./languages/capnproto":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/capnproto.js","./languages/clojure":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/clojure.js","./languages/clojure-repl":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/clojure-repl.js","./languages/cmake":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/cmake.js","./languages/coffeescript":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/coffeescript.js","./languages/cpp":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/cpp.js","./languages/cs":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/cs.js","./languages/css":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/css.js","./languages/d":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/d.js","./languages/dart":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/dart.js","./languages/delphi":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/delphi.js","./languages/diff":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/diff.js","./languages/django":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/django.js","./languages/dos":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/dos.js","./languages/dust":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/dust.js","./languages/elixir":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/elixir.js","./languages/erb":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/erb.js","./languages/erlang":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/erlang.js","./languages/erlang-repl":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/erlang-repl.js","./languages/fix":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/fix.js","./languages/fsharp":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/fsharp.js","./languages/gcode":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/gcode.js","./languages/gherkin":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/gherkin.js","./languages/glsl":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/glsl.js","./languages/go":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/go.js","./languages/gradle":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/gradle.js","./languages/groovy":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/groovy.js","./languages/haml":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/haml.js","./languages/handlebars":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/handlebars.js","./languages/haskell":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/haskell.js","./languages/haxe":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/haxe.js","./languages/http":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/http.js","./languages/ini":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/ini.js","./languages/java":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/java.js","./languages/javascript":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/javascript.js","./languages/json":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/json.js","./languages/lasso":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/lasso.js","./languages/less":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/less.js","./languages/lisp":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/lisp.js","./languages/livecodeserver":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/livecodeserver.js","./languages/livescript":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/livescript.js","./languages/lua":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/lua.js","./languages/makefile":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/makefile.js","./languages/markdown":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/markdown.js","./languages/mathematica":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/mathematica.js","./languages/matlab":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/matlab.js","./languages/mel":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/mel.js","./languages/mercury":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/mercury.js","./languages/mizar":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/mizar.js","./languages/monkey":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/monkey.js","./languages/nginx":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/nginx.js","./languages/nimrod":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/nimrod.js","./languages/nix":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/nix.js","./languages/nsis":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/nsis.js","./languages/objectivec":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/objectivec.js","./languages/ocaml":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/ocaml.js","./languages/oxygene":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/oxygene.js","./languages/parser3":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/parser3.js","./languages/perl":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/perl.js","./languages/php":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/php.js","./languages/powershell":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/powershell.js","./languages/processing":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/processing.js","./languages/profile":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/profile.js","./languages/protobuf":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/protobuf.js","./languages/puppet":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/puppet.js","./languages/python":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/python.js","./languages/q":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/q.js","./languages/r":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/r.js","./languages/rib":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/rib.js","./languages/roboconf":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/roboconf.js","./languages/rsl":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/rsl.js","./languages/ruby":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/ruby.js","./languages/ruleslanguage":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/ruleslanguage.js","./languages/rust":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/rust.js","./languages/scala":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/scala.js","./languages/scheme":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/scheme.js","./languages/scilab":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/scilab.js","./languages/scss":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/scss.js","./languages/smali":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/smali.js","./languages/smalltalk":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/smalltalk.js","./languages/sml":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/sml.js","./languages/sql":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/sql.js","./languages/stata":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/stata.js","./languages/step21":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/step21.js","./languages/stylus":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/stylus.js","./languages/swift":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/swift.js","./languages/tcl":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/tcl.js","./languages/tex":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/tex.js","./languages/thrift":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/thrift.js","./languages/twig":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/twig.js","./languages/typescript":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/typescript.js","./languages/vala":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/vala.js","./languages/vbnet":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/vbnet.js","./languages/vbscript":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/vbscript.js","./languages/vbscript-html":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/vbscript-html.js","./languages/verilog":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/verilog.js","./languages/vhdl":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/vhdl.js","./languages/vim":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/vim.js","./languages/x86asm":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/x86asm.js","./languages/xl":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/xl.js","./languages/xml":"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/xml.js"}],"/Users/npb/Projects/npb/node_modules/highlight.js/lib/languages/1c.js":[function(require,module,exports){
 module.exports = function(hljs){
   var IDENT_RE_RU = '[a-zA-Zа-яА-Я][a-zA-Z0-9_а-яА-Я]*';
@@ -20716,11 +20717,32 @@ module.exports = {
     navigate: require('./lib/navigate')
 };
 },{"./lib/RouterMixin":"/Users/npb/Projects/npb/node_modules/react-mini-router/lib/RouterMixin.js","./lib/navigate":"/Users/npb/Projects/npb/node_modules/react-mini-router/lib/navigate.js"}],"/Users/npb/Projects/npb/node_modules/react-mini-router/lib/RouterMixin.js":[function(require,module,exports){
-var pathToRegexp = require('path-to-regexp'),
+var React = require('react'),
+    pathToRegexp = require('path-to-regexp'),
     urllite = require('urllite/lib/core'),
     detect = require('./detect');
 
+var PropValidation = {
+    path: React.PropTypes.string,
+    root: React.PropTypes.string,
+    useHistory: React.PropTypes.bool
+};
+
 module.exports = {
+
+    propTypes: PropValidation,
+
+    contextTypes: PropValidation,
+
+    childContextTypes: PropValidation,
+
+    getChildContext: function() {
+        return {
+            path: this.state.path,
+            root: this.state.root,
+            useHistory: this.state.useHistory
+        }
+    },
 
     getDefaultProps: function() {
         return {
@@ -20730,9 +20752,9 @@ module.exports = {
 
     getInitialState: function() {
         return {
-            path: this.props.path,
-            root: this.props.root || '',
-            useHistory: this.props.history && detect.hasPushState
+            path: getInitialPath(this),
+            root: this.props.root || this.context.path || '',
+            useHistory: (this.props.history || this.context.useHistory) && detect.hasPushState
         };
     },
 
@@ -20776,18 +20798,8 @@ module.exports = {
 
     renderCurrentRoute: function() {
         var path = this.state.path,
-            url;
-
-        if (path) {
-            url = urllite(path);
-        } else if (!path && detect.canUseDOM) {
-            url = urllite(window.location.href);
-            if (!this.state.useHistory) url = urllite(url.hash ? url.hash.slice(2) : '');
-        } else {
-            url = urllite('/');
-        }
-
-        url.query = parseSearch(url.search);
+            url = urllite(path),
+            queryParams = parseSearch(url.search);
 
         var parsedPath = url.pathname;
 
@@ -20796,9 +20808,9 @@ module.exports = {
         var matchedRoute = this.matchRoute(parsedPath);
 
         if (matchedRoute) {
-            return matchedRoute.handler.apply(this, matchedRoute.params.concat(url.query));
+            return matchedRoute.handler.apply(this, matchedRoute.params.concat(queryParams));
         } else if (this.notFound) {
-            return this.notFound(parsedPath, url.query);
+            return this.notFound(parsedPath, queryParams);
         } else {
             throw new Error('No route matched path: ' + parsedPath);
         }
@@ -20852,6 +20864,23 @@ module.exports = {
     }
 
 };
+
+function getInitialPath(component) {
+    var path = component.props.path || component.context.path,
+        url;
+
+    if (!path && detect.canUseDOM) {
+        url = urllite(window.location.href);
+
+        if (component.props.useHistory) {
+            path = url.pathname;
+        } else if (url.hash) {
+            path = urllite(url.hash.slice(2)).pathname;
+        }
+    }
+
+    return path || '/';
+}
 
 function getHref(evt) {
     if (evt.defaultPrevented) {
@@ -20930,7 +20959,7 @@ function parseSearch(str) {
     return parsed;
 }
 
-},{"./detect":"/Users/npb/Projects/npb/node_modules/react-mini-router/lib/detect.js","path-to-regexp":"/Users/npb/Projects/npb/node_modules/react-mini-router/node_modules/path-to-regexp/index.js","urllite/lib/core":"/Users/npb/Projects/npb/node_modules/react-mini-router/node_modules/urllite/lib/core.js"}],"/Users/npb/Projects/npb/node_modules/react-mini-router/lib/detect.js":[function(require,module,exports){
+},{"./detect":"/Users/npb/Projects/npb/node_modules/react-mini-router/lib/detect.js","path-to-regexp":"/Users/npb/Projects/npb/node_modules/react-mini-router/node_modules/path-to-regexp/index.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","urllite/lib/core":"/Users/npb/Projects/npb/node_modules/react-mini-router/node_modules/urllite/lib/core.js"}],"/Users/npb/Projects/npb/node_modules/react-mini-router/lib/detect.js":[function(require,module,exports){
 var canUseDOM = !!(
     typeof window !== 'undefined' &&
     window.document &&

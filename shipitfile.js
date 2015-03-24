@@ -23,8 +23,8 @@ module.exports = function (shipit) {
         });
     });
 
-    shipit.on('cleaned', function() {
-        shipit.start('npm-install');
-    });
+    //shipit.on('cleaned', function() {
+        //shipit.start('npm-install');
+    //});
 
 };

@@ -28,13 +28,13 @@ var config = require('./config/app');
 
 app.keys = config.app.keys;
 
-//app.use(session({
-    //key: 'nbp.sid'
-//}));
-
 app.use(session({
-    store: redisStore()
+    key: 'nbp.sid'
 }));
+
+//app.use(session({
+    //store: redisStore()
+//}));
 
 app.use(bodyParser());
 
