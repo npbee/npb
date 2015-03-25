@@ -2,11 +2,17 @@
 * META
 ******************************/
 .meta {
+    @extend .skinny;
+    display: flex;
+}
+
+.meta__item {
     /*background: rgba($grey, 0.2);*/
     border-radius: $round;
+    flex: 1;
     list-style: none;
     margin: 0;
-    padding: $base-spacing-unit;
+    /*padding: $base-spacing-unit;*/
     li:after {
         background: $grey;
         content: '';
@@ -15,6 +21,9 @@
         margin-top: $base-spacing-unit;
         margin-bottom: $base-spacing-unit;
         width: 30px;
+        @include breakpoint($large) {
+            display: none;
+        }
     }
 }
 

@@ -6,12 +6,13 @@ html, body {
     font-family: $body-font;
     font-weight: 200;
     font-style: normal;
-    @include breakpoint($retina) {
-        font-size: $typecsset-base-font-size * 2;
-    }
-    @include breakpoint($large) {
-        font-size: $typecsset-base-font-size * 1.5;
-    }
+    color: $black;
+    /*@include breakpoint($retina) {*/
+        /*font-size: $typecsset-base-font-size * 2;*/
+    /*}*/
+    /*@include breakpoint($large) {*/
+        /*font-size: $typecsset-base-font-size * 1.5;*/
+    /*}*/
 }
 
 h1, h2, h3, 
@@ -55,8 +56,8 @@ a {
     height: 1px;
     background: $grey;
     /*margin: $typecsset-base-line-height 0;*/
-    @include typecsset-space(margin-top);
-    @include typecsset-space(margin-bottom);
+    margin-top: $typecsset-base-line-height;
+    margin-bottom: $typecsset-base-line-height;
 }
 
     .rule--small {
@@ -99,9 +100,6 @@ a {
 
 .mega {
     font-size: $typecsset-h1-size * 1.5;
-    @include breakpoint($retina) {
-        font-size: $typecsset-h1-size * 1.2;
-    }
 }
 
 .giga {

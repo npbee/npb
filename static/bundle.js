@@ -1479,7 +1479,7 @@ module.exports = React.createClass({
 
 
         if (this.props.loaded) {
-            return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("aside", { className: "aside-1" }, React.createElement("ul", { className: "meta" }, metaOne)), React.createElement(SlabText, { klass: "fun-font mega", value: this.props.title }), React.createElement("aside", { className: "aside-2" }, React.createElement("ul", { className: "meta" }, metaTwo))), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), tag);
+            return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("h1", { className: "fun-font" }, this.props.title)), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), React.createElement("hr", { className: "rule skinny" }), React.createElement("div", { className: "meta" }, React.createElement("ul", { className: "meta__item" }, metaOne), React.createElement("ul", { className: "meta__item" }, metaTwo)), tag);
         } else {
             return React.createElement("div", { className: "loader" });
         }

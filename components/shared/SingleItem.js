@@ -55,15 +55,14 @@ module.exports = React.createClass({
         if (this.props.loaded) {
             return <section className="project single-item">
                 <header>
-                    <aside className="aside-1">
-                        <ul className="meta">{metaOne}</ul>
-                    </aside>
-                    <SlabText klass='fun-font mega' value={this.props.title} />
-                    <aside className="aside-2">
-                        <ul className="meta">{metaTwo}</ul>
-                    </aside>
+                    <h1 className="fun-font">{this.props.title}</h1>
                 </header>
                 <article dangerouslySetInnerHTML = {{__html: this.props.content }}></article>
+                <hr className="rule skinny" />
+                <div className="meta">
+                    <ul className="meta__item">{metaOne}</ul>
+                    <ul className="meta__item">{metaTwo}</ul>
+                </div>
                 {tag}
             </section>
         } else {

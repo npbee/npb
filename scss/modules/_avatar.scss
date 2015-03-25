@@ -2,7 +2,7 @@
     text-align: center;
     margin-bottom: $typecsset-base-line-height;
     @include breakpoint($large) {
-        font-size: $small-font;
+        /*font-size: $small-font;*/
         margin-bottom: auto;
     }
 }
