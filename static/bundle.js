@@ -880,6 +880,7 @@ module.exports = React.createClass({
 var React = require("react");
 var navigate = require("react-mini-router").navigate;
 var PostForm = require("./form");
+var _ = require("lodash");
 
 module.exports = React.createClass({
     displayName: "exports",
@@ -888,7 +889,8 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             hasErrors: false,
-            errors: {}
+            errors: {},
+            post: {}
         };
     },
 
@@ -896,16 +898,36 @@ module.exports = React.createClass({
 
     render: function () {
         return React.createElement("section", { className: "post" }, React.createElement("h1", null, "New Post"), React.createElement(PostForm, {
-            post: {},
+            post: this.state.post,
             method: "post",
+            onChange: this.handleChange,
             action: "/posts" }));
+    },
+
+    handleChange: function (event) {
+        var attr = event.target.name;
+        var value = event.target.value;
+
+        if (attr === "published") {
+            value = !this.state.post.published;
+        }
+
+        var newData = {};
+        newData[attr] = value;
+
+        var previousState = this.state.post;
+        var newState = _.assign(previousState, newData);
+
+        this.setState({
+            post: newState
+        });
     }
 
 
 });
 
 
-},{"./form":"/Users/npb/Projects/npb/components/post/form.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/post/show.js":[function(require,module,exports){
+},{"./form":"/Users/npb/Projects/npb/components/post/form.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js","react-mini-router":"/Users/npb/Projects/npb/node_modules/react-mini-router/index.js"}],"/Users/npb/Projects/npb/components/post/show.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
