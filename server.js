@@ -70,26 +70,26 @@ app.get('/', routes.index);
 app.get('/posts', routes.posts.index);
 app.get('/posts/new', routes.posts.new);
 app.get('/posts/:slug', routes.posts.show);
-app.get('/posts/:slug/edit', routes.posts.edit);
-app.post('/posts', routes.posts.create);
-app.put('/posts', routes.posts.put);
-app.del('/posts', routes.posts.del);
+app.get('/posts/:slug/edit', secured, routes.posts.edit);
+app.post('/posts', secured, routes.posts.create);
+app.put('/posts', secured, routes.posts.put);
+app.del('/posts', secured, routes.posts.del);
 
 // Project routes
 app.get('/projects', routes.projects.index);
-app.get('/projects/new', routes.projects.new);
+app.get('/projects/new', secured, routes.projects.new);
 app.get('/projects/:slug', routes.projects.show);
-app.get('/projects/:slug/edit', routes.projects.edit);
-app.post('/projects', routes.projects.create);
-app.put('/projects', routes.projects.put);
-app.del('/projects', routes.projects.del);
+app.get('/projects/:slug/edit', secured, routes.projects.edit);
+app.post('/projects', secured, routes.projects.create);
+app.put('/projects', secured, routes.projects.put);
+app.del('/projects', secured, routes.projects.del);
 
 // Tag routes
 app.get('/tags', routes.tags.index);
 app.get('/tags/:slug', routes.tags.show);
-app.get('/tags/:slug/edit', routes.tags.edit);
-app.put('/tags', routes.tags.put);
-app.del('/tags', routes.tags.del);
+app.get('/tags/:slug/edit', secured, routes.tags.edit);
+app.put('/tags', secured, routes.tags.put);
+app.del('/tags', secured, routes.tags.del);
 
 // Connect
 app.get('/connect', routes.connect);

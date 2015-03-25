@@ -48,6 +48,10 @@ module.exports = React.createClass({
         var attr = event.target.name;
         var value = event.target.value;
         
+        if (attr === 'published') {
+            value = !this.state.project.published;
+        }
+
         var newData = {};
         newData[attr] = value;
 

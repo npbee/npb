@@ -50,11 +50,17 @@ exports.show = function*() {
     var _post = yield knex('posts').where(_id, slug);
     var post = _post[0];
 
+    if (!post.published && !this.isAuthenticated()) {
+        this.redirect('/login');
+    }
+
     var subquery = knex('tag_relationships')
                         .where('reference_type', 'post')
                         .andWhere('reference_id', post.id).select('tag_id');
 
-    var tags = yield knex('tags').where('id', 'in', subquery);
+    if (post) {
+        var tags = yield knex('tags').where('id', 'in', subquery);
+    }
 
     post.tags = tags;
 

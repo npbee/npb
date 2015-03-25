@@ -15,7 +15,7 @@ exports.index = function *() {
     var orderBy = this.request.query.orderBy || 'name';
     var sort = this.request.query.sort || 'ASC';
     
-    var projects = yield knex('projects').orderBy(orderBy, sort);
+    var projects = yield knex('projects').where('published', true).orderBy(orderBy, sort);
 
     var data = yield normalize({
         projects: projects,
@@ -48,6 +48,10 @@ exports.show = function*() {
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';
     var _project = yield knex('projects').where(_id, slug);
     var project = _project[0];
+
+    if (!project.published && !this.isAuthenticated()) {
+        this.redirect('/login');
+    }
 
     var subquery = knex('tag_relationships')
                         .where('reference_type', 'project')

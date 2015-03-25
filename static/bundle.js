@@ -1023,6 +1023,10 @@ module.exports = React.createClass({
         var attr = event.target.name;
         var value = event.target.value;
 
+        if (attr === "published") {
+            value = !this.state.project.published;
+        }
+
         var newData = {};
         newData[attr] = value;
 
@@ -1144,7 +1148,10 @@ module.exports = React.createClass({
             onChange: this.props.onChange })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "tags" }, "Tags"), React.createElement("input", { type: "text", name: "tags", ref: "tags",
             onKeyDown: this.addTag }), React.createElement(TagList, {
             tags: this.state.tags,
-            onTagChange: this.onTagChange })), React.createElement("div", { className: "form-row" }, React.createElement("div", { className: "checkbox" }, React.createElement("input", { type: "checkbox", name: "published", ref: "published" }), React.createElement("label", { htmlFor: "published" }, "Published?"))), React.createElement("div", { className: "form-row" }, React.createElement("button", { className: "button", type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
+            onTagChange: this.onTagChange })), React.createElement("div", { className: "form-row" }, React.createElement("div", { className: "checkbox" }, React.createElement("input", {
+            onChange: this.props.onChange,
+            checked: this.props.project.published,
+            type: "checkbox", name: "published", ref: "published" }), React.createElement("label", { htmlFor: "published" }, "Published?"))), React.createElement("div", { className: "form-row" }, React.createElement("button", { className: "button", type: "submit" }, "Submit")), React.createElement("pre", null, this.state.errors)), React.createElement("a", { id: "delete", onClick: this.handleDelete }, "Delete"));
     },
 
     onTagChange: function (tags) {
@@ -1167,7 +1174,7 @@ module.exports = React.createClass({
         var medium_screen = this.refs.medium_screen.getDOMNode().value.trim();
         var large_screen = this.refs.large_screen.getDOMNode().value.trim();
         var slug = this.refs.slug.getDOMNode().value.trim();
-        var published = this.refs.published.getDOMNode().value.trim();
+        var published = this.refs.published.getDOMNode().checked;
         var tags = this.state.tags;
 
         request[this.props.method](this.props.action).send({
