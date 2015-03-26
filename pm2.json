@@ -1,0 +1,11 @@
+{
+    "apps": [
+        {
+            "name": "npb",
+            "script": "start.js",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        }
+    ]
+}
