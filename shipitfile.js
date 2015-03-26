@@ -27,7 +27,7 @@ module.exports = function (shipit) {
 
     // Symlink knexfile
     shipit.task('knexfile-link', function() {
-        shipit.remote('bash -l -c "cd /home/deploy && ln -nfs knexfile.js /home/deploy/current/knexfile.js"')
+        shipit.remote('ln -s /home/deploy/knexfile.js /home/deploy/current/knexfile.js')
         .then(function(res) {
             console.log('Knexfile linked.');
         });
@@ -41,11 +41,5 @@ module.exports = function (shipit) {
             console.log('Restarted PM2');
         });
     });
-
-
-    shipit.on('cleaned', function() {
-        shipit.start('npm-install');
-    });
-
 
 };
