@@ -3,6 +3,7 @@
         {
             "name": "npb",
             "script": "start.js",
+            "cwd": "./current",
             "env": {
                 "NODE_ENV": "production"
             }
