@@ -71,10 +71,8 @@
     }
     h1 {
         @extend .skinny;
-        /*flex: 2;*/
-        /*margin-bottom: 0;*/
-        /*order: 1;*/
-        /*text-align: center;*/
+        @extend .giga;
+        line-height: 1;
         @include breakpoint($large) {
             min-width: 700px;
             order: 2;

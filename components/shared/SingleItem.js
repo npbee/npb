@@ -35,14 +35,15 @@ module.exports = React.createClass({
         if (this.props.tag) {
             tag = <article>
                 <h2>Posts</h2>
-                <p>
+                <p className="muted small-margin-bottom">
                     {this.props.tag.posts && this.props.tag.posts.map( post => <a 
                         key={post.id}
                         className="block-link"
                         href={"/posts/" + post.slug}>{post.title}</a>)}
                 </p>
+                <hr className="rule rule--small left-align" />
                 <h2>Projects</h2>
-                <p>
+                <p className="muted no-margin-bottom">
                     {this.props.tag.projects && this.props.tag.projects.map( project => <a 
                         key={project.id}
                         className="block-link"
@@ -58,12 +59,12 @@ module.exports = React.createClass({
                     <h1 className="fun-font">{this.props.title}</h1>
                 </header>
                 <article dangerouslySetInnerHTML = {{__html: this.props.content }}></article>
+                {tag}
                 <hr className="rule skinny" />
                 <div className="meta">
                     <ul className="meta__item">{metaOne}</ul>
                     <ul className="meta__item">{metaTwo}</ul>
                 </div>
-                {tag}
             </section>
         } else {
             return <div className="loader" />;

@@ -1486,12 +1486,12 @@ module.exports = React.createClass({
 
         var tag;
         if (this.props.tag) {
-            tag = React.createElement("article", null, React.createElement("h2", null, "Posts"), React.createElement("p", null, this.props.tag.posts && this.props.tag.posts.map(function (post) {
+            tag = React.createElement("article", null, React.createElement("h2", null, "Posts"), React.createElement("p", { className: "muted small-margin-bottom" }, this.props.tag.posts && this.props.tag.posts.map(function (post) {
                 return React.createElement("a", {
                     key: post.id,
                     className: "block-link",
                     href: "/posts/" + post.slug }, post.title);
-            })), React.createElement("h2", null, "Projects"), React.createElement("p", null, this.props.tag.projects && this.props.tag.projects.map(function (project) {
+            })), React.createElement("hr", { className: "rule rule--small left-align" }), React.createElement("h2", null, "Projects"), React.createElement("p", { className: "muted no-margin-bottom" }, this.props.tag.projects && this.props.tag.projects.map(function (project) {
                 return React.createElement("a", {
                     key: project.id,
                     className: "block-link",
@@ -1501,7 +1501,7 @@ module.exports = React.createClass({
 
 
         if (this.props.loaded) {
-            return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("h1", { className: "fun-font" }, this.props.title)), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), React.createElement("hr", { className: "rule skinny" }), React.createElement("div", { className: "meta" }, React.createElement("ul", { className: "meta__item" }, metaOne), React.createElement("ul", { className: "meta__item" }, metaTwo)), tag);
+            return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("h1", { className: "fun-font" }, this.props.title)), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), tag, React.createElement("hr", { className: "rule skinny" }), React.createElement("div", { className: "meta" }, React.createElement("ul", { className: "meta__item" }, metaOne), React.createElement("ul", { className: "meta__item" }, metaTwo)));
         } else {
             return React.createElement("div", { className: "loader" });
         }
