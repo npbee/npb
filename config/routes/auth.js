@@ -23,6 +23,7 @@ exports.loginForm = function *() {
 };
 
 exports.login = function*(next) {
+
     var ctx = this;
     yield passport.authenticate('local', function *(err, user) {
         if (err) throw err;
