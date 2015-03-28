@@ -51,7 +51,7 @@ exports.index = function *() {
 // Show an individual tag
 exports.show = function*() {
     var slug = this.params.slug;
-    
+
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'name' : 'id';
@@ -66,14 +66,14 @@ exports.show = function*() {
         .where('reference_type', 'post')
         .andWhere('tag_id', tag.id);
 
-    tag.posts = yield knex('posts').where('id', 'in', postSubQuery);
+    tag.posts = yield knex('posts').where('id', 'in', postSubQuery).andWhere('published', true);
 
     var projectSubQuery = knex('tag_relationships')
         .select('reference_id')
         .where('reference_type', 'project')
         .andWhere('tag_id', tag.id);
 
-    tag.projects = yield knex('projects').where('id', 'in', projectSubQuery);
+    tag.projects = yield knex('projects').where('id', 'in', projectSubQuery).andWhere('published', true);
 
     var data = yield normalize({
         tags: tag,

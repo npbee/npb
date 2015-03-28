@@ -130,7 +130,7 @@ gulp.task('server', function() {
  *********/
 gulp.task('test', function() {
     require('babel/register');
-    return gulp.src('./tests/routes/projects.js')
+    return gulp.src('./tests/routes/tags.js')
         .pipe(mocha({
             reporter: 'nyan'
         }))

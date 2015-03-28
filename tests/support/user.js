@@ -1,10 +1,7 @@
 var app = require('../../server');
-//var request = require('co-supertest').agent(app.listen());
-//var request = require('superagent');
 var should = require('should');
 var knex = require('../../lib/db');
 var bcrypt = require('bcrypt');
-var co = require('co');
 
 var pw = 'password';
 var uname ='nick';
@@ -52,6 +49,14 @@ module.exports = {
                 password: pw
             })
             .end(resolve);
+        });
+    },
+
+    logout: function(request) {
+        return new Promise(function(resolve, reject) {
+            request.post('/logout')
+                .query({ isClient: true })
+                .end(resolve);
         });
     }
 };
