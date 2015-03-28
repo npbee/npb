@@ -14,13 +14,11 @@ module.exports = function (shipit) {
         }
     });
 
-    // Only run on command.  This will install the node_modules to the direct
-    // above the current directory.  This is so we don't have to install modules
-    // everytime.  
     shipit.task('npm-install', function() {
         shipit.remote('bash -l -c "cd /home/deploy/current && npm install"')
         .then(function(res) {
             console.log('NPM Install complete.');
+            shipit.emit('npm-installed');
         });
     });
 
@@ -30,6 +28,7 @@ module.exports = function (shipit) {
         shipit.remote('ln -s /home/deploy/knexfile.js /home/deploy/current/knexfile.js')
         .then(function(res) {
             console.log('Knexfile linked.');
+            shipit.emit('knexfile-linked');
         });
     });
 
@@ -39,7 +38,20 @@ module.exports = function (shipit) {
         shipit.remote('bash -l -c "pm2 startOrRestart ./current/pm2.json"')
         .then(function(res) {
             console.log('Restarted PM2');
+            shipit.emit('pm2-restarted');
         });
+    });
+
+    shipit.on('cleaned', function() {
+        shipit.start('npm-install');
+    });
+
+    shipit.on('npm-installed', function() {
+        shipit.start('knexfile-link');
+    });
+
+    shipit.on('knexfile-linked', function() {
+        shipit.start('restart-pm2');
     });
 
 };
