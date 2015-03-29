@@ -102,6 +102,9 @@
         forwards);
         &:first-child {
             border-top: 1px solid $grey;
+            @include breakpoint($large) {
+                border: none;
+            }
         }
         border-bottom: 1px solid $grey;
         display: block;
@@ -109,7 +112,11 @@
         padding: $base-spacing-unit;
         width: 100%;
         @include breakpoint($large) {
+            @include animation-repeater(3, none, none, 100,
+            forwards);
+            border: none;
             display: inline;
+            opacity: 1;
             width: auto;
         }
     }
@@ -149,6 +156,9 @@ main > section {
     .main-nav__menu a {
         opacity: 1;
         z-index: -1;
+        @include breakpoint($large) {
+            z-index: 1;
+        }
     }
 }
 
