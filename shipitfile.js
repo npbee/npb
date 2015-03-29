@@ -32,6 +32,15 @@ module.exports = function (shipit) {
         });
     });
 
+    // Symlink node_modules
+    shipit.task('npm-link', function() {
+        shipit.remote('ln -s /home/deploy/node_modules /home/deploy/current/node_modules')
+        .then(function(res) {
+            console.log('NPM linked.');
+            shipit.emit('npm-linked');
+        });
+    });
+
 
     // Restart PM2
     shipit.task('restart-pm2', function() {
@@ -43,10 +52,10 @@ module.exports = function (shipit) {
     });
 
     shipit.on('cleaned', function() {
-        shipit.start('npm-install');
+        shipit.start('npm-link');
     });
 
-    shipit.on('npm-installed', function() {
+    shipit.on('npm-linked', function() {
         shipit.start('knexfile-link');
     });
 
