@@ -1,10 +1,6 @@
 .snippet {
     display: block;
     margin-bottom: $typecsset-base-line-height;
-    text-align: center;
-    @include breakpoint($large) {
-        text-align: left;
-    }
     .snippet__tagline, 
     .snippet__item {
         /*@include breakpoint($retina) {*/

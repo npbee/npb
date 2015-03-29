@@ -26,7 +26,7 @@ module.exports = React.createClass({
     render: function(){
 
         return (
-            <section className="posts">
+            <section className="posts center">
                 <h1>Posts</h1>
                 {this.state.posts.map(function(post) {
                     return <Snippet key={post.id} title={post.excerpt} tagline={post.title} url={'/posts/' + post.slug} />

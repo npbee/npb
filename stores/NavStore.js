@@ -5,11 +5,16 @@ var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
 var isOpen = false;
+var isClosed;
 
 var NavStore = assign({}, EventEmitter.prototype, {
 
     isOpen: function() {
         return isOpen;
+    },
+
+    isClosed: function() {
+        return isClosed;
     },
     
     emitChange: function() {
@@ -29,10 +34,16 @@ AppDispatcher.register(function(action) {
     switch(action.actionType) {
         case 'TOGGLE_NAV':
             isOpen = !isOpen;
+            if (isClosed === undefined) {
+                isClosed = false;
+            } else {
+                isClosed = !isClosed;
+            }
             NavStore.emitChange();
             break;
         case 'CLOSE_NAV':
             isOpen = false;
+            isClosed = true;
             NavStore.emitChange();
             break;
         default:

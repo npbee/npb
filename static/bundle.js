@@ -234,8 +234,11 @@ var App = React.createClass({
 
         if (this.state.isNavOpen) {
             _className = "main-nav--open";
+        } else if (this.state.isNavClosed) {
+            _className = "main-nav--closed";
+        } else {
+            _className = "";
         }
-
 
         // If typeof undlink === function?
         var undoLinks = this.state.undoCbs.map(function (cb, index) {
@@ -255,6 +258,7 @@ var App = React.createClass({
     _onChange: function () {
         this.setState({
             isNavOpen: NavStore.isOpen(),
+            isNavClosed: NavStore.isClosed(),
             undoCbs: AppStore.undoCbs(),
             isAuthenticated: AppStore.isAuthenticated()
         });
@@ -280,7 +284,7 @@ module.exports = React.createClass({
         var excerpt = this.props.excerpt;
         var slug = this.props.url;
 
-        return React.createElement("a", { href: slug, className: "snippet grid grid--centered", onClick: this._onClick }, React.createElement("h2", { className: "snippet__tagline grid--1-4 grid--push-1-4 grid--left" }, this.props.tagline), React.createElement("span", { className: "snippet__item grid--1-2 grid--last" }, React.createElement("span", null, title), React.createElement("span", null, excerpt)));
+        return React.createElement("a", { href: slug, className: "snippet", onClick: this._onClick }, React.createElement("h2", { className: "snippet__tagline" }, this.props.tagline), React.createElement("span", { className: "snippet__item" }, React.createElement("span", null, title), React.createElement("span", null, excerpt)));
     },
 
     _onClick: function () {
@@ -518,7 +522,7 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             selected: "home",
-            items: ["/connect"],
+            items: ["/posts", "/connect"],
             isOpen: NavStore.isOpen(),
             isClosed: true,
             isFirstLoad: true
@@ -866,7 +870,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "posts" }, React.createElement("h1", null, "Posts"), this.state.posts.map(function (post) {
+        return React.createElement("section", { className: "posts center" }, React.createElement("h1", null, "Posts"), this.state.posts.map(function (post) {
             return React.createElement(Snippet, { key: post.id, title: post.excerpt, tagline: post.title, url: "/posts/" + post.slug });
         }));
     }
@@ -42678,11 +42682,16 @@ var assign = require("object-assign");
 
 var CHANGE_EVENT = "change";
 var isOpen = false;
+var isClosed;
 
 var NavStore = assign({}, EventEmitter.prototype, {
 
     isOpen: function () {
         return isOpen;
+    },
+
+    isClosed: function () {
+        return isClosed;
     },
 
     emitChange: function () {
@@ -42702,10 +42711,16 @@ AppDispatcher.register(function (action) {
     switch (action.actionType) {
         case "TOGGLE_NAV":
             isOpen = !isOpen;
+            if (isClosed === undefined) {
+                isClosed = false;
+            } else {
+                isClosed = !isClosed;
+            }
             NavStore.emitChange();
             break;
         case "CLOSE_NAV":
             isOpen = false;
+            isClosed = true;
             NavStore.emitChange();
             break;
         default:

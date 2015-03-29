@@ -105,3 +105,19 @@
     max-height: 0;
     opacity: 0;
 }
+
+
+/******************************
+* Animation delay repeater
+******************************/
+@mixin animation-repeater($count, $animation-name, $animation-speed, $step,
+$fill-mode: none, $reverse: false) {
+    @for $i from 1 through $count {
+        &:nth-child(#{$i}) {
+            animation-name: $animation-name;
+            animation-duration: $animation-speed;
+            animation-delay: ($step * $i + ms); 
+            animation-fill-mode: $fill-mode;
+        }
+    }
+}

@@ -161,11 +161,14 @@ var App = React.createClass({
 
     render: function() {
         var _className;
-        
+
         if (this.state.isNavOpen) {
             _className = 'main-nav--open';
+        } else if (this.state.isNavClosed) {
+            _className = 'main-nav--closed';
+        } else {
+            _className = '';
         }
-
 
         // If typeof undlink === function?
         var undoLinks = this.state.undoCbs.map(function(cb, index) {
@@ -194,6 +197,7 @@ var App = React.createClass({
     _onChange: function() {
         this.setState({
             isNavOpen: NavStore.isOpen(),
+            isNavClosed: NavStore.isClosed(),
             undoCbs: AppStore.undoCbs(),
             isAuthenticated: AppStore.isAuthenticated()
         })
