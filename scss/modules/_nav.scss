@@ -96,6 +96,7 @@
         opacity: 1;
         position: static;
         width: auto;
+        z-index: 1;
     }
     > a {
         @include animation-repeater(3, slide-up, $animation-speed, 100,
