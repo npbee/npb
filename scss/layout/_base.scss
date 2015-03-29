@@ -25,3 +25,25 @@ main {
 }
 
 
+/******************************
+* LAYOUT OVERRIDES
+******************************/
+.small-margin-bottom {
+    margin-bottom: $base-spacing-unit;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+
+.left-align {
+    margin-left: 0;
+}
+
+.center {
+    text-align: center;
+}
+
+.spacer {
+    margin-bottom: $typecsset-base-line-height;
+}

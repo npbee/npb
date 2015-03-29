@@ -43,8 +43,8 @@ module.exports = React.createClass({
         }
 
         return (
-            <section className="home skinny">
-                <div className="grid grid--centered">
+            <section className="home">
+                <div className="grid grid--centered spacer">
                     <div className="avatar grid--1-2 grid--left">
                         <img className="avatar__image" src="/static/images/me_alt.jpeg" />
                         <div className="avatar__summary">
@@ -60,13 +60,13 @@ module.exports = React.createClass({
                         </div>
                     </div>
                     <div className="tagline grid--1-2 grid--last">
-                        <p className="tagline__item">Development +</p>
-                        <p className="tagline__item">Design +</p>
-                        <p className="tagline__item">Etc.</p>
+                        <h1 className="fun-font tagline__item">Development +</h1>
+                        <h1 className="fun-font tagline__item">Design +</h1>
+                        <h1 className="fun-font tagline__item">Etc.</h1>
                     </div>
                 </div>
-                <hr className="rule rule--small" />
-                <div className="center">
+                <hr className="rule rule--small skinny" />
+                <div className="center spacer">
                     {postSnippet}
                     {projSnippet}
                 </div>

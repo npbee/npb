@@ -1,9 +1,13 @@
 .avatar {
     text-align: center;
     margin-bottom: $typecsset-base-line-height;
+    font-size: $small-font;
+    @include breakpoint($retina) {
+        font-size: $small-retina-font;
+    }
     @include breakpoint($large) {
-        font-size: $small-font;
         margin-bottom: auto;
+        font-size: $small-font;
     }
 }
 
