@@ -103,7 +103,11 @@ a {
 }
 
 .giga {
-    font-size: $typecsset-h1-size * 1.5;
+    font-size: $typecsset-h1-size * 1.1;
+    word-wrap: break-word;
+    @include breakpoint($large) {
+        font-size: $typecsset-h1-size * 1.5;
+    }
 }
 
 .muted {
