@@ -3,12 +3,6 @@
     margin-bottom: $typecsset-base-line-height;
     .snippet__tagline, 
     .snippet__item {
-        /*@include breakpoint($retina) {*/
-            /*font-size: $typecsset-h2-size;*/
-        /*}*/
-        /*@include breakpoint($large) {*/
-            /*font-size: $typecsset-h5-size;*/
-        /*}*/
     }
     .snippet__tagline {
         margin-bottom: 0;

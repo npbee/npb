@@ -125,8 +125,8 @@ var App = React.createClass({
     },
 
     projectShow: function(slug) {
-        return <ProjectShow 
-            project={this.props.data.project} 
+        return <ProjectShow
+            project={this.props.data.project}
             slug={slug}
             isAuthenticated={this.props.data.isAuthenticated} />;
     },
@@ -145,8 +145,8 @@ var App = React.createClass({
     },
 
     tagShow: function(slug) {
-        return <TagShow 
-            tag={this.props.data.tag} 
+        return <TagShow
+            tag={this.props.data.tag}
             slug={slug}
             isAuthenticated={this.props.data.isAuthenticated} />;
     },
@@ -175,15 +175,15 @@ var App = React.createClass({
             if (typeof cb === 'function') {
                 return <div className="alert alert--warning" key={cb + index}>
                     <img src="/static/images/icons/icomoon/user.svg" />
-                    <a onClick={cb}>Undo?</a> 
+                    <a onClick={cb}>Undo?</a>
                 </div>
             } else {
                 return null;
             }
         });
 
-        return <main id="react-app" className={_className}>
-            <NavList 
+        return <div id="react-app" className={_className}>
+            <NavList
                 isAuthenticated={this.state.isAuthenticated}
                 path={this.state.path}
                 data={this.props.data} />
@@ -191,7 +191,7 @@ var App = React.createClass({
                 {undoLinks}
             </ReactCSSTransitionGroup>
             {this.renderCurrentRoute()}
-        </main>
+        </div>
     },
 
     _onChange: function() {

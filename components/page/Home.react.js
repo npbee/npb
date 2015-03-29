@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
        var self = this;
-        
+
        if (!Object.keys(this.state.project).length) {
            request.get('/')
             .query({
@@ -30,6 +30,17 @@ module.exports = React.createClass({
     },
 
     render: function(){
+
+        var postSnippet;
+        var projSnippet;
+
+        if (this.state.post) {
+            postSnippet = <Snippet title={this.state.post.title} tagline="Latest Post" url={'posts/' + this.state.post.slug} />
+        }
+
+        if (this.state.project) {
+            projSnippet = <Snippet title={this.state.project.name} tagline="Latest Project" url={'projects/' + this.state.project.slug} />
+        }
 
         return (
             <section className="home skinny">
@@ -55,6 +66,10 @@ module.exports = React.createClass({
                     </div>
                 </div>
                 <hr className="rule rule--small" />
+                <div className="center">
+                    {postSnippet}
+                    {projSnippet}
+                </div>
             </section>
             )
 

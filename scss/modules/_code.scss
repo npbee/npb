@@ -20,9 +20,15 @@ code {
     border-radius: 3px;
     color: #839396;
     display: inline-block;
-    font-size: $typecsset-base-font-size * 0.9;
+    font-size: $small-font;
     margin: 0 0.2em;
     padding: 0.2em;
+    @include breakpoint($retina) {
+        font-size: $small-retina-font;
+    }
+    @include breakpoint($large) {
+        font-size: $small-font;
+    }
 }
 
 .hljs-comment,

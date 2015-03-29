@@ -31,7 +31,7 @@
       z-index: -1;
     }
     @include breakpoint($large) {
-        top: 175%;
+        top: 125%;
         display: none;
         position: absolute;
         border: 1px solid $black;

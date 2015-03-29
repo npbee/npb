@@ -1,6 +1,7 @@
 /******************************
 * $NAVIGATION
 ******************************/
+$nav-height: 100px;
 .main-nav {
     align-items: center;
     display: flex;
@@ -36,7 +37,7 @@
         }
         @include breakpoint($large) {
             display: inline;
-            line-height: $nav-height * 2;
+            /*line-height: $nav-height * 2;*/
             order: 0;
             padding-right: $base-spacing-unit;
             padding-left: 0;
@@ -45,22 +46,13 @@
     }
     .main-nav__toggle {
         display: block;
+        margin-left: -$base-spacing-unit; // Hack to align the logo properly :(
         padding-right: $base-spacing-unit * 2;
         width: 25%;
         z-index: 2;
         @include breakpoint($large) {
             display: none;
         }
-    }
-    .icon {
-        max-width: none;
-        width: 60px;
-        @include breakpoint($large) {
-            max-width: 20px;
-        }
-        /*@include breakpoint($retina) {*/
-            /*width: 80px;*/
-        /*}*/
     }
     .dropdown {
         display: none;
@@ -81,7 +73,7 @@
 
 
 .main-nav__menu {
-    font-size: $typecsset-h1-size;
+    /*font-size: $typecsset-h1-size;*/
     left: 0;
     position: absolute;
     top: $nav-height * 2 + $base-spacing-unit;
@@ -109,15 +101,18 @@
         }
         border-bottom: 1px solid $grey;
         display: block;
+        font-size: $typecsset-h1-size;
         opacity: 0;
-        padding: $base-spacing-unit;
+        padding: $typecsset-base-line-height;
         width: 100%;
         @include breakpoint($large) {
             @include animation-repeater(3, none, none, 100,
             forwards);
             border: none;
             display: inline;
+            font-size: $typecsset-base-font-size;
             opacity: 1;
+            padding: 0 $base-spacing-unit;
             width: auto;
         }
     }

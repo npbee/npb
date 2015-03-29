@@ -9,7 +9,7 @@ var initialStateHTML = document.getElementById("initial-state").innerHTML;
 var unescaped = _.unescape(initialStateHTML);
 var initialState = JSON.parse(unescaped);
 
-React.render(React.createElement(App, { data: initialState, history: "true", path: initialState.path }), document.getElementsByTagName("body")[0]);
+React.render(React.createElement(App, { data: initialState, history: "true", path: initialState.path }), document.getElementById("react-container"));
 
 
 },{"./components/App.react":"/Users/npb/Projects/npb/components/App.react.js","lodash":"/Users/npb/Projects/npb/node_modules/lodash/dist/lodash.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/actions/AppActions.js":[function(require,module,exports){
@@ -249,7 +249,7 @@ var App = React.createClass({
             }
         });
 
-        return React.createElement("main", { id: "react-app", className: _className }, React.createElement(NavList, {
+        return React.createElement("div", { id: "react-app", className: _className }, React.createElement(NavList, {
             isAuthenticated: this.state.isAuthenticated,
             path: this.state.path,
             data: this.props.data }), React.createElement(ReactCSSTransitionGroup, { transitionName: "fade" }, undoLinks), this.renderCurrentRoute());
@@ -600,7 +600,18 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "home skinny" }, React.createElement("div", { className: "grid grid--centered" }, React.createElement("div", { className: "avatar grid--1-2 grid--left" }, React.createElement("img", { className: "avatar__image", src: "/static/images/me_alt.jpeg" }), React.createElement("div", { className: "avatar__summary" }, React.createElement("p", { className: "avatar__summary__item" }, "Nick Ball"), React.createElement("p", { className: "avatar__summary__position avatar__summary__item" }, "Jr. Software Engineer"), React.createElement("p", { className: "avatar__summary__employer avatar__summary__item" }, "@ Loudr"))), React.createElement("div", { className: "tagline grid--1-2 grid--last" }, React.createElement("p", { className: "tagline__item" }, "Development +"), React.createElement("p", { className: "tagline__item" }, "Design +"), React.createElement("p", { className: "tagline__item" }, "Etc."))), React.createElement("hr", { className: "rule rule--small" }));
+        var postSnippet;
+        var projSnippet;
+
+        if (this.state.post) {
+            postSnippet = React.createElement(Snippet, { title: this.state.post.title, tagline: "Latest Post", url: "posts/" + this.state.post.slug });
+        }
+
+        if (this.state.project) {
+            projSnippet = React.createElement(Snippet, { title: this.state.project.name, tagline: "Latest Project", url: "projects/" + this.state.project.slug });
+        }
+
+        return React.createElement("section", { className: "home skinny" }, React.createElement("div", { className: "grid grid--centered" }, React.createElement("div", { className: "avatar grid--1-2 grid--left" }, React.createElement("img", { className: "avatar__image", src: "/static/images/me_alt.jpeg" }), React.createElement("div", { className: "avatar__summary" }, React.createElement("p", { className: "avatar__summary__item" }, "Nick Ball"), React.createElement("p", { className: "avatar__summary__position avatar__summary__item" }, "Jr. Software Engineer"), React.createElement("p", { className: "avatar__summary__employer avatar__summary__item" }, "@ Loudr"))), React.createElement("div", { className: "tagline grid--1-2 grid--last" }, React.createElement("p", { className: "tagline__item" }, "Development +"), React.createElement("p", { className: "tagline__item" }, "Design +"), React.createElement("p", { className: "tagline__item" }, "Etc."))), React.createElement("hr", { className: "rule rule--small" }), React.createElement("div", { className: "center" }, postSnippet, projSnippet));
     }
 
 });
@@ -626,9 +637,9 @@ module.exports = React.createClass({
     componentDidMount: function () {},
 
     render: function () {
-        var blurb = "And welcome.  My name is Nick.  I am a self-professed nerd \n        and web development apprentice.  My main focus so far has been Javascript\n         and the front-end, but I'm eager to expand.  I'm currently a Jr. \n        Software Engineer at <a href=\"http://loudr.fm\">Loudr</a>.";
+        var blurb = "And welcome.  My name is Nick.  I am a self-professed nerd\n        and web development apprentice.  My main focus so far has been Javascript\n         and the front-end, but I'm eager to expand.  I'm currently a Jr.\n        Software Engineer at <a href=\"http://loudr.fm\">Loudr</a>.";
 
-        return React.createElement("section", { className: "connect skinny single-item" }, React.createElement("h1", { className: "giga" }, "Welcome"), React.createElement("article", null, React.createElement("p", null, "And hello.  My name is Nick.  I am a self-professed nerd· and self-taught web development apprentice.  My main focus so far has been Javascript and the front-end, but I'm eager to expand.  I'm currently a Jr. Software Engineer at", React.createElement("a", { href: "http://loudr.fm" }, "Loudr"), " working on a large KnockoutJS application."), React.createElement("p", null, "You can find me on ", React.createElement("a", { className: "standout-link", href: "http://github.com/npbee" }, "Github"), ", ", React.createElement("a", { className: "standout-link", href: "http://twitter.com/npbeep" }, "Twitter"), ", or ", React.createElement("a", { className: "standout-link", href: "mailto: nick@npbee.me" }, "Email"), "."), React.createElement("p", null, "This site was built with:", React.createElement("ul", null, React.createElement("li", null, React.createElement("a", { href: "https://iojs.org" }, "iojs (NodeJS)")), React.createElement("li", null, React.createElement("a", { href: "http://www.postgresql.org/" }, "Postgresql")), React.createElement("li", null, React.createElement("a", { href: "http://facebook.github.io/react/" }, "React")), React.createElement("li", null, React.createElement("a", { href: "https://facebook.github.io/flux/" }, "Flux")), React.createElement("li", null, React.createElement("a", { href: "http://browserify.org/" }, "Browserify")), React.createElement("li", null, React.createElement("a", { href: "https://babeljs.io/" }, "Babel")), React.createElement("li", null, React.createElement("a", { href: "http://sass-lang.com/" }, "SASS")), React.createElement("li", null, React.createElement("a", { href: "http://csswizardry.com/typecsset/" }, "Typecsset")), React.createElement("li", null, React.createElement("a", { href: "http://gulpjs.com/" }, "Gulp")))), React.createElement("p", null, "Thank you for looking!")));
+        return React.createElement("section", { className: "connect skinny single-item" }, React.createElement("h1", { className: "fun-font" }, "Welcome"), React.createElement("article", null, React.createElement("p", null, "My name is Nick.  I am a self-professed nerd·self-taught web development apprentice.  My main focus so far has been Javascript and the front-end, but I'm eager to expand.  I'm currently a Jr. Software Engineer at", React.createElement("a", { href: "http://loudr.fm" }, "Loudr"), " working on a large KnockoutJS application."), React.createElement("p", null, "You can find me on ", React.createElement("a", { className: "standout-link", href: "http://github.com/npbee" }, "Github"), ", ", React.createElement("a", { className: "standout-link", href: "http://twitter.com/npbeep" }, "Twitter"), ", or ", React.createElement("a", { className: "standout-link", href: "mailto: nick@npbee.me" }, "Email"), "."), React.createElement("p", null, "This site was built with:", React.createElement("ul", null, React.createElement("li", null, React.createElement("a", { href: "https://iojs.org" }, "iojs (NodeJS)")), React.createElement("li", null, React.createElement("a", { href: "http://www.postgresql.org/" }, "Postgresql")), React.createElement("li", null, React.createElement("a", { href: "http://facebook.github.io/react/" }, "React")), React.createElement("li", null, React.createElement("a", { href: "https://facebook.github.io/flux/" }, "Flux")), React.createElement("li", null, React.createElement("a", { href: "http://browserify.org/" }, "Browserify")), React.createElement("li", null, React.createElement("a", { href: "https://babeljs.io/" }, "Babel")), React.createElement("li", null, React.createElement("a", { href: "http://sass-lang.com/" }, "SASS")), React.createElement("li", null, React.createElement("a", { href: "http://csswizardry.com/typecsset/" }, "Typecsset")), React.createElement("li", null, React.createElement("a", { href: "http://gulpjs.com/" }, "Gulp")))), React.createElement("p", null, "Thank you for looking!")));
     }
 
 });

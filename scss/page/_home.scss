@@ -1,3 +1,5 @@
 .home {
-    @include typecsset-space(margin-top);
+    @include breakpoint($large) {
+        @include typecsset-space(margin-top);
+    }
 }

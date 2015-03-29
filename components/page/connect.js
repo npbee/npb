@@ -13,22 +13,22 @@ module.exports = React.createClass({
     },
 
     render: function(){
-        var blurb = `And welcome.  My name is Nick.  I am a self-professed nerd 
+        var blurb = `And welcome.  My name is Nick.  I am a self-professed nerd
         and web development apprentice.  My main focus so far has been Javascript
-         and the front-end, but I'm eager to expand.  I'm currently a Jr. 
+         and the front-end, but I'm eager to expand.  I'm currently a Jr.
         Software Engineer at <a href="http://loudr.fm">Loudr</a>.`;
 
         return (
             <section className="connect skinny single-item">
-                <h1 className="giga">Welcome</h1>
+                <h1 className="fun-font">Welcome</h1>
                 <article>
                     <p>
-                    And hello.  My name is Nick.  I am a self-professed nerd·
-                    and self-taught web development apprentice.  My main focus 
-                    so far has been Javascript and the front-end, but I'm eager 
-                    to expand.  I'm currently a Jr. Software Engineer at 
-                    <a href="http://loudr.fm">Loudr</a> working on a large 
-                    KnockoutJS application.  
+                        My name is Nick.  I am a self-professed nerd·self-taught web
+                        development apprentice.  My main focus
+                        so far has been Javascript and the front-end, but I'm eager
+                        to expand.  I'm currently a Jr. Software Engineer at
+                        <a href="http://loudr.fm">Loudr</a> working on a large
+                        KnockoutJS application.
                     </p>
                     <p>
                         You can find me on <a className="standout-link" href="http://github.com/npbee">Github

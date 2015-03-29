@@ -8,5 +8,5 @@ var initialState = JSON.parse(unescaped);
 
 React.render(
     <App data={initialState} history="true" path={initialState.path} />,
-    document.getElementsByTagName('body')[0]
+    document.getElementById('react-container')
     );

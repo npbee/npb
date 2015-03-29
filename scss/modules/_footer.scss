@@ -29,19 +29,26 @@ $milli-size: 10px;
 
 .footer {
     /*@include clearfix;*/
+    @extend .muted;
     max-width: 1600px;
     margin: 0 auto;
     text-align: center;
-    font-size: $milli-size;
+    font-size: $small-font;
     [data-icon]:before {
-        font-size: $typecsset-h3-size;
+        /*font-size: $typecsset-h3-size;*/
         display: block;
         margin-bottom: $base-spacing-unit;
         @include breakpoint($large) {
             display: inline-block;
             margin-bottom: 0;
-            font-size: $typecsset-h4-size;
+            /*font-size: $typecsset-h4-size;*/
         }
+    }
+    @include breakpoint($retina) {
+        font-size: $retina-font;
+    }
+    @include breakpoint($large) {
+        font-size: $small-font;
     }
     a {
         display: block;
@@ -58,7 +65,6 @@ $milli-size: 10px;
         list-style: none;
         margin: 0;
         padding: 0;
-        text-transform: uppercase;
         @include breakpoint($large) {
             //float: right;
             li {
@@ -70,6 +76,14 @@ $milli-size: 10px;
         }
     }
     .footer__copyright {
+        font-size: $small-font;
+        border-top: none;
+        @include breakpoint($retina) {
+            font-size: $small-retina-font;
+        }
+        @include breakpoint($large) {
+            font-size: $mini-font;
+        }
     }
 }
 

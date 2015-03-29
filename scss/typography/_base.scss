@@ -7,12 +7,12 @@ html, body {
     font-weight: 200;
     font-style: normal;
     color: $black;
-    /*@include breakpoint($retina) {*/
-        /*font-size: $typecsset-base-font-size * 2;*/
-    /*}*/
-    /*@include breakpoint($large) {*/
-        /*font-size: $typecsset-base-font-size * 1.5;*/
-    /*}*/
+    @include breakpoint($retina) {
+        font-size: $retina-font;
+    }
+    @include breakpoint($large) {
+        font-size: $typecsset-base-font-size;
+    }
 }
 
 h1, h2, h3, 
@@ -75,11 +75,13 @@ a {
 * ICONS
 ******************************/
 .icon {
-    max-width: 20px;
-    width: 20px;
+    width: 55px;
     vertical-align: middle;
     @include breakpoint($retina) {
-        /*width: 100px;*/
+        width: 110px;
+    }
+    @include breakpoint($large) {
+        width: 30px;
     }
 }
 
@@ -93,28 +95,17 @@ a {
     font-weight: $fun-font-regular-weight;
 }
 
-
-.alpha {
-    font-size: $typecsset-h1-size;
-}
-
-.mega {
-    font-size: $typecsset-h1-size * 1.5;
-}
-
 .giga {
-    font-size: $typecsset-h1-size * 1.1;
     word-wrap: break-word;
-    @include breakpoint($large) {
-        font-size: $typecsset-h1-size * 1.5;
-    }
 }
 
 .muted {
-    color: lighten($black, 10%);
+    color: lighten($black, 15%);
 }
 
-
+.italic {
+    font-style: italic;
+}
 
 
 /******************************
@@ -135,3 +126,4 @@ a {
 .center {
     text-align: center;
 }
+
