@@ -48,46 +48,6 @@
         <p>Missing content!</p>
         {% endblock %}
     </main>
-    <div class="footer-container">
-
-        <div class="footer">
-            <a class="footer__copyright italic" href="/">&copy; npb, 
-                {{ year | date('Y') }}</a>
-            <ul>
-                <li>
-                    <a class="work-nav tooltip" href="/projects" data-icon="">
-                        <span class="tooltip-tip">Projects</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="blog-nav tooltip" href="/blog" data-icon="">
-                        <span class="tooltip-tip">Blog</span>
-                    </a>
-                </li>
-                <!--<li>
-                    <a class="lab-nav tooltip" href="/lab" data-icon="">
-                    <span class="tooltip-tip">Lab</span>
-                    </a>
-                    </li>-->
-                    <li>
-                        <a class="connect-nav tooltip" href="/connect" data-icon="">
-                            <span class="tooltip-tip">Connect</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a class="tooltip" href="http://github.com/npbee" data-icon="">
-                            <span class="tooltip-tip">Github</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a class="tooltip" data-icon="" href="mailto:nick@npbee.me">
-                            <span class="tooltip-tip">Email</span>
-                        </a>
-                    </li>
-            </ul>
-        </div>
-
-    </div>
     <script id="initial-state" type="application/json">{{ state }}</script>
 
     {% if env === 'development' %}
