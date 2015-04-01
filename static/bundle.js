@@ -760,7 +760,12 @@ module.exports = React.createClass({
         return React.createElement("section", null, React.createElement("form", {
             action: this.props.action,
             method: this.props.method,
-            onSubmit: this.handleSubmit }, React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "title" }, "Title"), React.createElement("input", { type: "text",
+            onSubmit: this.handleSubmit }, React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "title" }, "Header Image"), React.createElement("input", { type: "text",
+            name: "header_image",
+            ref: "header_image",
+            value: this.props.post.header_image,
+            onChange: this.props.onChange
+        })), React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "title" }, "Title"), React.createElement("input", { type: "text",
             name: "title",
             ref: "title",
             value: this.props.post.title,
@@ -807,6 +812,7 @@ module.exports = React.createClass({
         var tags = this.state.tags;
         var excerpt = this.refs.excerpt.getDOMNode().value.trim();
         var published = this.refs.published.getDOMNode().checked;
+        var header_image = this.refs.header_image.getDOMNode().value.trim();
 
         request[this.props.method](this.props.action).send({
             id: id,
@@ -815,7 +821,8 @@ module.exports = React.createClass({
             slug: slug,
             tags: tags,
             excerpt: excerpt,
-            published: published
+            published: published,
+            header_image: header_image
         }).end(function (res) {
             var response = JSON.parse(res.text);
             if (response.success) {
@@ -999,6 +1006,7 @@ module.exports = React.createClass({
         }];
 
         return React.createElement(SingleItem, {
+            image: this.state.post.header_image,
             metaOne: metaOne,
             metaTwo: metaTwo,
             title: this.state.post.title,
@@ -1512,9 +1520,14 @@ module.exports = React.createClass({
             })));
         }
 
+        var headerImage;
+        if (this.props.image) {
+            headerImage = React.createElement("img", { src: this.props.image });
+        }
+
 
         if (this.props.loaded) {
-            return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("h1", { className: "fun-font" }, this.props.title)), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), tag, React.createElement("hr", { className: "rule skinny" }), React.createElement("div", { className: "meta" }, React.createElement("ul", { className: "meta__item" }, metaOne), React.createElement("ul", { className: "meta__item" }, metaTwo)));
+            return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, headerImage, React.createElement("h1", { className: "fun-font" }, this.props.title)), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), tag, React.createElement("hr", { className: "rule skinny" }), React.createElement("div", { className: "meta" }, React.createElement("ul", { className: "meta__item" }, metaOne), React.createElement("ul", { className: "meta__item" }, metaTwo)));
         } else {
             return React.createElement("div", { className: "loader" });
         }

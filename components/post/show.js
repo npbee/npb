@@ -38,7 +38,7 @@ module.exports = React.createClass({
         var tags;
         if (this.state.post.tags) {
             tags = <div className="tag-list--comma">
-                {this.state.post.tags.map((tag, index) => <a 
+                {this.state.post.tags.map((tag, index) => <a
                     key={index} href={"/tags/" + tag.name}>{tag.name}</a>
                 )}
             </div>;
@@ -58,13 +58,14 @@ module.exports = React.createClass({
             }
         ];
 
-        return <SingleItem 
+        return <SingleItem
+            image={this.state.post.header_image}
             metaOne={metaOne}
             metaTwo={metaTwo}
             title={this.state.post.title}
             content={html}
             loaded={this.state.loaded}
-        /> 
+        />
 
     }
 

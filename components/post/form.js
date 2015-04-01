@@ -16,7 +16,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        
+
     },
 
     handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
@@ -46,16 +46,26 @@ module.exports = React.createClass({
 
         return (
             <section>
-            <form 
-                action={this.props.action} 
-                method={this.props.method} 
+            <form
+                action={this.props.action}
+                method={this.props.method}
                 onSubmit={this.handleSubmit}>
+
+                <div className="form-row">
+                    <label htmlFor="title">Header Image</label>
+                    <input type="text"
+                        name="header_image"
+                        ref="header_image"
+                        value={this.props.post.header_image}
+                        onChange={this.props.onChange}
+                    />
+                </div>
                 <div className="form-row">
                     <label htmlFor="title">Title</label>
-                    <input type="text" 
+                    <input type="text"
                         name="title"
-                        ref="title" 
-                        value={this.props.post.title} 
+                        ref="title"
+                        value={this.props.post.title}
                         onChange={this.props.onChange}
                     />
                 </div>
@@ -65,8 +75,8 @@ module.exports = React.createClass({
                     <Tabs
                         onBeforeChange={this.handleBefore}>
                         <Tabs.Panel title="Markdown">
-                            <textarea 
-                                name="body" 
+                            <textarea
+                                name="body"
                                 ref="body"
                                 value={this.props.post.body}
                                 onChange={this.props.onChange}></textarea>
@@ -79,9 +89,9 @@ module.exports = React.createClass({
 
                 <div className="form-row">
                     <label htmlFor="slug">Slug</label>
-                    <input 
-                        type="text" 
-                        name="slug" 
+                    <input
+                        type="text"
+                        name="slug"
                         ref="slug"
                         value={this.props.post.slug}
                         onChange={this.props.onChange} />
@@ -89,19 +99,19 @@ module.exports = React.createClass({
 
                 <div className="form-row">
                     <label htmlFor="tags">Tags</label>
-                    <input type="text" name="tags" ref="tags" 
+                    <input type="text" name="tags" ref="tags"
                         onKeyDown={this.addTag} />
-                    <TagList 
-                        tags={this.state.tags} 
+                    <TagList
+                        tags={this.state.tags}
                         onTagChange={this.onTagChange}
                     />
                 </div>
 
                 <div className="form-row">
                     <label htmlFor="excerpt">Excerpt</label>
-                    <input 
-                        type="text" 
-                        name="excerpt" 
+                    <input
+                        type="text"
+                        name="excerpt"
                         ref="excerpt"
                         value={this.props.post.excerpt}
                         onChange={this.props.onChange} />
@@ -109,11 +119,11 @@ module.exports = React.createClass({
 
                 <div className="form-row">
                     <div className="checkbox">
-                        <input 
+                        <input
                             onChange={this.props.onChange}
                             checked={this.props.post.published}
-                            type="checkbox" 
-                            name="published" 
+                            type="checkbox"
+                            name="published"
                             ref="published" />
                         <label htmlFor="published">Published?</label>
                     </div>
@@ -145,6 +155,7 @@ module.exports = React.createClass({
         var tags = this.state.tags;
         var excerpt = this.refs.excerpt.getDOMNode().value.trim();
         var published = this.refs.published.getDOMNode().checked;
+        var header_image = this.refs.header_image.getDOMNode().value.trim();
 
         request[this.props.method](this.props.action)
             .send({
@@ -154,7 +165,8 @@ module.exports = React.createClass({
                 slug: slug,
                 tags: tags,
                 excerpt: excerpt,
-                published: published
+                published: published,
+                header_image: header_image
             })
             .end(function(res) {
                 var response = JSON.parse(res.text);
@@ -173,7 +185,7 @@ module.exports = React.createClass({
 
         e.preventDefault();
         var id = this.props.post.id;
-        
+
         request.del(this.props.action)
             .send({
                 id: id

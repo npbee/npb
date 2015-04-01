@@ -17,7 +17,7 @@ exports.index = function *() {
     var sort = this.request.query.sort || 'ASC';
 
     var posts = yield knex('posts').where('published', true).orderBy(orderBy, sort);
-    
+
 
     var data = yield normalize({
         posts: posts,
@@ -34,7 +34,7 @@ exports.index = function *() {
             <App data={data} history="true" path="/posts" />
             );
 
-    this.body = yield render('default', { 
+    this.body = yield render('default', {
         markup: markup,
         state: JSON.stringify(data)
     });
@@ -43,7 +43,7 @@ exports.index = function *() {
 // Show an individual post
 exports.show = function*() {
     var slug = this.params.slug;
-    
+
     // Detect if the param passed is a number so that we can look up a post
     // by id or by slug
     var _id = isNaN(Number(slug)) ? 'slug' : 'id';
@@ -79,7 +79,7 @@ exports.show = function*() {
             <App data={data} history="true" path={"/posts/" + slug} />
             );
 
-    this.body = yield render('default', { 
+    this.body = yield render('default', {
         markup: markup,
         state: JSON.stringify(data)
     });
@@ -125,6 +125,7 @@ exports.create = function*() {
                 slug: body.slug,
                 excerpt: body.excerpt,
                 published: body.published,
+                header_image: body.header_image,
                 created_at: new Date(),
                 updated_at: new Date()
             }, 'id').then(function(id) {
@@ -186,7 +187,7 @@ exports.edit = function* () {
         <App data={data} history="true" path={"/posts/" + slug + "/edit"} />
             );
 
-    this.body = yield render('default', { 
+    this.body = yield render('default', {
         markup: markup,
         state: JSON.stringify(data)
     });
@@ -210,6 +211,7 @@ exports.put = function* () {
                 slug: body.slug,
                 excerpt: body.excerpt,
                 published: body.published,
+                header_image: body.header_image,
                 created_at: new Date(),
                 updated_at: new Date()
             }, 'id').then(function(id) {
@@ -245,7 +247,7 @@ exports.del = function* () {
     var deletion = yield knex('posts')
                     .where('id', id)
                     .del();
-    
+
     this.body = {
         success: true,
         affected_rows: deletion

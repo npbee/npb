@@ -27,6 +27,10 @@
     @include breakpoint($large) {
         flex-direction: row;
     }
+    img {
+        display: block;
+        margin: $typecsset-base-line-height auto;
+    }
     .aside-1,
     .aside-2 {
         text-align: center;
