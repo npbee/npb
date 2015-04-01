@@ -32,6 +32,11 @@ module.exports = function (shipit) {
         });
     });
 
+    // Migrate
+    shipit.task('migrate', function() {
+        shipit.remote('bash -l -c "cd /home/deploy/current && NODE_ENV=production knex migrate:latest"');
+    });
+
     // Symlink node_modules
     shipit.task('npm-link', function() {
         shipit.remote('ln -s /home/deploy/node_modules /home/deploy/current/node_modules')
