@@ -13,20 +13,15 @@ module.exports = React.createClass({
     },
 
     render: function(){
-        var blurb = `And welcome.  My name is Nick.  I am a self-professed nerd
-        and web development apprentice.  My main focus so far has been Javascript
-         and the front-end, but I'm eager to expand.  I'm currently a Jr.
-        Software Engineer at <a href="http://loudr.fm">Loudr</a>.`;
-
         return (
             <section className="connect skinny single-item">
                 <h1 className="fun-font">Welcome</h1>
                 <article>
                     <p>
-                        My name is Nick.  I am a self-professed nerd·self-taught web
+                        My name is Nick.  I am an eager and·self-taught web
                         development apprentice.  My main focus
-                        so far has been Javascript and the front-end, but I'm eager
-                        to expand.  I'm currently a Jr. Software Engineer at
+                        so far has been Javascript and the front-end, but I'm always
+                        looking to expand my knowledge.  I'm currently a Jr. Software Engineer at
                         <a href="http://loudr.fm">Loudr</a> working on a large
                         KnockoutJS application.
                     </p>

@@ -12,15 +12,17 @@ exports.tags = require('./routes/tags');
 
 exports.index = function *() {
     var isClient = this.request.query.isClient;
-    
+
     var latestPost = yield db('posts')
                                     .select('title', 'slug')
                                     .orderBy('created_at', 'desc')
+                                    .where('published', true)
                                     .limit(1);
 
     var latestProject = yield db('projects')
                                     .select('name', 'slug')
                                     .orderBy('created_at', 'desc')
+                                    .where('published', true)
                                     .limit(1);
 
 
@@ -40,7 +42,7 @@ exports.index = function *() {
             <App data={data} history="true" path="/" />
             );
 
-    this.body = yield render('default', { 
+    this.body = yield render('default', {
         markup: markup,
         state: JSON.stringify(data)
     });
@@ -64,7 +66,7 @@ exports.connect = function *() {
             <App data={data} history="true" path="/connect" />
             );
 
-    this.body = yield render('default', { 
+    this.body = yield render('default', {
         markup: markup,
         state: JSON.stringify(data)
     });
