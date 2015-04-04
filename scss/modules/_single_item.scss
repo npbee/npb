@@ -8,6 +8,8 @@
     > article > ul {
     }
     img {
+        display: block;
+        margin: $typecsset-base-line-height auto;
         max-width: 100%;
     }
 }

@@ -22,6 +22,10 @@
  */
 @import "reset";
 
+/**
+ * Third party
+ */
+@import "lib/typecsset/typecsset";
 
 /** 
  * Base
@@ -32,7 +36,6 @@
 /**
  * Typography
  */
-@import "lib/typecsset/typecsset";
 @import "typography/base";
 
 /**
