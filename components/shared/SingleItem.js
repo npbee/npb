@@ -6,6 +6,7 @@
  **********/
 var React = require('react');
 var SlabText = require('./SlabText');
+var DisqusThread = require('./Disqus');
 
 module.exports = React.createClass({
 
@@ -71,6 +72,9 @@ module.exports = React.createClass({
                     <ul className="meta__item">{metaOne}</ul>
                     <ul className="meta__item">{metaTwo}</ul>
                 </div>
+                <article>
+                    <DisqusThread />
+                </article>
             </section>
         } else {
             return <div className="loader" />;

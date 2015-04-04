@@ -27,9 +27,9 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <section className="tags">
+            <section className="tags center">
                 <h1>Tags</h1>
-                <Cloud 
+                <Cloud
                     items={this.state.tags}
                     kind="tags"
                 />

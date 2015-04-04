@@ -1,4 +1,4 @@
-//require('node-jsx').install(); 
+//require('node-jsx').install();
 var logger = require('koa-logger');
 var router = require('koa-router');
 var koa = require('koa');
@@ -64,7 +64,7 @@ var secured = function *(next) {
     }
 };
 
-app.get('/', routes.index); 
+app.get('/', routes.index);
 
 // Blog post routes
 app.get('/posts', routes.posts.index);

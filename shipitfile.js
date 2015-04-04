@@ -5,9 +5,10 @@ module.exports = function (shipit) {
         default: {
             workspace: '/tmp/npb',
             deployTo: '/home/deploy',
-            repositoryUrl: 'https://github.com/npbee/npb',
+            repositoryUrl: 'git@github.com:npbee/npb.git',
             ignores: ['.git', 'node_modules'],
-            keepReleases: 2
+            keepReleases: 2,
+            shallowClone: true
         },
         production: {
             servers: 'deploy@npbee.me'

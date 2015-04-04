@@ -1448,6 +1448,37 @@ module.exports = React.createClass({
 });
 
 
+},{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/shared/Disqus.js":[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+
+    componentDidMount: function () {
+        var disqus_shortname = "npbee";
+
+        var dsq = this.disqus = document.createElement("script");
+        dsq.type = "text/javascript";dsq.async = true;
+        dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+    },
+
+    componentWillUnmount: function () {
+        if (this.disqus && this.disqus.parentNode) {
+            this.disqus.parentNode.removeChild(this.disqus);
+            this.disqus = null;
+        }
+    },
+
+    render: function () {
+        return React.createElement("div", { className: "disqus" }, React.createElement("div", { id: "disqus_thread" }));
+    }
+});
+
+
 },{"react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/shared/ErrorList.js":[function(require,module,exports){
 "use strict";
 
@@ -1485,6 +1516,7 @@ module.exports = React.createClass({
  **********/
 var React = require("react");
 var SlabText = require("./SlabText");
+var DisqusThread = require("./Disqus");
 
 module.exports = React.createClass({
     displayName: "exports",
@@ -1527,7 +1559,7 @@ module.exports = React.createClass({
 
 
         if (this.props.loaded) {
-            return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, headerImage, React.createElement("h1", { className: "fun-font" }, this.props.title)), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), tag, React.createElement("hr", { className: "rule skinny" }), React.createElement("div", { className: "meta" }, React.createElement("ul", { className: "meta__item" }, metaOne), React.createElement("ul", { className: "meta__item" }, metaTwo)));
+            return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, headerImage, React.createElement("h1", { className: "fun-font" }, this.props.title)), React.createElement("article", { dangerouslySetInnerHTML: { __html: this.props.content } }), tag, React.createElement("hr", { className: "rule skinny" }), React.createElement("div", { className: "meta" }, React.createElement("ul", { className: "meta__item" }, metaOne), React.createElement("ul", { className: "meta__item" }, metaTwo)), React.createElement("article", null, React.createElement(DisqusThread, null)));
         } else {
             return React.createElement("div", { className: "loader" });
         }
@@ -1536,7 +1568,7 @@ module.exports = React.createClass({
 });
 
 
-},{"./SlabText":"/Users/npb/Projects/npb/components/shared/SlabText.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/shared/SlabText.js":[function(require,module,exports){
+},{"./Disqus":"/Users/npb/Projects/npb/components/shared/Disqus.js","./SlabText":"/Users/npb/Projects/npb/components/shared/SlabText.js","react":"/Users/npb/Projects/npb/node_modules/react/react.js"}],"/Users/npb/Projects/npb/components/shared/SlabText.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -1993,7 +2025,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "tags" }, React.createElement("h1", null, "Tags"), React.createElement(Cloud, {
+        return React.createElement("section", { className: "tags center" }, React.createElement("h1", null, "Tags"), React.createElement(Cloud, {
             items: this.state.tags,
             kind: "tags"
         }));
