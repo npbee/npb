@@ -4,6 +4,7 @@ var _ = require('lodash');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var AppActions = require('../../actions/AppActions');
 var AppStore = require('../../stores/AppStore');
+var _ = require('lodash');
 
 module.exports = React.createClass({
 
@@ -44,12 +45,12 @@ module.exports = React.createClass({
                 {columns.map(function(column, index) {
                     return <td key={row[column]}>{row[column].toString()}</td>
                     })}
-                    {self.state.admin ? 
+                    {self.state.admin ?
                         <td>
                             <a href={self.state.name.toLowerCase() + '/' + row.id}>View</a>
-                            / 
-                            <a href={self.state.name.toLowerCase() + '/' + row.id + '/edit'}>Edit</a> 
-                            / 
+                            /
+                            <a href={self.state.name.toLowerCase() + '/' + row.id + '/edit'}>Edit</a>
+                            /
                             <a data-id={row.id} onClick={self.handleDelete.bind(null, row.id)}>Delete</a>
                         </td> :
                             ''
@@ -59,7 +60,7 @@ module.exports = React.createClass({
         }.bind(this));
 
         return <table>
-            <caption>{this.props.name}</caption>
+            <caption>{this.props.name} <a className="button" href={`${this.props.name}/new`}>{'New ' + _.trimRight(this.props.name, 's')}</a></caption>
             <thead>
                 <tr>
                     {columns.map(function(column) {
