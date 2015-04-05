@@ -50,14 +50,15 @@ var TagShow = React.createClass({
             }
         ];
 
-        return <SingleItem 
+        return <SingleItem
             metaOne={metaOne}
             metaTwo={metaTwo}
             title={this.state.tag.name}
             content={html}
             tag={this.state.tag}
             loaded={this.state.loaded}
-        /> 
+            noDisqus={true}
+        />
 
     }
 

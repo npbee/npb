@@ -63,6 +63,7 @@
         @extend .skinny;
         @extend .giga;
         line-height: 1;
+        text-align: center;
         @include breakpoint($large) {
             min-width: 700px;
             order: 2;

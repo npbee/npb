@@ -58,7 +58,6 @@ module.exports = React.createClass({
             headerImage = <img src={this.props.image} />;
         }
 
-
         if (this.props.loaded) {
             return <section className="project single-item">
                 <header>
@@ -73,7 +72,7 @@ module.exports = React.createClass({
                     <ul className="meta__item">{metaTwo}</ul>
                 </div>
                 <article>
-                    <DisqusThread />
+                    {this.props.noDisqus ? '' : <DisqusThread />}
                 </article>
             </section>
         } else {

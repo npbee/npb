@@ -15,15 +15,9 @@ module.exports = React.createClass({
     render: function(){
         return (
             <section className="connect skinny single-item">
-                <h1 className="fun-font">Welcome</h1>
+                <h1 className="fun-font center">Welcome</h1>
                 <article>
-                    <p>
-                        My name is Nick.  I am an eager and·self-taught web
-                        development apprentice.  My main focus
-                        so far has been Javascript and the front-end, but I'm always
-                        looking to expand my knowledge.  I'm currently a Jr. Software Engineer at
-                        <a href="http://loudr.fm">Loudr</a> working on a large
-                        KnockoutJS application.
+                    <p>My name is Nick.  I am an eager and·self-taught web development apprentice.  My main focus so far has been Javascript and the front-end, but I'm always looking to expand my knowledge.  I'm currently a Jr. Software Engineer at <a className='standout-link' href="http://loudr.fm">Loudr</a> working on a large KnockoutJS application.
                     </p>
                     <p>
                         You can find me on <a className="standout-link" href="http://github.com/npbee">Github
