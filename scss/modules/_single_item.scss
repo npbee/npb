@@ -20,7 +20,12 @@
 .single-item {
     margin: 0 auto;
     article {
-        @extend .skinny;
+        > :not(.full-width) {
+            @extend .skinny;
+        }
+        pre {
+            @extend .full-width;
+        }
     }
 }
 

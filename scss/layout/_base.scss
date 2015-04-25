@@ -2,7 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding: $base-spacing-unit $typecsset-base-line-height;
+    /*padding: $base-spacing-unit $typecsset-base-line-height;*/
 }
 
 
@@ -46,4 +46,9 @@ main {
 
 .spacer {
     margin-bottom: $typecsset-base-line-height;
+}
+
+.full-width {
+    max-width: none !important;
+    width: 100%;
 }

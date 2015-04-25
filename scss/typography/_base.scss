@@ -78,10 +78,10 @@ a {
     width: 55px;
     vertical-align: middle;
     @include breakpoint($retina) {
-        width: 110px;
+        width: 100px;
     }
     @include breakpoint($large) {
-        width: 30px;
+        width: 25px;
     }
 }
 

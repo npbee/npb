@@ -4,6 +4,7 @@
 .skinny {
     margin-left: auto;
     margin-right: auto;
+    padding: 0 $typecsset-base-line-height;
     @include breakpoint($large) {
         max-width: 700px;
     }

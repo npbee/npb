@@ -7,7 +7,7 @@ $nav-height: 75px;
     display: flex;
     height: $nav-height * 2;
     justify-content: flex-start;
-    /*padding-bottom: $typecsset-base-line-height;*/
+    padding: $typecsset-base-line-height;
     /*@include breakpoint($retina) {*/
         /*height: $nav-height * 4;*/
     /*}*/
