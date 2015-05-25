@@ -680,7 +680,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "post" }, React.createElement("h1", null, "New Post"), React.createElement(PostForm, {
+        return React.createElement("section", { className: "post single-item" }, React.createElement("header", null, React.createElement("h1", null, "New Post")), React.createElement(PostForm, {
             post: this.state.post,
             onChange: this.handleChange,
             method: "put",
@@ -757,7 +757,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", null, React.createElement("form", {
+        return React.createElement("section", { className: "skinny" }, React.createElement("form", {
             action: this.props.action,
             method: this.props.method,
             onSubmit: this.handleSubmit }, React.createElement("div", { className: "form-row" }, React.createElement("label", { htmlFor: "title" }, "Header Image"), React.createElement("input", { type: "text",
@@ -917,7 +917,7 @@ module.exports = React.createClass({
     componentDidMount: function () {},
 
     render: function () {
-        return React.createElement("section", { className: "post" }, React.createElement("h1", null, "New Post"), React.createElement(PostForm, {
+        return React.createElement("section", { className: "post single-item" }, React.createElement("header", null, React.createElement("h1", null, "New Post")), React.createElement(PostForm, {
             post: this.state.post,
             method: "post",
             onChange: this.handleChange,
@@ -1055,7 +1055,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return React.createElement("section", { className: "project" }, React.createElement("h1", null, "New Post"), React.createElement(ProjectForm, {
+        return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("h1", null, "New Post")), React.createElement(ProjectForm, {
             project: this.state.project,
             onChange: this.handleChange,
             method: "put",
@@ -1327,7 +1327,7 @@ module.exports = React.createClass({
     componentDidMount: function () {},
 
     render: function () {
-        return React.createElement("section", { className: "project" }, React.createElement("h1", null, "New Project"), React.createElement(ProjectForm, {
+        return React.createElement("section", { className: "project single-item" }, React.createElement("header", null, React.createElement("h1", null, "New Project")), React.createElement(ProjectForm, {
             project: {},
             method: "post",
             action: "/projects" }));
@@ -1790,7 +1790,7 @@ var Tabs = React.createClass({
     componentWillReceiveProps: function (newProps) {},
 
     render: function () {
-        return React.createElement("div", { className: "tabs" }, this._getMenuItems(), this._getSelectedPanel());
+        return React.createElement("div", { className: "tabs full-width" }, this._getMenuItems(), this._getSelectedPanel());
     },
 
     setActive: function (index, e) {
@@ -1845,7 +1845,7 @@ var Tabs = React.createClass({
 Tabs.Panel = React.createClass({
     displayName: "Panel",
     render: function () {
-        return React.createElement("div", null, this.props.children);
+        return React.createElement("div", { className: "full-width" }, this.props.children);
     }
 });
 

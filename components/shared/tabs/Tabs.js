@@ -36,7 +36,7 @@ var Tabs = React.createClass({
 
     render: function() {
         return (
-            <div className="tabs">
+            <div className="tabs full-width">
                 {this._getMenuItems()}
                 {this._getSelectedPanel()}
             </div>
@@ -74,7 +74,7 @@ var Tabs = React.createClass({
 
 
             return (
-                <a href='#' 
+                <a href='#'
                     onClick={self.setActive.bind(self, index+1)}
                     ref={ref}
                     key={index}
@@ -106,7 +106,7 @@ var Tabs = React.createClass({
 
 Tabs.Panel = React.createClass({
     render: function() {
-        return <div>{this.props.children}</div>;
+        return <div className="full-width">{this.props.children}</div>;
     }
 });
 

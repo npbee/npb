@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
         var self = this;
-        
+
         if (!Object.keys(this.state.post).length) {
            request.get('/posts/' + this.props.slug)
             .query({
@@ -33,10 +33,12 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <section className="post">
-                <h1>New Post</h1>
-                <PostForm 
-                    post={this.state.post} 
+            <section className="post single-item">
+                <header>
+                    <h1>New Post</h1>
+                </header>
+                <PostForm
+                    post={this.state.post}
                     onChange={this.handleChange}
                     method="put"
                     action="/posts" />
@@ -64,5 +66,5 @@ module.exports = React.createClass({
 
     }
 
-    
+
 });

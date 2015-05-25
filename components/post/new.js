@@ -18,8 +18,10 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <section className="post">
-                <h1>New Post</h1>
+            <section className="post single-item">
+                <header>
+                    <h1>New Post</h1>
+                </header>
                 <PostForm
                     post={this.state.post}
                     method="post"
@@ -50,5 +52,5 @@ module.exports = React.createClass({
 
     }
 
-    
+
 });

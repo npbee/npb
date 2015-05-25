@@ -45,7 +45,7 @@ module.exports = React.createClass({
     render: function() {
 
         return (
-            <section>
+            <section className="skinny">
             <form
                 action={this.props.action}
                 method={this.props.method}

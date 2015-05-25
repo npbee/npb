@@ -16,8 +16,10 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <section className="project">
-                <h1>New Project</h1>
+            <section className="project single-item">
+                <header>
+                    <h1>New Project</h1>
+                </header>
                 <ProjectForm
                     project={{}}
                     method="post"
@@ -27,5 +29,5 @@ module.exports = React.createClass({
 
     }
 
-    
+
 });

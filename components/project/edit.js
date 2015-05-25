@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
         var self = this;
-        
+
         if (!Object.keys(this.state.project).length) {
            request.get('/projects/' + this.props.projectId)
             .query({
@@ -33,10 +33,12 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <section className="project">
-                <h1>New Post</h1>
-                <ProjectForm 
-                    project={this.state.project} 
+            <section className="project single-item">
+                <header>
+                    <h1>New Post</h1>
+                </header>
+                <ProjectForm
+                    project={this.state.project}
                     onChange={this.handleChange}
                     method="put"
                     action="/projects" />
@@ -47,7 +49,7 @@ module.exports = React.createClass({
     handleChange: function(event) {
         var attr = event.target.name;
         var value = event.target.value;
-        
+
         if (attr === 'published') {
             value = !this.state.project.published;
         }
@@ -64,5 +66,5 @@ module.exports = React.createClass({
 
     }
 
-    
+
 });
