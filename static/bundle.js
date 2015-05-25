@@ -878,7 +878,11 @@ module.exports = React.createClass({
     componentDidMount: function () {
         var self = this;
 
-        request.get("/posts").query({ isClient: true }).end(function (res) {
+        request.get("/posts").query({
+            isClient: true,
+            orderBy: "created_at",
+            sort: "DESC"
+        }).end(function (res) {
             self.setState({
                 posts: JSON.parse(res.text).posts
             });
