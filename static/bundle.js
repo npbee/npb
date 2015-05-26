@@ -1462,12 +1462,22 @@ module.exports = React.createClass({
 
 
     componentDidMount: function () {
-        var disqus_shortname = "npbee";
+        if (window.DISQUS) {
+            DISQUS.reset({
+                reload: true,
+                config: function () {
+                    this.page.indentifier = document.location.pathname.split("/")[2] || "whoops";
+                    this.page.url = document.location.href;
+                }
+            });
+        } else {
+            var disqus_shortname = "npbee";
 
-        var dsq = this.disqus = document.createElement("script");
-        dsq.type = "text/javascript";dsq.async = true;
-        dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
-        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            var dsq = this.disqus = document.createElement("script");
+            dsq.type = "text/javascript";dsq.async = true;
+            dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+            (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+        }
     },
 
     componentWillUnmount: function () {
