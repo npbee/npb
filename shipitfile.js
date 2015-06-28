@@ -15,4 +15,8 @@ module.exports = function(shipit) {
             servers: 'deploy@npbee.me'
         }
     });
+
+    shipit.on('published', function() {
+        return shipit.remote('sudo nginx -s reload');
+    });
 };

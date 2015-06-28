@@ -9,6 +9,8 @@ experiences:
             As the third engineering hire on a very lean team, my responsibilities 
             revolved around the front-end architecture and implementation of a 
             very large KnockoutJS application.  
+      highlights:
+        - Some stuff
     - company: Say Media, Inc.
       role: Senior Ad Operator
       dates: Aug. 2008 - Nov. 2014
