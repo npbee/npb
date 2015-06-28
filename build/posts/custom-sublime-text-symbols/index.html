@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+    <title>Blog</title>
+
+    <link rel="apple-touch-icon" sizes="57x57"
+                                 href="/static/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60"
+                                 href="/static/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72"
+                                 href="/static/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76"
+                                 href="/static/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114"
+                                 href="/static/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120"
+                                 href="/static/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144"
+                                 href="/static/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152"
+                                 href="/static/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+                                 href="/static/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/favicon/android-chrome-192x192.png"
+                                      sizes="192x192">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/static/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="msapplication-TileImage" content="/static/favicon/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css"
+  href="//cloud.typography.com/7821852/748866/css/fonts.css" />
+
+    <link rel="stylesheet" href="/static/css/app.css" />
+
+</head>
+
+
+<body class="post">
+    <main>
+    <nav class='main-nav' >
+    <a href="/" class="site-logo"><img class="icon" src="/static/images/logo.svg" /></a>
+    <a href="#" class="main-nav__toggle" onClick={this._onClick}><img class="icon" src="/static/images/icons/icomoon/list.svg" /></a>
+    <div class="main-nav__menu">
+        <a href="/posts" class="">posts</a>
+        <a href="/connect" class="">connect</a>
+    </div>
+    <div class="main-nav__social main-nav__break-right">
+        <a href="http://twitter.com/npbeep" class="main-nav__break-right"><img
+            class="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
+        <a href="mailto:nick@npbee.me" class=""><img class="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
+        <a href="http://github.com/npbee" class=""><img class="icon" src="/static/images/icons/github/mark.svg" /></a>
+    </div>
+</nav>
+
+
+        <section class="project single-item">
+            <header>
+                
+                <h1 class="fun-font">Custom Sublime Text Symbols</h1>
+            </header>
+            <article><p>Recently I was exploring the possibility of defining custom symbols for a Sublime Text project.  A &quot;symbol&quot; is defined by the ST (Sublime Text) docs like so:</p>
+<blockquote>
+Symbols usually are classes or functions, but can target any scope present in the syntax definition. See Symbols - Syntax Preferences (XXX to be added). If no symbols are defined, the search will simply fail.
+</blockquote>
+
+<p>The end goal of this adventure was to be able to do something like this:</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols-symbol_lookup.gif" alt="ST Symbol Lookup"></p>
+<p>I felt like I had to traverse the deep depths of Sublime Text to figure this out, so I thought I&#39;d share.</p>
+<p class="footnote">This is just a rundown of my understanding of how things work.  It&#39;s likely that I&#39;m mixing up some of the terminology so please take this with a grain of salt.</p>
+
+<h2 id="sublime-text-scopes">Sublime Text Scopes</h2>
+<p>The first part of getting this done was understanding the concept of <em>scopes</em> in ST.  A scope in ST is a named regular expression that&#39;s defined in a *.tmLanguage file.  Every syntax used in ST has a corresponding .tmLanguage file.  To find this file (in OSX), you can go to &quot;Applications/Sublime Text 3&quot; and click &quot;Show Package Contents.&quot;  That will take you to the innards of ST.  From there, navigate to &quot;Contents/MacOS/Packages&quot; and you should see a bunch of &quot;.sublime-package&quot; files for different languages.  These files are really just zipped folders, so to see what&#39;s inside of one of them you can just copy it and rename the extension to be a .zip and then open it on up.  Inside, you&#39;ll find all the related files for that language, including the .tmLanguage file:</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols-sublime-package.png" alt="sublime package directory"></p>
+<p>As an example, let&#39;s look at the JavaScript.tmLanguage file.
+The first thing you&#39;ll notice is that the file is a &quot;plist&quot; file that&#39;s defined with XML syntax.  There are ways of avoiding the XML syntax, but for now know that this is the final format that a language file needs to be in for it to work in ST.  Here are a couple of interesting parts about this file:</p>
+<pre><code class="lang-xml">&lt;key&gt;name&lt;/key&gt;
+&lt;string&gt;JavaScript&lt;/string&gt;
+</code></pre>
+<p>This defines the name of the language as you see it the bottom right corner of ST when you&#39;re using that language syntax.
+Following that there is an array of &quot;patterns&quot; that define the various scopes for the language.  Each item in the array will be a &quot;dict&quot; that has a couple of important key/value pairs.  Here&#39;s a simple-ish one:</p>
+<pre><code class="lang-xml">&lt;!-- line 594, JavaScript.tmLanguage --&gt;
+&lt;dict&gt;
+    &lt;key&gt;match&lt;/key&gt;
+    &lt;string&gt;\\b(Anchor|Applet|Area|Array|Boolean|Button|Checkbox|Date|document|event|FileUpload|Form|Frame|Function|Hidden|History|Image|JavaArray|JavaClass|JavaObject|JavaPackage|java|Layer|Link|Location|Math|MimeType|Number|navigator|netscape|Object|Option|Packages|Password|Plugin|Radio|RegExp|Reset|Select|String|Style|Submit|screen|sun|Text|Textarea|window|XMLHttpRequest)\\b&lt;/string&gt;
+    &lt;key&gt;name&lt;/key&gt;
+    &lt;string&gt;support.class.js&lt;/string&gt;
+&lt;/dict&gt;
+</code></pre>
+<p>Here there is a key called &quot;match&quot; and following that is the value, which is just a regular expression.  The regular expression in this case is just matching various Javascript classes.  After the regex there is another key/value pair that defines the name of this match.  This is the name of the _scope for this match.  To prove this point, there is a helpful ST package called &quot;Scope Hunter&quot; that will display the scope of anything under your cursor using the command Control+Shift+P.  Here&#39;s an example:</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols-scope-hunter.png" alt="scope hunter"></p>
+<h2 id="displaying-items-in-the-symbol-list">Displaying items in the symbol list</h2>
+<p>Now that we know how a scope is defined we can figure out how those are displayed in the symbol list when you use the go-to function.
+Back in that sublime-package file, there will be another file called &quot;Symbol List Function.tmPreferences.&quot;  This is another plist file and here is where we defined which scopes we want to show up in the symbol list.  Here&#39;s a snippet from that file:</p>
+<pre><code class="lang-xml">&lt;!-- line 4, Symbol List Function.tmPreferences --&gt;
+&lt;dict&gt;
+    &lt;key&gt;name&lt;/key&gt;
+    &lt;string&gt;Symbol List Function&lt;/string&gt;
+    &lt;key&gt;scope&lt;/key&gt;
+    &lt;string&gt;source.js meta.function.js, source.js meta.function.json.js&lt;/string&gt;
+    &lt;key&gt;settings&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;showInSymbolList&lt;/key&gt;
+        &lt;string&gt;1&lt;/string&gt;
+        &lt;key&gt;symbolTransformation&lt;/key&gt;
+        &lt;string&gt;s/^function\\s*\\(.*\\)//g&lt;/string&gt;
+    &lt;/dict&gt;
+    &lt;key&gt;uuid&lt;/key&gt;
+    &lt;string&gt;3CEA49B2-A5C5-405C-82E2-B8B668877C38&lt;/string&gt;
+&lt;/dict&gt;
+</code></pre>
+<p>Walking through this file, you can see a few things:</p>
+<pre><code class="lang-xml">&lt;key&gt;name&lt;/key&gt;
+&lt;string&gt;Symbol List Function&lt;/string&gt;
+</code></pre>
+<p>Just giving the preference file a name here...</p>
+<pre><code class="lang-xml">&lt;key&gt;scope&lt;/key&gt;
+&lt;string&gt;source.js meta.function.js, source.js meta.function.json.js&lt;/string&gt;
+</code></pre>
+<p>Here is where we&#39;re defining the scope that we want this preference file to apply to.  These will be defined back in the .tmLanguage file with specific regular expressions.</p>
+<pre><code class="lang-xml">&lt;key&gt;settings&lt;/key&gt;
+  &lt;dict&gt;
+    &lt;key&gt;showInSymbolList&lt;/key&gt;
+      &lt;string&gt;1&lt;/string&gt;
+      ...
+</code></pre>
+<p>Here is where we&#39;re telling ST to show that scope that we named earlier in the file within the symbol list.</p>
+<pre><code class="lang-xml">&lt;key&gt;symbolTransformation&lt;/key&gt;
+&lt;string&gt;s/^function\\s*\\(.*\\)//g&lt;/string&gt;
+</code></pre>
+<p>This little bit is just a bit of sugar on top.  It takes the string that was matched by the scope&#39;s regular expression and formats it for display within the symbol list.</p>
+<p>--</p>
+<h2 id="defining-your-own-scopes">Defining your own scopes</h2>
+<p>We&#39;re finally ready to tell Sublime Text to show our custom matches within the symbol list!  Before going further, I highly recommend installing the <a href="https://github.com/SublimeText/AAAPackageDev">AAAPackageDev</a> package.  This package will let you define these plist files in YAML or JSON and then convert them for you to the necessary XML.
+We&#39;ll create our own demo syntax that adds on to the existing Javascript language.
+First with the &quot;JavaScript.tmLanguage&quot; file open, copy the entire thing, rename it to &quot;Demo.tmLanguage,&quot; and save it to your &quot;User&quot; packages directory which for me is here:</p>
+<p>HardDrive ▸ Users ▸ <em>username</em> ▸ Library ▸ Application Support ▸ Sublime Text 3 ▸ Packages</p>
+<p>Anything that&#39;s placed in this directory ST will just pick up on its own.  Now, using the AAAPackageDev package, pull up the command palette (Shift+Control+P) and type &quot;convert.&quot;  You should see an option to convert the file to YAML or JSON:</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols_convert.png" alt="package control convert"></p>
+<p>Select &quot;Convert to YAML (Block Style)&quot; and it will convert the plist file to YAML for you and save it in the same directory.  Now open up that file.
+Now with the YAML.tmLanguage file open, we&#39;ll first give our syntax a name.  Towards to the top, you should see a filed to give the language a name:</p>
+<pre><code class="lang-yaml">comment: &#39;JavaScript Syntax: version 2.0&#39;
+fileTypes:
+- js
+- htc
+- jsx
+firstLineMatch: ^#!/usr/bin/env node
+foldingStartMarker: ^.*\\bfunction\\s*(\\w+\\s*)?\\([^\\)]*\\)(\\s*\\{[^\\}]*)?\\s*$
+foldingStopMarker: ^\\s*\\}
+keyEquivalent: ^~J
+name: *MyDemoLang*
+</code></pre>
+<p>Now, scroll down to the very bottom so we can add in another pattern to the array of patterns.  For the sake of the demo, let&#39;s say you have a function that you write a lot and the signature looks something like this:</p>
+<pre><code class="lang-javascript">myFunc(&#39;some stuff&#39;, function() {
+    var otherStuff;
+});
+</code></pre>
+<p>At the bottom of the YAML, we&#39;ll add a very simple regular expression to define our scope:</p>
+<pre><code class="lang-yaml">- match: \\[|\\]
+  name: meta.brace.square.js
+  - match: (myFunc).*
+  name: custom.function.js
+</code></pre>
+<p>This will just match anything starting with the string &quot;myFunc.&quot;  Notice that we have also given this match a name of &quot;custom.function.js&quot; so that will be our scope.  Now save the file and then use the &quot;convert&quot; command that we used to earlier, but this time convert back to a &quot;Plist&quot; or &quot;Property List&quot; file.
+At this point you may need to restart ST, but you should be able to open up a demo.js file and choose your new language syntax!</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols_demo_lang.png" alt="demo lang"></p>
+<p>You should also be able to use the scope hunter package to verify that our scope is being picked up:</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols_demo_lang_scope.png" alt="demo lang scope"></p>
+<p>Ok almost there...
+Before our new scope will show up as a symbol, we have to make a .tmPreferences file.  To make this file, it&#39;s easiest to do the same thing that we did earlier and copy one of the JavaScript .tmPreferences file and convert it to YAML.  It should look something like this:</p>
+<pre><code class="lang-yaml">name: Symbol List Demo
+scope: source.js custom.function.js
+settings:
+  showInSymbolList: &#39;1&#39;
+  uuid: 0029a125-c35d-4c1a-868c-32f4c91adbee
+</code></pre>
+<p>So you&#39;ll see where defining what <em>scope</em> this preferences file applies to and then telling ST to show it in the symbol list.  If you convert this back to a Plist format, you should now be able to see your scope showing up in the symbol list:</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols_custom_symbol_first.png" alt="custom symbol first"></p>
+<p>--</p>
+<h2 id="the-extra-mile">The Extra Mile</h2>
+<p>Ok we have the custom symbols showing up now, but the symbol list is just showing the entire capture which is a little messy.  Going back to our .tmPreferences file we can tell ST how to display the symbol in the list:</p>
+<pre><code class="lang-yaml">name: Symbol List Demo
+scope: source.js custom.function.js
+settings:
+  showInSymbolList: &#39;1&#39;
+  symbolTransformation: &#39;s/\\(/:  /g; s/,.*//g;&#39;
+  uuid: 0029a125-c35d-4c1a-868c-32f4c91adbee
+</code></pre>
+<p>The &#39;symbolTransformation&#39; does a search and replace based on the regex that&#39;s given.  In this case we&#39;re doing two search and replace operations:  one to remove the left paren and replace it with a &quot;:&quot; plus some white space, and another to search for a comma followed by any character and replace it with nothing.  If you convert this back to a plist, you should now be able to see the difference:</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols_custom_symbol_second.png" alt="custom symbol second"></p>
+<p>And the last optional thing here might be to add some syntax highlighting for this custom scope.  I&#39;ve found an easy way to do this is to just use one of the existing scopes that ST has already defined for JavaScript because that way it will just use existing syntax highlighting.  Back in your Demo.YAML-tmPreferences file:</p>
+<pre><code class="lang-yaml">- match: (myFunc).*
+  name: custom.function.js
+  captures:
+    &quot;1&quot;:
+      name: entity.name.function.js
+</code></pre>
+<p>Here we&#39;re using the same regular expression, but we&#39;re now defining exactly what each capture is.  We&#39;re telling ST that whatever is within the parentheses should be seen with the &quot;entity.name.function.js&quot; scope.</p>
+<p class="footnote"><span class="italic">Technically</span> if you do this, ST will automatically pick up this capture and display it in the symbol list.  This is because the built-in JavaScript sublime package has it set to show anything with this scope in the symbol list.  But it would only display it as &quot;myFunc&quot; and nothing else because that&#39;s the only thing that&#39;s captured.</p>
+
+<p>Now (you may need to restart ST again), you should be able to see some nice syntax highlighting in your demo file to complete the final step:</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols-symbol_lookup.gif" alt="ST symbol lookup"></p>
+<p>--</p>
+<p>Well that was a lot.  Some may say this is more trouble than it&#39;s worth and I wouldn&#39;t necessarily disagree.  However, if you have a big project that&#39;s using a lot of the same function signatures it can really help to be able to hop around your files easily.  An alternative to making your own &quot;language&quot; is to just edit the built-in JavaScript sublime package, but that would come with its own issues.</p>
+</article>
+            <hr class="rule skinny" />
+            <div class="meta">
+                <ul class="meta__item">
+                    <li>
+                        <h2 class="meta__header">Date Posted</h2>
+                        <p class="meta__value">04/04/2015</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="/static/js/app.js" type="text/javascript" charset="utf-8"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+        Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-46265154-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

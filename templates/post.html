@@ -1,0 +1,27 @@
+{% include "./partials/head.html" %}
+
+<body class="post">
+    <main>
+    {% include "./partials/nav.html" %}
+
+        <section class="project single-item">
+            <header>
+                {% if header-image %}{{ header-image }}{% endif %}
+                <h1 class="fun-font">{{ title }}</h1>
+            </header>
+            <article>{{ contents|safe }}</article>
+            <hr class="rule skinny" />
+            <div class="meta">
+                <ul class="meta__item">
+                    <li>
+                        <h2 class="meta__header">Date Posted</h2>
+                        <p class="meta__value">{{ date|date('m/d/Y') }}</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    {% include "./partials/scripts.html" %}
+</body>
+</html>

@@ -1,0 +1,38 @@
+/******************************
+* META
+******************************/
+.meta {
+    @extend .skinny;
+    display: flex;
+    font-size: $small-font;
+    @include breakpoint($retina) {
+        font-size: $retina-font;
+    }
+    @include breakpoint($large) {
+        font-size: $typecsset-base-font-size;
+    }
+}
+
+.meta__item {
+    /*background: rgba($grey, 0.2);*/
+    border-radius: $round;
+    flex: 1;
+    list-style: none;
+    margin: 0;
+}
+
+.meta__header {
+    font-size: $small-font;
+    margin-bottom: $base-spacing-unit / 2;
+    @include breakpoint($retina) {
+        font-size: $retina-font;
+    }
+    @include breakpoint($large) {
+        font-size: $typecsset-h2-size;
+    }
+}
+
+.meta__value {
+    font-style: italic;
+    margin-bottom: $base-spacing-unit;
+}

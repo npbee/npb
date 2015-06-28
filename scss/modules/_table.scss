@@ -1,0 +1,79 @@
+/******************************
+* TABLES!
+******************************/
+table {
+    text-align: left;
+}
+
+
+caption {
+    font-family: $header-font;
+    font-size: $typecsset-h1-size;
+    margin-bottom: $base-spacing-unit;
+    text-align: left;
+    a {
+        float: right;
+        font-family: $body-font;
+        font-size: $small-font;
+    }
+}
+
+th {
+    background: $brand-main;
+    color: $white;
+    cursor: pointer;
+    padding: 0;
+    transition: background 200ms;
+    a {
+        cursor: pointer;
+        display: block;
+        padding: $base-spacing-unit;
+        &:hover {
+            color: $white;
+        }
+    }
+    &:first-child {
+        border-radius: 3px 0 0 0;
+    }
+    &:last-child {
+        border-radius: 0 3px 0 0;
+    }
+    &:hover {
+        background: darken($brand-main, 10%);
+        a {
+            color: $white;
+        }
+    }
+}
+
+tbody {
+    border-bottom: 1px solid $grey;
+    tr:nth-child(2n - 1) {
+        background: rgba($grey, 0.2);
+    }
+}
+
+td {
+}
+
+.table-row-enter {
+    opacity: 0.01;
+    transform: translate3d(-100px, 0,0);
+    transition: opacity $animation-speed, transform $animation-speed;
+}
+
+.table-row-enter.table-row-enter-active {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+}
+
+.table-row-leave {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+    transition: opacity $animation-speed, transform $animation-speed;
+}
+
+.table-row-leave.table-row-leave-active {
+    opacity: 0.01;
+    transform: translate3d(-100px, 0, 0);
+}

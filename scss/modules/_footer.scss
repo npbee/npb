@@ -1,0 +1,89 @@
+/******************************
+* $FOOTER
+******************************/
+$anim: 300ms;
+$milli-size: 10px;
+.footer-container {
+    height: $footer-height;
+    margin-top: $base-spacing-unit;
+    position: relative;
+    //background: $white;
+    @include breakpoint($large) {
+        &:hover:before {
+            width: 80px;
+            background: $brand-main;
+        }
+        &:before {
+            transition: width $anim, background $anim;
+            content: "";
+            display: block;
+            position: relative;
+            margin: $base-spacing-unit auto;
+            width: 50px;
+            height: 1px;
+            background: $grey;
+        }
+    }
+}
+
+
+.footer {
+    /*@include clearfix;*/
+    @extend .muted;
+    max-width: 1600px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: $small-font;
+    [data-icon]:before {
+        /*font-size: $typecsset-h3-size;*/
+        display: block;
+        margin-bottom: $base-spacing-unit;
+        @include breakpoint($large) {
+            display: inline-block;
+            margin-bottom: 0;
+            /*font-size: $typecsset-h4-size;*/
+        }
+    }
+    @include breakpoint($retina) {
+        font-size: $retina-font;
+    }
+    @include breakpoint($large) {
+        font-size: $small-font;
+    }
+    a {
+        display: block;
+        padding: $base-spacing-unit;
+        background: $white;
+        border-top: 1px solid $grey;
+        @include breakpoint($large) {
+            background: none;
+            border: none;
+            padding: $base-spacing-unit/2;
+        }
+    }
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        @include breakpoint($large) {
+            //float: right;
+            li {
+                display: inline-block;
+            }
+            a {
+                //padding: 0 0 0 $base-spacing-unit;
+            }
+        }
+    }
+    .footer__copyright {
+        font-size: $small-font;
+        border-top: none;
+        @include breakpoint($retina) {
+            font-size: $small-retina-font;
+        }
+        @include breakpoint($large) {
+            font-size: $mini-font;
+        }
+    }
+}
+

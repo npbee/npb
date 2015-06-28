@@ -1,0 +1,1 @@
+"use strict";!function(){var e=document.querySelectorAll(".main-nav__toggle")[0],n=document.getElementsByTagName("main")[0];e.addEventListener("click",function(){n.classList.toggle("main-nav--open")})}();

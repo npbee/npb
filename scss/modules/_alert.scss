@@ -1,0 +1,43 @@
+/******************************
+* ALERTS
+******************************/
+.alert {
+    border: 1px solid $black;
+    border-radius: 3px;
+    display: flex;
+    margin: $base-spacing-unit auto;
+    max-width: 300px;
+    text-align: center;
+    transition: 
+        background $animation-speed, 
+        opacity $animation-speed,
+        max-height $animation-speed;
+    a {
+        align-self: center;
+        cursor: pointer;
+        width: 100%;
+        word-wrap: break-word;
+    }
+    a,
+    img {
+        min-width: 20px;
+        padding: $base-spacing-unit;
+    }
+    img {
+        background: $brand-main;
+    }
+}
+
+
+
+.alert--warning {
+    background: $warning;
+    &:hover {
+        background: darken($warning, 10%);
+    }
+}
+
+.alert--error {
+    background: $error;
+    color: $white;
+}

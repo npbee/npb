@@ -1,0 +1,37 @@
+.avatar {
+    text-align: center;
+    margin-bottom: $typecsset-base-line-height;
+    font-size: $small-font;
+    @include breakpoint($retina) {
+        font-size: $small-retina-font;
+    }
+    @include breakpoint($large) {
+        margin-bottom: auto;
+        font-size: $small-font;
+    }
+}
+
+    .avatar__image {
+        border-radius: 50%;
+        max-width: 50%;
+        margin-bottom: $typecsset-base-line-height;
+        @include breakpoint($large) {
+            border-radius: 3px;
+            margin-bottom: $base-spacing-unit;
+            max-width: 90px;
+        }
+    }
+
+    .avatar__summary {
+        /*font-size: $typecsset-base-font-size;*/
+        /*font-size: $small-font;*/
+    }
+
+    .avatar__summary__item {
+        margin-bottom: $base-spacing-unit / 2;
+    }
+
+    .avatar__summary__position {
+        font-style: italic;
+        font-weight: normal;
+    }

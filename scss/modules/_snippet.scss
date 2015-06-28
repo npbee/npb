@@ -1,0 +1,13 @@
+.snippet {
+    display: block;
+    margin-bottom: $typecsset-base-line-height;
+    .snippet__tagline, 
+    .snippet__item {
+    }
+    .snippet__tagline {
+        margin-bottom: 0;
+    }
+    .snippet__item {
+        font-style: italic;
+    }
+}

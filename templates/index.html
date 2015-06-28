@@ -1,0 +1,42 @@
+{% include "./partials/head.html" %}
+
+<body>
+    <main>
+    {% include "./partials/nav.html" %}
+
+        <section class="home">
+            <div class="grid grid--centered spacer">
+                <div class="avatar grid--1-2 grid--left">
+                    <img class="avatar__image" src="/static/images/me_alt.jpeg" />
+                    <div class="avatar__summary">
+                        <p class="avatar__summary__item">
+                        Nick Ball
+                        </p>
+                        <p class="avatar__summary__position avatar__summary__item">
+                            Jr. Software Engineer
+                        </p>
+                        <p class="avatar__summary__employer avatar__summary__item">
+                            @ Loudr
+                        </p>
+                    </div>
+                </div>
+                <div class="tagline grid--1-2 grid--last">
+                    <h1 class="fun-font tagline__item">Development +</h1>
+                    <h1 class="fun-font tagline__item">Design +</h1>
+                    <h1 class="fun-font tagline__item">Etc.</h1>
+                </div>
+            </div>
+            <hr class="rule rule--small skinny" />
+            <div class="center spacer">
+                <a href="/posts/{{ titleize(collections.posts|first.title) }}" class="snippet" onClick={this._onClick}>
+                    <h2 class="snippet__tagline">Latest Post</h2>
+                    <span class="snippet__item">
+                        <span>{{ collections.posts|first.title }}</span>
+                    </span>
+                </a>
+            </div>
+        </section>
+    </main>
+    {% include "./partials/scripts.html" %}
+</body>
+</html>
