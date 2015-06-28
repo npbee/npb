@@ -3,4 +3,10 @@
 # NPB
 Blog, portfolion & ramblings.
 
-Completely static site built with Metalsmith
+Completely static site built with Metalsmith.
+
+Updating
+    - `gulp metalsmith` for building the files
+    - `git push` to push to master
+    - `shipit production deploy` for deploying
+    - All wrapped up in local alias `npbdeploy`

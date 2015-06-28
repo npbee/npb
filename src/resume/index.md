@@ -10,7 +10,9 @@ experiences:
             revolved around the front-end architecture and implementation of a 
             very large KnockoutJS application.  
       highlights:
-        - Some stuff
+        - Built a unit testing infrastructure from scratch for a legacy
+          codebase.
+        - Kept the codebase up-to-date with industry best-practices and tooling.
     - company: Say Media, Inc.
       role: Senior Ad Operator
       dates: Aug. 2008 - Nov. 2014
