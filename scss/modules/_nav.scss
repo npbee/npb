@@ -1,13 +1,14 @@
 /******************************
 * $NAVIGATION
 ******************************/
-$nav-height: 75px;
+$nav-height: 130px;
+
 .main-nav {
     align-items: center;
     display: flex;
-    height: $nav-height * 2;
+    height: $nav-height;
     justify-content: flex-start;
-    padding: $typecsset-base-line-height;
+    padding: 0 $typecsset-base-line-height;
     /*@include breakpoint($retina) {*/
         /*height: $nav-height * 4;*/
     /*}*/
@@ -16,23 +17,18 @@ $nav-height: 75px;
         height: $nav-height;
     }
     a {
-        @include breakpoint($large) {
-            padding-left: $base-spacing-unit;
-            padding-right: $base-spacing-unit;
-            text-align: left;
-            width: auto;
-        }
+        padding-left: $base-spacing-unit;
+        padding-right: $base-spacing-unit;
+        text-align: left;
+        width: auto;
     }
     .site-logo {
         display: block;
-        text-align: right;
-        order: 2; // Put the site logo to the right on mobile
-        width: 100%;
         /*z-index: 2;*/
         img {
             align-self: flex-start;
             @include breakpoint($large) {
-                max-width: 35px;
+                width: 35px;
             }
         }
         @include breakpoint($large) {
@@ -42,22 +38,6 @@ $nav-height: 75px;
             padding-right: $base-spacing-unit;
             padding-left: 0;
             width: auto;
-        }
-    }
-    .main-nav__toggle {
-        display: block;
-        margin-left: -$base-spacing-unit; // Hack to align the logo properly :(
-        padding-right: $base-spacing-unit * 2;
-        width: 25%;
-        z-index: 2;
-        @include breakpoint($large) {
-            display: none;
-        }
-    }
-    .dropdown {
-        display: none;
-        @include breakpoint($large) {
-            display: block;
         }
     }
 }
@@ -73,109 +53,40 @@ $nav-height: 75px;
 
 
 .main-nav__menu {
-    /*font-size: $typecsset-h1-size;*/
-    left: 0;
-    position: absolute;
-    top: $nav-height * 2 + $base-spacing-unit;
-    width: 100%;
-    z-index: -1;
-    /*@include breakpoint($retina) {*/
-        /*font-size: $typecsset-base-font-size * 6;*/
-    /*}*/
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    font-size: inherit;
+    opacity: 1;
+    position: static;
+    width: auto;
     @include breakpoint($large) {
-        animation: none;
-        font-size: inherit;
-        opacity: 1;
-        position: static;
-        width: auto;
-        z-index: 1;
+        justify-content: flex-start;
     }
     > a {
-        @include animation-repeater(3, slide-up, $animation-speed, 100,
-        forwards);
-        &:first-child {
-            border-top: 1px solid $grey;
-            @include breakpoint($large) {
-                border: none;
-            }
-        }
-        border-bottom: 1px solid $grey;
-        display: block;
-        font-size: $typecsset-h1-size;
-        opacity: 0;
-        padding: $typecsset-base-line-height;
-        width: 100%;
+        border: none;
+        display: inline;
+        font-size: $typecsset-base-font-size;
+        opacity: 1;
+        padding-left: $base-spacing-unit*3;
+        width: auto;
         @include breakpoint($large) {
-            @include animation-repeater(3, none, none, 100,
-            forwards);
-            border: none;
-            display: inline;
-            font-size: $typecsset-base-font-size;
-            opacity: 1;
             padding: 0 $base-spacing-unit;
-            width: auto;
         }
     }
 }
 
 .main-nav__social {
-    animation: slide-out-to-left $animation-speed forwards;
-    display: flex;
-    width: 100%;
+    display: none;
     @include breakpoint($large) {
         animation: none;
         display: block;
         opacity: 1;
         width: auto;
-    }
-    > a {
-        flex: 1;
-        text-align: center;
-        @include breakpoint($large) {
+        > a {
+            text-align: center;
             display: inline-block;
             width: auto;
         }
-    }
-}
-
-
-
-/******************************
-* OPEN NAVIGATION
-******************************/
-main > section {
-    transition: opacity $animation-speed;
-    z-index: 1;
-}
-
-.main-nav--closed {
-    .main-nav__menu a {
-        opacity: 1;
-        z-index: -1;
-        @include breakpoint($large) {
-            z-index: 1;
-        }
-    }
-}
-
-.main-nav--open {
-    .main-nav__social,
-    .main-nav__menu {
-        z-index: 1;
-    }
-    .main-nav__menu a {
-        @include animation-repeater(3, slide-down, $animation-speed, 100,
-        forwards);
-    }
-    .main-nav__social {
-        animation: slide-in-from-left 200ms forwards;
-    }
-    .site-logo {
-        display: none;
-    }
-    > section {
-        opacity: 0.1;
-        position: relative; // Need this for the z-index to work
-        z-index: -1;
     }
 }
