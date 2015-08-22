@@ -15,9 +15,9 @@ var uglify = require('gulp-uglify');
 var metalsmith = require('metalsmith');
 var assets = require('metalsmith-assets');
 var markdown = require('metalsmith-markdown');
-var templates = require('metalsmith-templates');
 var collections = require('metalsmith-collections');
 var permalinks = require('metalsmith-permalinks');
+var layouts = require('metalsmith-layouts');
 
 swig.setDefaults({
     locals: {
@@ -90,7 +90,7 @@ gulp.task('metalsmith', function(done) {
         .use(markdown())
 
         // Templates
-        .use(templates({
+        .use(layouts({
             engine: 'swig'
         }))
 
@@ -119,10 +119,9 @@ gulp.task('reload', function() {
 
 gulp.task('watch', ['serve'], function() {
     gulp.watch('scss/**/*.scss', ['scss']);
-    gulp.watch('js/**/*.js', ['js']);
 
     gulp.watch(
-        ['static/**/*', 'src/**/*', 'templates/**/*'],
+        ['static/**/*', 'src/**/*', 'layouts/**/*'],
         ['metalsmith']
     );
 

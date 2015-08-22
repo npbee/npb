@@ -1,3 +1,3 @@
 ---
-template: connect.html
+layout: connect.html
 ---

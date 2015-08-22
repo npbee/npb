@@ -1,4 +1,4 @@
 ---
-template: list.html
+layout: list.html
 type: post
 ---

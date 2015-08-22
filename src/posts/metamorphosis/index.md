@@ -1,7 +1,7 @@
 ---
 title: Metamorphosis
 date: 2015-04-25
-template: post.html
+layout: post.html
 collection: posts
 excerpt: Advertising → Music → Advertising → Engineer
 ---

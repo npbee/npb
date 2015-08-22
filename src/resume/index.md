@@ -1,5 +1,5 @@
 ---
-template: resume.html
+layout: resume.html
 experiences:
     - company: Loudr
       role: Jr. Software Engineer

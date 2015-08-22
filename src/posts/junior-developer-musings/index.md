@@ -1,6 +1,6 @@
 ---
 title: Junior Developer Musings
-template: post.html
+layout: post.html
 date: 2015-05-25
 collection: posts
 excerpt: Being a 30-year-old Junior
