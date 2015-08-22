@@ -13,7 +13,9 @@
 
         <section>
             <h2 class="alpha">Background</h2>
-            <p>I am a passionate, self-motivated, and captivated developer.  I have a never-ending drive for knowledge and aim to hone my craft to the finest degree.</p>
+            <p>I am an eager and motivated self-starter.  As passionate
+            front-end engineer with full stack capabilities, I aim to hone my
+            craft to the finest degree.</p>
         </section>
 
         <section>
@@ -21,12 +23,17 @@
 
             {% for exp in experiences %}
             <div class="experience">
-                <div class="experience__first">
-                    <h3 class="beta">{{ exp.company }}</h3><!--
-                --><p class="italic">{{ exp.role }}</p>
-                </div>
-                <div class="experience__second">
-                    <p class="milli">{{ exp.dates }}</p>
+                <div class="experience__meta">
+                    <div class="experience__first">
+                        <a href="{{ exp.site }}" class="company-logo {{ exp.company }} beta">
+                            <img src="/static/images/icons/companies/{{
+                            exp.logo }}"><span>{{ exp.company }}</span>
+                        </a>
+                    </div>
+                    <div class="experience__second">
+                        <p class="italic">{{ exp.role }}</p>
+                        <p class="milli">{{ exp.dates }}</p>
+                    </div>
                 </div>
 
                 <h4 class="gamma">Description</h4>

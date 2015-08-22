@@ -4,6 +4,8 @@ experiences:
     - company: Loudr
       role: Jr. Software Engineer
       dates: Nov. 2014 - Present
+      site: "http://loudr.fm"
+      logo: loudr.png
       description:
         - |
             As the third engineering hire on a very lean team, my responsibilities 
@@ -16,6 +18,8 @@ experiences:
     - company: Say Media, Inc.
       role: Senior Ad Operator
       dates: Aug. 2008 - Nov. 2014
+      site: http://saymedia.com
+      logo: say.png
       description: 
         - This position required no programming experience, but I was able to incorporate productive development aspects on my own accord.  Throughout my time, I evolved the position into one that provided go-to support for our advanced Javascript functionality, simple Javascript modules for daily use, and debugging of partner sites.
         - Outside of development knowledge, through this position I have attained several years of experience working simultaneously with multiple teams, coaching and mentoring junior teammates, and communicating in a client-facing manner.
@@ -27,6 +31,8 @@ experiences:
     - company: Self Employed
       role: Freelance Web Developer
       dates: 2010 - Present
+      site: http://npbee.me
+      logo: logo.svg
       description:
         - Working as a freelance web developer is where I have learned the bulk of my development knowledge.  Beginning with basic HTML and CSS, I have since advanced to fluency in SCSS and Javascript as well as beginning aptitude in Ruby, PHP and SQL.  I've worked with both client-side and server-side apps.
       highlights:
