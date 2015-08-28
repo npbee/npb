@@ -2,5 +2,6 @@ node_modules
 .sass-cache
 .sass-cache/*
 .DS_STORE
-knexfile.js
 npm-debug.log
+build/*
+
