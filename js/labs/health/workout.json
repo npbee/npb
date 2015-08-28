@@ -1,16 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _workoutJson = require('./workout.json');
-
-var _workoutJson2 = _interopRequireDefault(_workoutJson);
-
-console.log(typeof React);
-
-},{"./workout.json":2}],2:[function(require,module,exports){
-module.exports=[
+[
 {"Workout Date":"2014-00-20 06:00:44","Routine":"Day 1","Exercise":"Bench Press","Set Order":1,"Weight":175,"Weight Units":"lbs","Reps":4},
 {"Workout Date":"2014-00-20 06:00:44","Routine":"Day 1","Exercise":"Bench Press","Set Order":2,"Weight":180,"Weight Units":"lbs","Reps":5},
 {"Workout Date":"2014-00-20 06:00:44","Routine":"Day 1","Exercise":"Bench Press","Set Order":3,"Weight":185,"Weight Units":"lbs","Reps":4},
@@ -1040,4 +1028,3 @@ module.exports=[
 {"Workout Date":"2015-10-25 06:10:12","Routine":"Chest Day - 1","Exercise":"Bicep curl (preacher bar)","Set Order":1,"Weight":95,"Weight Units":"lbs","Reps":7},
 {"Workout Date":"2015-10-25 06:10:12","Routine":"Chest Day - 1","Exercise":"Bicep curl (preacher bar)","Set Order":2,"Weight":85,"Weight Units":"lbs","Reps":8}
 ]
-},{}]},{},[1]);

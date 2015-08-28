@@ -9,6 +9,9 @@ var server = require('gulp-webserver');
 var connect = require('gulp-connect');
 var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
+var browserify = require('browserify');
+var babelify = require('babelify');
+var source = require('vinyl-source-stream');
 
 
 // Metalsmith stuff
@@ -53,10 +56,15 @@ gulp.task('scss', function () {
  * JS
  **********/
 gulp.task('js', function() {
-    return gulp.src('js/**/*.js')
-        .pipe(babel())
-        .pipe(uglify())
-        .pipe(gulp.dest('static/js'));
+
+    // Not the smartest way to do this, but...
+    browserify('./js/labs/health/app.js')
+        .transform(babelify)
+        .bundle()
+        .pipe(source('app.js'))
+        .pipe(gulp.dest('./static/js/labs/health'));
+
+
 });
 
 
@@ -119,6 +127,7 @@ gulp.task('reload', function() {
 
 gulp.task('watch', ['serve'], function() {
     gulp.watch('scss/**/*.scss', ['scss']);
+    gulp.watch('js/**/*.js', ['js']);
 
     gulp.watch(
         ['static/**/*', 'src/**/*', 'layouts/**/*'],

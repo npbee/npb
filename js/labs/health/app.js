@@ -1,1 +1,3 @@
-console.log('hi from labs');
+import data from './workout.json';
+
+console.log(typeof React);
