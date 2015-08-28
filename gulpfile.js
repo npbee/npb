@@ -34,7 +34,7 @@ swig.setDefaults({
  * SCSS DEV
  **********/
 gulp.task('scss', function () {
-    return sass('scss/app.scss', {
+    return sass('src/scss/app.scss', {
         sourcemap: true,
         style: 'compressed',
         require: 'susy'
@@ -48,7 +48,7 @@ gulp.task('scss', function () {
         })
     ]))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./static/css'));
+    .pipe(gulp.dest('./src/static/css'));
 });
 
 
@@ -58,11 +58,11 @@ gulp.task('scss', function () {
 gulp.task('js', function() {
 
     // Not the smartest way to do this, but...
-    browserify('./js/labs/health/app.js')
+    browserify('./src/js/labs/health/app.js')
         .transform(babelify)
         .bundle()
         .pipe(source('app.js'))
-        .pipe(gulp.dest('./static/js/labs/health'));
+        .pipe(gulp.dest('./src/static/js/labs/health'));
 
 
 });
@@ -90,7 +90,7 @@ gulp.task('metalsmith', function(done) {
 
         // Assets
         .use(assets({
-            "source": "./static",
+            "source": "./src/static",
             "destination": "./static"
         }))
 
