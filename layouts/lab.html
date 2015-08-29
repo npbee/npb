@@ -5,11 +5,10 @@
     {% include "./partials/nav.html" %}
 
         <section class="lab single-item">
-            A lab
+            <article>{{ contents|safe }}</article>
         </section>
     </main>
 
-    <script src="/static/js/labs/{{ script }}"></script>
     {% include "./partials/footer.html" %}
 </body>
 </html>
