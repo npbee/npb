@@ -27,7 +27,7 @@
             </div>
             <hr class="rule rule--small skinny" />
             <div class="center spacer">
-                <a href="/posts/{{ titleize(collections.posts|first.title) }}" class="snippet" onClick={this._onClick}>
+                <a href="/posts/{{ collections.posts|first.slug || titleize(collections.posts|first.title) }}" class="snippet" onClick={this._onClick}>
                     <h2 class="snippet__tagline">Latest Post</h2>
                     <span class="snippet__item">
                         <span>{{ collections.posts|first.title }}</span>
