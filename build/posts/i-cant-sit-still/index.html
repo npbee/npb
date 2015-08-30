@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+    <title>Blog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="apple-touch-icon" sizes="57x57"
+                                 href="/static/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60"
+                                 href="/static/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72"
+                                 href="/static/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76"
+                                 href="/static/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114"
+                                 href="/static/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120"
+                                 href="/static/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144"
+                                 href="/static/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152"
+                                 href="/static/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+                                 href="/static/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/favicon/android-chrome-192x192.png"
+                                      sizes="192x192">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/static/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="msapplication-TileImage" content="/static/favicon/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css"
+  href="//cloud.typography.com/7821852/748866/css/fonts.css" />
+
+    <link rel="stylesheet" href="/static/css/app.css" />
+
+</head>
+
+
+<body class="post">
+    <main>
+    <nav class='main-nav' >
+    <a href="/" class="site-logo"><img class="icon" src="/static/images/logo.svg" /></a>
+    <div class="main-nav__menu">
+        <a href="/posts" class="">posts</a>
+        <a href="/connect" class="">connect</a>
+    </div>
+    <div class="main-nav__social main-nav__break-right">
+        <a href="http://twitter.com/npbeep" class="main-nav__break-right"><img
+            class="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
+        <a href="mailto:nick@npbee.me" class=""><img class="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
+        <a href="http://github.com/npbee" class=""><img class="icon" src="/static/images/icons/github/mark.svg" /></a>
+    </div>
+</nav>
+
+
+        <section class="project single-item">
+            
+                <img src="negativespace.jpg">
+            
+            <header>
+                <h1 class="fun-font">I Can&#39;t Sit Still</h1>
+                <div class="excerpt">Or the four phases of this blog</div>
+                <div class="meta">
+                    <div class="meta__item">
+                        <h2 class="meta__header">Date Posted: </h2>
+                        <ul class="meta__values">
+                            <li>08/30/2015</li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+            <hr class="rule skinny" />
+            <article><h1 id="phase-1-static-site-generator">Phase 1: Static Site Generator</h1>
+<p>When I was first entertaining the notion of having my very own site, I had
+really only tackled basic HTML and CSS.  I wasn&#39;t familiar with Javascript or
+back-end technologies of any kind, so a static site generator seemed like the
+perfect fit.  I chose <a href="http://jekyllrb.com/"> Jekyll </a> as my site generator
+and for a while, it was good.</p>
+<h1 id="phase-2-ruby-on-rails">Phase 2: Ruby on Rails</h1>
+<p>Suddenly, I learned more things.  I had graduated myself from a complete noob to
+a somewhat promising apprentice and I had my sights set on becoming a
+full-fledged web developer.  After a long internal struggle of which language to
+learn, I settled on Ruby and decided that the smart move would be to build my
+site in Ruby on Rails.  So, that&#39;s what I did.  My simple site was a full-on
+Rails app with routes, a database, and a deployment system.  Things were ok for
+a while.</p>
+<h1 id="phase-3-all-javascript">Phase 3:  All Javascript</h1>
+<p>After settling in the web development world for a while, I found myself really
+focusing more and more on Javascript.  It became my first specialty and I
+decided to dive in deep.  Having my site be a Rails now seemed silly.  I was a
+<em>Javascript</em> developer and my site was built with Ruby, even though building a
+web app completely with Javascript was absolutely possible.  I rebuilt my site
+for the third time as a Universal (<em>isomorphic</em> to some) Javascript app.  Using
+the latest and greatest:  React, Koa, Babel, Postgres, etc.  It was my most
+complex app to date.  </p>
+<p>The problem?  I came back a week later to write a blog
+post and I completely forgot how everything worked.  </p>
+<h1 id="phase-4-static-site-generator-again-">Phase 4:  Static Site Generator (again)</h1>
+<p>So now I&#39;ve come full circle back to a static site generator.  I decided on 
+<a href="http://www.metalsmith.io/">Metalsmith</a> this time because it&#39;s super extensible 
+and it&#39;s written in Javascript.  Before rewriting the site for the fourth time I
+decided to sit down and actually think about what problems I was trying to solve
+for myself before going straight to coding.  You know, like a good developer
+might do.  </p>
+<p>Here are the problems I focused on solving:</p>
+<h2 id="writing">Writing</h2>
+<p>Creating and putting my thoughts down is the most important part of the site.
+It is, after all, a <em>blog</em>.  Writing a new post is now as easy as opening up a
+new markdown file in the &quot;posts&quot; folder.  </p>
+<h2 id="styling">Styling</h2>
+<p>Styling is the next task that I spend the most time on.  I enjoy going in a
+tweaking the styling and trying out new things.  I use <a href="http://sass-lang.com/">SASS</a>
+ and <a href="https://github.com/postcss/autoprefixer">Autoprefixer</a> so I needed a way
+to easily use those tools.  I have a simple gulp task for watching my <code>.scss</code>
+files and recompiling.</p>
+<h2 id="javascripting">Javascripting</h2>
+<p>This site does not <em>need</em> any Javascript and that&#39;s something I&#39;m trying to be 
+more mindful of in general with anything I build.  That said, I am a Javascript
+developer so I wanted a way to be able to try new things and share them here on
+the site.  I also wanted these experiments to be able to stand on their own
+without needing any dependencies from the rest of the site and also the other
+way around, meaning I don&#39;t have to include React as a dependency on the site
+when really I only need it in one experiment that I&#39;m doing.  </p>
+<p>So, my workflow in this scenario is the most complicated bit of the site.  I have 
+a separate <code>labs</code> folder where I keep these experiments.  Anything in this
+directory is treated as its own project.  Each project will have its own
+<code>project.json</code> file and its own dependencies.  Really, they can just be their
+own Git repositories so I can keep them completely separated.  People can clone
+them and run them locally without any trouble.  </p>
+<p>The difference in the context of the site is that, when deploying, I use 
+Metalsmith to basically mash the project&#39;s <code>index.html</code> and <code>readme.md</code> together 
+and then plop into a layout like any other page on the site.  So a project&#39;s
+<code>index.html</code> would look like this:</p>
+<pre><code class="hljs html"><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">body</span>&gt;</span>
+
+    <span class="comment">&lt;!-- CUT --&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"root'&gt;&lt;/div&gt;
+    &lt;script src="</span><span class="value">.</span>/<span class="attribute">bundle.js</span>"&gt;</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="comment">&lt;!-- /CUT --&gt;</span>
+
+    <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+
+<p>And my readme.md would look this:</p>
+<pre><code class="hljs md"><span class="xml"><span class="comment">&lt;!-- PASTE --&gt;</span></span>
+
+<span class="header"># The Project</span>
+...</code></pre>
+
+<p>I cut everything between the <code>&lt;!-- CUT --&gt;</code> and the <code>&lt;!-- /CUT --&gt;</code> in the
+<code>index.html</code> and paste where the <code>&lt;!-- PASTE --&gt;</code> comment is in the <code>readme.md</code>
+file.  This allows me to present the project in the context of the site, but I
+can still develop the project separately.</p>
+<h1 id="phase-5-">Phase 5 ???</h1>
+<p>How long will this phase last?  I&#39;m not sure.  Hopefully longer this time.  The
+different iterations of this site have been huge learning experiences for me
+regardless.  I&#39;d like to think that I&#39;ve gained a little wisdom and that I&#39;m past the
+point of trying to show off what I can do and now just trying to pick the best
+tools for the job.  But I&#39;m not holding my breath...</p>
+</article>
+        </section>
+    </main>
+
+    <footer>
+    <div class="social">
+        <a href="http://twitter.com/npbeep" class="main-nav__break-right"><img
+            class="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
+        <a href="mailto:nick@npbee.me" class=""><img class="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
+        <a href="http://github.com/npbee" class=""><img class="icon" src="/static/images/icons/github/mark.svg" /></a>
+    </div>
+</footer>
+
+</body>
+</html>
