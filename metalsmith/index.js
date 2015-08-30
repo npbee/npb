@@ -3,7 +3,6 @@ var markdown = require('metalsmith-markdown');
 var layouts = require('metalsmith-layouts');
 var assets = require('metalsmith-assets');
 var collections = require('metalsmith-collections');
-var permalinks = require('metalsmith-permalinks');
 var serve = require('metalsmith-serve');
 var watch = require('metalsmith-watch');
 var msIf = require('metalsmith-if');
