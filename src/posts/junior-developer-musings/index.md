@@ -4,6 +4,7 @@ layout: post.html
 date: 2015-05-25
 collection: posts
 excerpt: Being a 30-year-old Junior
+image: grandson.jpg
 ---
 
 I mentioned this in previous post, but being a junior anything when you're 30 is a strange feeling.  There's some pride to be swallowed and some humbling to be had.  But at the same time there's satisfaction in the fact that I'm "paying my dues."  I've learned quite a bit so far as a junior and I thought I'd share a few tidbits.    

@@ -11,18 +11,17 @@
             <header>
                 <h1 class="fun-font">{{ title }}</h1>
                 <div class="excerpt">{{ excerpt }}</div>
+                <div class="meta">
+                    <div class="meta__item">
+                        <h2 class="meta__header">Date Posted: </h2>
+                        <ul class="meta__values">
+                            <li>{{ date|date('m/d/Y') }}</li>
+                        </ul>
+                    </div>
+                </div>
             </header>
             <hr class="rule skinny" />
             <article>{{ contents|safe }}</article>
-            <hr class="rule skinny" />
-            <div class="meta">
-                <ul class="meta__item">
-                    <li>
-                        <h2 class="meta__header">Date Posted</h2>
-                        <p class="meta__value">{{ date|date('m/d/Y') }}</p>
-                    </li>
-                </ul>
-            </div>
         </section>
     </main>
 

@@ -7,121 +7,69 @@ Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull
 
 .hljs,
 pre {
-    background: #002b36;
+    /*background: #002b36;*/
+    @include breakpoint($large) {
+    }
 }
 pre code {
+    /*@extend .skinny;*/
+    display: block;
+    background: #2d2d2d;
+    color: #cccccc;
+    font-family: Menlo, Monaco, Consolas, monospace;
     display: block;
     overflow-x: auto;
-    background: #002b36;
+    padding: $base-spacing-unit $typecsset-base-line-height;
     color: #839496;
+    border-radius: 0;
     -webkit-text-size-adjust: none;
 }
 
 code {
-    @extend .skinny;
-    color: #839396;
+    background: #d9d9d9;
+    border-radius: 3px;
+    padding: 0 $base-spacing-unit;
     display: inline-block;
     font-size: $small-font;
-    margin: 0 auto;
-    padding: 0 $typecsset-base-line-height;
-    @include breakpoint($retina) {
-        font-size: $small-retina-font;
-    }
-    @include breakpoint($large) {
-        font-size: $small-font;
-    }
 }
 
-.hljs-comment,
-.diff .hljs-header,
-.hljs-doctype,
-.hljs-pi,
-.lisp .hljs-string,
-.hljs-javadoc {
-    color: #586e75;
+/* Tomorrow Night Eighties Theme */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+.tomorrow-comment, pre .comment, pre .title, .hljs-comment {
+  color: #999999;
 }
 
-/* Solarized Green */
-.hljs-keyword,
-.hljs-winutils,
-.method,
-.hljs-addition,
-.css .hljs-tag,
-.hljs-request,
-.hljs-status,
-.nginx .hljs-title {
-    color: #859900;
+.tomorrow-red, pre .variable, pre .attribute, pre .tag, pre .regexp, pre .ruby .constant, pre .xml .tag .title, pre .xml .pi, pre .xml .doctype, pre .html .doctype, pre .css .id, pre .css .class, pre .css .pseudo {
+  color: #f2777a;
 }
 
-/* Solarized Cyan */
-.hljs-number,
-.hljs-command,
-.hljs-string,
-.hljs-tag .hljs-value,
-.hljs-rules .hljs-value,
-.hljs-phpdoc,
-.hljs-dartdoc,
-.tex .hljs-formula,
-.hljs-regexp,
-.hljs-hexcolor,
-.hljs-link_url {
-    color: #2aa198;
+.tomorrow-orange, pre .number, pre .preprocessor, pre .built_in, pre .literal, pre .params, pre .constant {
+  color: #f99157;
 }
 
-/* Solarized Blue */
-.hljs-title,
-.hljs-localvars,
-.hljs-chunk,
-.hljs-decorator,
-.hljs-built_in,
-.hljs-identifier,
-.vhdl .hljs-literal,
-.hljs-id,
-.css .hljs-function {
-    color: #268bd2;
+.tomorrow-yellow, pre .class, pre .ruby .class .title, pre .css .rules .attribute {
+  color: #ffcc66;
 }
 
-/* Solarized Yellow */
-.hljs-attribute,
-.hljs-variable,
-.lisp .hljs-body,
-.smalltalk .hljs-number,
-.hljs-constant,
-.hljs-class .hljs-title,
-.hljs-parent,
-.hljs-type,
-.hljs-link_reference {
-    color: #b58900;
+.tomorrow-green, pre .string, pre .value, pre .inheritance, pre .header, pre .ruby .symbol, pre .xml .cdata {
+  color: #99cc99;
 }
 
-/* Solarized Orange */
-.hljs-preprocessor,
-.hljs-preprocessor .hljs-keyword,
-.hljs-pragma,
-.hljs-shebang,
-.hljs-symbol,
-.hljs-symbol .hljs-string,
-.diff .hljs-change,
-.hljs-special,
-.hljs-attr_selector,
-.hljs-subst,
-.hljs-cdata,
-.css .hljs-pseudo,
-.hljs-header {
-    color: #cb4b16;
+.tomorrow-aqua, pre .css .hexcolor {
+  color: #66cccc;
 }
 
-/* Solarized Red */
-.hljs-deletion,
-.hljs-important {
-    color: #dc322f;
+.tomorrow-blue, pre .function, pre .python .decorator, pre .python .title, pre .ruby .function .title, pre .ruby .title .keyword, pre .perl .sub, pre .javascript .title, pre .coffeescript .title {
+  color: #6699cc;
 }
 
-/* Solarized Violet */
-.hljs-link_label {
-    color: #6c71c4;
+.tomorrow-purple, pre .keyword, pre .javascript .function {
+  color: #cc99cc;
 }
 
-.tex .hljs-formula {
-    background: #073642;
+pre code {
+  /*line-height: 1.5;*/
+  /*border: 1px solid #ccc;*/
+  /*padding: 10px;*/
 }

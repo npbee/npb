@@ -4,6 +4,7 @@ date: 2015-04-25
 layout: post.html
 collection: posts
 excerpt: Advertising → Music → Advertising → Engineer
+image: flowers.jpg
 ---
 
 # Advertising

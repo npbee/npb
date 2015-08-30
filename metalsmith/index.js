@@ -7,6 +7,7 @@ var serve = require('metalsmith-serve');
 var watch = require('metalsmith-watch');
 var msIf = require('metalsmith-if');
 var swig = require('swig');
+var metallic = require('metalsmith-metallic');
 
 const labsPlugin = require('./labs');
 
@@ -60,8 +61,13 @@ exports.standard = function(root, doServe) {
             "destination": "./static"
         }))
 
+        .use(metallic({
+            classPrefix: ''
+        }))
+
         // Markdown
         .use(markdown())
+
 
         .use(msIf(
             doServe,
@@ -85,6 +91,7 @@ exports.standard = function(root, doServe) {
         .use(layouts({
             engine: 'swig'
         }))
+
 
         // Build
         .build(function(err) {

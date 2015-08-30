@@ -3,6 +3,7 @@ title: Custom Sublime Text Symbols
 collection: posts
 date: 2015-04-04
 layout: post.html
+image: sublime.jpg
 ---
 
 Recently I was exploring the possibility of defining custom symbols for a Sublime Text project.  A "symbol" is defined by the ST (Sublime Text) docs like so:

@@ -23,9 +23,6 @@
         > :not(.full-width) {
             @extend .skinny;
         }
-        pre {
-            @extend .full-width;
-        }
     }
 }
 
@@ -76,6 +73,6 @@
     }
     .excerpt {
         font-family: $header-font;
-        margin-bottom: $base-spacing-unit/2;
+        margin-bottom: $typecsset-base-line-height;
     }
 }

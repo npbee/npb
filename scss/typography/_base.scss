@@ -101,8 +101,15 @@ a {
 }
 
 .giga {
-    @include typecsset-font-size($typecsset-base-font-size * 4);
+    @include typecsset-font-size($typecsset-base-font-size * 2);
     word-wrap: break-word;
+    @include breakpoint($large) {
+        @include typecsset-font-size($typecsset-base-font-size * 4);
+    }
+}
+
+.mega {
+    @include typecsset-font-size($typecsset-base-font-size * 2);
 }
 
 .muted {
