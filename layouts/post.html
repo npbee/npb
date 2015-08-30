@@ -5,10 +5,14 @@
     {% include "./partials/nav.html" %}
 
         <section class="project single-item">
+            {% if image %}
+                <img src="{{ image }}">
+            {% endif %}
             <header>
-                {% if header-image %}{{ header-image }}{% endif %}
                 <h1 class="fun-font">{{ title }}</h1>
+                <div class="excerpt">{{ excerpt }}</div>
             </header>
+            <hr class="rule skinny" />
             <article>{{ contents|safe }}</article>
             <hr class="rule skinny" />
             <div class="meta">

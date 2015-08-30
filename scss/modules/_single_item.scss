@@ -30,6 +30,7 @@
 }
 
 .single-item header {
+    @extend .skinny;
     align-items: center;
     @include breakpoint($large) {
         flex-direction: row;
@@ -65,13 +66,16 @@
         order: 3;
     }
     h1 {
-        @extend .skinny;
         @extend .giga;
         line-height: 1;
-        text-align: center;
+        margin-bottom: $base-spacing-unit/2;
         @include breakpoint($large) {
             min-width: 700px;
             order: 2;
         }
+    }
+    .excerpt {
+        font-family: $header-font;
+        margin-bottom: $base-spacing-unit/2;
     }
 }

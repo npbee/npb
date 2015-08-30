@@ -73,6 +73,10 @@ exports.standard = function(root, doServe) {
         .use(msIf(
             doServe,
             watch({
+                paths: {
+                    'src/**/*': true,
+                    'layouts/**/*': true
+                },
                 livereload: doServe
             })
         ))

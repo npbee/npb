@@ -101,6 +101,7 @@ a {
 }
 
 .giga {
+    @include typecsset-font-size($typecsset-base-font-size * 4);
     word-wrap: break-word;
 }
 
