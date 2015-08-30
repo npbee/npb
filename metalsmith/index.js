@@ -7,8 +7,17 @@ var permalinks = require('metalsmith-permalinks');
 var serve = require('metalsmith-serve');
 var watch = require('metalsmith-watch');
 var msIf = require('metalsmith-if');
+var swig = require('swig');
 
 const labsPlugin = require('./labs');
+
+swig.setDefaults({
+    locals: {
+        titleize: function(title) {
+            return title.toLowerCase().replace(/\s/g, '-');
+        }
+    }
+});
 
 /**********
  * Labs Metalsmith build
@@ -44,11 +53,6 @@ exports.standard = function(root, doServe) {
                 sortBy: 'date',
                 reverse: true
             }
-        }))
-
-        // Permalinks
-        .use(permalinks({
-            pattern: ':title'
         }))
 
         // Assets

@@ -10,7 +10,7 @@
             {% for collection in collections %}
             {% if loop.key === _type %}
             {% for item in collection %}
-            <a href="/posts/{{ titleize(item.title) }}" class="snippet">
+            <a href="/posts/{{ item.slug || titleize(item.title) }}" class="snippet">
                 <h2 class="snippet__tagline">{{ item.title }}</h2>
                 <span class="snippet__item">
                     <span>{{ item.excerpt }}</span>
