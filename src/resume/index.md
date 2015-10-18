@@ -10,13 +10,8 @@ experiences:
         - |
             As the third engineering hire on a very lean team, my responsibilities 
             revolved around the front-end architecture and implementation of a 
-            very large KnockoutJS application.  My role on the team grew to
-            include the rebuild and oversight of the entire frontend architecture
+            very large KnockoutJS application.
       highlights:
-        - Completely rebuilt a legacy application using React, with features
-          such as immutable data structures, 95% test coverage using generative 
-          testing techniques, continuous deployment, and usage of the latest
-          Javascript language features.
         - Built a unit testing infrastructure from scratch for a legacy
           codebase.
     - company: Say Media, Inc.
