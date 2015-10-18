@@ -31,7 +31,7 @@ gulp.task('scss', function () {
  * METALSMITH
  **********/
 gulp.task('metalsmith-standard', ms.standard.bind(null, __dirname, false));
-gulp.task('metalsmith-labs', ms.labs.bind(null, __dirname, false));
+//gulp.task('metalsmith-labs', ms.labs.bind(null, __dirname, false));
 gulp.task('serve', ['watch-scss'], ms.standard.bind(null, __dirname, true));
 
 gulp.task('watch-scss', function() {
@@ -39,4 +39,4 @@ gulp.task('watch-scss', function() {
 });
 
 gulp.task('default', ['serve']);
-gulp.task('build', ['scss', 'metalsmith-standard', 'metalsmith-labs']);
+gulp.task('build', ['scss', 'metalsmith-standard']);
