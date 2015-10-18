@@ -10,11 +10,15 @@ experiences:
         - |
             As the third engineering hire on a very lean team, my responsibilities 
             revolved around the front-end architecture and implementation of a 
-            very large KnockoutJS application.  
+            very large KnockoutJS application.  My role on the team grew to
+            include the rebuild and oversight of the entire frontend architecture
       highlights:
+        - Completely rebuilt a legacy application using React, with features
+          such as immutable data structures, 95% test coverage using generative 
+          testing techniques, continuous deployment, and usage of the latest
+          Javascript language features.
         - Built a unit testing infrastructure from scratch for a legacy
           codebase.
-        - Kept the codebase up-to-date with industry best-practices and tooling.
     - company: Say Media, Inc.
       role: Senior Ad Operator
       dates: Aug. 2008 - Nov. 2014

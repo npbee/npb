@@ -8,11 +8,11 @@ $logo-size: 80px;
     background: $white;
     padding: 30px;
     height: 100%;
-    max-width: 1100px;
-    margin: $base-spacing-unit*10 auto;
+    max-width: 700px;
+    margin: 0 auto;
     font-family: 'Chronicle Display A', 'Chronicle Display B'; font-weight: 400; font-style: normal;
-    font-size: 1.5em;
-    font-size: 1.5rem;
+    /*font-size: 1.5em;*/
+    /*font-size: 1.5rem;*/
 }
 
 .resume {
@@ -51,7 +51,7 @@ $logo-size: 80px;
     section:first-child {
         /*border-bottom: 1px solid $grey;*/
         h1 {
-            font-size: $retina-font*2;
+            font-size: $retina-font * 1.5;
         }
     }
     section:first-child,
@@ -64,6 +64,7 @@ $logo-size: 80px;
             list-style: none;
             font-style: italic;
             li {
+                font-size: 0.8em;
                 a {
                     display: block;
                     padding: $base-spacing-unit*.75 0;
@@ -74,10 +75,12 @@ $logo-size: 80px;
                 }
                 @include breakpoint($large) {
                     display: inline-block;
+                    vertical-align: middle;
                     &:after {
                         font-style: normal;
                         content: "\2666";
                         display: inline-block;
+                        vertical-align: middle;
                         margin: 0 $base-spacing-unit/2;
                     }
                     &:last-child:after {
