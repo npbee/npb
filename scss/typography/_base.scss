@@ -34,11 +34,20 @@ h4, h5, h6 {
 }
 
 a {
+
     text-decoration: none;
     color: inherit;
+    transition: color 200ms, border-bottom 200ms;
     &:hover,
     &.active {
         color: $brand-main;
+    }
+}
+
+article a {
+    border-bottom: 1px solid $black;
+    &:hover {
+        border-bottom: 1px solid $brand-main;
     }
 }
 
