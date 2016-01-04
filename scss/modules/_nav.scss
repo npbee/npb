@@ -6,14 +6,10 @@ $nav-height: 130px;
 .main-nav {
     align-items: center;
     display: flex;
-    height: $nav-height;
+    height: $nav-height * 2;
     justify-content: flex-start;
     padding: 0 $typecsset-base-line-height;
-    /*@include breakpoint($retina) {*/
-        /*height: $nav-height * 4;*/
-    /*}*/
     @include breakpoint($large) {
-        /*font-size: $typecsset-base-font-size;*/
         height: $nav-height;
     }
     a {
@@ -27,6 +23,7 @@ $nav-height: 130px;
         /*z-index: 2;*/
         img {
             align-self: flex-start;
+            width: 100px;
             @include breakpoint($large) {
                 width: 35px;
             }
@@ -66,7 +63,6 @@ $nav-height: 130px;
     > a {
         border: none;
         display: inline;
-        font-size: $typecsset-base-font-size;
         opacity: 1;
         padding-left: $base-spacing-unit*3;
         width: auto;

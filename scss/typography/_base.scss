@@ -7,11 +7,12 @@ html, body {
     font-weight: 200;
     font-style: normal;
     color: $black;
-    font-size: $typecsset-base-font-size;
+    font-size: $typecsset-base-font-size * 2;
     // @include breakpoint($retina) {
     //     font-size: $retina-font;
     // }
     @include breakpoint($large) {
+        font-size: $typecsset-base-font-size;
     }
 }
 
@@ -119,6 +120,13 @@ article a {
 
 .mega {
     @include typecsset-font-size($typecsset-base-font-size * 2);
+}
+
+.mini {
+    font-size: $small-font * 2;
+    @include breakpoint($large) {
+        font-size: $small-font;
+    }
 }
 
 .muted {

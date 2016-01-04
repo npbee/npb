@@ -11,19 +11,13 @@
  * Mixins
  */
 @import "mixins/breakpoint";
-/*@import "mixins/animations";*/
 
-
-
-/**
- * Reset
- */
-/*@import "reset";*/
 
 /**
  * Third party
  */
 @import "lib/typecsset/typecsset";
+
 
 /** 
  * Base
@@ -55,7 +49,6 @@
 @import "modules/table";
 @import "modules/alert";
 @import "modules/summary_list";
-@import "modules/meta";
 @import "modules/single_item";
 @import "modules/code";
 @import "modules/forms";

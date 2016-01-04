@@ -69,12 +69,12 @@ exports.standard = function(root, doServe) {
         .use(markdown())
 
 
-        .use(msIf(
-            doServe,
-            serve({
-                port: 3000
-            })
-        ))
+        // .use(msIf(
+        //     doServe,
+        //     serve({
+        //         port: 3000
+        //     })
+        // ))
 
         .use(msIf(
             doServe,

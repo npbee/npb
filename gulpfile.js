@@ -4,6 +4,7 @@ var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer-core');
 var sourcemaps = require('gulp-sourcemaps');
 var ms = require('./metalsmith');
+var browserSync = require('browser-sync').create();
 
 /**********
  * SCSS DEV
@@ -27,6 +28,19 @@ gulp.task('scss', function () {
 });
 
 
+/*************
+ * BROWSERSYNC
+ *************/
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        server: {
+            baseDir: './build'
+        }
+    });
+});
+
+
+
 /**********
  * METALSMITH
  **********/
@@ -38,5 +52,5 @@ gulp.task('watch-scss', function() {
     gulp.watch('scss/**/*.scss', ['scss']);
 });
 
-gulp.task('default', ['serve']);
+gulp.task('default', ['serve', 'browser-sync']);
 gulp.task('build', ['scss', 'metalsmith-standard']);
