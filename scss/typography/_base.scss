@@ -7,11 +7,11 @@ html, body {
     font-weight: 200;
     font-style: normal;
     color: $black;
-    @include breakpoint($retina) {
-        font-size: $retina-font;
-    }
+    font-size: $typecsset-base-font-size;
+    // @include breakpoint($retina) {
+    //     font-size: $retina-font;
+    // }
     @include breakpoint($large) {
-        font-size: $typecsset-base-font-size;
     }
 }
 

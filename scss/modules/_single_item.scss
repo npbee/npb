@@ -63,7 +63,7 @@
         order: 3;
     }
     h1 {
-        @extend .giga;
+        // @extend .giga;
         line-height: 1;
         margin-bottom: $base-spacing-unit/2;
         @include breakpoint($large) {

@@ -2,11 +2,7 @@
 * META
 ******************************/
 .meta {
-    display: flex;
-    font-family: $header-font;
     font-size: $small-font;
-    flex-direction: column;
-    margin-top: $base-spacing-unit;
 }
 
 .meta__item {
