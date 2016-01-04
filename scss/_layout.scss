@@ -6,7 +6,10 @@ body {
 
 .text-wrapper {
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 90%;
+    @include breakpoint($large) {
+        max-width: 700px;
+    }
 }
 
 
@@ -82,11 +85,15 @@ footer {
             margin-bottom: $base-spacing-unit/2;
         }
         .excerpt {
-            font-size: $typecsset-base-font-size * 1.2;
+            @include breakpoint($large) {
+                font-size: $typecsset-base-font-size * 1.2;
+            }
             margin-bottom: $base-spacing-unit / 2;
         }
         em {
-            font-size: $typecsset-base-font-size * 0.80;
+            @include breakpoint($large) {
+                font-size: $typecsset-base-font-size * 0.80;
+            }
         }
     }
 }

@@ -1,3 +1,10 @@
+.icon {
+    min-width: 60px;
+    @include breakpoint($large) {
+        min-width: 30px;
+    }
+}
+
 .github-link {
     img {
         max-width: 20px;

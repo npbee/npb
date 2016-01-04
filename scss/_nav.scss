@@ -12,10 +12,13 @@ nav {
     &:after {
         color: $grey;
         display: inline-block;
-        font-size: 2em;
+        font-size: 1.5em;
         padding: 0 $base-spacing-unit;
         transition: color 300ms;
         vertical-align: top;
+        @include breakpoint($large) {
+            font-size: 2em;
+        }
     }
     &:before {
         content: '\2329';
@@ -30,6 +33,9 @@ nav {
         }
     }
     img {
-        max-width: 50px;
+        width: 75px;
+        @include breakpoint($large) {
+            max-width: 50px;
+        }
     }
 }
