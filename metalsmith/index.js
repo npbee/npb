@@ -9,8 +9,6 @@ var msIf = require('metalsmith-if');
 var swig = require('swig');
 var metallic = require('metalsmith-metallic');
 
-const labsPlugin = require('./labs');
-
 swig.setDefaults({
     locals: {
         titleize: function(title) {
@@ -18,28 +16,6 @@ swig.setDefaults({
         }
     }
 });
-
-/**********
- * Labs Metalsmith build
- **********/
-const LABS = ['health'];
-
-exports.labs = function(root) {
-    LABS.forEach(function(lab) {
-        Metalsmith(root + '/labs')
-            .destination('../build/labs/' + lab)
-            .source(lab)
-            .use(labsPlugin(root))
-            .use(markdown())
-            .use(layouts({
-                engine: 'swig'
-            }))
-            .build(function(err, files) {
-                if (err) { throw err; }
-            });
-    });
-};
-
 
 /**********
  * Standard Metalsmith build
@@ -68,13 +44,6 @@ exports.standard = function(root, doServe) {
         // Markdown
         .use(markdown())
 
-
-        // .use(msIf(
-        //     doServe,
-        //     serve({
-        //         port: 3000
-        //     })
-        // ))
 
         .use(msIf(
             doServe,
