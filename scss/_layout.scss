@@ -1,6 +1,33 @@
-/******************************
-* $FOOTER
-******************************/
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.text-wrapper {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+
+/**
+ * POSTS
+ */
+.posts {
+    text-align: center;
+    h2 {
+        margin-bottom: $base-spacing-unit/2;
+    }
+    >a {
+        display: block;
+        margin-bottom: $base-spacing-unit*2;
+    }
+}
+
+
+/**
+ * FOOTER
+ */
 $anim: 300ms;
 
 footer {
@@ -10,7 +37,6 @@ footer {
     justify-content: center;
     align-items: center;
     min-height: 75px;
-    margin-top: $base-spacing-unit * 4;
     padding: $base-spacing-unit * 2;
     &:before {
         transition: width $anim, background $anim;
@@ -40,6 +66,27 @@ footer {
         flex: 1;
         @include breakpoint($large) {
             display: inline-block;
+        }
+    }
+}
+
+
+/**
+ * POST
+ */
+.post {
+    header {
+        text-align: center;
+        h1 {
+            font-family: $brand-font;
+            margin-bottom: $base-spacing-unit/2;
+        }
+        .excerpt {
+            font-size: $typecsset-base-font-size * 1.2;
+            margin-bottom: $base-spacing-unit / 2;
+        }
+        em {
+            font-size: $typecsset-base-font-size * 0.80;
         }
     }
 }

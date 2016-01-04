@@ -5,12 +5,6 @@ Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull
 
  */
 
-.hljs,
-pre {
-    /*background: #002b36;*/
-    @include breakpoint($large) {
-    }
-}
 pre code {
     /*@extend .skinny;*/
     display: block;
@@ -30,7 +24,7 @@ code {
     border-radius: 3px;
     padding: 0 $base-spacing-unit;
     display: inline-block;
-    font-size: $small-font;
+    font-size: $typecsset-base-font-size * 0.8;
 }
 
 /* Tomorrow Night Eighties Theme */

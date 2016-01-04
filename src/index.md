@@ -1,5 +1,5 @@
 ---
-layout: index.html
+layout: default.html
 ---
 
 

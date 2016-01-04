@@ -1,0 +1,35 @@
+nav {
+    a { 
+        display: block;
+    }
+    margin: $base-spacing-unit 0;
+    padding: $base-spacing-unit;
+    text-align: center;
+}
+
+.site-logo {
+    &:before,
+    &:after {
+        color: $grey;
+        display: inline-block;
+        font-size: 2em;
+        padding: 0 $base-spacing-unit;
+        transition: color 300ms;
+        vertical-align: top;
+    }
+    &:before {
+        content: '\2329';
+    }
+    &:after {
+        content: '\232A';
+    }
+    &:hover {
+        &:before,
+        &:after {
+            color: $brand-main;
+        }
+    }
+    img {
+        max-width: 50px;
+    }
+}

@@ -42,50 +42,49 @@
 
 <body>
     <main>
-    <nav class='main-nav' >
+    <nav>
     <a href="/" class="site-logo"><img class="icon" src="/static/images/logo.svg" /></a>
-    <div class="main-nav__menu">
-        <a href="/posts" class="">posts</a>
-        <a href="/connect" class="">connect</a>
-    </div>
-    <div class="main-nav__social main-nav__break-right">
-        <a href="http://twitter.com/npbeep" class="main-nav__break-right"><img
-            class="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
-        <a href="mailto:nick@npbee.me" class=""><img class="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
-        <a href="http://github.com/npbee" class=""><img class="icon" src="/static/images/icons/github/mark.svg" /></a>
-    </div>
 </nav>
 
-        <section class="home">
-            <div class="grid grid--centered spacer">
-                <div class="avatar grid--1-2 grid--left">
-                    <img class="avatar__image" src="/static/images/me_alt.jpeg" />
-                    <div class="avatar__summary">
-                        <p class="avatar__summary__item">
-                        Nick Ball
-                        </p>
-                        <p class="avatar__summary__position avatar__summary__item">
-                            Jr. Software Engineer
-                        </p>
-                        <p class="avatar__summary__employer avatar__summary__item">
-                            @ Loudr
-                        </p>
-                    </div>
-                </div>
-                <div class="tagline grid--1-2 grid--last">
-                    <h1 class="fun-font tagline__item">Development +</h1>
-                    <h1 class="fun-font tagline__item">Design +</h1>
-                    <h1 class="fun-font tagline__item">Etc.</h1>
+        <section class="home text-wrapper">
+            <div class="avatar">
+                <img src="/static/images/me_alt.jpeg" />
+                <h1>Nick Ball</h1>
+                <div class="avatar__info">
+                    <p>Web developer focused on frontend technologies.</p>
+                    <p>Currently a <em>Jr. Software Engineer</em> @ <a href="http://loudr.fm">Loudr</a><p>
                 </div>
             </div>
-            <hr class="rule rule--small skinny" />
-            <div class="center spacer">
-                <a href="/posts/language-paralysis" class="snippet" onClick={this._onClick}>
-                    <h2 class="snippet__tagline">Latest Post</h2>
-                    <span class="snippet__item">
-                        <span>Language Paralysis</span>
-                    </span>
+
+            <hr />
+
+            <div class="posts">
+            
+                <a href="/posts/language-paralysis" class="snippet">
+                    <h2>Language Paralysis</h2>
+                    <em>Life after Javascript</em>
                 </a>
+            
+                <a href="/posts/i-cant-sit-still" class="snippet">
+                    <h2>I Can&#39;t Sit Still</h2>
+                    <em>Or the four phases of this blog</em>
+                </a>
+            
+                <a href="/posts/junior-developer-musings" class="snippet">
+                    <h2>Junior Developer Musings</h2>
+                    <em>Being a 30-year-old Junior</em>
+                </a>
+            
+                <a href="/posts/metamorphosis" class="snippet">
+                    <h2>Metamorphosis</h2>
+                    <em>Advertising → Music → Advertising → Engineer</em>
+                </a>
+            
+                <a href="/posts/custom-sublime-text-symbols" class="snippet">
+                    <h2>Custom Sublime Text Symbols</h2>
+                    <em></em>
+                </a>
+            
             </div>
         </section>
     </main>
@@ -94,7 +93,7 @@
         <a href="http://twitter.com/npbeep" class="main-nav__break-right"><img
             class="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
         <a href="mailto:nick@npbee.me" class=""><img class="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
-        <a href="http://github.com/npbee" class=""><img class="icon" src="/static/images/icons/github/mark.svg" /></a>
+        <a href="http://github.com/npbee" class="github-link"><img class="icon" src="/static/images/icons/github/mark.svg" /></a>
     </div>
 </footer>
 

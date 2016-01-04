@@ -1,0 +1,64 @@
+/*------------------------------------*\
+$RESUME
+\*------------------------------------*/
+$white: #f9f9f9;
+$logo-size: 80px;
+
+.resume {
+    font-family: $body-font;
+    h1:first-of-type {
+        font-size: $typecsset-h1-size * 1.2;
+        margin-bottom: $base-spacing-unit / 2;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: $body-font;
+    }
+    h2 {
+        border-bottom: 1px solid $grey;
+        font-size: $typecsset-h2-size * 1.3;
+        line-height: $typecsset-h2-size * 1.3 * 1.5;
+    }
+    h3 {
+        font-size: $typecsset-h3-size * 1.2;
+        line-height: $typecsset-h3-size * 1.2;
+    }
+    h4 {
+        font-size: $typecsset-h4-size;
+        line-height: $typecsset-h4-size;
+    }
+    .contact-info {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    section {
+        margin-bottom: $base-spacing-unit*4;
+    }
+
+    .experience {
+        .experience__meta {
+            font-size: $typecsset-base-font-size * 0.9;
+            h3 {
+                margin-bottom: $base-spacing-unit / 2;
+            }
+            p {
+                display: inline-block;
+                width: 50%;
+                &:first-child {
+                    font-style: italic;
+                }
+                &:last-child {
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+    .education {
+        p {
+            margin-bottom: $base-spacing-unit / 2;
+        }
+    }
+}
+

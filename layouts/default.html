@@ -1,0 +1,30 @@
+{% include "./partials/head.html" %}
+
+<body>
+    <main>
+    {% include "./partials/nav.html" %}
+        <section class="home text-wrapper">
+            <div class="avatar">
+                <img src="/static/images/me_alt.jpeg" />
+                <h1>Nick Ball</h1>
+                <div class="avatar__info">
+                    <p>Web developer focused on frontend technologies.</p>
+                    <p>Currently a <em>Jr. Software Engineer</em> @ <a href="http://loudr.fm">Loudr</a><p>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="posts">
+            {% for post in posts %}
+                <a href="/posts/{{ post.slug || titleize(post.title) }}" class="snippet">
+                    <h2>{{ post.title }}</h2>
+                    <em>{{ post.excerpt }}</em>
+                </a>
+            {% endfor %}
+            </div>
+        </section>
+    </main>
+    {% include "./partials/footer.html" %}
+</body>
+</html>
