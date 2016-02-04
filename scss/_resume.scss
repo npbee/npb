@@ -38,17 +38,22 @@ $logo-size: 80px;
 
     .experience {
         .experience__meta {
+            margin-bottom: $typecsset-base-line-height;
+            &:last-child p {
+                margin-bottom: inherit;
+            }
             font-size: $typecsset-base-font-size * 0.9;
             h3 {
                 margin-bottom: $base-spacing-unit / 2;
             }
             p {
                 display: inline-block;
+                margin-bottom: 5px;
                 width: 50%;
                 &:first-child {
                     font-style: italic;
                 }
-                &:last-child {
+                &:nth-child(even) {
                     text-align: right;
                 }
             }

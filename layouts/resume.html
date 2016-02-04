@@ -25,8 +25,10 @@
             <div class="experience">
                 <h3><a href="{{ exp.site }}">{{ exp.company }}</a></h3>
                 <div class="experience__meta">
-                    <p class="italic">{{ exp.role }}</p><!--
-                    --><p class="milli">{{ exp.dates }}</p>
+                    {% for role in exp.roles %}
+                    <p class="italic">{{ role }}</p><!--
+                    --><p class="milli">{{ exp.dates[loop.index0] }}</p>
+                    {% endfor %}
                 </div>
 
                 <h4 class="gamma">Description</h4>

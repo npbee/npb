@@ -2,21 +2,34 @@
 layout: resume.html
 experiences:
     - company: Loudr
-      role: Jr. Software Engineer
-      dates: Nov. 2014 - Present
+      roles: 
+        - Frontend Engineer
+        - Jr. Software Engineer
+      dates: 
+        - Feb. 2015 - Present
+        - Nov. 2014 - Feb. 2015
       site: "http://loudr.fm"
       logo: loudr.png
       description:
         - |
             As the third engineering hire on a very lean team, my responsibilities 
-            revolved around the front-end architecture and implementation of a 
-            very large KnockoutJS application.
+            began revolved around the maintenance of an existing KnockoutJS
+            application.  As my role grew, I architected and implemented a large
+            React application from scratch.  Responsibilities included framework
+            design and implementation, tooling and deployment, optimization,
+            testing, and feature planning.
       highlights:
-        - Built a unit testing infrastructure from scratch for a legacy
-          codebase.
+        - Built a unit testing infrastructure for a legacy app
+        - Utilized functional programming techniques to build a large, complex
+          React app with many reusable parts
+        - Built an advanced searching framework to allow users to transform
+          English-like expressions into API search strings intended for Elastic
+          Search
     - company: Say Media, Inc.
-      role: Senior Ad Operator
-      dates: Aug. 2008 - Nov. 2014
+      roles: 
+        - Senior Ad Operator
+      dates: 
+        - Aug. 2008 - Nov. 2014
       site: http://saymedia.com
       logo: say.png
       description: 
@@ -28,8 +41,10 @@ experiences:
         - Constantly improved and documented team practices and daily functions.
 
     - company: Self Employed
-      role: Freelance Web Developer
-      dates: 2010 - Present
+      roles: 
+        - Freelance Web Developer
+      dates: 
+        - 2010 - Present
       site: http://npbee.me
       logo: logo.svg
       description:
