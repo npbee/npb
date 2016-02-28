@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+    <title>Blog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="apple-touch-icon" sizes="57x57"
+                                 href="/static/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60"
+                                 href="/static/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72"
+                                 href="/static/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76"
+                                 href="/static/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114"
+                                 href="/static/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120"
+                                 href="/static/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144"
+                                 href="/static/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152"
+                                 href="/static/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+                                 href="/static/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/favicon/android-chrome-192x192.png"
+                                      sizes="192x192">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/static/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="msapplication-TileImage" content="/static/favicon/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css"
+  href="//cloud.typography.com/7821852/748866/css/fonts.css" />
+
+    <link rel="stylesheet" href="/static/css/app.css" />
+
+</head>
+
+
+<body>
+    <main>
+    <nav>
+    <a href="/" class="site-logo"><img class="icon" src="/static/images/logo.svg" /></a>
+</nav>
+
+
+        <section class="post text-wrapper">
+            <header>
+                <h1 class="brand-font">UX Case Study: Google Inbox</h1>
+                <p class="excerpt">A look into subtle interaction details</p>
+                <div>
+                    <em>February, 27 2016</em>
+                </div>
+            </header>
+            <hr>
+            <article><p>At work we’ve been in the process of building a queue-like component for helping our admins deal with various tasks.  As fans of Google Inbox we decided to use it as a reference for many of our UX decisions.  It was for this reason that I started  down the long and treacherous path of trying to figure out exactly how Google Inbox works.  I spent more time than I care to admit wading through compressed and mangle code, so I thought I share the small bits that I learned along the way.</p>
+<p><strong>Disclaimer:</strong>
+I’m sure there are things that I’ve misunderstood or missed, so please don’t take each explanation as the complete truth.</p>
+<h1 id="the-setup">The Setup</h1>
+<p>First, I just want to do a quick run-through of the kind of environment we’re dealing with here.  Unfortunately, there is no  “one weird trick” to emulate what I saw.  It’s a complex choreography of time, CSS keyframes, and a bunch of Javascript.  </p>
+<p>Like any old site, when you first load the page you’ll get a base payload of CSS and Javascript to get things started.  The magic comes when you actually open a message.  When this occurs, a new <code>style</code> tag is injected into the page.  This <code>style</code> tag has the very specific responsibility of animating each messages on screen to its next position.  The exact rules that are supplied will change depending various other bits of information:  which message is being open or closed, the dimensions of each message, how many other messages are on the screen, etc.  And practically as soon as the <code>style</code> tag is injected, it’s gone.</p>
+<figure>
+<img src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/style_injection.gif" alt="Style Injection">
+    <figcaption>Notice the flashing style tag right before the body</figcaption>
+</figure>
+
+<p>Here’s a sampling of the kind of style rules that are injected:</p>
+<pre><code class="hljs css"><span class="class">.t</span> <span class="class">.top-level-item</span><span class="attr_selector">[data-item-id-qs=qs-gmail-thread-f-1526179305444074125-0]</span> &gt; <span class="class">.V</span> <span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">50px</span></span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0px</span></span></span>;
+    <span class="rule"><span class="attribute">opacity</span>:<span class="value"> <span class="number">0.9999</span></span></span>;
+    <span class="rule"><span class="attribute">-webkit-transform-origin</span>:<span class="value"> center top</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">889px</span></span></span>;
+    <span class="rule"><span class="attribute">will-change</span>:<span class="value"> -webkit-transform</span></span>;
+    <span class="rule"><span class="attribute">-webkit-animation-name</span>:<span class="value"> swap-close-placeholder-fake-shadow-var-<span class="number">84</span>,animation-placeholder-fake-shadow-swap</span></span>;
+<span class="rule">}</span></span>
+
+<span class="at_rule">@<span class="keyword">-webkit-keyframes</span> swap-close-placeholder-fake-shadow-var-<span class="number">84</span> </span>{
+    0% <span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">0px</span>,<span class="number">0px</span>) <span class="function">scale</span>(<span class="number">1.0517435320584927</span>,<span class="number">27.34</span>)</span></span>;
+    <span class="rule">}</span></span>
+
+    80%,100% <span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">0px</span>,<span class="number">0px</span>) <span class="function">scale</span>(<span class="number">1.0022497187851518</span>,<span class="number">1.00001</span>)</span></span>;
+    <span class="rule">}</span></span>;
+}
+
+<span class="class">.t</span> <span class="class">.top-level-item</span><span class="attr_selector">[data-item-id-qs=qs-gmail-thread-f-1526179305444074125-0]</span> &gt; <span class="class">.U</span> <span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">48px</span></span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0px</span></span></span>;
+    <span class="rule"><span class="attribute">opacity</span>:<span class="value"> <span class="number">0.9999</span></span></span>;
+    <span class="rule"><span class="attribute">-webkit-transform-origin</span>:<span class="value"> center top</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">889px</span></span></span>;
+    <span class="rule"><span class="attribute">will-change</span>:<span class="value"> -webkit-transform</span></span>;
+    <span class="rule"><span class="attribute">-webkit-animation-name</span>:<span class="value"> swap-close-placeholder-var-<span class="number">84</span></span></span>;
+<span class="rule">}</span></span>
+
+<span class="at_rule">@<span class="keyword">-webkit-keyframes</span> swap-close-placeholder-var-<span class="number">84</span> </span>{
+    0% <span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">0px</span>,<span class="number">0px</span>) <span class="function">scale</span>(<span class="number">1.044994375703037</span>,<span class="number">28.354166666666668</span>)</span></span>;
+    <span class="rule">}</span></span>
+
+    80%,100% <span class="rules">{
+        <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">0px</span>,<span class="number">0px</span>) <span class="function">scale</span>(<span class="number">1.00001</span>,<span class="number">1.00001</span>)</span></span>;
+    <span class="rule">}</span></span>;
+}</code></pre>
+
+<p>Notice that the CSS is targeting specific elements with extremely precise animation measurements.  These are not rules that a human would write.  These are rules that are most likely generated by an application of some sort.  The rules are also armed with exact width and height measurements.  If you’ve ever tried to animate height, you’ve no doubt felt some pain as it’s not easy.  Knowing the exact height of the element you’re trying to animate makes a huge difference and Google Inbox takes full advantage.</p>
+<h1 id="a-few-examples">A Few Examples</h1>
+<p>Now that we have a general idea of the kind of setup we’re dealing with, let’s dive into a few examples.  </p>
+<h2 id="the-fixed-header">The Fixed Header</h2>
+<p>We’ll start with the simplest of the three: the fixed message header.  This one is not particularly novel, but has a slight twist to make it interesting.  The basic idea is that when a message is open, it’s header sticks to the top of the page as you scroll past it:</p>
+<figure>
+<img src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_a.gif" alt="Fixed Header A">
+</figure>
+
+<p>This is done pretty much as you might expect.  Javascript listens for the position of the top of the header message and once it’s been scrolled past the top the of the viewport, its position is fixed.  A small detail here is that there is also a “pusher” div that makes sure to push the message contents down once the message header is fixed.  This is needed because a fixed element removes it from the flow of the page, so the contents below it would have otherwise popped up.  Here’s what I mean:</p>
+<figure>
+<img src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_b.gif" alt="Fixed Header - No Pusher">
+    <figcaption>Notice how the messages contents jump when the header becomes fixed.</figcaption>
+</figure>
+
+<p>The twist is that the header will also switch to absolute positioning once you get to the point where the bottom of the header is the same as the bottom of the message.  This gives a nice transition between fixed back to static, rather than just jumping straight back to static.  </p>
+<p><img src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_c.gif" alt="Fixed Header - Absolute"></p>
+<p>I’ve put together an example implementation on Codepen:</p>
+<p><p data-height="294" data-theme-id="0" data-slug-hash="bpGrmm" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/bpGrmm/'>Google Inbox -  Fixed Header</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<h2 id="the-message-open">The Message Open</h2>
+<p>Now things get a bit trickier.  First, a quick visual of the animation:</p>
+<figure>
+<img src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/message_open.gif" alt="Message Open">
+</figure>
+
+<p>While this might look like a simple height and width animation, I assure you it’s not.  What’s happening here involves timing a few different keyframe animations together as one.  Keep in mind that the actual contents of the messages are completely hidden while the message is closed, as in <code>display: none</code>.  </p>
+<p>First, there is a <code>div</code> in the markup that’s sole purpose is to do a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/scale">scale</a> animation when the message is opening.  A scale animation is an interesting choice because it has no effect on the document flow, meaning that you can scale an element to 200% and the elements around won’t budge.  So in order to give the effect that the height of the message is increasing as the message is opening, you have to actually translate any messages below it <em>down</em> the page.  This will be more relevant in the next section.  The scale animation is also interesting because it’s essentially emulating a height animation of sorts.  The “pusher” <code>div</code> scales to the point where its height is exactly the height of the incoming message content.  This is where knowing the exact dimensions comes in handy.  </p>
+<p>Once the “scaler” div has done its thing, the content is brought into the DOM and begins to fade in.  At this point, the flow of the document is restored and since everything was done to exact specificity, there’s not jumpiness with any other <code>div</code>’s that had been moved out of the way for the scale animation.  </p>
+<p>I’ll be going into more detail next about the translating, but here’s a sample implantation on Codepen:</p>
+<p><p data-height="520" data-theme-id="0" data-slug-hash="ZWEJRg" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/ZWEJRg/'>Google Inbox -  Open Message</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<h2 id="the-message-swap">The Message Swap</h2>
+<p>Now we get to the wild and crazy stuff, the message swap:</p>
+<figure>
+<img src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/message_swap.gif" alt="message swap">
+</figure>
+
+<p>So, why is this interesting?  To be honest, I wasn’t sure it was all that interesting myself until I actually tried implementing it.  The first thing to notice is that it looks as if the opening message is animating its height in reverse.  This is the what a natural height animation would look like.  If you were to animate the second message’s height normally, it flow downwards increase the overall height of the page.  The second interesting thing that’s not very visible in the above gif, is the scroll position.  </p>
+<p>Take a look at this one (I have to speed up the animations for this to work):</p>
+<figure>
+<img src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/message_swap_b.gif" alt="scroll position">
+</figure>
+
+<p>In this gif, I’ve already scrolled way down the page and I’m now opening the second message.  If you imagine what would happen in the normal document flow, the first message would close and the page’s height would be substantially decreased, bringing the element below with it up the page.  We’d open to somewhere in the middle of the second message.  Instead, the scroll position appears to stay the exactly the same, the first messages closes, and the second message opens right in place.  This is an example of a completely natural feeling animation that is extremely <em>unnatural</em> to implement.</p>
+<p>So how’s it done?  In short, the CSS <code>translate</code> transform.  But this is also another example of multiple animations being coordinated together to appear as one smooth interaction.  As the first message is closing, it’s <code>translateY</code> position is being animated from 0 up to the point where it would be visible on the screen at the current scroll position. Meaning, if the first message were above the viewport by 200px, we’d animate from <code>translateY(0px)</code> to <code>translateY(200px)</code> to bring it in view.  Simultaneously, the second message’s <code>translateY</code> property is animated from the offset created from the first message closing <em>down</em> to the point where it needs to end up on the screen.  All the while each message’s “scaler” divs are doing their thing. All of this put together makes it look these divs are basically animating their height without the page moving at all.</p>
+<p>But just those animations wouldn’t be enough.  The last missing piece here is the scroll position.  In this scenario, once we’re done animating we’ve actually translated all of the content forward with the <code>translateY</code> property.  So technically you could scroll up in the page and see a bunch of blank space.  And since these animations are only temporary (remember the style is injected and then removed once the animations are done), the page contents will jump up once styles are removed because they don’t have the <code>translateY</code> values that were applied.  This is obviously no good.  The solution is to manually set the scroll position forward the <em>exact</em> amount that the page contents were translated.  Because we’re dealing with exact calculations, doing this immediately before the injected styles are removed does not result in any page jumps and essentially resets the page to a fresh state.</p>
+<p>I’ve tried to narrow down the concepts to an implementation here (click the second message):</p>
+<p><p data-height="395" data-theme-id="0" data-slug-hash="wMLgRY" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/wMLgRY/'>Google Inbox -  Message Swap</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>  
+
+<p>Notice the two messages translating up and down and the scroll bar hopping up at the very last second once the animations are done.</p>
+<p>In attempt to make this more clear, I’ve made a step-able version here:</p>
+<p><p data-height="554" data-theme-id="0" data-slug-hash="ONJQMa" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/ONJQMa/'>Google Inbox -  Message Swap Stepper</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>Note that I’m calling these “steps” but really these all happen pretty much simultaneously.  </p>
+<h1 id="takeaways">Takeaways</h1>
+<p>I’m sure you’re wondering why I wasted so much time on this.  I wondered that myself plenty of times, but came away with a few solid learnings:</p>
+<p><strong>Debugging Google code is hard.</strong></p>
+<p>Like any quality production app, Google Inbox’s output code is not meant to be readable.  But Google really seems to go the extra mile with minified class names and injected style.  They are building for scale and not for people like me to be able to decipher what’s happening in their web apps.</p>
+<p><strong>Subtlety is king.</strong></p>
+<p>Most of the animations are incredibly subtle.  Like <em>really</em> subtle.  They are the sort of animations that you don’t really know are there until you do.  Additionally, many of these animations have a very fast duration.  So after all of the work to achieve these animations, they’re gone in an instant.  I think it’s a nice display of restraint by the designers.  In the same situation, I could see myself wanting to show off all of these wonderful animations I had built.   </p>
+<p>On the flip side of the above, I did see a bunch of injected code that was essentially worthless.  I doubt that animating a div from <code>translateY(0, 0.000122)</code> to <code>translateY(0, 0.00011)</code> is actually perceivable to a real person.  The amount of times where these extremely small animations are introduced, I’m not sure, but there is probably a tradeoff there somewhere.  </p>
+<p><strong>Google takes their animations seriously.</strong></p>
+<p>I don’t consider myself well-versed in UX design, but it was quite fascinating to see just a glimpse of the amount of work it takes to get the level of polish that Google Inbox has.  As I mentioned earlier, there are probably some non-humans writing at least part of the actual code that makes the animations run, but there are definitely humans <em>designing</em> the animations.  The interactions seemed to be envisioned first with the implementation details worked out later in whatever way was necessary, which is opposite of how I usually think about these things.  I’m not sure I’ll ever have the resources at my disposal to build animations at this level of detail, but it was an impressive reminder that user experience is the ultimate goal and we should do whatever it takes to make it great.</p>
+</article>
+        </section>
+    </main>
+
+    <footer>
+    <div class="social">
+        <a href="http://twitter.com/npbeep" class="main-nav__break-right"><img
+            class="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
+        <a href="mailto:nick@npbee.me" class=""><img class="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
+        <a href="http://github.com/npbee" class="github-link"><img class="icon" src="/static/images/icons/github/mark.svg" /></a>
+    </div>
+</footer>
+
+</body>
+</html>
