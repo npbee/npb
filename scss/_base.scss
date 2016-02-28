@@ -11,9 +11,12 @@ html, body {
     font-style: normal;
     color: $black;
     @include breakpoint($retina) {
-        font-size: $typecsset-base-font-size * 2;
+        font-size: $typecsset-base-font-size * 2.5;
     }
     @include breakpoint($large) {
+        font-size: $typecsset-base-font-size;
+    }
+    @include breakpoint($retina-desktop) {
         font-size: $typecsset-base-font-size;
     }
 }

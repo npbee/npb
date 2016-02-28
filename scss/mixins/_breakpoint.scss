@@ -1,12 +1,37 @@
-@mixin breakpoint($map) {
-    $query: "";
-    @if map-has-key($map, min) { $query: append($query, "(min-width: #{map-get($map, min)})") }
-    @if map-has-key($map, min) and map-has-key($map, max) { $query: append($query, "and") }
-    @if map-has-key($map, max) { $query: append($query, "(max-width: #{map-get($map, max)})") }
-    @if map-has-key($map, min) and map-has-key($map, max-pixel-ratio) { $query: append($query, "and") }
-    @if map-has-key($map, max-pixel-ratio) { $query: append($query, "(-webkit-max-device-pixel-ratio: #{map-get($map, max-pixel-ratio)})") }
-    @if map-has-key($map, retina) {
-        $query: append($query, "(-webkit-min-device-pixel-ratio: 2)")
+// Todo: let's make these not so stupid
+@mixin breakpoint($size) {
+    @if ($size == $large) {
+        @media screen and (min-width: 1000px) {
+            @content;
+        }
     }
-    @media screen and #{$query} { @content; }
+
+    @if ($size == $retina) {
+        @media 
+        (-webkit-min-device-pixel-ratio: 2), 
+        (min-resolution: 192dpi) { 
+            @content;
+        }
+    }
+
+    @if ($size == $retina-desktop) {
+        @media 
+        (-webkit-min-device-pixel-ratio: 2) and (min-device-width: 1000px), 
+        (min-resolution: 192dpi) and (min-device-width: 1000px) { 
+            @content;
+        }
+    }
 }
+
+// @mixin breakpoint($map) {
+//     $query: "";
+//     @if map-has-key($map, min) { $query: append($query, "(min-width: #{map-get($map, min)})") }
+//     @if map-has-key($map, min) and map-has-key($map, max) { $query: append($query, "and") }
+//     @if map-has-key($map, max) { $query: append($query, "(max-width: #{map-get($map, max)})") }
+//     @if map-has-key($map, min) and map-has-key($map, max-pixel-ratio) { $query: append($query, "and") }
+//     @if map-has-key($map, max-pixel-ratio) { $query: append($query, "(-webkit-max-device-pixel-ratio: #{map-get($map, max-pixel-ratio)})") }
+//     @if map-has-key($map, retina) {
+//         $query: append($query, "(-webkit-min-device-pixel-ratio: 2)")
+//     }
+//     @media screen and #{$query} { @content; }
+// }

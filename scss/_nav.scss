@@ -33,7 +33,8 @@ nav {
         }
     }
     img {
-        width: 75px;
+        max-width: 40px;
+        min-width: auto;
         @include breakpoint($large) {
             max-width: 50px;
         }
