@@ -4,7 +4,7 @@ slug: ux-case-study-google-inbox
 collection: posts
 date: 2016-02-27
 layout: post.html
-excerpt: A look into subtle interaction details
+excerpt: A detailed look into some of the most subtle interaction details.
 ---
 
 At work we’ve been in the process of building a queue-like component for helping our admins deal with various tasks.  As fans of Google Inbox we decided to use it as a reference for many of our UX decisions.  It was for this reason that I started  down the long and treacherous path of trying to figure out exactly how Google Inbox works.  I spent more time than I care to admit wading through compressed and mangle code, so I thought I share the small bits that I learned along the way.
@@ -20,7 +20,7 @@ Like any old site, when you first load the page you’ll get a base payload of C
 
 <figure>
 ![Style Injection](https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/style_injection.gif)
-	<figcaption>Notice the flashing style tag right before the body</figcaption>
+	<figcaption><strong>Figure 1:</strong> Notice the flashing style tag right before the body</figcaption>
 </figure>
 
 Here’s a sampling of the kind of style rules that are injected:
@@ -87,7 +87,7 @@ This is done pretty much as you might expect.  Javascript listens for the positi
 
 <figure>
 ![Fixed Header - No Pusher](https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_b.gif)
-	<figcaption>Notice how the messages contents jump when the header becomes fixed.</figcaption>
+	<figcaption><strong>Figure 2:</strong> Notice how the messages contents jump when the header becomes fixed.</figcaption>
 </figure>
 
 The twist is that the header will also switch to absolute positioning once you get to the point where the bottom of the header is the same as the bottom of the message.  This gives a nice transition between fixed back to static, rather than just jumping straight back to static.  

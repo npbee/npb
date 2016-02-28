@@ -50,7 +50,7 @@
         <section class="post text-wrapper">
             <header>
                 <h1 class="brand-font">UX Case Study: Google Inbox</h1>
-                <p class="excerpt">A look into subtle interaction details</p>
+                <p class="excerpt">A detailed look into some of the most subtle interaction details.</p>
                 <div>
                     <em>February, 27 2016</em>
                 </div>
@@ -64,7 +64,7 @@ I’m sure there are things that I’ve misunderstood or missed, so please don�
 <p>Like any old site, when you first load the page you’ll get a base payload of CSS and Javascript to get things started.  The magic comes when you actually open a message.  When this occurs, a new <code>style</code> tag is injected into the page.  This <code>style</code> tag has the very specific responsibility of animating each messages on screen to its next position.  The exact rules that are supplied will change depending various other bits of information:  which message is being open or closed, the dimensions of each message, how many other messages are on the screen, etc.  And practically as soon as the <code>style</code> tag is injected, it’s gone.</p>
 <figure>
 <img src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/style_injection.gif" alt="Style Injection">
-    <figcaption>Notice the flashing style tag right before the body</figcaption>
+    <figcaption><strong>Figure 1:</strong> Notice the flashing style tag right before the body</figcaption>
 </figure>
 
 <p>Here’s a sampling of the kind of style rules that are injected:</p>
@@ -122,7 +122,7 @@ I’m sure there are things that I’ve misunderstood or missed, so please don�
 <p>This is done pretty much as you might expect.  Javascript listens for the position of the top of the header message and once it’s been scrolled past the top the of the viewport, its position is fixed.  A small detail here is that there is also a “pusher” div that makes sure to push the message contents down once the message header is fixed.  This is needed because a fixed element removes it from the flow of the page, so the contents below it would have otherwise popped up.  Here’s what I mean:</p>
 <figure>
 <img src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_b.gif" alt="Fixed Header - No Pusher">
-    <figcaption>Notice how the messages contents jump when the header becomes fixed.</figcaption>
+    <figcaption><strong>Figure 2:</strong> Notice how the messages contents jump when the header becomes fixed.</figcaption>
 </figure>
 
 <p>The twist is that the header will also switch to absolute positioning once you get to the point where the bottom of the header is the same as the bottom of the message.  This gives a nice transition between fixed back to static, rather than just jumping straight back to static.  </p>

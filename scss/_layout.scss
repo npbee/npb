@@ -5,15 +5,15 @@ body {
 }
 
 .text-wrapper {
-    > * {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 90%;
-        @include breakpoint($large) {
-            max-width: 700px;
-        }
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+    @include breakpoint($large) {
+        max-width: 600px;
     }
-
+    a {
+        @extend .text-link;
+    }
 }
 
 
@@ -25,9 +25,13 @@ body {
     h2 {
         margin-bottom: 0;
     }
-    >a {
+    > a {
         display: block;
         margin-bottom: $base-spacing-unit*3;
+        border: none;
+        &:hover {
+            border: none;
+        }
     }
 }
 
@@ -86,13 +90,10 @@ footer {
         text-align: center;
         h1 {
             font-family: $brand-font;
-            margin-bottom: $base-spacing-unit/2;
+            margin-bottom: $base-spacing-unit;
         }
         .excerpt {
-            @include breakpoint($large) {
-                font-size: $typecsset-base-font-size * 1.2;
-            }
-            margin-bottom: $base-spacing-unit / 2;
+            margin-bottom: $base-spacing-unit / 4;
         }
         em {
             @include breakpoint($large) {

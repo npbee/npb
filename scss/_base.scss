@@ -42,6 +42,16 @@ h4, h5, h6 {
     font-style: normal;
 }
 
+figure {
+    margin:0 auto $typecsset-base-line-height;
+}
+
+figcaption {
+    text-align: center;
+    font-size: $typecsset-base-font-size * 0.7;
+    font-weight: 200;
+}
+
 
 /**
  * LINKS
