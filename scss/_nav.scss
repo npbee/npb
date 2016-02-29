@@ -8,6 +8,9 @@ nav {
 }
 
 .site-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:before,
     &:after {
         color: $grey;
@@ -36,6 +39,12 @@ nav {
         max-width: 40px;
         min-width: auto;
         @include breakpoint($large) {
+            max-width: 50px;
+        }
+        @include breakpoint($retina) {
+            max-width: 100px;
+        }
+        @include breakpoint($retina-desktop) {
             max-width: 50px;
         }
     }

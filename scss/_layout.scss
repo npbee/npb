@@ -93,9 +93,11 @@ footer {
             margin-bottom: $base-spacing-unit;
         }
         .excerpt {
-            margin-bottom: $base-spacing-unit / 4;
+            font-size: $typecsset-base-font-size * 1.5;
+            margin-bottom: $base-spacing-unit;
         }
         em {
+            font-size: $typecsset-base-font-size * 1.2;
             @include breakpoint($large) {
                 font-size: $typecsset-base-font-size * 0.80;
             }
