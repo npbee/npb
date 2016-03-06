@@ -1,5 +1,5 @@
 %wrapper {
-    max-width: $content-width;
+    max-width: $max-width;
     margin-left: auto;
     margin-right: auto;
     @include breakpoint($large) {
@@ -24,7 +24,13 @@ nav {
         border: none;
         img {
             border-radius: 50%;
-            max-width: 60px;
+            width: 60px;
+            @include breakpoint($retina) {
+                width: 200px;
+            }
+            @include breakpoint($retina-desktop) {
+                width: 60px
+            }
         }
     }
     
@@ -39,15 +45,13 @@ footer {
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     @include breakpoint($large) {
+        justify-content: flex-start;
     }
     a {
         display: block;
         padding: $typecsset-base-line-height/2 0;
-    }
-    .site-logo,
-    .social {
     }
     .site-logo {
         padding-right: $typecsset-base-line-height/2;

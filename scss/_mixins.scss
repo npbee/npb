@@ -25,7 +25,7 @@
 }
 
 @mixin wrap($width) {
-    max-width: $content-width;
+    max-width: $max-width;
     margin-left: auto;
     margin-right: auto;
     @include breakpoint($large) {

@@ -7,6 +7,14 @@ code {
     color: #839496;
     overflow-x: auto;
     padding: 4px 6px;
+
+    @include breakpoint($retina) {
+        @include typecsset-font-size($typecsset-base-font-size * 1.75);
+    }
+
+    @include breakpoint($retina-desktop) {
+        @include typecsset-font-size($typecsset-base-font-size * 0.7);
+    }
 }
 
 pre code {
@@ -15,6 +23,14 @@ pre code {
     padding: $typecsset-base-line-height/2;
     @include typecsset-space(padding-left);
     @include typecsset-font-size($typecsset-base-font-size * 0.7, false);
+
+    @include breakpoint($retina) {
+        @include typecsset-font-size($typecsset-base-font-size * 1.75);
+    }
+
+    @include breakpoint($retina-desktop) {
+        @include typecsset-font-size($typecsset-base-font-size * 0.7);
+    }
 }
 
 /* Tomorrow Night Eighties Theme */

@@ -37,14 +37,15 @@ article a {
  ******/
 .posts {
     h1 {
-        font-size: $typecsset-h5-size;
+        @extend .epsilon;
+        @extend .gamma;
         margin-bottom: 0;
         color: $grey;
         text-transform: uppercase;
     }
     a {
         > h2 {
-            @include typecsset-font-size($typecsset-h3-size);
+            @extend .gamma;
         }
         transition: color 200ms;
         &:after {
@@ -73,8 +74,15 @@ footer {
         border-top: 1px solid $primary;
     }
     .site-logo {
+        padding: $typecsset-base-line-height 0;
         img {
-            max-width: 35px;
+            width: 35px;
+            @include breakpoint($retina) {
+                width: 150px;
+            }
+            @include breakpoint($retina-desktop) {
+                width: 35px;
+            }
         }
     }
 }
@@ -91,6 +99,12 @@ footer {
         width: 20px;
         &:hover {
             opacity: 1;
+        }
+        @include breakpoint($retina) {
+            width: 70px;
+        }
+        @include breakpoint($retina-desktop) {
+            width: 20px;
         }
     }
 }
