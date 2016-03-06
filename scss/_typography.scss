@@ -1,0 +1,67 @@
+body {
+    font-family: $primary-font;
+    font-weight: 300;
+
+    @include breakpoint($retina) {
+        @include typecsset-font-size($typecsset-base-font-size * 2.75, false);
+        line-height: 1.275;
+    }
+
+    @include breakpoint($retina-desktop) {
+        @include typecsset-font-size($typecsset-base-font-size);
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+
+strong {
+    font-weight: 700;
+}
+
+.embed , 
+figure {
+    @extend %typecsset-vertical-rhythm;
+}
+
+h1, .alpha { 
+    @extend %typecsset-vertical-rhythm;
+    @include typecsset-font-size($typecsset-h1-size);
+
+    @include breakpoint($retina) {
+        @include typecsset-font-size($typecsset-h1-size * 1.75);
+        line-height: 1.275;
+    }
+
+    @include breakpoint($retina-desktop) {
+        @include typecsset-font-size($typecsset-h1-size);
+    }
+}
+
+h2, .beta { 
+    @extend %typecsset-vertical-rhythm;
+    @include typecsset-font-size($typecsset-h2-size);
+
+    @include breakpoint($retina) {
+        @include typecsset-font-size($typecsset-h2-size * 1.75);
+        line-height: 1.275;
+    }
+
+    @include breakpoint($retina-desktop) {
+        @include typecsset-font-size($typecsset-h2-size);
+    }
+}
+h3, .gamma { 
+    @extend %typecsset-vertical-rhythm;
+    @include typecsset-font-size($typecsset-h3-size);
+
+    @include breakpoint($retina) {
+        @include typecsset-font-size($typecsset-h3-size * 1.75);
+        line-height: 1.275;
+    }
+
+    @include breakpoint($retina-desktop) {
+        @include typecsset-font-size($typecsset-h3-size);
+    }
+}

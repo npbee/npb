@@ -2,6 +2,7 @@
 layout: resume.html
 experiences:
     - company: Loudr
+      class: loudr
       roles: 
         - Frontend Engineer
         - Jr. Software Engineer
@@ -26,6 +27,7 @@ experiences:
           English-like expressions into API search strings intended for Elastic
           Search
     - company: Say Media, Inc.
+      class: say
       roles: 
         - Senior Ad Operator
       dates: 
@@ -41,6 +43,7 @@ experiences:
         - Constantly improved and documented team practices and daily functions.
 
     - company: Self Employed
+      class: self
       roles: 
         - Freelance Web Developer
       dates: 

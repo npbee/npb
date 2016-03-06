@@ -96,8 +96,10 @@ The twist is that the header will also switch to absolute positioning once you g
 
 I’ve put together an example implementation on Codepen:
 
-<p data-height="294" data-theme-id="0" data-slug-hash="bpGrmm" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/bpGrmm/'>Google Inbox -  Fixed Header</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<div class='embed'>
+    <p data-height="294" data-theme-id="0" data-slug-hash="bpGrmm" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/bpGrmm/'>Google Inbox -  Fixed Header</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+    <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+</div>
 
 ## The Message Open
 

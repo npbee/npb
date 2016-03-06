@@ -1,42 +1,20 @@
-/*
-
-Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull
-<sourdrums@gmail.com>
-
- */
-
-pre code {
-    /*@extend .skinny;*/
-    display: block;
-    background: #2d2d2d;
-    color: #cccccc;
+code {
+    @include typecsset-font-size($typecsset-base-font-size * 0.7);
     font-family: Menlo, Monaco, Consolas, monospace;
-    display: block;
-    overflow-x: auto;
-    padding: $base-spacing-unit $typecsset-base-line-height;
-    color: #839496;
     -webkit-text-size-adjust: none;
-    font-size: $typecsset-base-font-size * 0.7;
-    @include breakpoint($retina) {
-        font-size: $typecsset-base-font-size;
-    }
-    @include breakpoint($retina-desktop) {
-        font-size: $typecsset-base-font-size * 0.7;
-    }
+    background: #2d2d2d;
+    border-radius: 3px;
+    color: #839496;
+    overflow-x: auto;
+    padding: 4px 6px;
 }
 
-code {
-    background: #d9d9d9;
-    border-radius: 3px;
-    padding: 0 $base-spacing-unit;
-    display: inline-block;
-    font-size: $typecsset-base-font-size * 0.8;
-    @include breakpoint($retina) {
-        font-size: $typecsset-base-font-size * 2;
-    }
-    @include breakpoint($retina-desktop) {
-        font-size: $typecsset-base-font-size * 0.7;
-    }
+pre code {
+    border-radius: 0;
+    display: block;
+    padding: $typecsset-base-line-height/2;
+    @include typecsset-space(padding-left);
+    @include typecsset-font-size($typecsset-base-font-size * 0.7, false);
 }
 
 /* Tomorrow Night Eighties Theme */

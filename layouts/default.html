@@ -1,29 +1,25 @@
 {% include "./partials/head.html" %}
 
-<body>
+<body class="home">
     <main>
     {% include "./partials/nav.html" %}
-        <section class="home text-wrapper">
-            <div class="avatar">
-                <img src="/static/images/me_alt.jpeg" />
-                <h1>Nick Ball</h1>
-                <div class="avatar__info">
-                    <p>Web developer focused on frontend technologies.</p>
-                    <p>Currently a <em>Frontend Engineer</em> @ <a href="http://loudr.fm">Loudr</a><p>
-                </div>
-            </div>
-
-            <hr />
-
-            <div class="posts">
+        <section class="intro">
+            <p class="gamma">Hello, I'm <strong>Nick Ball</strong>, a web developer currently focused on the front-end.  
+            I enjoy tastefully minimal user interfaces, functional programming, and
+            typography.  I'm currently working as a Front-end Engineer at
+            <a href="http://loudr.fm">Loudr</a>.  Find me on <a href="http://twitter.com/npbeep">Twitter</a> or <a href="http://github.com/npbee">Github</a> or through <a href="">email</a>.
+            </p>
+        </section>
+        <section class="posts">
+            <h1>Posts</h1>
             {% for post in posts %}
-                <a href="/posts/{{ post.slug || titleize(post.title) }}" class="snippet">
-                    <h2>{{ post.title }}</h2>
+            <a href="/posts/{{ post.slug || titleize(post.title) }}" class="post-summary">
+                    <h2 class="header">{{ post.title }}</h2>
+                    <small>{{ post.date|date('F, d Y') }}</small>
                     <em>{{ post.excerpt }}</em>
                 </a>
             {% endfor %}
-            </div>
-        </section>
+        </div>
     </main>
     {% include "./partials/footer.html" %}
 </body>

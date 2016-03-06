@@ -1,4 +1,13 @@
 /**********
+* Colors
+**********/
+$white: #f9f9f9;
+$black: #4c4c4c;
+$grey: #d9d9d9;
+$primary: #ce6d7c;
+
+
+/**********
 * Breakpoints
 **********/
 $large: ( min: 1000px );
@@ -6,44 +15,26 @@ $retina: ( retina: true );
 $retina-desktop: 'retina-desktop';
 
 
-/**********
-* Typecsset
-**********/
+/*******
+ * Type
+ ******/
 $typecsset-base-font-size: 20px;
 $typecsset-base-line-height: 30px;
-$typecsset-h1-size: 38px;
-$typecsset-h2-size: 32px;
-$typecsset-h3-size: 30px;
-$typecsset-h4-size: 26px;
-$typecsset-h5-size: 22px;
-$typecsset-h6-size: 26px;
+$typecsset-h1-size: 60px;
+$typecsset-h2-size: 45px;
+$typecsset-h3-size: 37.5px;
+$typecsset-h4-size: 30px;
+$typecsset-h5-size: 25px;
+$typecsset-h6-size: 22.5px;
+$typecsset-show-baseline: false;
+
+$primary-font: 'Chronicle Display A', 'Chronicle Display B';
+$secondary-font: 'Landmark Regular A', 'Landmark Regular B';
+$decorative-font: 'Landmark Inline A', 'Landmark Inline B';
 
 
-/**********
-* Colors
-**********/
-$white: #f9f9f9;
-$black: #4c4c4c;
-$grey: #d9d9d9;
-$brand-main: #ce6d7c;
-$warning: #FFFBD3;
-$success: #39ac52;
-$error: #a53737;
-$yellow: #faead4;
-
-
-/*****
- * Spacing
- ****/
-$base-spacing-unit: 15px;
-
-
-/*****
- * Fonts
- ****/
-$body-font: 'Chronicle Display A', 'Chronicle Display B';
-$secondary: 'Ideal Sans SSm A', 'Ideal Sans SSm B';
-$body-font-regular-weight: 200;
-$body-font-bold-weight: 700;
-$header-font: 'Landmark Regular A', 'Landmark Regular B';
-$brand-font: 'Landmark Inline A', 'Landmark Inline B';
+/*******
+ * Misc
+ ******/
+$content-width: 700px;
+$max-width: 1100px;

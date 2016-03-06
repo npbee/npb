@@ -4,15 +4,12 @@
     <main>
     {% include "./partials/nav.html" %}
 
-        <section class="post text-wrapper">
-            <header>
-                <h1 class="brand-font">{{ title }}</h1>
-                <p class="excerpt">{{ excerpt }}</p>
-                <div>
-                    <em>{{ date|date('F, d Y') }}</em>
-                </div>
+        <section class="post">
+            <header class="post-summary">
+                <h1 class="header">{{ title }}</h1>
+                <small>{{ date|date('F, d Y') }}</small>
+                <em>{{ excerpt }}</em>
             </header>
-            <hr>
             <article>{{ contents|safe }}</article>
         </section>
     </main>

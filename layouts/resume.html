@@ -23,11 +23,13 @@
 
             {% for exp in experiences %}
             <div class="experience">
-                <h3><a href="{{ exp.site }}">{{ exp.company }}</a></h3>
-                <div class="experience__meta">
+                <h3 class="{{ exp.class }}"><a href="{{ exp.site }}">{{ exp.company }}</a></h3>
+                <div class="experience__group">
                     {% for role in exp.roles %}
-                    <p class="italic">{{ role }}</p><!--
-                    --><p class="milli">{{ exp.dates[loop.index0] }}</p>
+                    <div class="experience__meta">
+                        <strong>{{ role }}</strong><!--
+                        --><em>{{ exp.dates[loop.index0] }}</em>
+                    </div>
                     {% endfor %}
                 </div>
 
@@ -44,22 +46,21 @@
                 </ul>
             </div>
 
-            <hr class="rule--small">
             {% endfor %}
 
         </section>
 
         <section>
-            <h2 class="alpha">Working Knowledge</h2>
+            <h2>Working Knowledge</h2>
 
-            <h3 class="beta">Languages & Technologies</h3>
+            <h3>Languages & Technologies</h3>
             <ul>
                 {% for tech in technologies %}
                 <li>{{ tech }}</li>
                 {% endfor %}
             </ul>
 
-            <h3 class="beta">Frameworks & Libraries</h3>
+            <h3>Frameworks & Libraries</h3>
             <ul>
                 {% for framework in frameworks %}
                 <li>{{ framework }}</li>
@@ -68,7 +69,7 @@
         </section>
 
         <section class="education">
-            <h2 class="alpha">Education</h2>
+            <h2>Education</h2>
             <p class="no-margin-bottom">Bachelor of Science, Management Science</p>
             <em>University of California, San Diego</em>
         </section>

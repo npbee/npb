@@ -43,19 +43,22 @@
 <body>
     <main>
     <nav>
-    <a href="/" class="site-logo"><img class="icon" src="/static/images/logo.svg" /></a>
+    <a href="/" class="site-logo"><img class="icon" src="http://npbee.me/static/images/me_alt.jpeg" /></a>
+    <div class="social">
+        <a href="http://twitter.com/npbeep" class="main-nav__break-right"><img
+            class="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
+        <a href="mailto:nick@npbee.me" class=""><img class="icon" src="/static/images/icons/icomoon/mail.svg" /></a>
+        <a href="http://github.com/npbee" class="github-link"><img class="icon" src="/static/images/icons/github/mark.svg" /></a>
+    </div>
 </nav>
 
 
-        <section class="post text-wrapper">
-            <header>
-                <h1 class="brand-font">UX Case Study: Google Inbox</h1>
-                <p class="excerpt">A detailed look into some of the most subtle interaction details.</p>
-                <div>
-                    <em>February, 27 2016</em>
-                </div>
+        <section class="post">
+            <header class="post-summary">
+                <h1 class="header">UX Case Study: Google Inbox</h1>
+                <small>February, 27 2016</small>
+                <em>A detailed look into some of the most subtle interaction details.</em>
             </header>
-            <hr>
             <article><p>At work we’ve been in the process of building a queue-like component for helping our admins deal with various tasks.  As fans of Google Inbox we decided to use it as a reference for many of our UX decisions.  It was for this reason that I started  down the long and treacherous path of trying to figure out exactly how Google Inbox works.  I spent more time than I care to admit wading through compressed and mangle code, so I thought I share the small bits that I learned along the way.</p>
 <p><strong>Disclaimer:</strong>
 I’m sure there are things that I’ve misunderstood or missed, so please don’t take each explanation as the complete truth.</p>
@@ -128,8 +131,10 @@ I’m sure there are things that I’ve misunderstood or missed, so please don�
 <p>The twist is that the header will also switch to absolute positioning once you get to the point where the bottom of the header is the same as the bottom of the message.  This gives a nice transition between fixed back to static, rather than just jumping straight back to static.  </p>
 <p><img src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_c.gif" alt="Fixed Header - Absolute"></p>
 <p>I’ve put together an example implementation on Codepen:</p>
-<p><p data-height="294" data-theme-id="0" data-slug-hash="bpGrmm" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/bpGrmm/'>Google Inbox -  Fixed Header</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<div class='embed'>
+    <p data-height="294" data-theme-id="0" data-slug-hash="bpGrmm" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/bpGrmm/'>Google Inbox -  Fixed Header</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+    <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+</div>
 
 <h2 id="the-message-open">The Message Open</h2>
 <p>Now things get a bit trickier.  First, a quick visual of the animation:</p>
@@ -183,6 +188,9 @@ I’m sure there are things that I’ve misunderstood or missed, so please don�
     </main>
 
     <footer>
+    <div class="site-logo">
+        <a href="/"><img class="icon" src="/static/images/logo.svg" /></a>
+    </div>
     <div class="social">
         <a href="http://twitter.com/npbeep" class="main-nav__break-right"><img
             class="icon" src="/static/images/icons/icomoon/twitter.svg" /></a>
