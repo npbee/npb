@@ -74,60 +74,60 @@ Symbols usually are classes or functions, but can target any scope present in th
 <p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols-sublime-package.png" alt="sublime package directory"></p>
 <p>As an example, let&#39;s look at the JavaScript.tmLanguage file.
 The first thing you&#39;ll notice is that the file is a &quot;plist&quot; file that&#39;s defined with XML syntax.  There are ways of avoiding the XML syntax, but for now know that this is the final format that a language file needs to be in for it to work in ST.  Here are a couple of interesting parts about this file:</p>
-<pre><code class="hljs xml"><span class="tag">&lt;<span class="title">key</span>&gt;</span>name<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-<span class="tag">&lt;<span class="title">string</span>&gt;</span>JavaScript<span class="tag">&lt;/<span class="title">string</span>&gt;</span></code></pre>
-
+<pre><code class="lang-xml"><span class="tag">&lt;<span class="name">key</span>&gt;</span>name<span class="tag">&lt;/<span class="name">key</span>&gt;</span>
+<span class="tag">&lt;<span class="name">string</span>&gt;</span>JavaScript<span class="tag">&lt;/<span class="name">string</span>&gt;</span>
+</code></pre>
 <p>This defines the name of the language as you see it the bottom right corner of ST when you&#39;re using that language syntax.
 Following that there is an array of &quot;patterns&quot; that define the various scopes for the language.  Each item in the array will be a &quot;dict&quot; that has a couple of important key/value pairs.  Here&#39;s a simple-ish one:</p>
-<pre><code class="hljs xml"><span class="comment">&lt;!-- line 594, JavaScript.tmLanguage --&gt;</span>
-<span class="tag">&lt;<span class="title">dict</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">key</span>&gt;</span>match<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">string</span>&gt;</span>\\b(Anchor|Applet|Area|Array|Boolean|Button|Checkbox|Date|document|event|FileUpload|Form|Frame|Function|Hidden|History|Image|JavaArray|JavaClass|JavaObject|JavaPackage|java|Layer|Link|Location|Math|MimeType|Number|navigator|netscape|Object|Option|Packages|Password|Plugin|Radio|RegExp|Reset|Select|String|Style|Submit|screen|sun|Text|Textarea|window|XMLHttpRequest)\\b<span class="tag">&lt;/<span class="title">string</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">key</span>&gt;</span>name<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">string</span>&gt;</span>support.class.js<span class="tag">&lt;/<span class="title">string</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">dict</span>&gt;</span></code></pre>
-
+<pre><code class="lang-xml"><span class="variable">&lt;!-- line 594, JavaScript.tmLanguage --&gt;</span>
+<span class="variable">&lt;dict&gt;</span>
+    <span class="variable">&lt;key&gt;</span>match<span class="variable">&lt;/key&gt;</span>
+    <span class="variable">&lt;string&gt;</span>\\b(Anchor|<span class="string">Applet</span>|<span class="string">Area</span>|<span class="string">Array</span>|<span class="string">Boolean</span>|<span class="string">Button</span>|<span class="string">Checkbox</span>|<span class="string">Date</span>|<span class="string">document</span>|<span class="string">event</span>|<span class="string">FileUpload</span>|<span class="string">Form</span>|<span class="string">Frame</span>|<span class="string">Function</span>|<span class="string">Hidden</span>|<span class="string">History</span>|<span class="string">Image</span>|<span class="string">JavaArray</span>|<span class="string">JavaClass</span>|<span class="string">JavaObject</span>|<span class="string">JavaPackage</span>|<span class="string">java</span>|<span class="string">Layer</span>|<span class="string">Link</span>|<span class="string">Location</span>|<span class="string">Math</span>|<span class="string">MimeType</span>|<span class="string">Number</span>|<span class="string">navigator</span>|<span class="string">netscape</span>|<span class="string">Object</span>|<span class="string">Option</span>|<span class="string">Packages</span>|<span class="string">Password</span>|<span class="string">Plugin</span>|<span class="string">Radio</span>|<span class="string">RegExp</span>|<span class="string">Reset</span>|<span class="string">Select</span>|<span class="string">String</span>|<span class="string">Style</span>|<span class="string">Submit</span>|<span class="string">screen</span>|<span class="string">sun</span>|<span class="string">Text</span>|<span class="string">Textarea</span>|<span class="string">window</span>|<span class="string">XMLHttpRequest)\\b&lt;/string&gt;
+    &lt;key&gt;name&lt;/key&gt;
+    &lt;string&gt;support.class.js&lt;/string&gt;
+&lt;/dict&gt;</span>
+</code></pre>
 <p>Here there is a key called &quot;match&quot; and following that is the value, which is just a regular expression.  The regular expression in this case is just matching various Javascript classes.  After the regex there is another key/value pair that defines the name of this match.  This is the name of the _scope for this match.  To prove this point, there is a helpful ST package called &quot;Scope Hunter&quot; that will display the scope of anything under your cursor using the command Control+Shift+P.  Here&#39;s an example:</p>
 <p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols-scope-hunter.png" alt="scope hunter"></p>
 <h2 id="displaying-items-in-the-symbol-list">Displaying items in the symbol list</h2>
 <p>Now that we know how a scope is defined we can figure out how those are displayed in the symbol list when you use the go-to function.
 Back in that sublime-package file, there will be another file called &quot;Symbol List Function.tmPreferences.&quot;  This is another plist file and here is where we defined which scopes we want to show up in the symbol list.  Here&#39;s a snippet from that file:</p>
-<pre><code class="hljs xml"><span class="comment">&lt;!-- line 4, Symbol List Function.tmPreferences --&gt;</span>
-<span class="tag">&lt;<span class="title">dict</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">key</span>&gt;</span>name<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">string</span>&gt;</span>Symbol List Function<span class="tag">&lt;/<span class="title">string</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">key</span>&gt;</span>scope<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">string</span>&gt;</span>source.js meta.function.js, source.js meta.function.json.js<span class="tag">&lt;/<span class="title">string</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">key</span>&gt;</span>settings<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">dict</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">key</span>&gt;</span>showInSymbolList<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">string</span>&gt;</span>1<span class="tag">&lt;/<span class="title">string</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">key</span>&gt;</span>symbolTransformation<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">string</span>&gt;</span>s/^function\\s*\\(.*\\)//g<span class="tag">&lt;/<span class="title">string</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">dict</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">key</span>&gt;</span>uuid<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">string</span>&gt;</span>3CEA49B2-A5C5-405C-82E2-B8B668877C38<span class="tag">&lt;/<span class="title">string</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">dict</span>&gt;</span></code></pre>
-
+<pre><code class="lang-xml"><span class="comment">&lt;!-- line 4, Symbol List Function.tmPreferences --&gt;</span>
+<span class="tag">&lt;<span class="name">dict</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">key</span>&gt;</span>name<span class="tag">&lt;/<span class="name">key</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">string</span>&gt;</span>Symbol List Function<span class="tag">&lt;/<span class="name">string</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">key</span>&gt;</span>scope<span class="tag">&lt;/<span class="name">key</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">string</span>&gt;</span>source.js meta.function.js, source.js meta.function.json.js<span class="tag">&lt;/<span class="name">string</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">key</span>&gt;</span>settings<span class="tag">&lt;/<span class="name">key</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">dict</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">key</span>&gt;</span>showInSymbolList<span class="tag">&lt;/<span class="name">key</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">string</span>&gt;</span>1<span class="tag">&lt;/<span class="name">string</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">key</span>&gt;</span>symbolTransformation<span class="tag">&lt;/<span class="name">key</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">string</span>&gt;</span>s/^function\\s*\\(.*\\)//g<span class="tag">&lt;/<span class="name">string</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">key</span>&gt;</span>uuid<span class="tag">&lt;/<span class="name">key</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">string</span>&gt;</span>3CEA49B2-A5C5-405C-82E2-B8B668877C38<span class="tag">&lt;/<span class="name">string</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dict</span>&gt;</span>
+</code></pre>
 <p>Walking through this file, you can see a few things:</p>
-<pre><code class="hljs xml"><span class="tag">&lt;<span class="title">key</span>&gt;</span>name<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-<span class="tag">&lt;<span class="title">string</span>&gt;</span>Symbol List Function<span class="tag">&lt;/<span class="title">string</span>&gt;</span></code></pre>
-
+<pre><code class="lang-xml">&lt;<span class="keyword">key</span>&gt;name&lt;/<span class="keyword">key</span>&gt;
+&lt;<span class="built_in">string</span>&gt;Symbol List <span class="keyword">Function</span>&lt;/<span class="built_in">string</span>&gt;
+</code></pre>
 <p>Just giving the preference file a name here...</p>
-<pre><code class="hljs xml"><span class="tag">&lt;<span class="title">key</span>&gt;</span>scope<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-<span class="tag">&lt;<span class="title">string</span>&gt;</span>source.js meta.function.js, source.js meta.function.json.js<span class="tag">&lt;/<span class="title">string</span>&gt;</span></code></pre>
-
+<pre><code class="lang-xml">&lt;key&gt;scope&lt;/key&gt;
+&lt;string&gt;source<span class="selector-class">.js</span> meta<span class="selector-class">.function</span><span class="selector-class">.js</span>, source<span class="selector-class">.js</span> meta<span class="selector-class">.function</span><span class="selector-class">.json</span><span class="selector-class">.js</span>&lt;/string&gt;
+</code></pre>
 <p>Here is where we&#39;re defining the scope that we want this preference file to apply to.  These will be defined back in the .tmLanguage file with specific regular expressions.</p>
-<pre><code class="hljs xml"><span class="tag">&lt;<span class="title">key</span>&gt;</span>settings<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">dict</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">key</span>&gt;</span>showInSymbolList<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">string</span>&gt;</span>1<span class="tag">&lt;/<span class="title">string</span>&gt;</span>
-      ...</code></pre>
-
+<pre><code class="lang-xml"><span class="tag">&lt;<span class="name">key</span>&gt;</span>settings<span class="tag">&lt;/<span class="name">key</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">dict</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">key</span>&gt;</span>showInSymbolList<span class="tag">&lt;/<span class="name">key</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">string</span>&gt;</span>1<span class="tag">&lt;/<span class="name">string</span>&gt;</span>
+      ...
+</code></pre>
 <p>Here is where we&#39;re telling ST to show that scope that we named earlier in the file within the symbol list.</p>
-<pre><code class="hljs xml"><span class="tag">&lt;<span class="title">key</span>&gt;</span>symbolTransformation<span class="tag">&lt;/<span class="title">key</span>&gt;</span>
-<span class="tag">&lt;<span class="title">string</span>&gt;</span>s/^function\\s*\\(.*\\)//g<span class="tag">&lt;/<span class="title">string</span>&gt;</span></code></pre>
-
+<pre><code class="lang-xml"><span class="variable">&lt;key&gt;</span>symbolTransformation<span class="variable">&lt;/key&gt;</span>
+<span class="variable">&lt;string&gt;</span>s/^function\\s<span class="keyword">*</span>\\(.<span class="keyword">*</span>\\)//g<span class="variable">&lt;/string&gt;</span>
+</code></pre>
 <p>This little bit is just a bit of sugar on top.  It takes the string that was matched by the scope&#39;s regular expression and formats it for display within the symbol list.</p>
 <p>--</p>
 <h2 id="defining-your-own-scopes">Defining your own scopes</h2>
@@ -139,28 +139,28 @@ First with the &quot;JavaScript.tmLanguage&quot; file open, copy the entire thin
 <p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols_convert.png" alt="package control convert"></p>
 <p>Select &quot;Convert to YAML (Block Style)&quot; and it will convert the plist file to YAML for you and save it in the same directory.  Now open up that file.
 Now with the YAML.tmLanguage file open, we&#39;ll first give our syntax a name.  Towards to the top, you should see a filed to give the language a name:</p>
-<pre><code>comment: 'JavaScript Syntax: version 2.0'
+<pre><code class="lang-yaml">comment: 'JavaScript Syntax: version 2.0'
 fileTypes:
 - js
 - htc
 - jsx
-firstLineMatch: ^<span class="special">#</span>!/usr/bin/env node
-foldingStartMarker: ^.*<span class="command">\\</span>bfunction<span class="command">\\</span>s*(<span class="command">\\</span>w+<span class="command">\\</span>s*)?<span class="command">\\</span>(<span class="special">[</span>^<span class="command">\\</span>)<span class="special">]</span>*<span class="command">\\</span>)(<span class="command">\\</span>s*<span class="command">\\</span><span class="special">{</span><span class="special">[</span>^<span class="command">\\</span><span class="special">}</span><span class="special">]</span>*)?<span class="command">\\</span>s*<span class="formula">$
-foldingStopMarker: ^<span class="command">\\</span>s*<span class="command">\\</span><span class="special">}</span>
-keyEquivalent: ^<span class="special">~</span>J
-name: *MyDemoLang*</span></code></pre>
-
+firstLineMatch: ^#!/usr/bin/env node
+foldingStartMarker: ^.*<span class="tag">\<span class="name">\</span></span>bfunction<span class="tag">\<span class="name">\</span></span>s*(<span class="tag">\<span class="name">\</span></span>w+<span class="tag">\<span class="name">\</span></span>s*)?<span class="tag">\<span class="name">\</span></span>([^<span class="tag">\<span class="name">\</span></span>)]*<span class="tag">\<span class="name">\</span></span>)(<span class="tag">\<span class="name">\</span></span>s*<span class="tag">\<span class="name">\</span><span class="string">{[^\\}</span></span>]*)?<span class="tag">\<span class="name">\</span></span>s*<span class="formula">$
+foldingStopMarker: ^<span class="tag">\<span class="name">\</span></span>s*<span class="tag">\<span class="name">\</span></span>}
+keyEquivalent: ^~J
+name: *MyDemoLang*</span>
+</code></pre>
 <p>Now, scroll down to the very bottom so we can add in another pattern to the array of patterns.  For the sake of the demo, let&#39;s say you have a function that you write a lot and the signature looks something like this:</p>
-<pre><code class="hljs javascript">myFunc(<span class="string">'some stuff'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+<pre><code class="lang-javascript">myFunc(<span class="string">'some stuff'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
     <span class="keyword">var</span> otherStuff;
-});</code></pre>
-
+});
+</code></pre>
 <p>At the bottom of the YAML, we&#39;ll add a very simple regular expression to define our scope:</p>
-<pre><code>-<span class="ruby"> <span class="symbol">match:</span> \\[|\\]
-</span>  name: meta.brace.square.js
-  -<span class="ruby"> <span class="symbol">match:</span> (myFunc).*
-</span>  name: custom.function.js</code></pre>
-
+<pre><code class="lang-yaml"><span class="selector-tag">-</span> <span class="selector-tag">match</span>: \\<span class="selector-attr">[|\\]</span>
+  <span class="selector-tag">name</span>: <span class="selector-tag">meta</span><span class="selector-class">.brace</span><span class="selector-class">.square</span><span class="selector-class">.js</span>
+  <span class="selector-tag">-</span> <span class="selector-tag">match</span>: (<span class="selector-tag">myFunc</span>).*
+  <span class="selector-tag">name</span>: <span class="selector-tag">custom</span><span class="selector-class">.function</span><span class="selector-class">.js</span>
+</code></pre>
 <p>This will just match anything starting with the string &quot;myFunc.&quot;  Notice that we have also given this match a name of &quot;custom.function.js&quot; so that will be our scope.  Now save the file and then use the &quot;convert&quot; command that we used to earlier, but this time convert back to a &quot;Plist&quot; or &quot;Property List&quot; file.
 At this point you may need to restart ST, but you should be able to open up a demo.js file and choose your new language syntax!</p>
 <p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols_demo_lang.png" alt="demo lang"></p>
@@ -168,33 +168,33 @@ At this point you may need to restart ST, but you should be able to open up a de
 <p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols_demo_lang_scope.png" alt="demo lang scope"></p>
 <p>Ok almost there...
 Before our new scope will show up as a symbol, we have to make a .tmPreferences file.  To make this file, it&#39;s easiest to do the same thing that we did earlier and copy one of the JavaScript .tmPreferences file and convert it to YAML.  It should look something like this:</p>
-<pre><code>name: Symbol List Demo
-scope: source<span class="class">.js</span> custom<span class="class">.function</span><span class="class">.js</span>
-settings:
-  showInSymbolList: <span class="string">'1'</span>
-  uuid: <span class="number">0029</span>a125-c35d-<span class="number">4</span>c1a-<span class="number">868</span>c-<span class="number">32</span>f4c91adbee</code></pre>
-
+<pre><code class="lang-yaml"><span class="attribute">name</span>: <span class="built_in">Symbol</span> List Demo
+<span class="attribute">scope</span>: source.js custom.function.js
+<span class="attribute">settings</span>:
+  <span class="attribute">showInSymbolList</span>: <span class="string">'1'</span>
+  <span class="attribute">uuid</span>: <span class="number">0029</span>a125-c35d<span class="number">-4</span>c1a<span class="number">-868</span>c<span class="number">-32</span>f4c91adbee
+</code></pre>
 <p>So you&#39;ll see where defining what <em>scope</em> this preferences file applies to and then telling ST to show it in the symbol list.  If you convert this back to a Plist format, you should now be able to see your scope showing up in the symbol list:</p>
 <p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols_custom_symbol_first.png" alt="custom symbol first"></p>
 <p>--</p>
 <h2 id="the-extra-mile">The Extra Mile</h2>
 <p>Ok we have the custom symbols showing up now, but the symbol list is just showing the entire capture which is a little messy.  Going back to our .tmPreferences file we can tell ST how to display the symbol in the list:</p>
-<pre><code><span class="attribute">name</span>: Symbol List Demo
+<pre><code class="lang-yaml"><span class="attribute">name</span>: <span class="built_in">Symbol</span> List Demo
 <span class="attribute">scope</span>: source.js custom.function.js
 <span class="attribute">settings</span>:
   <span class="attribute">showInSymbolList</span>: <span class="string">'1'</span>
   <span class="attribute">symbolTransformation</span>: <span class="string">'s/\\(/:  /g; s/,.*//g;'</span>
-  <span class="attribute">uuid</span>: <span class="number">0029</span>a125-c35d-<span class="number">4</span>c1a-<span class="number">868</span>c-<span class="number">32</span>f4c91adbee</code></pre>
-
+  <span class="attribute">uuid</span>: <span class="number">0029</span>a125-c35d<span class="number">-4</span>c1a<span class="number">-868</span>c<span class="number">-32</span>f4c91adbee
+</code></pre>
 <p>The &#39;symbolTransformation&#39; does a search and replace based on the regex that&#39;s given.  In this case we&#39;re doing two search and replace operations:  one to remove the left paren and replace it with a &quot;:&quot; plus some white space, and another to search for a comma followed by any character and replace it with nothing.  If you convert this back to a plist, you should now be able to see the difference:</p>
 <p><img src="https://s3-us-west-2.amazonaws.com/npbee/2014/2014-11-23-custom-sublime-text-symbols_custom_symbol_second.png" alt="custom symbol second"></p>
 <p>And the last optional thing here might be to add some syntax highlighting for this custom scope.  I&#39;ve found an easy way to do this is to just use one of the existing scopes that ST has already defined for JavaScript because that way it will just use existing syntax highlighting.  Back in your Demo.YAML-tmPreferences file:</p>
-<pre><code><span class="attribute">-</span> <span class="attribute">match</span>: (myFunc).*
-  <span class="attribute">name</span>: custom.function.js
-  <span class="attribute">captures</span>:
-    <span class="string">"1"</span>:
-      <span class="attribute">name</span>: entity.name.function.js</code></pre>
-
+<pre><code class="lang-yaml"><span class="selector-tag">-</span> <span class="selector-tag">match</span>: (<span class="selector-tag">myFunc</span>).*
+  <span class="selector-tag">name</span>: <span class="selector-tag">custom</span><span class="selector-class">.function</span><span class="selector-class">.js</span>
+  <span class="selector-tag">captures</span>:
+    "1":
+      <span class="selector-tag">name</span>: <span class="selector-tag">entity</span><span class="selector-class">.name</span><span class="selector-class">.function</span><span class="selector-class">.js</span>
+</code></pre>
 <p>Here we&#39;re using the same regular expression, but we&#39;re now defining exactly what each capture is.  We&#39;re telling ST that whatever is within the parentheses should be seen with the &quot;entity.name.function.js&quot; scope.</p>
 <p class="footnote"><span class="italic">Technically</span> if you do this, ST will automatically pick up this capture and display it in the symbol list.  This is because the built-in JavaScript sublime package has it set to show anything with this scope in the symbol list.  But it would only display it as &quot;myFunc&quot; and nothing else because that&#39;s the only thing that&#39;s captured.</p>
 

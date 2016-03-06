@@ -4,7 +4,7 @@ code {
     -webkit-text-size-adjust: none;
     background: #2d2d2d;
     border-radius: 3px;
-    color: #839496;
+    color: #D3D0C8;
     overflow-x: auto;
     padding: 4px 6px;
 
@@ -60,16 +60,10 @@ pre code {
   color: #66cccc;
 }
 
-.tomorrow-blue, pre .function, pre .python .decorator, pre .python .title, pre .ruby .function .title, pre .ruby .title .keyword, pre .perl .sub, pre .javascript .title, pre .coffeescript .title {
+.tomorrow-blue, pre .function, pre .python .decorator, pre .python .title, pre .ruby .function .title, pre .ruby .title .keyword, pre .perl .sub, pre .javascript .title, pre .coffeescript .title, .type {
   color: #6699cc;
 }
 
 .tomorrow-purple, pre .keyword, pre .javascript .function {
   color: #cc99cc;
-}
-
-pre code {
-  /*line-height: 1.5;*/
-  /*border: 1px solid #ccc;*/
-  /*padding: 10px;*/
 }

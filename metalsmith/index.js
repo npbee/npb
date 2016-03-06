@@ -8,6 +8,11 @@ var watch = require('metalsmith-watch');
 var msIf = require('metalsmith-if');
 var swig = require('swig');
 var metallic = require('metalsmith-metallic');
+var hljs = require('highlight.js');
+
+hljs.configure({
+    classPrefix: ''
+});
 
 swig.setDefaults({
     locals: {
@@ -37,12 +42,16 @@ exports.standard = function(root, doServe) {
             "destination": "./static"
         }))
 
-        .use(metallic({
-            classPrefix: ''
-        }))
+        // .use(metallic({
+        //     classPrefix: ''
+        // }))
 
         // Markdown
-        .use(markdown())
+        .use(markdown({
+            highlight: function(code) {
+                return hljs.highlightAuto(code).value
+            }
+        }))
 
 
         .use(msIf(

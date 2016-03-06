@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "highlight.js": "^9.2.0",
     "metalsmith": "^1.7.0",
     "metalsmith-assets": "^0.1.0",
     "metalsmith-collections": "^0.7.0",

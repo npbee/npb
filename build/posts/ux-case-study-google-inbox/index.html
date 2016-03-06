@@ -71,48 +71,48 @@ I’m sure there are things that I’ve misunderstood or missed, so please don�
 </figure>
 
 <p>Here’s a sampling of the kind of style rules that are injected:</p>
-<pre><code class="hljs css"><span class="class">.t</span> <span class="class">.top-level-item</span><span class="attr_selector">[data-item-id-qs=qs-gmail-thread-f-1526179305444074125-0]</span> &gt; <span class="class">.V</span> <span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">50px</span></span></span>;
-    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0px</span></span></span>;
-    <span class="rule"><span class="attribute">opacity</span>:<span class="value"> <span class="number">0.9999</span></span></span>;
-    <span class="rule"><span class="attribute">-webkit-transform-origin</span>:<span class="value"> center top</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">889px</span></span></span>;
-    <span class="rule"><span class="attribute">will-change</span>:<span class="value"> -webkit-transform</span></span>;
-    <span class="rule"><span class="attribute">-webkit-animation-name</span>:<span class="value"> swap-close-placeholder-fake-shadow-var-<span class="number">84</span>,animation-placeholder-fake-shadow-swap</span></span>;
-<span class="rule">}</span></span>
-
-<span class="at_rule">@<span class="keyword">-webkit-keyframes</span> swap-close-placeholder-fake-shadow-var-<span class="number">84</span> </span>{
-    0% <span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">0px</span>,<span class="number">0px</span>) <span class="function">scale</span>(<span class="number">1.0517435320584927</span>,<span class="number">27.34</span>)</span></span>;
-    <span class="rule">}</span></span>
-
-    80%,100% <span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">0px</span>,<span class="number">0px</span>) <span class="function">scale</span>(<span class="number">1.0022497187851518</span>,<span class="number">1.00001</span>)</span></span>;
-    <span class="rule">}</span></span>;
+<pre><code class="lang-css"><span class="selector-class">.t</span> <span class="selector-class">.top-level-item</span><span class="selector-attr">[data-item-id-qs=qs-gmail-thread-f-1526179305444074125-0]</span> &gt; <span class="selector-class">.V</span> {
+    <span class="attribute">display</span>: block;
+    <span class="attribute">height</span>: <span class="number">50px</span>;
+    <span class="attribute">left</span>: <span class="number">0px</span>;
+    <span class="attribute">opacity</span>: <span class="number">0.9999</span>;
+    <span class="attribute">-webkit-transform-origin</span>: center top;
+    <span class="attribute">width</span>: <span class="number">889px</span>;
+    <span class="attribute">will-change</span>: -webkit-transform;
+    <span class="attribute">-webkit-animation-name</span>: swap-close-placeholder-fake-shadow-var-<span class="number">84</span>,animation-placeholder-fake-shadow-swap;
 }
 
-<span class="class">.t</span> <span class="class">.top-level-item</span><span class="attr_selector">[data-item-id-qs=qs-gmail-thread-f-1526179305444074125-0]</span> &gt; <span class="class">.U</span> <span class="rules">{
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">48px</span></span></span>;
-    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0px</span></span></span>;
-    <span class="rule"><span class="attribute">opacity</span>:<span class="value"> <span class="number">0.9999</span></span></span>;
-    <span class="rule"><span class="attribute">-webkit-transform-origin</span>:<span class="value"> center top</span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">889px</span></span></span>;
-    <span class="rule"><span class="attribute">will-change</span>:<span class="value"> -webkit-transform</span></span>;
-    <span class="rule"><span class="attribute">-webkit-animation-name</span>:<span class="value"> swap-close-placeholder-var-<span class="number">84</span></span></span>;
-<span class="rule">}</span></span>
+@<span class="keyword">-webkit-keyframes</span> swap-close-placeholder-fake-shadow-var-<span class="number">84</span> {
+    0% {
+        <span class="attribute">-webkit-transform</span>: <span class="built_in">translate</span>(0px,0px) <span class="built_in">scale</span>(1.0517435320584927,27.34);
+    }
 
-<span class="at_rule">@<span class="keyword">-webkit-keyframes</span> swap-close-placeholder-var-<span class="number">84</span> </span>{
-    0% <span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">0px</span>,<span class="number">0px</span>) <span class="function">scale</span>(<span class="number">1.044994375703037</span>,<span class="number">28.354166666666668</span>)</span></span>;
-    <span class="rule">}</span></span>
+    80%,100% {
+        <span class="attribute">-webkit-transform</span>: <span class="built_in">translate</span>(0px,0px) <span class="built_in">scale</span>(1.0022497187851518,1.00001);
+    };
+}
 
-    80%,100% <span class="rules">{
-        <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translate</span>(<span class="number">0px</span>,<span class="number">0px</span>) <span class="function">scale</span>(<span class="number">1.00001</span>,<span class="number">1.00001</span>)</span></span>;
-    <span class="rule">}</span></span>;
-}</code></pre>
+<span class="selector-class">.t</span> <span class="selector-class">.top-level-item</span><span class="selector-attr">[data-item-id-qs=qs-gmail-thread-f-1526179305444074125-0]</span> &gt; <span class="selector-class">.U</span> {
+    <span class="attribute">display</span>: block;
+    <span class="attribute">height</span>: <span class="number">48px</span>;
+    <span class="attribute">left</span>: <span class="number">0px</span>;
+    <span class="attribute">opacity</span>: <span class="number">0.9999</span>;
+    <span class="attribute">-webkit-transform-origin</span>: center top;
+    <span class="attribute">width</span>: <span class="number">889px</span>;
+    <span class="attribute">will-change</span>: -webkit-transform;
+    <span class="attribute">-webkit-animation-name</span>: swap-close-placeholder-var-<span class="number">84</span>;
+}
 
+@<span class="keyword">-webkit-keyframes</span> swap-close-placeholder-var-<span class="number">84</span> {
+    0% {
+        <span class="attribute">-webkit-transform</span>: <span class="built_in">translate</span>(0px,0px) <span class="built_in">scale</span>(1.044994375703037,28.354166666666668);
+    }
+
+    80%,100% {
+        <span class="attribute">-webkit-transform</span>: <span class="built_in">translate</span>(0px,0px) <span class="built_in">scale</span>(1.00001,1.00001);
+    };
+}
+</code></pre>
 <p>Notice that the CSS is targeting specific elements with extremely precise animation measurements.  These are not rules that a human would write.  These are rules that are most likely generated by an application of some sort.  The rules are also armed with exact width and height measurements.  If you’ve ever tried to animate height, you’ve no doubt felt some pain as it’s not easy.  Knowing the exact height of the element you’re trying to animate makes a huge difference and Google Inbox takes full advantage.</p>
 <h1 id="a-few-examples">A Few Examples</h1>
 <p>Now that we have a general idea of the kind of setup we’re dealing with, let’s dive into a few examples.  </p>
