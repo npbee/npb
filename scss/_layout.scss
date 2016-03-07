@@ -115,3 +115,7 @@ footer {
         margin-bottom: $typecsset-base-line-height;
     }
 }
+
+#disqus_thread {
+    @extend %wrapper;
+}

@@ -424,7 +424,24 @@ const <span class="type">Enhanced</span> = compose(
 <p>Everything said, I’ve been enjoying this pattern at work.  I’ve even gone a bit farther with it and made the <code>createHigherOrder</code> function accept an object that has other options for configuration.  And at the end of the day, testing is the big winner for me with this pattern.  Most parts are just components returning props or functions being called, so it’s quite easy to break each part down into a function that can be tested on its own.</p>
 </article>
         </section>
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_config = function () {
+        this.page.url = "higher-order-react-components"; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "0303-0606-161616"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//npbee.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
     </main>
+
 
     <footer>
     <div class="site-logo">
@@ -437,6 +454,7 @@ const <span class="type">Enhanced</span> = compose(
         <a href="http://github.com/npbee" class="github-link"><img class="icon" src="/static/images/icons/github/mark.svg" /></a>
     </div>
 </footer>
+
 
 </body>
 </html>

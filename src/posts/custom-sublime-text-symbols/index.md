@@ -1,5 +1,6 @@
 ---
 title: Custom Sublime Text Symbols
+slug: custom-sublime-text-symbols
 collection: posts
 date: 2015-04-04
 layout: post.html
