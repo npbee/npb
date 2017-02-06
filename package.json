@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run start:css & npm run start:html & live-server --no-browser --port=3000 build",
     "build": "npm run build:html && npm run build:images && npm run build:css",
+    "build:templates": "pug src --out build --basedir .",
     "build:html": "cp src/index.html build/index.html",
     "start:html": "chokidar 'src/**/*.html' -c 'npm run build:html'",
     "build:images": "cp -r src/static/images build/static/images",
