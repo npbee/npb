@@ -43,3 +43,22 @@ nav:hover .social a {
     opacity: 1;
     transform: translateX(0);
 }
+
+@media screen
+    and (min-device-width: 1200px) {
+    .f2-ll {
+        font-size: 2.25rem;
+    }
+
+    .w2-ll {
+        width: 2rem;
+    }
+
+    .w3-ll {
+        width: 4rem;
+    }
+
+    .justify-start-ll {
+        justify-content: flex-start;
+    }
+}
