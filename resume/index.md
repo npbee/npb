@@ -1,6 +1,19 @@
 ---
 layout: resume.html
 experiences:
+    - company: HelloSign
+      roles:
+        - Fullstack Engineer
+        - Frontend Engineer
+    - description:
+      - |
+        - Developed new features and maintained existing legacy codebase
+        - Spearheaded a component library for
+        - Performed large refactorings on legacy frontend architecture
+        - Maintined and upgraded frontend build systems
+        - In period of transitions, helped out as a full stack engineer
+            - Built entire full stack features with mysql and elixir
+                - white labeling
     - company: Loudr
       class: loudr
       roles:
