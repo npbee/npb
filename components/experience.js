@@ -1,4 +1,4 @@
-import { spacing, type } from '../theme';
+import { spacing, type } from '../lib/theme';
 
 function Role(props) {
     const { name, dates } = props;
