@@ -3,5 +3,4 @@ node_modules
 .sass-cache/*
 .DS_STORE
 npm-debug.log
-
-*labs/elm-word-match*
+.next
