@@ -3,10 +3,11 @@
 # NPB
 Blog, portfolion & ramblings.
 
-Completely static site built with Metalsmith.
+Next.js site deployed with now
 
-Updating
-    - `gulp metalsmith` for building the files
-    - `git push` to push to master
-    - `shipit production deploy` for deploying
-    - All wrapped up in local alias `npbdeploy`
+## To Deploy:
+
+- `npm run build`
+- `now`
+- `now alias $DEPLOY_ID npbee.me`
+- `now alias $DEPLOY_ID www.npbee.me`
