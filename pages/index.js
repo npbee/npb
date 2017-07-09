@@ -1,10 +1,8 @@
 import Main from '../layouts/main';
-import Avatar from '../components/avatar';
 import { type, breakpoint } from '../lib/theme';
 
 export default () => {
     return <Main>
-        <Avatar />
         <p className="headline">
         Hi, I'm <strong>Nick Ball</strong>, a web developer currently focusing
         on the front end.  I enjoy minimal user interfaces, functional programming,

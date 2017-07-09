@@ -4,7 +4,7 @@ export default () => {
         <style jsx>{`
             .avatar img {
                 border-radius: 100%;
-                width: 75px;
+                width: 65px;
             }
         `}</style>
     </div>;

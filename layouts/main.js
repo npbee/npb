@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import style from './style';
+import Avatar from '../components/avatar';
 import Footer from '../components/footer';
 import { breakpoint, spacing } from '../lib/theme';
 
@@ -12,11 +13,16 @@ export default ({ children }) => {
             <link rel="icon" type="image/png" href="static/favicon/favicon-96x96.png" sizes="96x96" />
             <link rel="icon" type="image/png" href="static/favicon/favicon-16x16.png" sizes="16x16" />
             <title>Nick Ball</title>
+            <meta name="viewport" content="width=device-width" />
         </Head>
+
+        <Avatar />
 
         <div className='content'>
             {children}
         </div>
+
+        <Footer />
 
         <style jsx>{`
             main {
