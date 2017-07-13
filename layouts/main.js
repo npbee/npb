@@ -33,7 +33,7 @@ export default ({ children }) => {
                 padding: ${spacing(3)}
                 width: 100%;
                 max-width: 900px;
-                min-height: 100vh;
+                min-height: calc(100vh - ${spacing(3)});
             }
             .content {
                 flex: 1;
