@@ -7,3 +7,7 @@
 - Backend stuff
     - workers / concurrency
     - dealing with s3
+- Strategies for umbrella frontend projects
+    - each folder has a package.json and you cd into and `npm install`
+    - each folder is a `file:./<folder>` dep of the root project
+        - can get peer dependency warnings
