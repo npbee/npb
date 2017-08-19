@@ -7,7 +7,8 @@
     "dev": "npm-run-all --parallel next build:posts:watch",
     "next": "next",
     "start": "next start",
-    "build": "next build",
+    "build": "npm run build:posts && npm run build:next",
+    "build:next": "next build",
     "build:posts": "node ./scripts/build-posts.js",
     "build:posts:watch": "node ./scripts/build-posts.js --watch"
   },
