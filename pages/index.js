@@ -12,6 +12,9 @@ function Post({ id, date, title }) {
         <time>{date}</time>
 
         <style jsx>{`
+            div {
+                margin-bottom: ${spacing(4)};
+            }
             time {
                 display: block;
                 color: ${colors.muted};

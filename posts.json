@@ -1,6 +1,11 @@
 {
     "posts": [
         {
+            "id": "learning-elixir",
+            "date": "August 20, 2017",
+            "title": "Learning Elixir"
+        },
+        {
             "id": "on-full-stack",
             "date": "August 19, 2017",
             "title": "On Becoming Full Stack"

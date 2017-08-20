@@ -4,9 +4,16 @@ const fs = require('fs');
 const globby = require('globby');
 const chokidar = require('chokidar');
 const chalk = require('chalk');
+const highlightJs = require('highlight.js');
 
 const mapWith = fn => arr => arr.map(fn);
 const glob = 'pages/**/*.md';
+
+marked.setOptions({
+    highlight: function(code) {
+        return highlightJs.highlightAuto(code).value;
+    }
+});
 
 function markdown(filePath) {
     const content = fs.readFileSync(filePath).toString();

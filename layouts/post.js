@@ -26,7 +26,7 @@ export default function({ children, date }) {
             .post-content h5,
             .post-content h6 {
                 text-transform: uppercase;
-                letter-spacing: 0.1em;
+                letter-spacing: 0.05em;
             }
             .post-content h2,
             .post-content h3,
@@ -43,7 +43,7 @@ export default function({ children, date }) {
 
             .post-content > p,
             .post-content > ul {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
                 line-height: 1.625;
             }
             .post-content blockquote {
@@ -60,6 +60,11 @@ export default function({ children, date }) {
                 border: none;
                 height: 1px;
                 background-color: ${colors.grey};
+            }
+            .post-content img {
+                max-width: 100%;
+                border: 1px solid ${colors.muted};
+                border-radius: 3px;
             }
         `}</style>
     </Main>
