@@ -90,7 +90,6 @@ I’ve put together an example implementation on Codepen:
 
 <div class='embed'>
 <p data-height="520" data-theme-id="0" data-slug-hash="bpGrmm" data-default-tab="result" data-user="npbee" data-embed-version="2" data-pen-title="Google Inbox -  Fixed Header" class="codepen">See the Pen <a href="https://codepen.io/npbee/pen/bpGrmm/">Google Inbox -  Fixed Header</a> by Nick Ball (<a href="https://codepen.io/npbee">@npbee</a>) on <a href="https://codepen.io">CodePen</a>.</p>
-<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 </div>
 
 ### The Message Open
@@ -110,7 +109,6 @@ Once the “scaler” div has done its thing, the content is brought into the DO
 I’ll be going into more detail next about the translating, but here’s a sample implantation on Codepen:
 
 <p data-height="520" data-theme-id="0" data-slug-hash="ZWEJRg" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/ZWEJRg/'>Google Inbox -  Open Message</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
 ## The Message Swap
 
@@ -137,14 +135,12 @@ But just those animations wouldn’t be enough.  The last missing piece here is 
 I’ve tried to narrow down the concepts to an implementation here (click the second message):
 
 <p data-height="395" data-theme-id="0" data-slug-hash="wMLgRY" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/wMLgRY/'>Google Inbox -  Message Swap</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
 Notice the two messages translating up and down and the scroll bar hopping up at the very last second once the animations are done.
 
 In attempt to make this more clear, I’ve made a step-able version here:
 
 <p data-height="554" data-theme-id="0" data-slug-hash="ONJQMa" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/ONJQMa/'>Google Inbox -  Message Swap Stepper</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
 Note that I’m calling these “steps” but really these all happen pretty much simultaneously.
 
