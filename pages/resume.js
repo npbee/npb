@@ -8,7 +8,8 @@ const hellosign = {
     logo: 'hellosign.png',
     site: 'https://www.hellosign.com',
     roles: [
-        'Front-end Engineer'
+        { title: 'Senior Front-end Engineer', dates: ['Oct 2017', 'Present'] },
+        { title: 'Front-end Engineer', dates: ['Oct 2016', 'Oct 2017'] }
     ],
     dates: ['Oct. 2016', 'Present'],
     highlights: [
@@ -25,8 +26,8 @@ const loudr = {
     logo: 'loudr.png',
     site: 'https://www.loudr.fm',
     roles: [
-        'Front-end Engineer',
-        'Jr. Front-end Engineer'
+        { title: 'Front-end Engineer', dates: ['Jan 2016', 'Oct. 2016'] },
+        { title: 'Jr. Front-end Engineer', dates: ['Nov. 2014', 'Jan 2016']}
     ],
     dates: ['Nov. 2014', 'Oct. 2016'],
     highlights: [
@@ -43,7 +44,8 @@ const sayMedia = {
     logo: 'say.png',
     site: 'https://www.saymedia.com/',
     roles: [
-        'Senior Ad Operator'
+        { title: 'Senior Ad Operator', dates: ['Nov 2013', 'Nov. 2014'] },
+        { title: 'Ad Operator', dates: ['Aug. 2008', 'Nov. 2013'] }
     ],
     dates: ['Aug. 2008', 'Nov. 2014'],
     highlights: []
@@ -65,7 +67,7 @@ export default () => {
 
         <section>
             <strong className='small-header'>Experience</strong>
-            {experiences.map(exp => <Experience {...exp} />)}
+            {experiences.map(exp => <Experience key={exp.name} {...exp} />)}
         </section>
 
         <section>

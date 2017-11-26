@@ -1,4 +1,4 @@
-import { spacing, type } from '../lib/theme';
+import { colors, spacing, type } from '../lib/theme';
 
 function Role(props) {
     const { name, dates } = props;
@@ -41,9 +41,13 @@ export default function Experience(props) {
                 <small>{dates[0]} to {dates[1]}</small>
             </header>
             <hr />
-            <p className='roles'>
-                {roles.map(role => <strong>{role}</strong>)}
-            </p>
+            <div className='roles'>
+                {roles.map(role => (
+                    <p key={role.title} className='role'>
+                        <strong>{role.title}</strong>&nbsp;<span>({role.dates[0]} to {role.dates[1]})</span>
+                    </p>
+                ))}
+            </div>
             <p className='highlights'><em>{highlights.join(', ')}</em></p>
         </div>
         <style jsx>{`
@@ -75,6 +79,17 @@ export default function Experience(props) {
                 border-radius: 50%;
                 background-color: #666;
             }
+            .container:last-child:after {
+                content: "";
+                position: absolute;
+                left: -1px;
+                bottom: 0;
+                transform: translate(-50%);
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background-color: #666;
+            }
             .content {
                 transform: translateY(-6px);
                 padding-bottom: ${spacing(4)};
@@ -86,11 +101,19 @@ export default function Experience(props) {
             }
             .highlights,
             .roles {
-                margin-bottom: ${spacing(1)};
+                margin-bottom: ${spacing(3)};
                 margin-top: ${spacing(1)};
             }
+            .role {
+                margin-bottom: 5px;
+                margin-top: 5px;
+            }
+            .role span {
+                color: ${colors.muted};
+                font-size: ${type(5)};
+            }
             .roles strong {
-                display: block;
+                // display: block;
             }
             .logo {
                 max-width: 100px;
