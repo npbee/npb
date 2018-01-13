@@ -1,6 +1,11 @@
 {
     "posts": [
         {
+            "id": "applying-design-systems-in-react",
+            "date": "January 18, 2018",
+            "title": "Applying Design Systems in React"
+        },
+        {
             "id": "learning-elixir",
             "date": "August 20, 2017",
             "title": "Learning Elixir"

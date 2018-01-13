@@ -1,24 +1,29 @@
-import Main from './main';
-import { spacing, colors, type } from '../lib/theme';
+import Main from "./main";
+import { spacing, colors, type } from "../lib/theme";
 
-export default function({ children, date }) {
-    return <Main post>
-        <time>{date}</time>
-        <div
-            className='post-content'
-            dangerouslySetInnerHTML={{ __html: children }}
-        />
-        <style jsx>{`
-            time {
-                color: ${colors.muted};
-                display: block;
-                margin-top: 3rem;
-                text-transform: uppercase;
-                font-size: ${type(6)};
-                letter-spacing: 0.1em;
-            }
-        `}</style>
-        <style jsx global>{`
+export default function({ children, date, raw }) {
+    return (
+        <Main post>
+            <time>{date}</time>
+            {raw ? (
+                <div className="post-content">{children}</div>
+            ) : (
+                <div
+                    className="post-content"
+                    dangerouslySetInnerHTML={{ __html: children }}
+                />
+            )}
+            <style jsx>{`
+                time {
+                    color: ${colors.muted};
+                    display: block;
+                    margin-top: 3rem;
+                    text-transform: uppercase;
+                    font-size: ${type(6)};
+                    letter-spacing: 0.1em;
+                }
+            `}</style>
+            <style jsx global>{`
             .post-content h1,
             .post-content h2,
             .post-content h3,
@@ -67,5 +72,6 @@ export default function({ children, date }) {
                 border-radius: 3px;
             }
         `}</style>
-    </Main>
+        </Main>
+    );
 }
