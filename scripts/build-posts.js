@@ -4,7 +4,6 @@ const fs = require("fs");
 const globby = require("globby");
 const chokidar = require("chokidar");
 const chalk = require("chalk");
-const highlightJs = require("highlight.js");
 const Prism = require("prismjs");
 
 const mapWith = fn => arr => arr.map(fn);
@@ -39,7 +38,6 @@ marked.setOptions({
             require("prismjs/components/prism-" + language + ".js");
         }
         return Prism.highlight(code, Prism.languages[language]);
-        // return highlightJs.highlightAuto(code).value;
     }
 });
 
