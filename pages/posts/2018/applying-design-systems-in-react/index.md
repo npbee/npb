@@ -99,7 +99,7 @@ function InputList(props) {
 }
 ```
 
-**NOTE**: The component examples are meant to just discuss styling, so they are not meant to be fully functioning or 100% accessible.
+>**Note**: The component examples are meant to just discuss styling, so they are not meant to be fully functioning or 100% accessible.
 
 In this version, we're pulling in the `theme` file that holds the SASS variables from our design system and applying those variables as needed to the style values.  This is a completely fine way to do things and usually a good place to start!  However, as the app and number of developers grow you may find that you're having a few issues with this strategy:
 

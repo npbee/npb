@@ -19,8 +19,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "highlight.js": "^9.12.0",
     "next": "^3.0.1-beta.7",
+    "prismjs": "^1.9.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
