@@ -10,7 +10,7 @@ export default `
     }
 
     code,
-    pre[class*="lang-"] {
+    pre[class*="language-"] {
         color: #ccc;
         line-height: 1.5;
         border-radius: 3px;

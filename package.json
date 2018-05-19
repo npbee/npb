@@ -4,13 +4,9 @@
   "description": "Blog, portfolio, and ramblings",
   "main": "index.js",
   "scripts": {
-    "dev": "npm-run-all --parallel next build:posts:watch",
-    "next": "next",
+    "dev": "next",
     "start": "next start",
-    "build": "npm run build:posts && npm run build:next",
-    "build:next": "next build",
-    "build:posts": "node ./scripts/build-posts.js",
-    "build:posts:watch": "node ./scripts/build-posts.js --watch"
+    "build": "next build"
   },
   "browser": {
     "fs": false,
@@ -19,12 +15,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "next": "^4.2.3",
+    "@mdx-js/loader": "^0.9.0",
+    "emotion": "^9.1.3",
+    "emotion-server": "^9.1.3",
+    "next": "^6.0.3",
     "prismjs": "^1.9.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-emotion": "^9.1.3",
+    "styled-system": "^2.2.5"
   },
   "devDependencies": {
+    "@mdx-js/mdx": "^0.9.0",
+    "babel-plugin-emotion": "^9.1.2",
+    "babel-plugin-module-resolver": "^3.1.1",
     "chalk": "^2.0.1",
     "chokidar": "^1.7.0",
     "globby": "^6.1.0",

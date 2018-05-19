@@ -1,8 +1,10 @@
-import Post from '../../../../layouts/post';
-import content from './index.json';
+import Post from "components/layout/post";
+import Content from "./index.md";
 
 export default function() {
-    return <Post date='August 19th, 2017'>
-        {content.content}
-    </Post>;
+  return (
+    <Post date="August 19th, 2017" raw>
+      <Content />
+    </Post>
+  );
 }
