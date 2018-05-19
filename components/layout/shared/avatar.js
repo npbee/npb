@@ -1,6 +1,7 @@
+import React from "react";
 import Link from "next/link";
 
-export default () => {
+export default function Avatar() {
   return (
     <Link href="/">
       <a className="avatar">
@@ -11,4 +12,4 @@ export default () => {
       </a>
     </Link>
   );
-};
+}

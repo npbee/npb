@@ -1,5 +1,5 @@
-import { breakpoint, spacing } from "../../../lib/theme";
-import Link from "next/link";
+import React from "react";
+import { Flex, A, Hr } from "components/ui/blocks";
 import styled from "react-emotion";
 
 const Footer = styled.footer({
@@ -11,42 +11,13 @@ const Footer = styled.footer({
   },
 });
 
-const Hr = styled.hr({
-  display: "flex",
-  alignItems: "center",
-  outline: "none",
-  border: "none",
-  height: "1px",
-  background: "#d9d9d9",
-  width: "100%",
-  marginleft: "auto",
-  transition: "width 300ms, background-color 300ms",
-});
-
-const Content = styled.div({
-  display: "flex",
-  paddingTop: spacing(2),
-  paddingBottom: spacing(2),
-  justifyContent: "space-between",
-});
-
-const A = styled.div`
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    color: #999;
-    text-decoration: none;
-    margin-right: ${spacing(2)}
-    cursor: pointer;
-    transition: color 300ms;
-`;
-
 export default function FooterComponent() {
   return (
     <Footer>
       <Hr />
-      <Content>
+      <Flex justifyContent="space-between" py={2}>
         <A
+          color="muted"
           href="https://github.com/npbee"
           target="_blank"
           rel="noopener"
@@ -54,7 +25,7 @@ export default function FooterComponent() {
         >
           GitHub
         </A>
-      </Content>
+      </Flex>
     </Footer>
   );
 }

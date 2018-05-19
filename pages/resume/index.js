@@ -1,6 +1,7 @@
 import { type, spacing } from "../../lib/theme";
 import Experience from "./components/experience";
 import Resume from "components/layout/resume";
+import SmallHeader from "components/ui/small-header";
 import styled from "react-emotion";
 
 const hellosign = {
@@ -48,15 +49,6 @@ const H1 = styled.h1({
   fontSize: "3rem",
   marginBottom: spacing(1),
 });
-
-const SmallHeader = styled.h2`
-  color: #666;
-  display: block;
-  text-transform: uppercase;
-  font-size: ${type(6)};
-  letter-spacing: 1px;
-  margin-bottom: ${spacing(3)};
-`;
 
 const Section = styled.section({
   marginBottom: spacing(4),

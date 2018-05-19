@@ -1,7 +1,9 @@
 import { hydrate } from "react-emotion";
 import Main from "components/layout/main";
 import Link from "next/link";
+import { A, Box } from "components/ui/blocks";
 import { spacing, type, breakpoint, colors } from "../lib/theme";
+import SmallHeader from "components/ui/small-header";
 import posts from "./posts";
 import styled from "react-emotion";
 
@@ -26,38 +28,23 @@ const Time = styled.time`
   font-size: ${type(4)};
 `;
 
-const A = styled.a`
-  display: block;
-  color: ${colors.primary};
-  cursor: pointer;
-  text-decoration: none;
-  font-size: ${type(3)};
-  margin-bottom: ${spacing(1)};
-`;
-
-const SmallHeader = styled.h1`
-  text-transform: uppercase;
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-`;
-
 function Post({ id, date, title }) {
   const year = new Date(date).getFullYear();
   const href = `/posts/${year}/${id}`;
 
   return (
-    <div
-      css={`
-        margin-bottom: ${spacing(4)};
-      `}
-    >
+    <Box mb={4}>
       <Link href={href} prefetch>
-        <A>{title}</A>
+        <A href={href} color="primary" fontSize={3} mb={1} display="block">
+          {title}
+        </A>
       </Link>
       <Time>{date}</Time>
-    </div>
+    </Box>
   );
 }
+
+const jobBrandColor = "#00A5D5";
 
 export default () => {
   return (
@@ -68,14 +55,16 @@ export default () => {
         programming, and typography. I work as a{" "}
         <strong>front-end engineer</strong>
         &nbsp;at{" "}
-        <a
+        <A
+          color={jobBrandColor}
+          css={{ color: jobBrandColor }}
           target="_blank"
           rel="noopener"
           className="job"
           href="https://www.hellosign.com"
         >
           HelloSign
-        </a>.
+        </A>.
       </Headline>
 
       <SmallHeader>Posts</SmallHeader>
