@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, Box } from "components/ui/blocks";
 import Experience from "./components/experience";
 import Resume from "components/layout/resume";
 import SmallHeader from "components/ui/small-header";
+import * as theme from "components/ui/theme";
+import styled from "react-emotion";
 
 const hellosign = {
   color: "#00b3e6",
@@ -45,19 +46,29 @@ const sayMedia = {
 
 const experiences = [hellosign, loudr, sayMedia];
 
-const Section = props => <Box is="section" mb={4} {...props} />;
+const Section = styled.section({
+  marginBottom: theme.space(4),
+});
+
+const H1 = styled.h1({
+  fontSize: theme.fontSize(1),
+  marginBottom: theme.space(1),
+});
+
+const InfoText = styled.p({
+  marginTop: theme.space(1),
+  marginBottom: theme.space(1),
+  marginLeft: "auto",
+  marginRight: "auto",
+});
 
 export default function ResumeContent() {
   return (
     <Resume>
-      <Box mb={4}>
-        <Text is="h1" fontSize={6} mb={1}>
-          Nick Ball
-        </Text>
-        <Text my={1} mx="auto">
-          San Francisco, CA
-        </Text>
-        <Text my={1} mx="auto">
+      <Section>
+        <H1>Nick Ball</H1>
+        <InfoText>San Francisco, CA</InfoText>
+        <InfoText>
           <a
             href="https://github.com/npbee"
             target="_blank"
@@ -66,8 +77,8 @@ export default function ResumeContent() {
           >
             GitHub
           </a>
-        </Text>
-      </Box>
+        </InfoText>
+      </Section>
 
       <Section>
         <SmallHeader>Experience</SmallHeader>
@@ -78,9 +89,9 @@ export default function ResumeContent() {
         <SmallHeader>Education</SmallHeader>
         <p>
           B.S. Management Science
-          <Text is="em" display="block">
+          <em css={{ display: "block" }}>
             University of California, San Diego
-          </Text>
+          </em>
         </p>
       </Section>
     </Resume>

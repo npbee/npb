@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { Box } from "components/ui/blocks";
+import * as theme from "components/ui/theme";
 
 export default function Avatar() {
   return (
-    <Box mb={4}>
+    <div css={{ marginBottom: theme.space(4) }}>
       <Link href="/">
         <a className="avatar">
           <img
@@ -13,6 +13,6 @@ export default function Avatar() {
           />
         </a>
       </Link>
-    </Box>
+    </div>
   );
 }

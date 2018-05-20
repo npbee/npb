@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { hydrate, injectGlobal } from "react-emotion";
-import { ThemeProvider } from "emotion-theming";
-import theme from "components/ui/theme";
 import globalStyle from "./style";
 
 const withStyle = ComposedComponent => {
@@ -14,11 +12,7 @@ const withStyle = ComposedComponent => {
     }
 
     render() {
-      return (
-        <ThemeProvider theme={theme}>
-          <ComposedComponent {...this.props} />
-        </ThemeProvider>
-      );
+      return <ComposedComponent {...this.props} />;
     }
   }
 

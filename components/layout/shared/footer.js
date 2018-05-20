@@ -1,5 +1,6 @@
 import React from "react";
-import { Flex, A, Hr } from "components/ui/blocks";
+import { A, Hr } from "components/ui/blocks";
+import * as theme from "components/ui/theme";
 import styled from "react-emotion";
 
 const Footer = styled.footer({
@@ -15,17 +16,24 @@ export default function FooterComponent() {
   return (
     <Footer>
       <Hr />
-      <Flex justifyContent="space-between" py={2}>
+      <div
+        css={{
+          display: "flex",
+          justifyContent: "space-between",
+          paddingTop: theme.space(2),
+          paddingBottom: theme.space(2),
+        }}
+      >
         <A
-          color="muted"
           href="https://github.com/npbee"
           target="_blank"
           rel="noopener"
           title="GitHub"
+          css={{ color: theme.get("colors.muted") }}
         >
           GitHub
         </A>
-      </Flex>
+      </div>
     </Footer>
   );
 }
