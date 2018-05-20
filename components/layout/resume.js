@@ -1,19 +1,21 @@
+import React from "react";
 import Head from "next/head";
-import Footer from "./shared/footer";
 import withStyle from "./shared/withStyle";
-import { breakpoint, spacing } from "../../lib/theme";
-import styled from "react-emotion";
+import { Box } from "components/ui/blocks";
 
-const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
-  padding: ${spacing(3)};
-  width: 100%;
-  max-width: 700px;
-  min-height: 100vh;
-`;
+const Main = props => (
+  <Box
+    {...props}
+    is="main"
+    display="flex"
+    flexDirection="column"
+    mx="auto"
+    p={3}
+    w={1}
+    maxWidth={700}
+    css={{ minHeight: "100vh" }}
+  />
+);
 
 export default withStyle(({ children }) => {
   return (

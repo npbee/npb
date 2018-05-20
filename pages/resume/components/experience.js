@@ -1,36 +1,6 @@
-import { colors, spacing, type } from "../../../lib/theme";
+import React from "react";
+import { Hr, Box, Text, A } from "components/ui/blocks";
 import styled from "react-emotion";
-
-function Role(props) {
-  const { name, dates } = props;
-
-  return (
-    <div
-      css={{
-        display: "flex",
-        justifyContent: "row",
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-    >
-      <div className="role-name">{name}</div>
-      <div className="role-dates">
-        <em>
-          {dates[0]} to {dates[1]}
-        </em>
-      </div>
-    </div>
-  );
-}
-
-const Hr = styled.hr`
-  outline: none;
-  border: none;
-  height: 1px;
-  background: #d9d9d9;
-  width: 20px;
-  margin-left: 0;
-`;
 
 const Container = styled.div({
   display: "flex",
@@ -61,62 +31,40 @@ const Container = styled.div({
   },
 });
 
-const Content = styled.div`
+const Content = styled(Box)`
   transform: translateY(-6px);
-  padding-bottom: ${spacing(4)};
-  padding-left: ${spacing(4)};
   position: relative;
 `;
 
-const SiteLink = styled.a`
-  font-weight: normal;
-  color: inherit;
-  display: block;
-  text-decoration: none;
-`;
-
-function Highlight(props) {
-  const { text } = props;
-
-  return <p>{text}</p>;
-}
-
 export default function Experience(props) {
-  const { color, name, logo, site, roles, dates, highlights } = props;
+  const { color, name, site, roles, dates, highlights } = props;
 
   return (
     <Container>
-      <Content>
-        <header css={{ paddingBottom: spacing(1) }}>
-          <h2 css={{ margin: 0 }} style={{ color }}>
-            <SiteLink className="site-link" href={site}>
+      <Content pb={4} pl={4}>
+        <Box is="header" pb={1}>
+          <Text is="h2" m={0} color={color}>
+            <A href={site} color="inherit" fontWeight="normal">
               {name}
-            </SiteLink>
-          </h2>
+            </A>
+          </Text>
           <small>
             {dates[0]} to {dates[1]}
           </small>
-        </header>
-        <Hr />
-        <div
-          css={{ marginBottom: spacing(3), marginTop: spacing(1) }}
-          className="roles"
-        >
+        </Box>
+        <Hr small />
+        <Box mb={3} mt={1}>
           {roles.map(role => (
-            <p
-              key={role.title}
-              css={{ marginBottom: "5px", marginTop: "5px" }}
-              className="role"
-            >
+            <Text key={role.title} my={1}>
               <strong>{role.title}</strong>&nbsp;<span>
                 ({role.dates[0]} to {role.dates[1]})
               </span>
-            </p>
+            </Text>
           ))}
-        </div>
-        <p css={{ marginBottom: spacing(3), marginTop: spacing(1) }}>
+        </Box>
+        <Text my={1}>
           <em>{highlights.join(", ")}</em>
-        </p>
+        </Text>
       </Content>
     </Container>
   );

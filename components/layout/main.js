@@ -1,26 +1,25 @@
+import React from "react";
 import Head from "next/head";
-import style from "./shared/style";
 import Avatar from "./shared/avatar";
 import Footer from "./shared/footer";
-import { breakpoint, spacing } from "../../lib/theme";
+import { Box } from "components/ui/blocks";
 import withStyle from "./shared/withStyle";
-import styled from "react-emotion";
 
-const Main = styled.main({
-  display: "flex",
-  flexDirection: "column",
-  marginLeft: "auto",
-  marginRight: "auto",
-  padding: spacing(3),
-  width: "100%",
-  maxWidth: "900px",
-  minHeight: `calc(100vh - ${spacing(3)})`,
-});
+const Main = props => (
+  <Box
+    is="main"
+    {...props}
+    display="flex"
+    flexDirection="column"
+    mx="auto"
+    p={3}
+    w={1}
+    maxWidth={900}
+    css={{ minHeight: "100vh" }}
+  />
+);
 
-const Content = styled.div({
-  flex: 1,
-  marginBottom: spacing(4),
-});
+const Content = props => <Box {...props} flex={1} />;
 
 export default withStyle(({ children, post }) => {
   return (

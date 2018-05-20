@@ -8,4 +8,5 @@ export default {
     muted: "#777777",
     primary: "#ca3939",
   },
+  radii: [0, 3, 5],
 };

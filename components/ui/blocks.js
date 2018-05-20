@@ -1,49 +1,84 @@
+import React from "react";
 import {
-  space,
-  fontSize,
-  color,
-  width,
-  display,
-  flexDirection,
   alignItems,
+  borders,
+  borderColor,
+  borderRadius,
+  color,
+  display,
+  flex,
+  flexDirection,
+  fontSize,
+  fontWeight,
   justifyContent,
+  letterSpacing,
+  lineHeight,
+  maxWidth,
+  space,
+  style,
+  textAlign,
+  width,
 } from "styled-system";
 import styled from "react-emotion";
 import tag from "clean-tag";
 
+const textTransform = style({
+  prop: "textTransform",
+  alias: "tt",
+});
+
 export const Box = styled(tag)(
-  space,
-  fontSize,
-  width,
+  alignItems,
+  borders,
+  borderColor,
+  borderRadius,
   color,
   display,
+  flex,
   flexDirection,
-  alignItems,
-  justifyContent
+  fontSize,
+  fontWeight,
+  justifyContent,
+  lineHeight,
+  letterSpacing,
+  maxWidth,
+  space,
+  textAlign,
+  textTransform,
+  width
 );
+
+export const Text = props => <Box is="p" {...props} />;
 
 export const Flex = props => <Box display="flex" {...props} />;
 
-export const A = styled(tag.a)(
+export const A = props => <Box is="a" {...props} />;
+
+export const Hr = styled(tag.hr)(
   {
-    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    outline: "none",
+    border: "none",
+    height: "1px",
+    background: "#d9d9d9",
+    width: "100%",
+    marginleft: "auto",
+    transition: "width 300ms, background-color 300ms",
   },
-  display,
-  space,
-  fontSize,
-  color
+  props => ({
+    width: props.small ? "20px" : "100%",
+    marginLeft: props.small && 0,
+  })
 );
 
-export const Hr = styled(tag.hr)({
-  display: "flex",
-  alignItems: "center",
-  outline: "none",
-  border: "none",
-  height: "1px",
-  background: "#d9d9d9",
-  width: "100%",
-  marginleft: "auto",
-  transition: "width 300ms, background-color 300ms",
-});
-
-export default Box;
+export const Time = props => (
+  <Text
+    {...props}
+    is="time"
+    color="muted"
+    fontSize={1}
+    textTransform="uppercase"
+    letterSpacing="0.1em"
+  />
+);
