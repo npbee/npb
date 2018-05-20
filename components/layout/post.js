@@ -5,9 +5,9 @@ import { Time, Text, Hr, Box } from "components/ui/blocks";
 const H1 = props => (
   <Text
     is="h1"
-    textTransform="uppercase"
     letterSpacing="0.05em"
     fontSize={5}
+    css={{ textTransform: "uppercase" }}
     {...props}
   />
 );
@@ -15,7 +15,7 @@ const H1 = props => (
 const H2 = props => (
   <Text
     is="h2"
-    textTransform="uppercase"
+    css={{ textTransform: "uppercase" }}
     letterSpacing="0.05em"
     fontSize={4}
     {...props}
@@ -25,7 +25,7 @@ const H2 = props => (
 const H3 = props => (
   <Text
     is="h3"
-    textTransform="uppercase"
+    css={{ textTransform: "uppercase" }}
     letterSpacing="0.05em"
     fontSize={3}
     {...props}

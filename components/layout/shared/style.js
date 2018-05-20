@@ -9,117 +9,119 @@ export default `
         font-size: 1rem;
     }
 
-    code,
-    pre[class*="language-"] {
-        color: #ccc;
-        line-height: 1.5;
-        border-radius: 3px;
-        font-family: 'Ubuntu Mono', Monaco, 'Andale Mono', monospace;
-        white-space: pre;
-        white-spacing: normal;
-        word-break: normal;
-        word-wrap: normal;
-        -moz-tab-size: 4;
-        -o-tab-size: 4;
-        tab-size: 4;
-        -webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
-    }
+  pre {
+    display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #282828;
+  color: #ebdbb2;
+  }
+/*
 
-    /* code blocks */
-     pre[class*="lang-"] {
-        padding: 16px;
-        margin: 8px 0;
-        overflow: auto;
-    }
+Gruvbox style (dark) (c) Pavel Pertsev (original style at https://github.com/morhetz/gruvbox)
 
-    :not(pre) > code[class*="lang-"],
-    pre[class*="lang-"] {
-        background: #2d2d2d;
-    }
+*/
 
-    /* Inline code */
-    :not(pre) > code {
-        padding: .2em .4em;
-        border-radius: .3em;
-        font-size: 85%;
-        background: #2d2d2d;
-    }
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #282828;
+}
 
-    .token.comment,
-    .token.block-comment,
-    .token.prolog,
-    .token.doctype,
-    .token.cdata {
-            color: #999;
-    }
+.hljs,
+.hljs-subst {
+  color: #ebdbb2;
+}
 
-    .token.punctuation {
-            color: #ccc;
-    }
+/* Gruvbox Red */
+.hljs-deletion,
+.hljs-formula,
+.hljs-keyword,
+.hljs-link,
+.hljs-selector-tag {
+  color: #fb4934;
+}
 
-    .token.tag,
-    .token.attr-name,
-    .token.namespace,
-    .token.deleted {
-            color: #e2777a;
-    }
+/* Gruvbox Blue */
+.hljs-built_in,
+.hljs-emphasis,
+.hljs-name,
+.hljs-quote,
+.hljs-strong,
+.hljs-title,
+.hljs-variable {
+  color: #83a598;
+}
 
-    .token.function-name {
-            color: #6196cc;
-    }
+/* Gruvbox Yellow */
+.hljs-attr,
+.hljs-params,
+.hljs-template-tag,
+.hljs-type {
+  color: #fabd2f;
+}
 
-    .token.boolean,
-    .token.number,
-    .token.function {
-            color: #f08d49;
-    }
+/* Gruvbox Purple */
+.hljs-builtin-name,
+.hljs-doctag,
+.hljs-literal,
+.hljs-number {
+  color: #8f3f71;
+}
 
-    .token.property,
-    .token.class-name,
-    .token.constant,
-    .token.symbol {
-            color: #f8c555;
-    }
+/* Gruvbox Orange */
+.hljs-code,
+.hljs-meta,
+.hljs-regexp,
+.hljs-selector-id,
+.hljs-template-variable {
+  color: #fe8019;
+}
 
-    .token.selector,
-    .token.important,
-    .token.atrule,
-    .token.keyword,
-    .token.builtin {
-            color: #cc99cd;
-    }
+/* Gruvbox Green */
+.hljs-addition,
+.hljs-meta-string,
+.hljs-section,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-string,
+.hljs-symbol {
+  color: #b8bb26;
+}
 
-    .token.string,
-    .token.char,
-    .token.attr-value,
-    .token.regex,
-    .token.variable {
-            color: #7ec699;
-    }
+/* Gruvbox Aqua */
+.hljs-attribute,
+.hljs-bullet,
+.hljs-class,
+.hljs-function,
+.hljs-function .hljs-keyword,
+.hljs-meta-keyword,
+.hljs-selector-pseudo,
+.hljs-tag {
+  color: #8ec07c;
+}
 
-    .token.operator,
-    .token.entity,
-    .token.url {
-            color: #67cdcc;
-    }
+/* Gruvbox Gray */
+.hljs-comment {
+  color: #928374;
+}
 
-    .token.important,
-    .token.bold {
-            font-weight: bold;
-    }
-    .token.italic {
-            font-style: italic;
-    }
+/* Gruvbox Purple */
+.hljs-link_label,
+.hljs-literal,
+.hljs-number {
+  color: #d3869b;
+}
 
-    .token.entity {
-            cursor: help;
-    }
+.hljs-comment,
+.hljs-emphasis {
+  font-style: italic;
+}
 
-    .token.inserted {
-            color: green;
-    }
-
+.hljs-section,
+.hljs-strong,
+.hljs-tag {
+  font-weight: bold;
+}
 `;

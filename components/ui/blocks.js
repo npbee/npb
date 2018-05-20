@@ -15,17 +15,11 @@ import {
   lineHeight,
   maxWidth,
   space,
-  style,
   textAlign,
   width,
 } from "styled-system";
 import styled from "react-emotion";
 import tag from "clean-tag";
-
-const textTransform = style({
-  prop: "textTransform",
-  alias: "tt",
-});
 
 export const Box = styled(tag)(
   alignItems,
@@ -44,7 +38,6 @@ export const Box = styled(tag)(
   maxWidth,
   space,
   textAlign,
-  textTransform,
   width
 );
 
@@ -78,7 +71,7 @@ export const Time = props => (
     is="time"
     color="muted"
     fontSize={1}
-    textTransform="uppercase"
+    css={{ textTransform: "uppercase" }}
     letterSpacing="0.1em"
   />
 );

@@ -1,3 +1,5 @@
+const highlight = require("remark-highlight.js");
+
 module.exports = {
   pageExtensions: ["js", "md", "mdx"],
   webpack: (config, { defaultLoaders }) => {
@@ -7,6 +9,9 @@ module.exports = {
         defaultLoaders.babel,
         {
           loader: "@mdx-js/loader",
+          options: {
+            mdPlugins: [highlight],
+          },
         },
       ],
     });
