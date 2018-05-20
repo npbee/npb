@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "react-emotion";
 
 const Container = styled.div`
@@ -29,12 +30,14 @@ const Input = styled.input`
   font-family: avenir next, avenir, sans-serif;
 `;
 
-export default () => (
-  <Container>
-    <InputComponent>
-      <Label>A Label</Label>
-      <Input placeholder="First Name" />
-      <Input placeholder="Last Name" />
-    </InputComponent>
-  </Container>
-);
+export default function Example() {
+  return (
+    <Container>
+      <InputComponent>
+        <Label>A Label</Label>
+        <Input placeholder="First Name" />
+        <Input placeholder="Last Name" />
+      </InputComponent>
+    </Container>
+  );
+}

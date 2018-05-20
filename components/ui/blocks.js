@@ -1,12 +1,11 @@
 import * as theme from "./theme";
 import styled from "react-emotion";
-import tag from "clean-tag";
 
 export const A = styled.a({
   color: theme.get("colors.primary"),
 });
 
-export const Hr = styled(tag.hr)(
+export const Hr = styled.hr(
   {
     display: "flex",
     alignItems: "center",

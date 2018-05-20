@@ -4,7 +4,7 @@ import globalStyle from "./style";
 
 const withStyle = ComposedComponent => {
   class HOC extends Component {
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       if (typeof window !== "undefined") {
         hydrate(window.__NEXT_DATA__.ids);
       }
