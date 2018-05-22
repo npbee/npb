@@ -6,22 +6,26 @@ import * as theme from "components/ui/theme";
 import withStyle from "./shared/withStyle";
 import styled from "react-emotion";
 
-const Main = styled.main({
-  display: "flex",
-  flexDirection: "column",
-  maxWidth: 900,
-  minHeight: "100vh",
-  marginLeft: "auto",
-  marginRight: "auto",
-  padding: theme.space(3),
-  width: "100%",
-});
+const Main = styled.main(
+  {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
+    marginLeft: "auto",
+    marginRight: "auto",
+    padding: theme.space(3),
+    width: "100%",
+  },
+  props => ({
+    maxWidth: props.post ? 750 : 900,
+  })
+);
 
 const Content = styled.div({ flex: 1 });
 
-export default withStyle(({ children }) => {
+export default withStyle(({ children, post }) => {
   return (
-    <Main>
+    <Main post={post}>
       <Head>
         <link
           rel="stylesheet"

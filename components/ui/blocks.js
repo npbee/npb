@@ -25,23 +25,21 @@ export const Hr = styled.hr(
 
 export const Time = styled.time({
   color: theme.get("colors.muted"),
-  fontSize: theme.fontSize(5),
-  textTransform: "uppercase",
-  letterSpacing: "0.1em",
+  fontSize: theme.fontSize(4),
+  letterSpacing: "0.01em",
 });
 
 export const H1 = styled.h1({
-  letterSpacing: "0.05em",
-  fontSize: theme.fontSize(1),
-  textTransform: "uppercase",
+  letterSpacing: "0.03em",
+  fontSize: theme.fontSize(0),
 });
 
 export const H2 = styled(H1.withComponent("h2"))({
-  fontSize: theme.fontSize(2),
+  fontSize: theme.fontSize(1),
 });
 
 export const H3 = styled(H1.withComponent("h3"))({
-  fontSize: theme.fontSize(3),
+  fontSize: theme.fontSize(2),
 });
 
 export const P = styled.p({

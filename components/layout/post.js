@@ -18,7 +18,9 @@ export default function Post({ date, Content }) {
       <Time>{date}</Time>
       <Content
         components={{
-          h1: H1,
+          h1: function PostH1(props) {
+            return <H1 {...props} css={{ marginTop: 0 }} />;
+          },
           h2: H2,
           h3: H3,
           p: P,
