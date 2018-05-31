@@ -56,9 +56,9 @@ export default function Home() {
   return (
     <Main>
       <Headline>
-        Hi, I&apos;m <strong>Nick Ball</strong>, a web developer currently
-        focusing on the front end. I enjoy minimal user interfaces, functional
-        programming, and typography. I work as a{" "}
+        Hi, I&apos;m <strong>Nick Ball</strong>, a web developer focused on the
+        front end. I enjoy functional programming, design systems, and
+        component-based architecture. I work as a{" "}
         <strong>front-end engineer</strong>
         &nbsp;at{" "}
         <BrandA
