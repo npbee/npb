@@ -1,45 +1,37 @@
 import React from "react";
-import { Hr } from "components/ui/blocks";
 import * as theme from "components/ui/theme";
 import styled from "react-emotion";
+import { distanceInWordsStrict, format } from "date-fns";
+
+function formatDate(date) {
+  return typeof date === "string" ? date : format(date, "MMM. YYYY");
+}
+
+function duration(dateA, dateB) {
+  return distanceInWordsStrict(dateA, dateB, { partialMethod: "round" });
+}
+
+const Grid = styled.div({
+  alignItems: "center",
+  display: "grid",
+  gridGap: "10px",
+  gridTemplateColumns: "50% auto",
+});
 
 const Container = styled.div({
   display: "flex",
   flexDirection: "row",
   position: "relative",
-  borderLeft: "3px solid #666",
-  ":before": {
-    content: '""',
-    position: "absolute",
-    left: "-1px",
-    top: 0,
-    transform: "translate(-50%)",
-    width: "15px",
-    height: "15px",
-    borderRadius: "50%",
-    backgroundColor: "#666",
-  },
-  ":last-child:after": {
-    content: '""',
-    position: "absolute",
-    left: "-1px",
-    bottom: "0",
-    transform: "translate(-50%)",
-    width: "15px",
-    height: "15px",
-    borderRadius: "50%",
-    backgroundColor: "#666",
-  },
 });
 
 const Content = styled.div({
-  transform: "translateY(-6px)",
+  transform: `translateY(-6px)`,
   position: "relative",
   paddingBottom: theme.space(4),
-  paddingLeft: theme.space(4),
+  width: "100%",
 });
 
-const Header = styled.header({
+const Header = styled(Grid)({
   paddingBottom: theme.space(1),
 });
 
@@ -52,7 +44,7 @@ const CompanyLink = styled.a(props => ({
 }));
 
 export default function Experience(props) {
-  const { color, name, site, roles, dates, highlights } = props;
+  const { color, name, site, roles, dates, highlights, copy } = props;
 
   return (
     <Container>
@@ -63,25 +55,31 @@ export default function Experience(props) {
               {name}
             </CompanyLink>
           </CompanyHeader>
-          <small>
-            {dates[0]} to {dates[1]}
-          </small>
+          <span css={{ color: theme.get("colors.muted") }}>
+            {duration(dates[0], dates[1])}
+          </span>
         </Header>
-        <Hr small />
-        <div css={{ marginBottom: theme.space(3), marginTop: theme.space(1) }}>
+        <div
+          css={{
+            marginBottom: theme.space(3),
+            marginTop: theme.space(1),
+          }}
+        >
           {roles.map(role => (
-            <p
+            <Grid
               key={role.title}
               css={{ marginTop: theme.space(1), marginBottom: theme.space(1) }}
             >
-              <strong>{role.title}</strong>&nbsp;<span>
-                ({role.dates[0]} to {role.dates[1]})
+              <strong>{role.title}</strong>
+              <span css={{ color: theme.get("colors.muted") }}>
+                {formatDate(role.dates[0])} ~ {formatDate(role.dates[1])}
               </span>
-            </p>
+            </Grid>
           ))}
         </div>
         <p css={{ marginTop: theme.space(1), marginBottom: theme.space(1) }}>
           <em>{highlights.join(", ")}</em>
+          {copy}
         </p>
       </Content>
     </Container>

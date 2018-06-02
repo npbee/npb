@@ -7,6 +7,7 @@ const theme = {
   unit: "rem",
   colors: {
     grey: "#eeeeee",
+    greyDark: "#d9d9d9",
     muted: "#777777",
     primary: "#ca3939",
   },

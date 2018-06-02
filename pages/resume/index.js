@@ -4,6 +4,7 @@ import Resume from "components/layout/resume";
 import SmallHeader from "components/ui/small-header";
 import * as theme from "components/ui/theme";
 import styled from "react-emotion";
+import HelloSign from "./hellosign.md";
 
 const hellosign = {
   color: "#00b3e6",
@@ -11,10 +12,17 @@ const hellosign = {
   logo: "hellosign.png",
   site: "https://www.hellosign.com",
   roles: [
-    { title: "Senior Front-end Engineer", dates: ["Oct 2017", "Present"] },
-    { title: "Front-end Engineer", dates: ["Oct 2016", "Oct 2017"] },
+    {
+      title: "Senior Front-end Engineer",
+      dates: [new Date(2017, 9), "Present"],
+    },
+    {
+      title: "Front-end Engineer",
+      dates: [new Date(2016, 9), new Date(2017, 9)],
+    },
   ],
-  dates: ["Oct. 2016", "Present"],
+  dates: [new Date(2016, 9, 1), new Date()],
+  copy: <HelloSign />,
   highlights: ["React", "UI", "Component Library", "Elixir"],
 };
 
@@ -24,10 +32,16 @@ const loudr = {
   logo: "loudr.png",
   site: "https://www.loudr.fm",
   roles: [
-    { title: "Front-end Engineer", dates: ["Jan 2016", "Oct. 2016"] },
-    { title: "Jr. Front-end Engineer", dates: ["Nov. 2014", "Jan 2016"] },
+    {
+      title: "Front-end Engineer",
+      dates: [new Date(2016, 0), new Date(2016, 9)],
+    },
+    {
+      title: "Jr. Front-end Engineer",
+      dates: [new Date(2014, 10), new Date(2016, 0)],
+    },
   ],
-  dates: ["Nov. 2014", "Oct. 2016"],
+  dates: [new Date(2014, 10), new Date(2016, 9)],
   highlights: ["React", "Knockout", "Framework Design", "Tooling & Deployment"],
 };
 
@@ -37,10 +51,13 @@ const sayMedia = {
   logo: "say.png",
   site: "https://www.saymedia.com/",
   roles: [
-    { title: "Senior Ad Operator", dates: ["Nov 2013", "Nov. 2014"] },
-    { title: "Ad Operator", dates: ["Aug. 2008", "Nov. 2013"] },
+    {
+      title: "Senior Ad Operator",
+      dates: [new Date(2013, 10), new Date(2014, 10)],
+    },
+    { title: "Ad Operator", dates: [new Date(2008, 7), new Date(2013, 10)] },
   ],
-  dates: ["Aug. 2008", "Nov. 2014"],
+  dates: [new Date(2008, 7), new Date(2014, 10)],
   highlights: [],
 };
 
