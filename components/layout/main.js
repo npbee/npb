@@ -28,11 +28,6 @@ export default withStyle(({ children, post }) => {
     <Main post={post}>
       <Head>
         <link
-          rel="stylesheet"
-          type="text/css"
-          href="//cloud.typography.com/7821852/748866/css/fonts.css"
-        />
-        <link
           rel="icon"
           type="image/png"
           href="static/favicon/favicon-32x32.png"

@@ -20,11 +20,6 @@ export default withStyle(({ children }) => {
     <Main>
       <Head>
         <link
-          rel="stylesheet"
-          type="text/css"
-          href="//cloud.typography.com/7821852/748866/css/fonts.css"
-        />
-        <link
           rel="icon"
           type="image/png"
           href="static/favicon/favicon-32x32.png"

@@ -3,9 +3,9 @@ export default `
     body {
         margin: 0;
         background: #f9f9f9;
-        color: #444;
-        font-family: 'Chronicle Display A', 'Chronicle Display B', georgia, times, serif;
-        font-weight: 300;
+        color: rgba(0, 0, 0, .7);
+        font-family: athelas, georgia, serif;
+        font-weight: 100;
         font-size: 1rem;
     }
 

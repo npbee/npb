@@ -43,7 +43,7 @@ export const H3 = styled(H1.withComponent("h3"))({
 });
 
 export const P = styled.p({
-  fontSize: theme.fontSize(3),
+  fontSize: theme.fontSize(2),
   lineHeight: theme.get("lineHeights.body"),
 });
 

@@ -13,7 +13,7 @@ const theme = {
   },
   radii: [0, 3, 5],
   lineHeights: {
-    body: 1.625,
+    body: 1.5,
   },
 };
 
