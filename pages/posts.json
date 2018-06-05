@@ -1,24 +1,14 @@
 {
-    "posts": [
-        {
-            "id": "applying-design-systems-in-react",
-            "date": "January 18, 2018",
-            "title": "Applying Design Systems in React"
-        },
-        {
-            "id": "learning-elixir",
-            "date": "August 20, 2017",
-            "title": "Learning Elixir"
-        },
-        {
-            "id": "on-full-stack",
-            "date": "August 19, 2017",
-            "title": "On Becoming Full Stack"
-        },
-        {
-            "id": "ux-case-study-google-inbox",
-            "date": "February 27, 2016",
-            "title": "UX Case Study - Google Inbox"
-        }
-    ]
+  "posts": [
+    {
+      "id": "applying-design-systems-in-react",
+      "date": "January 18, 2018",
+      "title": "Applying Design Systems in React"
+    },
+    {
+      "id": "ux-case-study-google-inbox",
+      "date": "February 27, 2016",
+      "title": "UX Case Study - Google Inbox"
+    }
+  ]
 }

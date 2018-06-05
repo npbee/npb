@@ -5,16 +5,22 @@ export default `
         background: #f9f9f9;
         color: rgba(0, 0, 0, .7);
         font-family: athelas, georgia, serif;
-        font-weight: 100;
+        font-family: avenir next, avenir, sans-serif;
+        font-weight: 300;
         font-size: 1rem;
     }
 
-  pre {
+  pre code {
     display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #282828;
-  color: #ebdbb2;
+    background: white;
+    color: #4d4d4c;
+    font-family: Menlo, Monaco, Consolas, monospace;
+    line-height: 1.5;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #eeeeee;
+    border-radius: 2px;
+    overflow-x: auto;
   }
 /*
 
@@ -26,7 +32,6 @@ Gruvbox style (dark) (c) Pavel Pertsev (original style at https://github.com/mor
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #282828;
 }
 
 .hljs,
@@ -120,8 +125,7 @@ Gruvbox style (dark) (c) Pavel Pertsev (original style at https://github.com/mor
 }
 
 .hljs-section,
-.hljs-strong,
-.hljs-tag {
+.hljs-strong {
   font-weight: bold;
 }
 `;

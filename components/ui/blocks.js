@@ -31,11 +31,11 @@ export const Time = styled.time({
 
 export const H1 = styled.h1({
   letterSpacing: "0.03em",
-  fontSize: theme.fontSize(0),
+  fontSize: theme.fontSize(2),
 });
 
 export const H2 = styled(H1.withComponent("h2"))({
-  fontSize: theme.fontSize(1),
+  fontSize: theme.fontSize(2),
 });
 
 export const H3 = styled(H1.withComponent("h3"))({
@@ -43,8 +43,9 @@ export const H3 = styled(H1.withComponent("h3"))({
 });
 
 export const P = styled.p({
-  fontSize: theme.fontSize(2),
+  fontSize: theme.fontSize(3),
   lineHeight: theme.get("lineHeights.body"),
+  maxWidth: "30em",
 });
 
 export const Ul = styled.ul({
@@ -66,4 +67,14 @@ export const Blockquote = styled.blockquote({
   borderLeftWidth: "0.25rem",
   borderLeftStyle: "solid",
   borderColor: theme.get("colors.grey"),
+});
+
+export const InlineCode = styled.code({
+  background: "white",
+  border: "1px solid",
+  borderRadius: theme.get("radii.1"),
+  borderColor: theme.get("colors.grey"),
+  fontFamily: "Menlo, Monaco, Consolas, monospace",
+  fontSize: "14px",
+  padding: "5px",
 });

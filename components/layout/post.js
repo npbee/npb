@@ -1,6 +1,8 @@
 import React from "react";
 import Main from "./main";
 import {
+  A,
+  InlineCode,
   Time,
   Hr,
   H1,
@@ -28,6 +30,8 @@ export default function Post({ date, Content }) {
           hr: Hr,
           img: Img,
           blockquote: Blockquote,
+          a: A,
+          inlineCode: InlineCode,
         }}
       />
     </Main>

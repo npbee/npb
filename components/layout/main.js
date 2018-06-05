@@ -14,10 +14,11 @@ const Main = styled.main(
     marginLeft: "auto",
     marginRight: "auto",
     padding: theme.space(3),
+    maxWidth: 800,
     width: "100%",
   },
   props => ({
-    maxWidth: props.post ? 750 : 900,
+    maxWidth: props.post ? 700 : 900,
   })
 );
 
