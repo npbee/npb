@@ -16,12 +16,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mdx-js/loader": "^0.13.0-0",
+    "@zeit/next-mdx": "^1.2.0",
     "date-fns": "^1.29.0",
     "emotion": "^9.2.4",
     "emotion-server": "^9.2.4",
     "facepaint": "^1.2.1",
-    "next": "^6.1.1",
+    "next": "^7.0.2",
     "prismjs": "^1.15.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -29,7 +29,7 @@
     "remark-highlight.js": "^5.0.0"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^0.13.0-0",
+    "@mdx-js/mdx": "^0.16.5",
     "babel-plugin-emotion": "^9.2.4",
     "babel-plugin-module-resolver": "^3.1.1",
     "chalk": "^2.4.1",

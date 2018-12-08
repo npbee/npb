@@ -1,21 +1,8 @@
 const highlight = require("remark-highlight.js");
 
-module.exports = {
-  pageExtensions: ["js", "md", "mdx"],
-  webpack: (config, { defaultLoaders }) => {
-    config.module.rules.push({
-      test: /\.md$/,
-      use: [
-        defaultLoaders.babel,
-        {
-          loader: "@mdx-js/loader",
-          options: {
-            mdPlugins: [highlight],
-          },
-        },
-      ],
-    });
+const withMDX = require("@zeit/next-mdx")({
+  mdPlugins: [highlight],
+  extension: /\.mdx?$/,
+});
 
-    return config;
-  },
-};
+module.exports = withMDX();
