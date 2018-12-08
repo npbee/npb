@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "id": "rich-text-2018",
+      "date": "July 4, 2018",
+      "title": "Rich Text on the Web in 2018"
+    },
+    {
       "id": "applying-design-systems-in-react",
       "date": "January 18, 2018",
       "title": "Applying Design Systems in React"
