@@ -44,7 +44,7 @@ function Post({ id, date, title }) {
 
   return (
     <div css={{ marginBottom: theme.space(4) }}>
-      <Link href={href} prefetch>
+      <Link href={href}>
         <BigA href={href}>{title}</BigA>
       </Link>
       <Time>{date}</Time>
@@ -68,11 +68,14 @@ export default function Home() {
           href="https://www.hellosign.com"
         >
           HelloSign
-        </BrandA>.
+        </BrandA>
+        .
       </Headline>
 
       <SmallHeader>Posts</SmallHeader>
-      {posts.posts.map(post => <Post key={post.id} {...post} />)}
+      {posts.posts.map(post => (
+        <Post key={post.id} {...post} />
+      ))}
     </Main>
   );
 }
