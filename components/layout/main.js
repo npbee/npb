@@ -2,63 +2,116 @@ import React from "react";
 import Head from "next/head";
 import Avatar from "./shared/avatar";
 import Footer from "./shared/footer";
-import * as theme from "components/ui/theme";
-import withStyle from "./shared/withStyle";
-import styled from "react-emotion";
 
-const Main = styled.main(
-  {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    marginLeft: "auto",
-    marginRight: "auto",
-    padding: theme.space(3),
-    maxWidth: 800,
-    width: "100%",
-  },
-  props => ({
-    maxWidth: props.post ? 700 : 900,
-  })
-);
-
-const Content = styled.div({ flex: 1 });
-
-export default withStyle(({ children, post }) => {
+export default function MainLayout({ children, post }) {
   return (
-    <Main post={post}>
-      <Head>
-        <link
-          rel="icon"
-          type="image/png"
-          href="static/favicon/favicon-32x32.png"
-          sizes="32x32"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          href="static/favicon/android-chrome-192x192.png"
-          sizes="192x192"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          href="static/favicon/favicon-96x96.png"
-          sizes="96x96"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          href="static/favicon/favicon-16x16.png"
-          sizes="16x16"
-        />
-        <title>Nick Ball</title>
-        <meta name="viewport" content="width=device-width" />
-      </Head>
+    <>
+      <header>
+        <Avatar />
+      </header>
+      <main>
+        <Head>
+          <link
+            rel="icon"
+            type="image/png"
+            href="static/favicon/favicon-32x32.png"
+            sizes="32x32"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="static/favicon/android-chrome-192x192.png"
+            sizes="192x192"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="static/favicon/favicon-96x96.png"
+            sizes="96x96"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="static/favicon/favicon-16x16.png"
+            sizes="16x16"
+          />
+          <title>Nick Ball</title>
+          <meta name="viewport" content="width=device-width" />
+        </Head>
 
-      <Avatar />
-      <Content>{children}</Content>
+        {children}
+      </main>
       <Footer />
-    </Main>
+      <style jsx>{`
+        header {
+          padding: var(--s0) var(--s3);
+          outline: 1px dotted red;
+        }
+
+        header,
+        main {
+          padding-left: var(--s3);
+          padding-right: var(--s3);
+        }
+
+        main {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
+      `}</style>
+      <style jsx global>
+        {`
+          :root {
+            --ratio: 1.5;
+            --s-5: calc(var(--s-4) / var(--ratio));
+            --s-4: calc(var(--s-3) / var(--ratio));
+            --s-3: calc(var(--s-2) / var(--ratio));
+            --s-2: calc(var(--s-1) / var(--ratio));
+            --s-1: calc(var(--s0) / var(--ratio));
+            --s0: 1rem;
+            --s1: calc(var(--s0) * var(--ratio));
+            --s2: calc(var(--s1) * var(--ratio));
+            --s3: calc(var(--s2) * var(--ratio));
+            --s4: calc(var(--s3) * var(--ratio));
+            --s5: calc(var(--s4) * var(--ratio));
+            --primary-color: #ca3939;
+            --grey-50: #f5f7fa;
+            --grey-100: #e4e7eb;
+            --grey-200: #cbd2d9;
+            --grey-300: #9aa5b1;
+            --grey-400: #7b8794;
+            --grey-500: #616e7c;
+            --grey-600: #52606d;
+            --grey-700: #3e4c59;
+            --grey-800: #323f4b;
+            --grey-900: #1f2933;
+          }
+
+          html,
+          body,
+          #__next {
+            height: 100%;
+          }
+
+          #__next {
+            display: flex;
+            flex-direction: column;
+          }
+
+          body {
+            margin: 0;
+            color: var(--grey-800);
+            font-family: avenir next, avenir, -apple-system, BlinkMacSystemFont,
+              "avenir next", avenir, "helvetica neue", helvetica, ubuntu, roboto,
+              noto, "segoe ui", arial, sans-serif;
+          }
+
+          strong {
+            font-weight: 600;
+          }
+        `}
+      </style>
+    </>
   );
-});
+}

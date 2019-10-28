@@ -8,7 +8,7 @@ const withStyle = ComposedComponent => {
       if (typeof window !== "undefined") {
         hydrate(window.__NEXT_DATA__.ids);
       }
-      injectGlobal`${globalStyle}`;
+      // injectGlobal`${globalStyle}`;
     }
 
     render() {

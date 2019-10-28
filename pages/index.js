@@ -8,24 +8,7 @@ import SmallHeader from "components/ui/small-header";
 import posts from "./posts";
 import styled from "react-emotion";
 
-// Adds server generated styles to emotion cache.
-// '__NEXT_DATA__.ids' is set in '_document.js'
-if (typeof window !== "undefined") {
-  hydrate(window.__NEXT_DATA__.ids);
-}
-
 const jobBrandColor = "#00A5D5";
-
-const Headline = styled.p(
-  {
-    lineHeight: theme.get("lineHeights.body"),
-    marginBottom: theme.space(5),
-    marginTop: theme.space(0),
-  },
-  theme.mq({
-    fontSize: [theme.fontSize(2), theme.fontSize(1)],
-  })
-);
 
 const BigA = styled.a({
   color: theme.get("colors.primary"),
@@ -43,19 +26,33 @@ function Post({ id, date, title }) {
   const href = `/posts/${year}/${id}`;
 
   return (
-    <div css={{ marginBottom: theme.space(4) }}>
+    <li>
       <Link href={href}>
-        <BigA href={href}>{title}</BigA>
+        <a href={href}>{title}</a>
       </Link>
-      <Time>{date}</Time>
-    </div>
+      <p>{date}</p>
+      <style jsx>{`
+        a {
+          color: var(--primary-color);
+          font-size: var(--s1);
+          margin-bottom: var(--s-3);
+          display: block;
+        }
+        p {
+          margin: 0;
+        }
+        li {
+          margin-bottom: var(--s1);
+        }
+      `}</style>
+    </li>
   );
 }
 
 export default function Home() {
   return (
     <Main>
-      <Headline>
+      <p>
         Hi, I&apos;m <strong>Nick Ball</strong>, a web developer focused on the
         front end. I enjoy functional programming, design systems, and
         component-based architecture. I work as a{" "}
@@ -70,12 +67,31 @@ export default function Home() {
           HelloSign
         </BrandA>
         .
-      </Headline>
+      </p>
 
-      <SmallHeader>Posts</SmallHeader>
-      {posts.posts.map(post => (
-        <Post key={post.id} {...post} />
-      ))}
+      <h2>Posts</h2>
+      <ul>
+        {posts.posts.map(post => (
+          <Post key={post.id} {...post} />
+        ))}
+      </ul>
+      <style jsx>{`
+        p {
+          font-size: var(--s2);
+          max-width: 60ch;
+          margin-bottom: var(--s4);
+        }
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        h2 {
+          font-size: var(--s0);
+          font-weight: 600;
+          letter-spacing: 0.05em;
+        }
+      `}</style>
     </Main>
   );
 }
