@@ -3,13 +3,13 @@ import Head from "next/head";
 import Avatar from "./shared/avatar";
 import Footer from "./shared/footer";
 
-export default function MainLayout({ children, post }) {
+export default function MainLayout({ children, layout }) {
   return (
     <>
       <header>
         <Avatar />
       </header>
-      <main>
+      <main className={layout}>
         <Head>
           <link
             rel="icon"
@@ -45,7 +45,6 @@ export default function MainLayout({ children, post }) {
       <style jsx>{`
         header {
           padding: var(--s0) var(--s3);
-          outline: 1px dotted red;
         }
 
         header,
@@ -63,7 +62,9 @@ export default function MainLayout({ children, post }) {
       <style jsx global>
         {`
           :root {
-            --ratio: 1.5;
+            --ratio: 1.125;
+            --s-7: calc(var(--s-6) / var(--ratio));
+            --s-6: calc(var(--s-5) / var(--ratio));
             --s-5: calc(var(--s-4) / var(--ratio));
             --s-4: calc(var(--s-3) / var(--ratio));
             --s-3: calc(var(--s-2) / var(--ratio));
@@ -75,6 +76,12 @@ export default function MainLayout({ children, post }) {
             --s3: calc(var(--s2) * var(--ratio));
             --s4: calc(var(--s3) * var(--ratio));
             --s5: calc(var(--s4) * var(--ratio));
+            --s6: calc(var(--s5) * var(--ratio));
+            --s7: calc(var(--s6) * var(--ratio));
+            --s8: calc(var(--s7) * var(--ratio));
+            --s8: calc(var(--s7) * var(--ratio));
+            --s9: calc(var(--s8) * var(--ratio));
+            --s10: calc(var(--s9) * var(--ratio));
             --primary-color: #ca3939;
             --grey-50: #f5f7fa;
             --grey-100: #e4e7eb;
