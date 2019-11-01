@@ -73,7 +73,6 @@ export default function Home() {
       <style jsx>{`
         p {
           font-size: var(--s6);
-          max-width: 60ch;
           margin-bottom: var(--s4);
         }
         ul {

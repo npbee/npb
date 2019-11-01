@@ -62,7 +62,7 @@ export default function MainLayout({ children, layout }) {
       <style jsx global>
         {`
           :root {
-            --ratio: 1.125;
+            --ratio: 1.15;
             --s-7: calc(var(--s-6) / var(--ratio));
             --s-6: calc(var(--s-5) / var(--ratio));
             --s-5: calc(var(--s-4) / var(--ratio));
@@ -82,6 +82,8 @@ export default function MainLayout({ children, layout }) {
             --s8: calc(var(--s7) * var(--ratio));
             --s9: calc(var(--s8) * var(--ratio));
             --s10: calc(var(--s9) * var(--ratio));
+            --s11: calc(var(--s10) * var(--ratio));
+            --s12: calc(var(--s11) * var(--ratio));
             --primary-color: #ca3939;
             --grey-50: #f5f7fa;
             --grey-100: #e4e7eb;

@@ -12,8 +12,6 @@ export default function Post({ date, Content }) {
       <style jsx>{`
         max-width: 55ch;
         margin: auto;
-        font-size: var(--s1);
-        line-height: 1.7;
       `}</style>
     </Main>
   );
