@@ -1,5 +1,5 @@
 import React from "react";
-import Post from "components/layout/post";
+import Post from "../../../../components/layout/post";
 import Content from "./content.md";
 
 export default function ApplyingDesignSystemsInReact() {

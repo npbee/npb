@@ -1,6 +1,4 @@
 import React from "react";
-import * as theme from "components/ui/theme";
-import styled from "react-emotion";
 import { distanceInWordsStrict, format } from "date-fns";
 
 function formatDate(date) {
@@ -11,37 +9,17 @@ function duration(dateA, dateB) {
   return distanceInWordsStrict(dateA, dateB, { partialMethod: "round" });
 }
 
-const Grid = styled.div({
-  alignItems: "center",
-  display: "grid",
-  gridGap: "10px",
-  gridTemplateColumns: "50% auto",
-});
+const Grid = props => <div {...props} />;
 
-const Container = styled.div({
-  display: "flex",
-  flexDirection: "row",
-  position: "relative",
-});
+const Container = props => <div {...props} />;
 
-const Content = styled.div({
-  transform: `translateY(-6px)`,
-  position: "relative",
-  paddingBottom: theme.space(4),
-  width: "100%",
-});
+const Content = props => <div {...props} />;
 
-const Header = styled(Grid)({
-  paddingBottom: theme.space(1),
-});
+const Header = props => <div {...props} />;
 
-const CompanyHeader = styled.h2({
-  margin: 0,
-});
+const CompanyHeader = ({ children, ...rest }) => <h2 {...rest}>{children}</h2>;
 
-const CompanyLink = styled.a(props => ({
-  color: props.color,
-}));
+const CompanyLink = ({ children, ...rest }) => <a {...rest}>{children}</a>;
 
 export default function Experience(props) {
   const { color, name, site, roles, dates, highlights, copy } = props;
@@ -55,29 +33,19 @@ export default function Experience(props) {
               {name}
             </CompanyLink>
           </CompanyHeader>
-          <span css={{ color: theme.get("colors.muted") }}>
-            {duration(dates[0], dates[1])}
-          </span>
+          <span css={{ color: "#777777" }}>{duration(dates[0], dates[1])}</span>
         </Header>
-        <div
-          css={{
-            marginBottom: theme.space(3),
-            marginTop: theme.space(1),
-          }}
-        >
+        <div>
           {roles.map(role => (
-            <Grid
-              key={role.title}
-              css={{ marginTop: theme.space(1), marginBottom: theme.space(1) }}
-            >
+            <Grid key={role.title}>
               <strong>{role.title}</strong>
-              <span css={{ color: theme.get("colors.muted") }}>
+              <span>
                 {formatDate(role.dates[0])} ~ {formatDate(role.dates[1])}
               </span>
             </Grid>
           ))}
         </div>
-        <p css={{ marginTop: theme.space(1), marginBottom: theme.space(1) }}>
+        <p>
           <em>{highlights.join(", ")}</em>
           {copy}
         </p>

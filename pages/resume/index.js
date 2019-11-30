@@ -1,9 +1,6 @@
 import React from "react";
 import Experience from "./components/experience";
-import Resume from "components/layout/resume";
-import SmallHeader from "components/ui/small-header";
-import * as theme from "components/ui/theme";
-import styled from "react-emotion";
+import Resume from "../../components/layout/resume";
 import HelloSign from "./hellosign.md";
 
 const hellosign = {
@@ -63,21 +60,11 @@ const sayMedia = {
 
 const experiences = [hellosign, loudr, sayMedia];
 
-const Section = styled.section({
-  marginBottom: theme.space(4),
-});
+const Section = props => <section {...props} />;
 
-const H1 = styled.h1({
-  fontSize: theme.fontSize(1),
-  marginBottom: theme.space(1),
-});
+const H1 = ({ children, ...rest }) => <h1 {...rest}>{children}</h1>;
 
-const InfoText = styled.p({
-  marginTop: theme.space(1),
-  marginBottom: theme.space(1),
-  marginLeft: "auto",
-  marginRight: "auto",
-});
+const InfoText = props => <p {...props} />;
 
 export default function ResumeContent() {
   return (
@@ -98,12 +85,14 @@ export default function ResumeContent() {
       </Section>
 
       <Section>
-        <SmallHeader>Experience</SmallHeader>
-        {experiences.map(exp => <Experience key={exp.name} {...exp} />)}
+        <h3>Experience</h3>
+        {experiences.map(exp => (
+          <Experience key={exp.name} {...exp} />
+        ))}
       </Section>
 
       <Section>
-        <SmallHeader>Education</SmallHeader>
+        <h3>Education</h3>
         <p>
           B.S. Management Science
           <em css={{ display: "block" }}>

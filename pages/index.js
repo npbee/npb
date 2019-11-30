@@ -1,13 +1,13 @@
 import React from "react";
-import Main from "components/layout/main";
+import Main from "../components/layout/main";
 import Link from "next/link";
 import posts from "./posts";
 
 const jobBrandColor = "#00A5D5";
 
-const BrandLink = props => (
+const BrandLink = ({ children, ...rest }) => (
   <>
-    <a {...props} />
+    <a {...rest}>{children}</a>
     <style jsx>{`
       a {
         color: ${jobBrandColor};
@@ -26,21 +26,6 @@ function Post({ id, date, title }) {
         <a href={href}>{title}</a>
       </Link>
       <p>{date}</p>
-      <style jsx>{`
-        a {
-          color: var(--primary-color);
-          font-size: var(--s2);
-          margin-bottom: var(--s-6);
-          display: block;
-        }
-        p {
-          margin: 0;
-          font-size: var(--s-1);
-        }
-        li {
-          margin-bottom: var(--s5);
-        }
-      `}</style>
     </li>
   );
 }
@@ -70,22 +55,6 @@ export default function Home() {
           <Post key={post.id} {...post} />
         ))}
       </ul>
-      <style jsx>{`
-        p {
-          font-size: var(--s6);
-          margin-bottom: var(--s4);
-        }
-        ul {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
-        h2 {
-          font-size: var(--s-1);
-          font-weight: 600;
-          letter-spacing: 0.05em;
-        }
-      `}</style>
     </Main>
   );
 }
