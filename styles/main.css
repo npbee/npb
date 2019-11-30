@@ -1,5 +1,74 @@
 /* purgecss start ignore */
 @tailwind base;
 /* purgecss end ignore */
+
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+body {
+  font-family: avenir next, avenir, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+strong {
+  font-weight: 600;
+}
+
+li,
+a,
+p {
+  max-width: 60ch;
+}
+
+.post h1 {
+  font-size: theme("fontSize.2xl");
+  line-height: 1.5;
+  color: theme("colors.pink.600");
+  letter-spacing: theme("letterSpacing.wide");
+  margin-bottom: theme("spacing.6");
+}
+
+.post h2 {
+  font-size: theme("fontSize.xl");
+  color: theme("colors.pink.500");
+  margin-bottom: theme("spacing.2");
+  margin-top: theme("spacing.6");
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: theme("letterSpacing.wider");
+}
+
+.post img {
+  border: 1px solid theme("colors.gray.100");
+  border-radius: theme("borderRadius.default");
+  box-shadow: theme("boxShadow.lg");
+  margin-top: theme("spacing.8");
+  margin-bottom: theme("spacing.8");
+}
+
+.post p,
+.post li {
+  font-size: theme("fontSize.lg");
+  margin-bottom: theme("spacing.4");
+  line-height: theme("lineHeight.relaxed");
+}
+
+.post ul {
+  list-style: disc;
+  padding-left: theme("spacing.8");
+}
+
 @tailwind components;
 @tailwind utilities;
+
+.debug {
+  outline: 1px dotted mediumvioletred;
+}
+
+.trans {
+  transition: all 200ms;
+}

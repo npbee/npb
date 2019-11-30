@@ -1,7 +1,7 @@
 import React from "react";
-import Main from "../components/layout/main";
 import Link from "next/link";
 import posts from "./posts";
+import Page from "../components/layout/main";
 
 const jobBrandColor = "#00A5D5";
 
@@ -21,19 +21,21 @@ function Post({ id, date, title }) {
   const href = `/posts/${year}/${id}`;
 
   return (
-    <li>
+    <li className="mb-4">
       <Link href={href}>
-        <a href={href}>{title}</a>
+        <a className="text-xl text-pink-600 hover:underline" href={href}>
+          {title}
+        </a>
       </Link>
-      <p>{date}</p>
+      <p className="text-sm">{date}</p>
     </li>
   );
 }
 
 export default function Home() {
   return (
-    <Main>
-      <p className="p-8">
+    <Page>
+      <p className="text-gray-700 text-2xl md:text-3xl mb-16 leading-relaxed">
         Hi, I&apos;m <strong>Nick Ball</strong>, a web developer focused on the
         front end. I enjoy functional programming, design systems, and
         component-based architecture. I work as a{" "}
@@ -49,12 +51,14 @@ export default function Home() {
         .
       </p>
 
-      <h2>Posts</h2>
+      <h2 className="text-gray-700 mb-2 uppercase text-sm font-semibold tracking-wider">
+        Posts
+      </h2>
       <ul>
         {posts.posts.map(post => (
           <Post key={post.id} {...post} />
         ))}
       </ul>
-    </Main>
+    </Page>
   );
 }
