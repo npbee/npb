@@ -1,6 +1,6 @@
 const highlight = require("remark-highlight.js");
 
-const withMDX = require("@zeit/next-mdx")({
+const withMDX = require("@next/mdx")({
   mdPlugins: [highlight],
   extension: /\.mdx?$/,
 });
