@@ -2,6 +2,8 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 
+import "../../styles/main.css";
+
 export default function MainLayout({ children, layout }) {
   return (
     <>

@@ -33,10 +33,12 @@ export default function Experience(props) {
               {name}
             </CompanyLink>
           </CompanyHeader>
-          <span css={{ color: "#777777" }}>{duration(dates[0], dates[1])}</span>
+          <span css={{ color: "#777777" }}>
+            {duration((dates || [])[0], (dates || [])[1])}
+          </span>
         </Header>
         <div>
-          {roles.map(role => (
+          {(roles || []).map(role => (
             <Grid key={role.title}>
               <strong>{role.title}</strong>
               <span>
@@ -46,7 +48,7 @@ export default function Experience(props) {
           ))}
         </div>
         <p>
-          <em>{highlights.join(", ")}</em>
+          <em>{(highlights || []).join(", ")}</em>
           {copy}
         </p>
       </Content>

@@ -33,7 +33,7 @@ function Post({ id, date, title }) {
 export default function Home() {
   return (
     <Main>
-      <p>
+      <p className="p-8">
         Hi, I&apos;m <strong>Nick Ball</strong>, a web developer focused on the
         front end. I enjoy functional programming, design systems, and
         component-based architecture. I work as a{" "}
