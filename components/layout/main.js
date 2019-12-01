@@ -36,7 +36,7 @@ export default function Layout(props) {
         <title>Nick Ball</title>
         <meta name="viewport" content="width=device-width" />
       </Head>
-      <header className="container mx-auto p-4">
+      <header className="container py-6 px-12">
         <nav>
           <Link href="/">
             <a className="flex items-center hover:text-pink-600 trans">
@@ -52,15 +52,15 @@ export default function Layout(props) {
       </header>
       <main
         {...rest}
-        className={`container mx-auto p-4 mb-8 flex-1 ${layout}`}
+        className={`container py-6 px-12 mb-8 flex-1 ${layout}`}
       />
-      <footer className="w-full container mx-auto p-4 relative">
+      <footer className="w-full container py-4 px-12 relative">
         <hr
           className="w-8 absolute top-0 h-1 border-none bg-gray-400"
           style={{ height: 2 }}
         />
         <a
-          className="text-sm text-gray-600 tracking-wide hover:text-red-500"
+          className="text-sm text-gray-600 tracking-wide hover:text-pink-600 trans"
           href="https://github.com/npbee"
         >
           GitHub

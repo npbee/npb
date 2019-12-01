@@ -36,9 +36,8 @@ p {
   font-size: theme("fontSize.xl");
   color: theme("colors.pink.500");
   margin-bottom: theme("spacing.2");
-  margin-top: theme("spacing.6");
-  text-transform: uppercase;
-  font-weight: 600;
+  margin-top: theme("spacing.8");
+  font-weight: 500;
   letter-spacing: theme("letterSpacing.wider");
 }
 
