@@ -1,8 +1,10 @@
 const withCSS = require("@zeit/next-css");
-const highlight = require("remark-highlight.js");
+const rehypePrism = require("@mapbox/rehype-prism");
 
 const withMDX = require("@next/mdx")({
-  mdPlugins: [highlight],
+  options: {
+    rehypePlugins: [rehypePrism],
+  },
   extension: /\.mdx?$/,
 })({ target: "serverless" });
 

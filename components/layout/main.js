@@ -36,7 +36,7 @@ export default function Layout(props) {
         <title>Nick Ball</title>
         <meta name="viewport" content="width=device-width" />
       </Head>
-      <header className="container py-6 px-12">
+      <header className="container py-6">
         <nav>
           <Link href="/">
             <a className="flex items-center hover:text-pink-600 trans">
@@ -50,11 +50,8 @@ export default function Layout(props) {
           </Link>
         </nav>
       </header>
-      <main
-        {...rest}
-        className={`container py-6 px-12 mb-8 flex-1 ${layout}`}
-      />
-      <footer className="w-full container py-4 px-12 relative">
+      <main {...rest} className={`container py-6 mb-8 flex-1 ${layout}`} />
+      <footer className="w-full container py-4 relative">
         <hr
           className="w-8 absolute top-0 h-1 border-none bg-gray-400"
           style={{ height: 2 }}
