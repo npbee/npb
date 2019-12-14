@@ -41,6 +41,15 @@ p {
   letter-spacing: theme("letterSpacing.wider");
 }
 
+.post h3 {
+  font-size: theme("fontSize.lg");
+  color: theme("colors.pink.500");
+  margin-bottom: theme("spacing.2");
+  margin-top: theme("spacing.8");
+  font-weight: 500;
+  letter-spacing: theme("letterSpacing.wider");
+}
+
 .post img {
   border: 1px solid theme("colors.gray.100");
   border-radius: theme("borderRadius.default");
@@ -59,6 +68,22 @@ p {
 .post ul {
   list-style: disc;
   padding-left: theme("spacing.8");
+}
+
+.post code {
+  font-size: theme("fontSize.sm");
+  background-color: theme("colors.gray.700");
+  background-color: #faf8f5;
+  color: #3e61a8;
+  padding: theme("spacing.1");
+  border-radius: theme("borderRadius.default");
+}
+
+.post figcaption {
+  font-size: theme("fontSize.sm");
+  margin-bottom: theme("spacing.8");
+  margin-top: calc(theme("spacing.4") * -1);
+  text-align: center;
 }
 
 @tailwind components;
