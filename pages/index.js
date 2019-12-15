@@ -121,6 +121,8 @@ function Post({ id, date, title }) {
   );
 }
 
+const cardWidth = 375;
+
 function CardList(props) {
   const { children } = props;
 
@@ -132,9 +134,11 @@ function CardList(props) {
       <style jsx>{`
         ul {
           width: 100%;
+          max-width: 1200px;
           display: grid;
-          grid-gap: 2rem;
+          grid-gap: 1rem;
           grid-auto-rows: 1fr;
+          grid-template-columns: 100%;
         }
         li {
           max-width: none;
@@ -143,9 +147,16 @@ function CardList(props) {
           height: 100%;
         }
 
-        @media screen and (min-width: 850px) {
+        ul.measured {
+          opacity: 1;
+        }
+
+        @media screen and (min-width: ${cardWidth * 2}px) {
           ul {
-            grid-template-columns: repeat(auto-fit, 375px);
+            grid-template-columns: repeat(
+              auto-fit,
+              minmax(${cardWidth}px, 1fr)
+            );
           }
         }
       `}</style>
