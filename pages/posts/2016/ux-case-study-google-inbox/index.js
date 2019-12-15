@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import Post from "components/layout/post";
+import Post from "../../../../components/layout/post";
 import Content from "./content.md";
 
 export default function CaseStudyGoogleInbox() {

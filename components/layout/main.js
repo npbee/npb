@@ -1,32 +1,13 @@
-import React from "react";
+import * as React from "react";
+import Link from "next/link";
 import Head from "next/head";
-import Avatar from "./shared/avatar";
-import Footer from "./shared/footer";
-import * as theme from "components/ui/theme";
-import withStyle from "./shared/withStyle";
-import styled from "react-emotion";
 
-const Main = styled.main(
-  {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    marginLeft: "auto",
-    marginRight: "auto",
-    padding: theme.space(3),
-    maxWidth: 800,
-    width: "100%",
-  },
-  props => ({
-    maxWidth: props.post ? 700 : 900,
-  })
-);
+import "../../styles/main.css";
 
-const Content = styled.div({ flex: 1 });
-
-export default withStyle(({ children, post }) => {
+export default function Layout(props) {
+  const { layout = "main", ...rest } = props;
   return (
-    <Main post={post}>
+    <div className="text-gray-800 h-full flex flex-col font-avenir">
       <Head>
         <link
           rel="icon"
@@ -55,10 +36,33 @@ export default withStyle(({ children, post }) => {
         <title>Nick Ball</title>
         <meta name="viewport" content="width=device-width" />
       </Head>
-
-      <Avatar />
-      <Content>{children}</Content>
-      <Footer />
-    </Main>
+      <header className="container ctr py-6">
+        <nav>
+          <Link href="/">
+            <a className="flex items-center hover:text-pink-600 trans">
+              <img
+                className="trans rounded-full border border-gray-400 p-1 mr-2 w-16 hover:border-pink-600"
+                src="/static/avatar.jpeg"
+                alt="Photo of Nick Ball"
+              />
+              <p className="font-medium text-sm tracking-wider">Nick Ball</p>
+            </a>
+          </Link>
+        </nav>
+      </header>
+      <main {...rest} className={`ctr py-6 mb-8 flex-1 ${layout}`} />
+      <footer className="w-full container ctr py-4 relative">
+        <hr
+          className="w-8 absolute top-0 h-1 border-none bg-gray-400"
+          style={{ height: 2 }}
+        />
+        <a
+          className="text-sm text-gray-600 tracking-wide hover:text-pink-600 trans"
+          href="https://github.com/npbee"
+        >
+          GitHub
+        </a>
+      </footer>
+    </div>
   );
-});
+}

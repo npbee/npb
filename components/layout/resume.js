@@ -1,21 +1,9 @@
 import React from "react";
 import Head from "next/head";
-import withStyle from "./shared/withStyle";
-import * as theme from "components/ui/theme";
-import styled from "react-emotion";
 
-const Main = styled.main({
-  display: "flex",
-  flexDirection: "column",
-  marginLeft: "auto",
-  marginRight: "auto",
-  padding: theme.space(3),
-  width: "100%",
-  maxWidth: 700,
-  minHeight: "100vh",
-});
+const Main = props => <main {...props} />;
 
-export default withStyle(({ children }) => {
+export default ({ children }) => {
   return (
     <Main>
       <Head>
@@ -45,7 +33,7 @@ export default withStyle(({ children }) => {
         />
       </Head>
 
-      <div css={{ flex: 1 }}>{children}</div>
+      <div>{children}</div>
     </Main>
   );
-});
+};

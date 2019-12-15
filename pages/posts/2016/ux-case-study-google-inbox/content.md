@@ -1,5 +1,3 @@
-import { Img } from 'components/ui/blocks';
-
 # UX Case Study: Google Inbox
 
 At work we’ve been in the process of building a queue-like component for helping our admins deal with various tasks. As fans of Google Inbox we decided to use it as a reference for many of our UX decisions. It was for this reason that I started down the long and treacherous path of trying to figure out exactly how Google Inbox works. I spent more time than I care to admit wading through compressed and mangle code, so I thought I share the small bits that I learned along the way.
@@ -13,7 +11,7 @@ First, I just want to do a quick run-through of the kind of environment we’re 
 Like any old site, when you first load the page you’ll get a base payload of CSS and Javascript to get things started. The magic comes when you actually open a message. When this occurs, a new `style` tag is injected into the page. This `style` tag has the very specific responsibility of animating each messages on screen to its next position. The exact rules that are supplied will change depending various other bits of information: which message is being open or closed, the dimensions of each message, how many other messages are on the screen, etc. And practically as soon as the `style` tag is injected, it’s gone.
 
 <figure>
-<Img alt="Style Injection" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/style_injection.gif" />
+<img alt="Style Injection" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/style_injection.gif" />
   <figcaption><strong>Figure 1:</strong> Notice the flashing style tag right before the body</figcaption>
 </figure>
 
@@ -84,19 +82,19 @@ Now that we have a general idea of the kind of setup we’re dealing with, let�
 We’ll start with the simplest of the three: the fixed message header. This one is not particularly novel, but has a slight twist to make it interesting. The basic idea is that when a message is open, it’s header sticks to the top of the page as you scroll past it:
 
 <figure>
-<Img alt="Fixed Header A" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_a.gif" />
+<img alt="Fixed Header A" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_a.gif" />
 </figure>
 
 This is done pretty much as you might expect. Javascript listens for the position of the top of the header message and once it’s been scrolled past the top the of the viewport, its position is fixed. A small detail here is that there is also a “pusher” div that makes sure to push the message contents down once the message header is fixed. This is needed because a fixed element removes it from the flow of the page, so the contents below it would have otherwise popped up. Here’s what I mean:
 
 <figure>
-<Img alt="Fixed Header - No Pusher" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_b.gif" />
+<img alt="Fixed Header - No Pusher" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_b.gif" />
 	<figcaption><strong>Figure 2:</strong> Notice how the messages contents jump when the header becomes fixed.</figcaption>
 </figure>
 
 The twist is that the header will also switch to absolute positioning once you get to the point where the bottom of the header is the same as the bottom of the message. This gives a nice transition between fixed back to static, rather than just jumping straight back to static.
 
-<Img alt="Fixed Header - Absolute" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_c.gif" />
+<img alt="Fixed Header - Absolute" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/fixed_header_c.gif" />
 
 I’ve put together an example implementation on Codepen:
 
@@ -109,7 +107,7 @@ I’ve put together an example implementation on Codepen:
 Now things get a bit trickier. First, a quick visual of the animation:
 
 <figure>
-<Img alt="Message Open" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/message_open.gif" />
+<img alt="Message Open" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/message_open.gif" />
 </figure>
 
 While this might look like a simple height and width animation, I assure you it’s not. What’s happening here involves timing a few different keyframe animations together as one. Keep in mind that the actual contents of the messages are completely hidden while the message is closed, as in `display: none`.
@@ -127,7 +125,7 @@ I’ll be going into more detail next about the translating, but here’s a samp
 Now we get to the wild and crazy stuff, the message swap:
 
 <figure>
-<Img alt="message swap" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/message_swap.gif" />
+<img alt="message swap" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/message_swap.gif" />
 </figure>
 
 So, why is this interesting? To be honest, I wasn’t sure it was all that interesting myself until I actually tried implementing it. The first thing to notice is that it looks as if the opening message is animating its height in reverse. This is the what a natural height animation would look like. If you were to animate the second message’s height normally, it flow downwards increase the overall height of the page. The second interesting thing that’s not very visible in the above gif, is the scroll position.
@@ -135,7 +133,7 @@ So, why is this interesting? To be honest, I wasn’t sure it was all that inter
 Take a look at this one (I have to speed up the animations for this to work):
 
 <figure>
-<Img alt="scroll position" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/message_swap_b.gif" />
+<img alt="scroll position" src="https://s3-us-west-2.amazonaws.com/npbee/2016/ux-case-study-google-inbox/message_swap_b.gif" />
 </figure>
 
 In this gif, I’ve already scrolled way down the page and I’m now opening the second message. If you imagine what would happen in the normal document flow, the first message would close and the page’s height would be substantially decreased, bringing the element below with it up the page. We’d open to somewhere in the middle of the second message. Instead, the scroll position appears to stay the exactly the same, the first messages closes, and the second message opens right in place. This is an example of a completely natural feeling animation that is extremely _unnatural_ to implement.
