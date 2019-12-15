@@ -37,20 +37,32 @@ a:active {
 }
 
 .post h1 {
-  font-size: theme("fontSize.2xl");
+  font-size: theme("fontSize.xl");
   line-height: 1.5;
   color: theme("colors.pink.600");
   letter-spacing: theme("letterSpacing.wide");
   margin-bottom: theme("spacing.6");
 }
 
+@screen md {
+  .post h1 {
+    font-size: theme("fontSize.2xl");
+  }
+}
+
 .post h2 {
-  font-size: theme("fontSize.xl");
+  font-size: theme("fontSize.lg");
   color: theme("colors.pink.500");
   margin-bottom: theme("spacing.2");
   margin-top: theme("spacing.8");
   font-weight: 500;
   letter-spacing: theme("letterSpacing.wider");
+}
+
+@screen md {
+  .post h2 {
+    font-size: theme("fontSize.xl");
+  }
 }
 
 .post h3 {
@@ -72,9 +84,15 @@ a:active {
 
 .post p,
 .post li {
-  font-size: theme("fontSize.lg");
   margin-bottom: theme("spacing.4");
   line-height: theme("lineHeight.relaxed");
+}
+
+@screen md {
+  .post p,
+  .post li {
+    font-size: theme("fontSize.lg");
+  }
 }
 
 .post ul {
