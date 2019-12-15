@@ -7,7 +7,7 @@ import "../../styles/main.css";
 export default function Layout(props) {
   const { layout = "main", ...rest } = props;
   return (
-    <div className="text-gray-800 h-full flex flex-col">
+    <div className="text-gray-800 h-full flex flex-col font-avenir">
       <Head>
         <link
           rel="icon"

@@ -8,12 +8,6 @@ body,
   height: 100%;
 }
 
-body {
-  font-family: avenir next, avenir, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
 strong {
   font-weight: 600;
 }
@@ -34,6 +28,12 @@ a:hover {
 
 a:active {
   color: theme("colors.pink.400");
+}
+
+.font-avenir {
+  font-family: avenir next, avenir, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .post h1 {
