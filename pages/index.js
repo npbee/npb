@@ -56,7 +56,7 @@ export default function Home() {
             tags={["svelte", "sapper", "web audio", "Soundcloud"]}
             href="https://theaironearth.com"
             source="https://github.com/npbee/theaironearth"
-            moreInfo="/projects/the-air-on-earth"
+            xmoreInfo="/projects/the-air-on-earth"
           >
             Website for my musical projects. Built with Svelte/Sapper as a
             static site. Includes a in-site audio player streaming from
