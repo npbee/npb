@@ -3,13 +3,11 @@ import Link from "next/link";
 import posts from "./posts";
 import Page from "../components/layout/main";
 
-const jobBrandColor = "#00A5D5";
-
 export default function Home() {
   return (
     <Page>
-      <section className="container">
-        <p className="text-gray-700 text-2xl md:text-3xl mb-16 leading-relaxed">
+      <section className="container mb-24">
+        <p className="text-gray-700 text-xl md:text-3xl leading-relaxed">
           Hi, I&apos;m <strong>Nick Ball</strong>, a web developer focused on
           the front end. I enjoy functional programming, design systems, and
           component-based architecture. I work as a{" "}
@@ -19,9 +17,7 @@ export default function Home() {
       </section>
 
       <section className="mb-16 container">
-        <h2 className="text-gray-700 mb-2 uppercase text-sm font-semibold tracking-wider">
-          Posts
-        </h2>
+        <H2>Posts</H2>
         <ul>
           {posts.posts.map(post => (
             <Post key={post.id} {...post} />
@@ -29,21 +25,30 @@ export default function Home() {
         </ul>
       </section>
       <section className="container mb-16">
-        <h2 className="text-gray-700 mb-2 uppercase text-sm font-semibold tracking-wider">
-          About Me
-        </h2>
-        <p>
+        <H2>About Me</H2>
+        <p className="mb-4">
           I currently work at <JobLink /> as a Frontend Engineer building
           complex user interfaces that make it easier for users to work with PDF
           documents and web forms. I work heavily with technologies like{" "}
           <strong>React</strong>, <strong>GraphQL</strong>,{" "}
           <strong>Elixir</strong>, and <strong>Phoenix</strong>.
         </p>
+        <p>
+          I was previously at{" "}
+          <a
+            href="https://loudr.fm/"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="font-medium"
+          >
+            Loudr
+          </a>{" "}
+          (Acquired by Spotify). I have a B.S. in Management Science from UC San
+          Diego.
+        </p>
       </section>
       <section className="mb-16">
-        <h2 className="text-gray-700 mb-2 uppercase text-sm font-semibold tracking-wider">
-          Projects
-        </h2>
+        <H2>Projects</H2>
         <CardList>
           <Card
             img="static/projects/the-air-on-earth.png"
@@ -89,19 +94,20 @@ function JobLink() {
         target="_blank"
         rel="noopener noreferrer nofollow"
         href="https://www.hellosign.com"
+        className="font-medium"
       >
         HelloSign
       </a>
-      <style jsx>{`
-        a {
-          color: ${jobBrandColor};
-          transition: all 200ms;
-        }
-        a:hover {
-          text-decoration: underline;
-        }
-      `}</style>
     </>
+  );
+}
+
+function H2(props) {
+  return (
+    <h2
+      {...props}
+      className="text-gray-700 mb-2 uppercase text-xs md:text-sm font-semibold tracking-wider"
+    />
   );
 }
 
@@ -112,7 +118,7 @@ function Post({ id, date, title }) {
   return (
     <li className="mb-4">
       <Link href={href}>
-        <a className="text-xl" href={href}>
+        <a className="text-lg md:text-xl" href={href}>
           {title}
         </a>
       </Link>
@@ -186,7 +192,7 @@ function Card(props) {
         src={img}
         alt={alt}
       />
-      <div className="px-6 py-4 flex-1">
+      <div className="px-4 py-4 flex-1">
         <p className="text-normal text-gray-700 font-medium mb-4 tracking-wide">
           {title}
         </p>
@@ -203,7 +209,7 @@ function Card(props) {
         ) : null}
       </div>
       {tags.length ? (
-        <div className="px-6 py-4 -m-1">
+        <div className="px-4 py-4 -m-1">
           {tags.map(tag => (
             <span
               key={tag}
@@ -232,6 +238,7 @@ function cardLinkClass() {
     "items-center",
     "hover:underline",
     "text-sm",
+    "leading-loose",
     "font-medium",
     "cursor-pointer",
   ].join(" ");

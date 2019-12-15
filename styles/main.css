@@ -109,9 +109,16 @@ a:active {
   transition: all 200ms;
 }
 
-.px {
-  padding-left: 3rem;
-  padding-right: 3rem;
+.ctr {
+  padding-left: theme("spacing.6");
+  padding-right: theme("spacing.6");
+}
+
+@screen md {
+  .ctr {
+    padding-left: theme("spacing.12");
+    padding-right: theme("spacing.12");
+  }
 }
 
 /*
