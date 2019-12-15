@@ -19,9 +19,21 @@ strong {
 }
 
 li,
-a,
 p {
   max-width: 60ch;
+}
+
+a {
+  color: theme("colors.pink.700");
+  transition: all 200ms;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  color: theme("colors.pink.400");
 }
 
 .post h1 {
@@ -95,6 +107,11 @@ p {
 
 .trans {
   transition: all 200ms;
+}
+
+.px {
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 /*

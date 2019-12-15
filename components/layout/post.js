@@ -7,7 +7,7 @@ export default function Post({ date, Content }) {
       <div className=" text-xs uppercase font-semibold text-gray-700 tracking-wider">
         {date}
       </div>
-      <article>
+      <article className="container">
         <Content />
       </article>
     </Main>

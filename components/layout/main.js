@@ -5,7 +5,7 @@ import Head from "next/head";
 import "../../styles/main.css";
 
 export default function Layout(props) {
-  const { layout, ...rest } = props;
+  const { layout = "main", ...rest } = props;
   return (
     <div className="text-gray-800 h-full flex flex-col">
       <Head>
@@ -36,7 +36,7 @@ export default function Layout(props) {
         <title>Nick Ball</title>
         <meta name="viewport" content="width=device-width" />
       </Head>
-      <header className="container py-6">
+      <header className="container px py-6">
         <nav>
           <Link href="/">
             <a className="flex items-center hover:text-pink-600 trans">
@@ -50,8 +50,8 @@ export default function Layout(props) {
           </Link>
         </nav>
       </header>
-      <main {...rest} className={`container py-6 mb-8 flex-1 ${layout}`} />
-      <footer className="w-full container py-4 relative">
+      <main {...rest} className={`px py-6 mb-8 flex-1 ${layout}`} />
+      <footer className="w-full container px py-4 relative">
         <hr
           className="w-8 absolute top-0 h-1 border-none bg-gray-400"
           style={{ height: 2 }}

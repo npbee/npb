@@ -8,8 +8,5 @@ module.exports = {
       md: "768px",
       // => @media (min-width: 768px) { ... }
     },
-    container: {
-      padding: "3rem",
-    },
   },
 };
