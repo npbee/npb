@@ -2,10 +2,16 @@ import React from "react";
 import Link from "next/link";
 import posts from "./posts";
 import Page from "../components/layout/main";
+import PageMeta from "../components/page-meta";
 
 export default function Home() {
   return (
     <Page>
+      <PageMeta
+        title="Nick Ball"
+        description="Web developer based in San Francisco"
+        path="/"
+      />
       <section className="container mb-24">
         <p className="text-gray-700 text-xl md:text-3xl leading-relaxed">
           Hi, I&apos;m <strong>Nick Ball</strong>, a web developer focused on

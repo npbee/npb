@@ -9,7 +9,12 @@ export default function CaseStudyGoogleInbox() {
       <Head>
         <script src="https://production-assets.codepen.io/assets/embed/ei.js" />
       </Head>
-      <Post date="February 27, 2016" Content={Content} />
+      <Post
+        date="February 27, 2016"
+        Content={Content}
+        title="UX Case Study - Google Inbox"
+        description="Deep dive into the Google Inbox email animation"
+      />
     </div>
   );
 }

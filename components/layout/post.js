@@ -1,9 +1,12 @@
 import React from "react";
 import Main from "./main";
+import { withRouter } from "next/router";
+import PageMeta from "../page-meta";
 
-export default function Post({ date, Content }) {
+function Post({ date, Content, description, title, router }) {
   return (
     <Main layout="post">
+      <PageMeta title={title} description={description} path={router.asPath} />
       <div className=" text-xs uppercase font-semibold text-gray-700 tracking-wider">
         {date}
       </div>
@@ -13,3 +16,5 @@ export default function Post({ date, Content }) {
     </Main>
   );
 }
+
+export default withRouter(Post);

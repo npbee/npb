@@ -12,28 +12,48 @@ export default function Layout(props) {
         <link
           rel="icon"
           type="image/png"
-          href="static/favicon/favicon-32x32.png"
+          href="/static/favicon/favicon-32x32.png"
           sizes="32x32"
         />
         <link
           rel="icon"
           type="image/png"
-          href="static/favicon/android-chrome-192x192.png"
+          href="/static/favicon/android-chrome-192x192.png"
           sizes="192x192"
         />
         <link
           rel="icon"
           type="image/png"
-          href="static/favicon/favicon-96x96.png"
+          href="/static/favicon/favicon-96x96.png"
           sizes="96x96"
         />
         <link
           rel="icon"
           type="image/png"
-          href="static/favicon/favicon-16x16.png"
+          href="/static/favicon/favicon-16x16.png"
           sizes="16x16"
         />
-        <title>Nick Ball</title>
+
+        {/* Google / Search Engine Tags */}
+        <meta
+          itemProp="image"
+          content="https://npbee.me/static/images/avatar.jpeg"
+        />
+
+        {/* Facebook Meta Tags */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content="https://npbee.me/static/images/avatar.jpeg"
+        />
+
+        {/* Twitter Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:image"
+          content="https://npbee.me/static/images/avatar.jpeg"
+        />
+
         <meta name="viewport" content="width=device-width" />
       </Head>
       <header className="container ctr py-6">
@@ -42,7 +62,7 @@ export default function Layout(props) {
             <a className="flex items-center hover:text-pink-600 trans">
               <img
                 className="trans rounded-full border border-gray-400 p-1 mr-2 w-16 hover:border-pink-600"
-                src="/static/avatar.jpeg"
+                src="/static/images/avatar.jpeg"
                 alt="Photo of Nick Ball"
               />
               <p className="font-medium text-sm tracking-wider">Nick Ball</p>
