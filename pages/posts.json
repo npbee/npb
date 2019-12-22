@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "id": "eleventy-datocms-netlify",
+      "date": "December 21, 2019",
+      "title": "Eleventy + DatoCMS + Netlify"
+    },
+    {
       "id": "rich-text-2018",
       "date": "July 4, 2018",
       "title": "Rich Text on the Web in 2018"
