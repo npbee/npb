@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "id": "sentry-for-single-page-apps",
+      "date": "February 16, 2020",
+      "title": "Sentry for Single-Page Apps"
+    },
+    {
       "id": "eleventy-datocms-netlify",
       "date": "December 21, 2019",
       "title": "Eleventy + DatoCMS + Netlify"
