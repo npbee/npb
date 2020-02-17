@@ -1,3 +1,8 @@
+---
+title: "UX Case Study: Google Inbox"
+date: 2016-02-27
+---
+
 # UX Case Study: Google Inbox
 
 At work we’ve been in the process of building a queue-like component for helping our admins deal with various tasks. As fans of Google Inbox we decided to use it as a reference for many of our UX decisions. It was for this reason that I started down the long and treacherous path of trying to figure out exactly how Google Inbox works. I spent more time than I care to admit wading through compressed and mangle code, so I thought I share the small bits that I learned along the way.

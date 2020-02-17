@@ -1,3 +1,9 @@
+---
+title: Eleventy + DatoCMS + Netlify
+date: 2019-12-21
+description: Building a static site with a headless CMS
+---
+
 # Eleventy + DatoCMS + Netlify
 
 As a web developer I get the occasional ask from friends to help them build a

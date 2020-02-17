@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+{% include "meta.njk" %}
+    <title>{{ title }}</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link
+    rel="icon"
+    type="image/png"
+    href="/static/favicon/favicon-32x32.png"
+    sizes="32x32"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    href="/static/favicon/android-chrome-192x192.png"
+    sizes="192x192"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    href="/static/favicon/favicon-96x96.png"
+    sizes="96x96"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    href="/static/favicon/favicon-16x16.png"
+    sizes="16x16"
+  />
+  </head>
+  <body class="text-gray-800 h-full flex flex-col font-avenir">
+    {% include "header.njk" %}
+    <main class="ctr py-6 mb-8 flex-1 {{pageClass}}">
+      {% block content %}
+        {{ content | safe }}
+      {% endblock %}
+    </main>
+    <footer class="w-full container ctr py-4 relative">
+      <hr
+        class="w-8 absolute top-0 h-1 border-none bg-gray-400"
+        style="height: 2px"
+      />
+      <a
+        class="text-sm text-gray-600 tracking-wide hover:text-pink-600 trans"
+        href="https://github.com/npbee"
+      >
+        GitHub
+      </a>
+    </footer>
+    <script>{{ js | safe }}</script>
+  </body>
+</html>
+

@@ -1,4 +1,20 @@
-import Example from './example';
+---
+title: Applying Design Systems In React
+date: 2018-01-18
+description: Thoughts on design systems in React
+---
+
+<pre>{{ page | dump }}</pre>
+
+{% macro Example() %}
+
+<div class="mb-4" style="background: #fff; padding: 12px; border: 1px solid #d9d9d9; border-radius: 3px">
+  <div style="display: flex; flex-direction: column">
+    <label style="font-weight: bold; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 12px">First Name</label>
+    <input style="margin-bottom: 8px; padding: 8px; border-radius: 3px; border: 1px solid #d9d9d9; font-size: 1rem; color: #a0a0a0; font-family: inherit;" />
+  </div>
+</div>
+{% endmacro %}
 
 # Applying Design Systems In React
 
@@ -10,7 +26,7 @@ A design system can help bring a defined set of rules for how to style your Reac
 
 To frame the problem, let's say that you have a component to build that's a combination of a label and multiple inputs that should look a little like this:
 
-<Example />
+{{ Example() }}
 
 Your design system in part looks a little like this:
 
@@ -26,18 +42,18 @@ spacing:
   - 16rem
 
 type:
-    - .75rem
-    - .875rem
-    - 1rem
-    - 1.25rem
-    - 1.5rem
-    - 2.25rem
-    - 3rem
+  - .75rem
+  - .875rem
+  - 1rem
+  - 1.25rem
+  - 1.5rem
+  - 2.25rem
+  - 3rem
 
 colors:
-    gray: #777777
-    lightGray: #eeeeee
-    nearBlack: #111111
+  gray: #777777
+  lightGray: #eeeeee
+  nearBlack: #111111
 ```
 
 The design system defines scales for both type and spacing as well as a few color variables. I've listed it in yaml format here to emphasize that the system can be defined independently of your implementation language. The values can always be converted to your language of choice.
@@ -54,7 +70,7 @@ In this definition, you could grab the 3rd value on the spacing scale by doing:
 
 ```scss
 .myStyle {
-    padding: nth($spacing, 3);
+  padding: nth($spacing, 3);
 }
 ```
 
@@ -62,13 +78,13 @@ An implementation of the style for our component might look like this:
 
 ```jsx
 function InputList(props) {
-    return (
-        <div className="input-list">
-            <label>My Label</label>
-            <input placeholder="First Name" />
-            <input placeholder="Last Name" />
-        </div>
-    );
+  return (
+    <div className="input-list">
+      <label>My Label</label>
+      <input placeholder="First Name" />
+      <input placeholder="Last Name" />
+    </div>
+  );
 }
 ```
 
@@ -76,22 +92,22 @@ function InputList(props) {
 @import "theme";
 
 .input-list {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
-    > label {
-        margin-bottom: nth($spacing, 3);
-    }
+  > label {
+    margin-bottom: nth($spacing, 3);
+  }
 
-    > input {
-        border-radius: 3px;
-        border: 1px solid $gray;
-        color: $near-black;
-        font-size: nth($type, 2);
-        margin-bottom: nth($spacing, 2);
-        padding: nth($spacing, 3) nth($spacing, 3);
-    }
+  > input {
+    border-radius: 3px;
+    border: 1px solid $gray;
+    color: $near-black;
+    font-size: nth($type, 2);
+    margin-bottom: nth($spacing, 2);
+    padding: nth($spacing, 3) nth($spacing, 3);
+  }
 }
 ```
 
@@ -115,13 +131,13 @@ For example, we might see that we can actually break our component down further 
 
 ```jsx
 export function InputList(props) {
-    return (
-        <div className="input-list">
-            <Label>My Label</Label>
-            <Input placeholder="First Name" />
-            <Input placeholder="Last Name" />
-        </div>
-    );
+  return (
+    <div className="input-list">
+      <Label>My Label</Label>
+      <Input placeholder="First Name" />
+      <Input placeholder="Last Name" />
+    </div>
+  );
 }
 ```
 
@@ -130,15 +146,15 @@ This is good because now we could potentially use those components elsewhere in 
 ```scss
 // ...
 .input-list {
-    // Some of the styles here should be true for all inputs, not just the inputs within the input list
-    > input {
-        border-radius: 3px;
-        border: 1px solid $gray;
-        color: $near-black;
-        font-size: nth($type, 2);
-        margin-bottom: nth($spacing, 2);
-        padding: nth($spacing, 3) nth($spacing, 3);
-    }
+  // Some of the styles here should be true for all inputs, not just the inputs within the input list
+  > input {
+    border-radius: 3px;
+    border: 1px solid $gray;
+    color: $near-black;
+    font-size: nth($type, 2);
+    margin-bottom: nth($spacing, 2);
+    padding: nth($spacing, 3) nth($spacing, 3);
+  }
 }
 ```
 
@@ -149,11 +165,11 @@ It's reasonable to think that if we have a generic `Input` component, we want th
 @import "theme";
 
 input {
-    border-radius: 3px;
-    border: 1px solid $gray;
-    color: $near-black;
-    font-size: nth($type, 2);
-    padding: nth($spacing, 3) nth($spacing, 3);
+  border-radius: 3px;
+  border: 1px solid $gray;
+  color: $near-black;
+  font-size: nth($type, 2);
+  padding: nth($spacing, 3) nth($spacing, 3);
 }
 ```
 
@@ -166,13 +182,13 @@ In that case, I think it makes sense to keep this rule with the `InputList` styl
 @import "theme";
 
 .input-list {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
-    > input {
-        margin-bottom: nth($spacing, 2);
-    }
+  > input {
+    margin-bottom: nth($spacing, 2);
+  }
 }
 ```
 
@@ -184,13 +200,13 @@ Continuing from above, one workaround for contextual styling could be to pass cu
 
 ```jsx
 function InputList(props) {
-    return (
-        <div className="input-list">
-            <Label className="input-list__label">My Label</Label>
-            <Input placeholder="First Name" className="input-list__input" />
-            <Input placeholder="Last Name" className="input-list__input" />
-        </div>
-    );
+  return (
+    <div className="input-list">
+      <Label className="input-list__label">My Label</Label>
+      <Input placeholder="First Name" className="input-list__input" />
+      <Input placeholder="Last Name" className="input-list__input" />
+    </div>
+  );
 }
 ```
 
@@ -198,8 +214,8 @@ In the child components, you'd need to make sure the class names get applied:
 
 ```jsx
 export function Input({ className, ...rest }) {
-    // Spreading the props
-    return <input className={className} {...rest} />;
+  // Spreading the props
+  return <input className={className} {...rest} />;
 }
 ```
 
@@ -213,19 +229,19 @@ In my opinion, a better workaround would be to wrap components in a separate `di
 
 ```jsx
 export function InputList(props) {
-    return (
-        <div className="input-list">
-            <div className="input-list__label">
-                <Label>My Label</Label>
-            </div>
-            <div className="input-list__input">
-                <Input placeholder="First Name" />
-            </div>
-            <div className="input-list__input">
-                <Input placeholder="Last Name" />
-            </div>
-        </div>
-    );
+  return (
+    <div className="input-list">
+      <div className="input-list__label">
+        <Label>My Label</Label>
+      </div>
+      <div className="input-list__input">
+        <Input placeholder="First Name" />
+      </div>
+      <div className="input-list__input">
+        <Input placeholder="Last Name" />
+      </div>
+    </div>
+  );
 }
 ```
 
@@ -233,17 +249,17 @@ export function InputList(props) {
 @import "theme";
 
 .input-list {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
-    > .input-list__label {
-        margin-bottom: nth($spacing, 3);
-    }
+  > .input-list__label {
+    margin-bottom: nth($spacing, 3);
+  }
 
-    > .input-list__input {
-        margin-bottom: nth($spacing, 2);
-    }
+  > .input-list__input {
+    margin-bottom: nth($spacing, 2);
+  }
 }
 ```
 
@@ -264,8 +280,8 @@ $type: 0.75rem, 0.875rem, 1rem, 1.25rem, 1.5rem, 2.25rem, 3rem;
 
 // Colors
 $colors: (
-    "gray": #eeeeee,
-    "near-black": #444
+  "gray": #eeeeee,
+  "near-black": #444,
 );
 ```
 
@@ -279,29 +295,29 @@ You could use some SASS loops to create a helper file:
 // .margin-2 { margin: 0.5rem }
 // ...
 @for $i from 2 through length($spacing) {
-    .margin-#{$i - 1} {
-        margin: nth($spacing, $i - 1);
-    }
-    .margin-bottom-#{$i - 1} {
-        margin-bottom: nth($spacing, $i - 1);
-    }
-    .padding-#{$i - 1} {
-        padding: nth($spacing, $i - 1);
-    }
+  .margin-#{$i - 1} {
+    margin: nth($spacing, $i - 1);
+  }
+  .margin-bottom-#{$i - 1} {
+    margin-bottom: nth($spacing, $i - 1);
+  }
+  .padding-#{$i - 1} {
+    padding: nth($spacing, $i - 1);
+  }
 }
 
 // .font-size-1 { font-size: 0.75rem }
 // ...
 @for $i from 1 through length($type) {
-    .font-size-#{$i} {
-        font-size: nth($type, $i);
-    }
+  .font-size-#{$i} {
+    font-size: nth($type, $i);
+  }
 }
 
 @each $color, $hex in $colors {
-    .color-#{$color} {
-        color: #{$hex};
-    }
+  .color-#{$color} {
+    color: #{$hex};
+  }
 }
 ```
 
@@ -309,9 +325,9 @@ The `Input` component could now look more like this:
 
 ```jsx
 export function Input(props) {
-    return (
-        <input {...props} className="padding-3 font-size-2 color-near-black" />
-    );
+  return (
+    <input {...props} className="padding-3 font-size-2 color-near-black" />
+  );
 }
 ```
 
@@ -319,8 +335,8 @@ export function Input(props) {
 @import "theme";
 
 input {
-    border-radius: 3px;
-    border: 1px solid map-get($colors, "gray");
+  border-radius: 3px;
+  border: 1px solid map-get($colors, "gray");
 }
 ```
 
@@ -341,33 +357,33 @@ import * as React from "react";
 import kebabCase from "lodash/kebabCase";
 
 const styleProps = {
-    marginBottom: true,
-    padding: true,
-    fontSize: true,
-    color: true
+  marginBottom: true,
+  padding: true,
+  fontSize: true,
+  color: true,
 };
 
 function classNameFromProps(props) {
-    return Object.keys(props).reduce(
-        function([className, rest], propName) {
-            const val = props[propName];
+  return Object.keys(props).reduce(
+    function([className, rest], propName) {
+      const val = props[propName];
 
-            if (styleProps[propName]) {
-                className += `${kebabCase(propName)}-${val} `;
-            } else {
-                rest[propName] = val;
-            }
+      if (styleProps[propName]) {
+        className += `${kebabCase(propName)}-${val} `;
+      } else {
+        rest[propName] = val;
+      }
 
-            return [className, rest];
-        },
-        ["", {}]
-    );
+      return [className, rest];
+    },
+    ["", {}]
+  );
 }
 
 function Box(props) {
-    const [className, rest] = classNameFromProps(props);
+  const [className, rest] = classNameFromProps(props);
 
-    return <div className={className} {...rest} />;
+  return <div className={className} {...rest} />;
 }
 ```
 
@@ -375,26 +391,26 @@ In this implementation, we're transforming the given `props` if we find a "style
 
 ```jsx
 export function InputList() {
-    return (
-        <div className="input-list">
-            <Box marginBottom={3}>
-                <Label>My Label</Label>
-            </Box>
-            <Box marginBottom={3}>
-                <Input placeholder="First Name" />
-            </Box>
-            <Box marginBottom={3}>
-                <Input placeholder="Last Name" />
-            </Box>
-        </div>
-    );
+  return (
+    <div className="input-list">
+      <Box marginBottom={3}>
+        <Label>My Label</Label>
+      </Box>
+      <Box marginBottom={3}>
+        <Input placeholder="First Name" />
+      </Box>
+      <Box marginBottom={3}>
+        <Input placeholder="Last Name" />
+      </Box>
+    </div>
+  );
 }
 ```
 
 Why is this better? Well, perhaps it's not, but here are a few reasons why I like it:
 
-* It's a little more explicit. Instead of passing strings around, you're providing explicit props. With the right tooling, you can get things like autocomplete and static typing.
-* It hides implementation details. Instead of having to remember the exact class name to apply, you can create a convenient props API that can be implemented in different ways. Another implementation approach to the one above would be to use some kind of CSS-in-JS approach as seen in the `styled-system` library docs.
+- It's a little more explicit. Instead of passing strings around, you're providing explicit props. With the right tooling, you can get things like autocomplete and static typing.
+- It hides implementation details. Instead of having to remember the exact class name to apply, you can create a convenient props API that can be implemented in different ways. Another implementation approach to the one above would be to use some kind of CSS-in-JS approach as seen in the `styled-system` library docs.
 
 ### Extending the `Box` Component to Other Components
 
@@ -402,13 +418,13 @@ Currently, the `Box` is a glorified `div` with a few special abilities, so it do
 
 ```jsx
 export function Box(props: Props) {
-    const { tag = "div", ...rest } = props;
-    const [className, filteredProps] = classNameFromProps(rest);
+  const { tag = "div", ...rest } = props;
+  const [className, filteredProps] = classNameFromProps(rest);
 
-    return React.createElement(tag, {
-        className,
-        ...filteredProps
-    });
+  return React.createElement(tag, {
+    className,
+    ...filteredProps,
+  });
 }
 ```
 
@@ -416,7 +432,7 @@ We could then define the `Input` like this:
 
 ```jsx
 const Input = props => (
-    <Box {...props} padding={3} fontSize={2} color="black" tag="input" />
+  <Box {...props} padding={3} fontSize={2} color="black" tag="input" />
 );
 ```
 
@@ -424,13 +440,13 @@ In fact, if you're rendering `Box` components directly you could even get rid of
 
 ```jsx
 export function InputList() {
-    return (
-        <div className="input-list">
-            <Label marginBottom={3}>My Label</Label>
-            <Input marginBottom={3} placeholder="First Name" />
-            <Input marginBottom={3} placeholder="Last Name" />
-        </div>
-    );
+  return (
+    <div className="input-list">
+      <Label marginBottom={3}>My Label</Label>
+      <Input marginBottom={3} placeholder="First Name" />
+      <Input marginBottom={3} placeholder="Last Name" />
+    </div>
+  );
 }
 ```
 
@@ -442,8 +458,8 @@ As an example, let's say we want to display _two_ of our `InputList` components 
 
 ```jsx
 <App>
-    <InputList />
-    <InputList />
+  <InputList />
+  <InputList />
 </App>
 ```
 
@@ -451,13 +467,13 @@ We want the first `InputList` to have a `margin-bottom` value of "4" from the sp
 
 ```jsx
 function asBox(Component) {
-    function Box(props) {
-        const [className, filteredProps] = classNameFromProps(props);
+  function Box(props) {
+    const [className, filteredProps] = classNameFromProps(props);
 
-        return <Component boxClassName={className} {...filteredProps} />;
-    }
+    return <Component boxClassName={className} {...filteredProps} />;
+  }
 
-    return Box;
+  return Box;
 }
 ```
 
@@ -467,13 +483,13 @@ In the `InputList` component, we export a wrapped version of the component:
 
 ```jsx
 export function InputList({ boxClassName = "" }) {
-    return (
-        <div className={"input-list " + boxClassName}>
-            <Label marginBottom={3}>My Label</Label>
-            <Input marginBottom={3} placeholder="First Name" />
-            <Input marginBottom={3} placeholder="Last Name" />
-        </div>
-    );
+  return (
+    <div className={"input-list " + boxClassName}>
+      <Label marginBottom={3}>My Label</Label>
+      <Input marginBottom={3} placeholder="First Name" />
+      <Input marginBottom={3} placeholder="Last Name" />
+    </div>
+  );
 }
 
 export default asBox(InputList);
@@ -483,8 +499,8 @@ Then we can apply like so:
 
 ```jsx
 <App>
-    <InputList marginBottom={4} />
-    <InputList />
+  <InputList marginBottom={4} />
+  <InputList />
 </App>
 ```
 
@@ -496,10 +512,10 @@ We've come along way from plain SASS and that does come with a cost. As with any
 
 ```jsx
 <Box
-    margin={3}
-    borderColor="primary"
-    lineHeight={2}
-    textTransform="uppercase"
+  margin={3}
+  borderColor="primary"
+  lineHeight={2}
+  textTransform="uppercase"
 />
 ```
 
@@ -507,7 +523,7 @@ While I don't necessarily think this is the worst, it can lead to situations whe
 
 ```jsx
 <Box margin={3}>
-    <Text fontSize={3}>Some text</Text>
+  <Text fontSize={3}>Some text</Text>
 </Box>
 ```
 
@@ -521,6 +537,6 @@ I'm still learning about these techniques as I go, but I've success with them so
 
 ## References
 
-* https://medium.com/fed-or-dead/handling-spacing-in-a-ui-component-library-70f3b22ec89
-* https://github.com/jxnblk/styled-system
-* http://jxnblk.com/writing/posts/patterns-for-style-composition-in-react/
+- https://medium.com/fed-or-dead/handling-spacing-in-a-ui-component-library-70f3b22ec89
+- https://github.com/jxnblk/styled-system
+- http://jxnblk.com/writing/posts/patterns-for-style-composition-in-react/

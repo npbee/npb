@@ -1,0 +1,10 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+<div class=" text-xs uppercase font-semibold text-gray-700 tracking-wider">
+  {{ date | readableDate }}
+</div>
+<article class="container">
+{{ super() }}
+</article>
+{% endblock %}

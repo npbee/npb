@@ -1,3 +1,9 @@
+---
+title: Sentry for Single-Page Apps
+date: 2020-02-16
+description: Effectively using Sentry for single-page, JavaScript apps
+---
+
 # Sentry for Single-Page Apps
 
 [Sentry](https://sentry.io) is an error-monitoring service that helps log, track, and resolve runtime issues in your applications.

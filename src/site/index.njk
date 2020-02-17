@@ -1,0 +1,75 @@
+---
+layout: default
+title: Nick Ball
+description: Web developer based in San Francisco
+path: "/"
+---
+
+{% macro JobLink() %}
+<a
+  target="_blank"
+  rel="noopener noreferrer nofollow"
+  href="https://www.hellosign.com"
+  class="font-medium"
+>
+  HelloSign
+</a>
+{% endmacro %}
+
+{% macro Post(item) %}
+<li class="mb-4">
+  <a class="text-lg md:text-xl" href="{{ item.url }}">
+    {{ item.data.title }}
+  </a>
+  <time value="{{ item.date }}" class="text-sm block">{{ item.date | readableDate }}</time>
+</li>
+{% endmacro %}
+
+{% macro H2(text) %}
+<h2
+  class="text-gray-700 mb-2 uppercase text-xs md:text-sm font-semibold tracking-wider"
+  >{{ text }}</h2>
+{% endmacro %}
+
+<section class="container mb-24">
+  <p class="text-gray-700 text-xl md:text-3xl leading-relaxed">
+    Hi, I&apos;m <strong>Nick Ball</strong>, a web developer focused on
+    the front end. I enjoy functional programming, design systems, and
+    component-based architecture. I work as a
+    <strong>front-end engineer</strong>
+    at {{ JobLink() }}.
+  </p>
+</section>
+
+<section class="mb-16 container">
+  {{ H2("Posts") }}
+  <ul>
+  {%- for item in collections.post | reverse -%}
+  {{ Post(item) }}
+  {%- endfor -%}
+  </ul>
+</section>
+
+<section class="container mb-16">
+  {{ H2("About Me") }}
+  <p class="mb-4">
+    I currently work at {{ JobLink() }} as a Frontend Engineer building
+    complex user interfaces that make it easier for users to work with PDF
+    documents and web forms. I work heavily with technologies like
+    <strong>React</strong>, <strong>GraphQL</strong>,
+    <strong>Elixir</strong>, and <strong>Phoenix</strong>.
+  </p>
+  <p>
+    I was previously at
+    <a
+      href="https://loudr.fm/"
+      target="_blank"
+      rel="noopener noreferrer nofollow"
+      class="font-medium"
+    >
+      Loudr
+    </a>
+    (Acquired by Spotify). I have a B.S. in Management Science from UC San
+    Diego.
+  </p>
+</section>

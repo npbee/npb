@@ -1,3 +1,8 @@
+---
+title: Learning Elixir
+date: 2017-08-20
+---
+
 # Learning Elixir
 
 > This is a post in a series of posts about learning back-end topics as a front-end developer.

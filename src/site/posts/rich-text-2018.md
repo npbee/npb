@@ -1,3 +1,9 @@
+---
+title: Rich Text on the Web in 2018
+date: 2018-07-04
+description: Thoughts on building a rich text editor
+---
+
 # Rich Text on the Web in 2018
 
 If you're building a web app that allows users to write free-form text in 2018,
