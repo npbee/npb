@@ -2,11 +2,4 @@
 
 Blog, portfolion & ramblings.
 
-Next.js site deployed with now
-
-## To Deploy:
-
-* `now`
-* `now alias`
-
-:open_mouth:
+[Eleventy](https://www.11ty.dev/) site built with [Tailwind](https://tailwindcss.com/) and deployed with [Zeit](https://zeit.co/).
