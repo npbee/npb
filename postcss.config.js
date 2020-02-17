@@ -10,5 +10,9 @@ module.exports = {
         whitelistPatterns: [/h1/, /post/, /pre/],
       }),
     require("autoprefixer"),
+    isProd &&
+      require("cssnano")({
+        preset: "default",
+      }),
   ],
 };

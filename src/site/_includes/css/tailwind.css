@@ -19,7 +19,8 @@ p {
 
 a {
   color: theme("colors.pink.700");
-  transition: all 200ms;
+  transition-duration: 200ms;
+  transition-property: color;
 }
 
 a:hover {
