@@ -153,7 +153,7 @@ echo "Building version: $VERSION"
 
 npx sentry-cli releases new $VERSION
 npx parcel build src/index.html
-npx sentry-cli releases files $VERSION upload-sourcemaps src --rewrite
+npx sentry-cli releases files $VERSION upload-sourcemaps dist --rewrite
 ```
 
 You'll notice I've created a little helper file for getting the correct version:
