@@ -12,11 +12,6 @@ strong {
   font-weight: 600;
 }
 
-li,
-p {
-  max-width: 60ch;
-}
-
 a {
   color: theme("colors.pink.700");
   transition-duration: 200ms;
@@ -42,12 +37,12 @@ a:active {
   line-height: 1.5;
   color: theme("colors.pink.600");
   letter-spacing: theme("letterSpacing.wide");
-  margin-bottom: theme("spacing.6");
+  margin-bottom: theme("spacing.3");
 }
 
 @screen md {
   .post h1 {
-    font-size: theme("fontSize.2xl");
+    font-size: theme("fontSize.3xl");
   }
 }
 
@@ -62,7 +57,7 @@ a:active {
 
 @screen md {
   .post h2 {
-    font-size: theme("fontSize.xl");
+    font-size: theme("fontSize.2xl");
   }
 }
 
@@ -87,13 +82,6 @@ a:active {
 .post li {
   margin-bottom: theme("spacing.4");
   line-height: theme("lineHeight.relaxed");
-}
-
-@screen md {
-  .post p,
-  .post li {
-    font-size: theme("fontSize.lg");
-  }
 }
 
 .post ul {
