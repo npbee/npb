@@ -4,8 +4,6 @@ date: 2018-01-18
 description: Thoughts on design systems in React
 ---
 
-<pre>{{ page | dump }}</pre>
-
 {% macro Example() %}
 
 <div class="mb-4" style="background: #fff; padding: 12px; border: 1px solid #d9d9d9; border-radius: 3px">
