@@ -39,7 +39,9 @@ Even with this basic setup you can get some good information about runtime error
 Sentry does a good just wrangling stack traces across browsers to give you as much information as possible without much setup.
 But, if you're using any sort of build process where your final asset output is not the same as your original source, you'll have a hard time diagnosing the rrors reports in Sentry.
 
-![Sentry error without source maps](/static/posts/sentry-no-sourcemaps.png)
+<p class="full-bleed">
+  <img alt="Sentry error without source maps" src="/static/posts/sentry-no-sourcemaps.png" />
+</p>
 
 To be able to show the original location of the error from your _source_ files, Sentry needs to access to the source maps of the application.
 Before we get to sourcemaps, though, we need to talk about Sentry releases.
