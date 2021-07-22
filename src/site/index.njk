@@ -1,18 +1,18 @@
 ---
 layout: default
 title: Nick Ball
-description: Web developer based in San Francisco
+description: Web developer based in Portland, OR.
 path: "/"
 ---
 
-{% macro JobLink() %}
+{% macro JobLink(url, text) %}
 <a
   target="_blank"
   rel="noopener noreferrer nofollow"
-  href="https://www.hellosign.com"
+  href="{{ url }}"
   class="font-medium"
 >
-  HelloSign
+{{text}}
 </a>
 {% endmacro %}
 
@@ -31,45 +31,13 @@ path: "/"
   >{{ text }}</h2>
 {% endmacro %}
 
-<section class="mb-12 -mr-24">
-  <p class="text-gray-700 text-xl md:text-3xl leading-relaxed">
-    Hi, I&apos;m <strong>Nick Ball</strong>, a web developer focused on
-    the front end. I enjoy functional programming, design systems, and
-    component-based architecture. I work as a
-    <strong>front-end engineer</strong>
-    at {{ JobLink() }}.
-  </p>
-</section>
-
-<section class="mb-16 container">
-  {{ H2("Posts") }}
-  <ul>
-  {%- for item in collections.post | reverse -%}
-  {{ Post(item) }}
-  {%- endfor -%}
-  </ul>
-</section>
-
-<section class="container mb-16">
-  {{ H2("About Me") }}
-  <p class="mb-4">
-    I currently work at {{ JobLink() }} as a Frontend Engineer building
-    complex user interfaces that make it easier for users to work with PDF
-    documents and web forms. I work heavily with technologies like
-    <strong>React</strong>, <strong>GraphQL</strong>,
-    <strong>Elixir</strong>, and <strong>Phoenix</strong>.
-  </p>
-  <p>
-    I was previously at
-    <a
-      href="https://loudr.fm/"
-      target="_blank"
-      rel="noopener noreferrer nofollow"
-      class="font-medium"
-    >
-      Loudr
-    </a>
-    (Acquired by Spotify). I have a B.S. in Management Science from UC San
-    Diego.
-  </p>
+<section class="md:mt-48">
+  {% H1 %}
+  Hi, my name is <strong>Nick Ball</strong>.
+  {% endH1 %}
+  {% SummaryText %}
+    I'm a frontend developer based out of Portland, Oregon. I work at {{ JobLink("http://dropbox.com", "Dropbox") }} as a software engineer
+    building the {{ JobLink("https://helloworks.com", "HelloWorks") }} web 
+    application.
+  {% endSummaryText %}
 </section>

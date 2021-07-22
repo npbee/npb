@@ -3,6 +3,8 @@ let util = require("util");
 let syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
 module.exports = function(eleventyConfig) {
+  eleventyConfig.setUseGitIgnore(false);
+
   eleventyConfig.addPlugin(syntaxHighlight);
 
   eleventyConfig.addLayoutAlias("default", "layouts/base.njk");
@@ -46,6 +48,9 @@ module.exports = function(eleventyConfig) {
     );
   }
 
+  eleventyConfig.addPairedShortcode("H1", H1);
+  eleventyConfig.addPairedShortcode("SummaryText", SummaryText);
+
   return {
     dir: {
       input: "src/site",
@@ -57,3 +62,28 @@ module.exports = function(eleventyConfig) {
     markdownTemplateEngine: "njk",
   };
 };
+
+function H1(text) {
+  let className = [
+    "display-font",
+    "text-gray-700",
+    "text-2xl",
+    "leading-relaxed",
+    "md:text-4xl",
+    "md:leading-relaxed",
+  ].join(" ");
+  return `<h1 class="${className}">${text}</h1>`;
+}
+
+function SummaryText(text) {
+  let className = [
+    "display-font",
+    "text-gray-500",
+    "text-md",
+    "md:text-xl",
+    "leading-relaxed",
+    "max-w-lg",
+    "md:max-w-prose",
+  ].join(" ");
+  return `<p class="${className}">${text}</p>`;
+}

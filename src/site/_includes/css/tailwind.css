@@ -8,12 +8,17 @@ body,
   height: 100%;
 }
 
+body {
+  background-color: #ffffff;
+  background-image: url("/static/images/light-wool.png");
+}
+
 strong {
   font-weight: 600;
 }
 
 a {
-  color: theme("colors.pink.700");
+  @apply text-primary-700;
   transition-duration: 200ms;
   transition-property: color;
 }
@@ -23,7 +28,7 @@ a:hover {
 }
 
 a:active {
-  color: theme("colors.pink.400");
+  color: theme("colors.primary.400");
 }
 
 .font-avenir {
@@ -32,10 +37,25 @@ a:active {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+.post article {
+  display: grid;
+  grid-template-columns: min(65ch, 100%) 1fr;
+}
+
+.post article > * {
+  grid-column: 1;
+}
+
+.post .full-bleed,
+.post pre {
+  width: 100%;
+  grid-column: 1 / -1;
+}
+
 .post h1 {
   font-size: theme("fontSize.xl");
   line-height: 1.5;
-  color: theme("colors.pink.600");
+  color: theme("colors.primary.600");
   letter-spacing: theme("letterSpacing.wide");
   margin-bottom: theme("spacing.3");
 }
@@ -48,7 +68,7 @@ a:active {
 
 .post h2 {
   font-size: theme("fontSize.lg");
-  color: theme("colors.pink.500");
+  color: theme("colors.primary.500");
   margin-bottom: theme("spacing.2");
   margin-top: theme("spacing.8");
   font-weight: 500;
@@ -63,7 +83,7 @@ a:active {
 
 .post h3 {
   font-size: theme("fontSize.lg");
-  color: theme("colors.pink.500");
+  color: theme("colors.primary.500");
   margin-bottom: theme("spacing.2");
   margin-top: theme("spacing.8");
   font-weight: 500;
@@ -72,10 +92,8 @@ a:active {
 
 .post img {
   border: 1px solid theme("colors.gray.100");
-  border-radius: theme("borderRadius.default");
+  border-radius: theme("borderRadius.DEFAULT");
   box-shadow: theme("boxShadow.lg");
-  margin-top: theme("spacing.8");
-  margin-bottom: theme("spacing.8");
 }
 
 .post p,
@@ -90,12 +108,12 @@ a:active {
 }
 
 .post code {
-  font-size: theme("fontSize.sm");
+  font-size: theme("fontSize.xs");
   background-color: theme("colors.gray.700");
   background-color: #faf8f5;
   color: #3e61a8;
   padding: theme("spacing.1");
-  border-radius: theme("borderRadius.default");
+  border-radius: theme("borderRadius.DEFAULT");
 }
 
 .post figcaption {
@@ -121,6 +139,10 @@ a:active {
   padding-right: theme("spacing.6");
 }
 
+.display-font {
+  font-family: "Bitter", serif;
+}
+
 @screen md {
   .ctr {
     padding-left: theme("spacing.12");
@@ -128,148 +150,117 @@ a:active {
   }
 }
 
-/* purgecss start ignore */
-/*
-Name:   Duotone Light
-Author: Simurai, adapted from DuoTone themes for Atom (http://simurai.com/projects/2016/01/01/duotone-themes)
-Conversion: Bram de Haan (http://atelierbram.github.io/Base2Tone-prism/output/prism/prism-base2tone-morning-light.css)
-Generated with Base16 Builder (https://github.com/base16-builder/base16-builder)
-*/
+/**
+ * Nord Theme Originally by Arctic Ice Studio
+ * https://nordtheme.com
+ *
+ * Ported for PrismJS by Zane Hitchcoxc (@zwhitchcox) and Gabriel Ramos (@gabrieluizramos)
+ */
 
 code[class*="language-"],
 pre[class*="language-"] {
-  font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono",
-    "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
-    "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L",
-    "Courier New", Courier, monospace;
-  font-size: 14px;
-  line-height: 1.375;
-  direction: ltr;
+  color: #f8f8f2;
+  background: none;
+  font-family: "Fira Code", Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
+    monospace;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
-
+  word-wrap: normal;
+  line-height: 1.5;
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
-
   -webkit-hyphens: none;
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  background: #faf8f5;
-  color: #728fcb;
-}
-
-pre > code[class*="language-"] {
-  font-size: 1em;
-}
-
-pre[class*="language-"]::-moz-selection,
-pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection,
-code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: #faf8f5;
-}
-
-pre[class*="language-"]::selection,
-pre[class*="language-"] ::selection,
-code[class*="language-"]::selection,
-code[class*="language-"] ::selection {
-  text-shadow: none;
-  background: #faf8f5;
 }
 
 /* Code blocks */
 pre[class*="language-"] {
-  border-radius: theme("borderRadius.default");
-  box-shadow: theme("boxShadow.default");
-  padding: theme("spacing.4");
-  margin: theme("spacing.4") 0;
+  padding: 1em;
+  margin: 0.5em 0;
   overflow: auto;
+  border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #2e3440;
 }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
   padding: 0.1em;
   border-radius: 0.3em;
+  white-space: normal;
 }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #b6ad9a;
+  color: #636f88;
 }
 
 .token.punctuation {
-  color: #b6ad9a;
+  color: #81a1c1;
 }
 
-.token.namespace {
+.namespace {
   opacity: 0.7;
 }
 
-.token.tag,
-.token.operator,
-.token.number {
-  color: #063289;
-}
-
 .token.property,
-.token.function {
-  color: #b29762;
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #81a1c1;
 }
 
-.token.tag-id,
+.token.number {
+  color: #b48ead;
+}
+
+.token.boolean {
+  color: #81a1c1;
+}
+
 .token.selector,
-.token.atrule-id {
-  color: #2d2006;
-}
-
-code.language-javascript,
-.token.attr-name {
-  color: #896724;
-}
-
-code.language-css,
-code.language-scss,
-.token.boolean,
+.token.attr-name,
 .token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #a3be8c;
+}
+
+.token.operator,
 .token.entity,
 .token.url,
 .language-css .token.string,
-.language-scss .token.string,
 .style .token.string,
-.token.attr-value,
-.token.keyword,
-.token.control,
-.token.directive,
-.token.unit,
-.token.statement,
-.token.regex,
-.token.atrule {
-  color: #728fcb;
-}
-
-.token.placeholder,
 .token.variable {
-  color: #93abdc;
+  color: #81a1c1;
 }
 
-.token.deleted {
-  text-decoration: line-through;
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+  color: #88c0d0;
 }
 
-.token.inserted {
-  border-bottom: 1px dotted #2d2006;
-  text-decoration: none;
+.token.keyword {
+  color: #81a1c1;
 }
 
-.token.italic {
-  font-style: italic;
+.token.regex,
+.token.important {
+  color: #ebcb8b;
 }
 
 .token.important,
@@ -277,44 +268,25 @@ code.language-scss,
   font-weight: bold;
 }
 
-.token.important {
-  color: #896724;
+.token.italic {
+  font-style: italic;
 }
 
 .token.entity {
   cursor: help;
 }
 
-pre > code.highlight {
-  outline: 0.4em solid #896724;
-  outline-offset: 0.4em;
-}
-
-/* overrides color-values for the Line Numbers plugin
- * http://prismjs.com/plugins/line-numbers/
+/**
+ * BEGIN CODE OVERRIDES
  */
-.line-numbers .line-numbers-rows {
-  border-right-color: #ece8de;
+code[class*="language-"],
+pre[class*="language-"] {
+  padding: theme("spacing.3");
+  font-size: theme("fontSize.sm");
+  margin-top: 0;
+  margin-bottom: theme("spacing.4");
 }
 
-.line-numbers-rows > span:before {
-  color: #cdc4b1;
+code[class*="language-"] {
+  padding: 0;
 }
-
-/* overrides color-values for the Line Highlight plugin
- * http://prismjs.com/plugins/line-highlight/
- */
-.line-highlight {
-  background: rgba(45, 32, 6, 0.2);
-  background: -webkit-linear-gradient(
-    left,
-    rgba(45, 32, 6, 0.2) 70%,
-    rgba(45, 32, 6, 0)
-  );
-  background: linear-gradient(
-    to right,
-    rgba(45, 32, 6, 0.2) 70%,
-    rgba(45, 32, 6, 0)
-  );
-}
-/* purgecss end ignore */

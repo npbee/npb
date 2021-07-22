@@ -1,0 +1,70 @@
+---
+layout: default
+title: About | Nick Ball
+description: About Nick Ball, Web developer based in Portland, OR
+path: "/"
+---
+
+{% macro JobLink(url, text) %}
+<a
+  target="_blank"
+  rel="noopener noreferrer nofollow"
+  href="{{ url }}"
+  class="font-medium"
+>
+{{text}}
+</a>
+{% endmacro %}
+
+<section>
+  {% H1 %}About Me.{% endH1 %}
+
+  <div class="mb-4">
+    {% SummaryText %}
+    I help teams build web apps of all shapes and sizes. I love shipping practical,
+    accessible experiences that improve people's lives.
+    {% endSummaryText %}
+  </div>
+
+  <div class="flex gap-2 font-semibold text-sm md:text-base">
+    <a href="">GitHub</a>
+    <a href="">Twitter</a>
+  </div>
+</section>
+
+<hr class="my-8 w-8" />
+
+<section class="max-w-prose space-y-4">
+  <p>
+  I currently work at {{ JobLink("https://dropbox.com", "Dropbox") }} as a software engineer building the {{ JobLink("https://helloworks", "HelloWorks") }} web application.
+  I work heavily with technologies like
+    <strong>React</strong>, <strong>GraphQL</strong>,
+    <strong>Elixir</strong>, and <strong>Phoenix</strong>. I'm particularly 
+    interested in component-driven architecture, testing, and developer tooling.
+    I love focusing on small details to get the experience just right. 
+  </p>
+  <p>
+  In the past I've built things such as:
+  <ul class="list-disc list-inside ml-4">
+    <li>Drag-and-drop heavy interfaces with <strong>React</strong></li>
+    <li>Rich text editors with <strong>Prosemirror</strong></li>
+    <li>Component libraries with <strong>React</strong> and <strong>CSS</strong></li>
+    <li>Build and test pipelines with <strong>Webpack</strong> and <strong>continuous integration</strong></li>
+    <li>Interactive flow charts</li>
+    <li>Undo / redo implementations</li>
+  </ul>
+  </p>
+  <p>
+    I was previously at
+    <a
+      href="https://loudr.fm/"
+      target="_blank"
+      rel="noopener noreferrer nofollow"
+      class="font-medium"
+    >
+      Loudr
+    </a>
+    (acquired by Spotify). I have a B.S. in Management Science from UC San
+    Diego.
+  </p>
+</section>

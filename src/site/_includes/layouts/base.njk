@@ -4,6 +4,10 @@
 {% include "meta.njk" %}
     <title>{{ title }}</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/css/styles.css">
     <link
     rel="icon"
@@ -32,25 +36,24 @@
   </head>
   <body class="text-gray-800 h-full flex flex-col font-avenir">
     {% include "header.njk" %}
-    <main class="ctr container mx-auto py-6 mb-8 flex-1 {{pageClass}}">
+    <main class="ctr py-6 mb-8 flex-1 {{pageClass}}">
       {% block content %}
         {{ content | safe }}
       {% endblock %}
     </main>
-    <footer class="w-full container mx-auto ctr py-4 relative">
+    <footer class="w-full ctr py-4 relative">
       <hr
-        class="w-8 absolute top-0 h-1 border-none bg-gray-400"
-        style="height: 2px"
+        class="w-8 absolute top-0 h-px"
       />
       <a
-        class="text-sm text-gray-600 tracking-wide hover:text-pink-600 trans"
+        class="text-sm tracking-wide hover:text-primary-600 trans"
         href="https://github.com/npbee"
       >
         GitHub
       </a>
       <span>&thinsp;</span>·<span>&thinsp;</span>
       <a
-        class="text-sm text-gray-600 tracking-wide hover:text-pink-600 trans"
+        class="text-sm tracking-wide hover:text-primary-600 trans"
         href="https://twitter.com/npbits"
       >
         Twitter
