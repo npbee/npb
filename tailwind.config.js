@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: colors.red,
+        primary: colors.pink,
       },
     },
     screens: {
