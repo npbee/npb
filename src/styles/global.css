@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "LibreFranklinBlack";
+    src: url("/fonts/Libre_Franklin/static/LibreFranklin-Black.ttf");
+  }
+
+  :root {
+    --font-special: LibreFranklinBlack;
+  }
+
+  body {
+    @apply bg-white dark:bg-gray-dark-2;
+    font-family: avenir-next, avenir, ui-sans-serif, system-ui, -apple-system,
+      BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+      sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+      Noto Color Emoji;
+    background-image: url("/images/light-wool.png");
+  }
+
+  a {
+    @apply text-accent-10 underline-offset-2 transition-colors;
+    font-weight: 500;
+    text-decoration: underline;
+  }
+
+  a:hover {
+    @apply text-accent-8 dark:text-accent-dark-11;
+  }
+
+  a:active {
+    @apply text-accent-11 dark:text-accent-dark-11;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+@layer utilities {
+  .font-special {
+    font-family: var(--font-special);
+  }
+
+  .text {
+    @apply text-gray-12 dark:text-gray-dark-12;
+  }
+
+  .text-light {
+    @apply text-gray-11 dark:text-gray-dark-11;
+  }
+}

@@ -1,13 +1,25 @@
-const colors = require("tailwindcss/colors");
+const { gray, grayDark, pink, pinkDark } = require("@radix-ui/colors");
 
-// tailwind.config.js
+function toTailwindColors(radixColors) {
+  let obj = {};
+
+  Object.values(radixColors).forEach((color, idx) => {
+    obj[idx + 1] = color;
+  });
+
+  return obj;
+}
+
 module.exports = {
-  content: ["./src/site/**/*.njk", ".eleventy.js"],
+  content: ["./src/**/*.astro"],
   theme: {
-    extend: {
-      colors: {
-        primary: colors.pink,
-      },
+    colors: {
+      white: "#ffffff",
+      gray: toTailwindColors(gray),
+      accent: toTailwindColors(pink),
+      "gray-dark": toTailwindColors(grayDark),
+      "accent-dark": toTailwindColors(pinkDark),
     },
   },
+  plugins: [require("@tailwindcss/typography")],
 };

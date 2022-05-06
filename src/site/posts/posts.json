@@ -1,6 +1,0 @@
-{
-  "tags": "post",
-  "layout": "layouts/post.njk",
-  "pageClass": "post",
-  "permalink": "/posts/{{ page.date | dateYear }}/{{ page.fileSlug }}/"
-}
