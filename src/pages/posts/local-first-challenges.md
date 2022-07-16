@@ -2,7 +2,7 @@
 title: Challenges of a Local-first App
 date: 2022-07-16
 layout: ../../layouts/Post.astro
-description: Syncing? Storage? Electron?
+description: Syncing? Storage? 
 ---
 
 # Challenges of a Local-first App
@@ -59,7 +59,4 @@ Using a CRDT library feels like it forces data into a document-based storage for
 
 Can you have a CRDT data structure that supports undo/redo and store that in SQLite? 
 Probably, but I haven't figured it out yet.
-
-
-
 
