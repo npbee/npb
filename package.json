@@ -21,12 +21,12 @@
   "homepage": "https://github.com/npbee/npb#readme",
   "dependencies": {
     "@radix-ui/colors": "^0.1.8",
-    "astro": "^1.0.0-beta.17"
+    "astro": "^1.0.0-beta.17",
+    "prettier-plugin-astro": "^0.5.4"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.5",
-    "prettier-plugin-astro": "^0.0.12",
     "prettier-plugin-tailwindcss": "^0.1.10",
     "tailwindcss": "^3.0.24"
   },
