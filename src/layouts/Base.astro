@@ -1,6 +1,4 @@
 ---
-import "../styles/global.css";
-
 export interface Props {
   title: string;
   description: string;
@@ -68,6 +66,8 @@ let url = Astro.url;
     href="/favicon/favicon-16x16.png"
     sizes="16x16"
   />
+
+  <link rel="stylesheet" href="style.css" />
 
   <body class="container mx-auto px-4 md:px-8 text">
     <slot />

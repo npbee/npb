@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "run-p dev:*",
+    "dev:astro": "astro dev",
+    "dev:tailwind": "tailwindcss -i ./src/styles/global.css -o ./public/style.css --watch",
+    "build": "NODE_ENV=production run-s build:tailwind build:astro",
+    "build:tailwind": "tailwindcss -i ./src/styles/global.css -o ./public/style.css --minify",
+    "build:astro": "astro build",
     "preview": "astro preview"
   },
   "repository": {
@@ -22,6 +26,7 @@
   "dependencies": {
     "@radix-ui/colors": "^0.1.8",
     "astro": "^1.0.0-beta.17",
+    "npm-run-all": "^4.1.5",
     "prettier-plugin-astro": "^0.5.4"
   },
   "devDependencies": {
