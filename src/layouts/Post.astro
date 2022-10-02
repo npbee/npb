@@ -18,10 +18,10 @@ let formattedDate = new Intl.DateTimeFormat("en-US", {
 ---
 
 <BaseLayout {title}>
-  <div class="max-w-prose mx-auto">
+  <div class="mx-auto">
     <Header />
     <main
-      class="flex-1 prose dark:prose-invert prose-headings:font-special mb-8"
+      class="flex-1 max-w-none prose dark:prose-invert prose-headings:font-special mb-8"
     >
       <p class="text-sm text-light">{formattedDate}</p>
       <slot />

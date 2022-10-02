@@ -11,7 +11,7 @@ function toTailwindColors(radixColors) {
 }
 
 module.exports = {
-  content: ["./src/**/*.astro"],
+  content: ["./src/**/*.astro", "./src/**/*.md"],
   theme: {
     colors: {
       white: "#ffffff",
@@ -20,6 +20,20 @@ module.exports = {
       "gray-dark": toTailwindColors(grayDark),
       "accent-dark": toTailwindColors(pinkDark),
     },
+    extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            display: 'grid',
+            gridTemplateColumns: "1fr min(65ch, 100%) 1fr",
+            marginInline: 'auto',
+            "& > *": {
+              gridColumn: '2'
+            }
+          }
+        }
+      }
+    }
   },
   plugins: [require("@tailwindcss/typography")],
 };
