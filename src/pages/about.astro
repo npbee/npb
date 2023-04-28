@@ -1,51 +1,53 @@
 ---
-import AboutLayout from "../layouts/About.astro";
+import BaseLayout from "../layouts/Base.astro";
 ---
 
-<AboutLayout title="Nick Ball | About" description="About Nick Ball, Web developer based in Portland, OR">
-  <div class="space-y-4">
+<BaseLayout
+  title="Nick Ball | About"
+  description="About Nick Ball, Web developer based in Portland, OR"
+>
+  <div class="space-y-4 py-16">
     <img src="/images/me.jpeg" alt="Nick Ball" class="w-24 rounded-full" />
-    <h1 class="font-special text-3xl md:text-4xl">About me —</h1>
-    <p class="max-w-prose text-lg text-gray-11 font-medium">
-      I help teams
-      build web apps of all shapes and sizes. I love shipping practical,
-      accessible experiences that improve people's lives.
+    <h1 class="text-xl font-semibold md:text-6xl">About me —</h1>
+    <p class="text-light max-w-prose text-2xl font-medium">
+      I help teams build web apps of all shapes and sizes. I love shipping
+      practical, accessible experiences that improve people's lives.
     </p>
   </div>
-  <hr class="border-gray-6 w-12 my-12" />
-  <div class="space-y-4 max-w-prose">
+  <hr class="my-12 w-12 border-gray-6" />
+  <div class="prose prose-xl mx-0 dark:prose-invert prose-headings:text-4xl">
     <p>
       I'm a web developer based out of Portland, Oregon. I work at Dropbox as a
-      software engineer building the Forms web application. I work heavily
-      with technologies like <strong>React</strong>, <strong>GraphQL</strong>,
+      software engineer building the Forms web application. I work heavily with
+      technologies like <strong>React</strong>, <strong>GraphQL</strong>,
       <strong>Elixir</strong>, and <strong>Phoenix</strong>. I'm particularly
       interested in component-driven architecture, testing, and developer
       tooling. I love focusing on small details to get the user experience just
       right.
     </p>
-    <p>
-      In the past I've built things such as:
-      <ul class="list-disc list-inside">
-        <li>Drag-and-drop heavy interfaces with <strong>React</strong></li>
-        <li>Rich text editors with <strong>Prosemirror</strong></li>
-        <li>Component libraries with <strong>React</strong> and <strong>CSS</strong></li>
-        <li>Build and test pipelines with <strong>Webpack</strong> and <strong>continuous integration</strong></li>
-        <li>Interactive flow charts</li>
-        <li>Undo / redo implementations</li>
-      </ul>
-    </p>
+    <p>In the past I've built things such as:</p>
+    <ul class="my-0">
+      <li>Drag-and-drop heavy interfaces with <strong>React</strong></li>
+      <li>Rich text editors with <strong>Prosemirror</strong></li>
+      <li>
+        Component libraries with <strong>React</strong> and <strong>CSS</strong>
+      </li>
+      <li>
+        Build and test pipelines with <strong>Webpack</strong> and <strong
+          >continuous integration</strong
+        >
+      </li>
+      <li>Interactive flow charts</li>
+      <li>Undo / redo implementations</li>
+    </ul>
     <p>
       I was previously at
       <a
         href="https://loudr.fm/"
         target="_blank"
         rel="noopener noreferrer nofollow"
-        class="font-medium"
-      >
-        Loudr
-      </a>
-      (acquired by Spotify). I have a B.S. in Management Science from UC San
-      Diego.
+        class="font-medium">Loudr</a
+      > (acquired by Spotify). I have a B.S. in Management Science from UC San Diego.
     </p>
   </div>
-</AboutLayout>
+</BaseLayout>

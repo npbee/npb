@@ -1,4 +1,11 @@
-const { gray, grayDark, pink, pinkDark } = require("@radix-ui/colors");
+const {
+  gray,
+  grayDark,
+  pink,
+  pinkDark,
+  violet,
+  violetDark,
+} = require("@radix-ui/colors");
 
 function toTailwindColors(radixColors) {
   let obj = {};
@@ -16,24 +23,24 @@ module.exports = {
     colors: {
       white: "#ffffff",
       gray: toTailwindColors(gray),
-      accent: toTailwindColors(pink),
+      accent: toTailwindColors(violet),
       "gray-dark": toTailwindColors(grayDark),
-      "accent-dark": toTailwindColors(pinkDark),
+      "accent-dark": toTailwindColors(violetDark),
     },
     extend: {
       typography: {
         DEFAULT: {
           css: {
-            display: 'grid',
+            display: "grid",
             gridTemplateColumns: "1fr min(65ch, 100%) 1fr",
-            marginInline: 'auto',
+            marginInline: "auto",
             "& > *": {
-              gridColumn: '2'
-            }
-          }
-        }
-      }
-    }
+              gridColumn: "2",
+            },
+          },
+        },
+      },
+    },
   },
   plugins: [require("@tailwindcss/typography")],
 };

@@ -1,56 +1,55 @@
 ---
+import { getCollection } from "astro:content";
 import ProjectPreview from "../components/ProjectPreview.astro";
-import HomeLayout from "../layouts/Home.astro";
+import BaseLayout from "../layouts/Base.astro";
 import Intro from "../components/Intro.astro";
-import * as Paths from '../paths';
+import PageHeading from "../components/PageHeading.astro";
 
-let projects  = await Astro.glob("./projects/*.md");
+let allBlogPosts = await getCollection("blog");
+let projects = await getCollection("projects");
 
-let allPosts = await Astro.glob("../pages/posts/*.md");
-let sortedPosts = allPosts
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.date).valueOf() -
-      new Date(a.frontmatter.date).valueOf()
-  )
-
+let sortedPosts = allBlogPosts.sort(
+  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+);
 ---
 
-<HomeLayout title="Nick Ball" description="Web developer based in Portland, OR.">
+<BaseLayout
+  title="Nick Ball"
+  description="Web developer based in Portland, OR."
+>
   <Intro />
 
-  <div class="space-y-12">
-    <section>
-      <h2 class="text-sm font-special text-accent-11 tracking-wider">Projects</h2>
+  <div class="space-y-24">
+    <section class="space-y-4">
+      <PageHeading>Projects</PageHeading>
       <div class="space-y-8">
-        {projects.map(project => <ProjectPreview {project} />)}
+        {projects.map((project) => <ProjectPreview {project} />)}
       </div>
     </section>
 
-    <section class="space-y-2">
-      <h2 class="text-sm font-special text-accent-11 tracking-wider">Posts</h2>
+    <section class="space-y-4">
+      <PageHeading>Posts</PageHeading>
       <div class="space-y-8">
-        <ul class="text-base md:text-lg space-y-6 md:space-y-2">
-          {sortedPosts.map(post => (
-            <li>
-              <a class="no-underline text hover:text-accent-11 dark:hover-text-accent-dark-11 font-semibold group" href={post.url}>
-                {post.frontmatter.title}
-              {post.frontmatter.description ? <span class="text font-normal group-hover:text-accent-11 dark:group-hover:text-accent-dark-11 transition-colors">— {post.frontmatter.description}</span> : null}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <section class="space-y-2">
-      <h2 class="text-sm font-special text-accent-11 tracking-wider">Find me</h2>
-      <div class="space-y-8">
-        <ul class="text-xl space-y-2">
-          <li><a class="text" href={Paths.github}>GitHub</a></li>
-          <li><a class="text" href={Paths.twitter}>Twitter</a></li>
+        <ul class="space-y-6 md:space-y-6">
+          {
+            sortedPosts.map((post) => (
+              <li>
+                <a
+                  class="group flex flex-col no-underline"
+                  href={`/posts/${post.slug}`}
+                >
+                  <span class="text text-2xl font-medium transition-colors group-hover:text-accent-11 dark:group-hover:text-accent-dark-11 md:text-2xl">
+                    {post.data.title}
+                  </span>
+                  <span class="text-light text-lg font-normal transition-colors group-hover:text-accent-11 dark:group-hover:text-accent-dark-10">
+                    {post.data.description}
+                  </span>
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </section>
   </div>
-</HomeLayout>
+</BaseLayout>

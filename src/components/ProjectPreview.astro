@@ -2,22 +2,24 @@
 import ExternalWindowIcon from "../components/ExternalWindowIcon.astro";
 
 let { project } = Astro.props;
-let { Content } = project;
-let { title, link } = project.frontmatter;
+let { title, link } = project.data;
+
+let { Content } = await project.render();
 ---
 
 <article class="">
-  <h3 class="font-special text-xl leading-loose">{title} —</h3>
-  <div class="space-y-3">
-    <div class="ml-0 prose md:text-sm dark:prose-invert">
-      <Content />
-    </div>
+  <h3 class="text-2xl font-semibold leading-loose md:text-3xl">
     <a
-      class="md:text-sm flex gap-1"
+      class="text flex gap-3 no-underline hover:underline"
       href={link}
       target="_blank"
       rel="noreferrer nofollow"
-      >See it <span class="flex w-4"><ExternalWindowIcon /></span></a
     >
+      {title}
+      <span class="text-light flex w-6"><ExternalWindowIcon /></span></a
+    >
+  </h3>
+  <div class="prose ml-0 text-lg dark:prose-invert">
+    <Content />
   </div>
 </article>

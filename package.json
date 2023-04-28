@@ -4,12 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "run-p dev:*",
-    "dev:astro": "astro dev",
-    "dev:tailwind": "tailwindcss -i ./src/styles/global.css -o ./public/style.css --watch",
-    "build": "NODE_ENV=production run-s build:tailwind build:astro",
-    "build:tailwind": "tailwindcss -i ./src/styles/global.css -o ./public/style.css --minify",
-    "build:astro": "astro build",
+    "dev": "astro dev",
+    "build": "astro build",
     "preview": "astro preview"
   },
   "repository": {
@@ -24,15 +20,16 @@
   },
   "homepage": "https://github.com/npbee/npb#readme",
   "dependencies": {
+    "@astrojs/tailwind": "^3.1.1",
     "@radix-ui/colors": "^0.1.8",
-    "astro": "^1.0.0-beta.17",
+    "astro": "^2.3.2",
     "npm-run-all": "^4.1.5",
-    "prettier-plugin-astro": "^0.5.4"
+    "prettier-plugin-astro": "^0.8.0"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.2",
+    "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.5",
-    "prettier-plugin-tailwindcss": "^0.1.10",
+    "prettier-plugin-tailwindcss": "^0.2.7",
     "tailwindcss": "^3.0.24"
   },
   "engines": {
