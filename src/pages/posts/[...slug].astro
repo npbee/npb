@@ -1,15 +1,18 @@
 ---
 import BaseLayout from "../../layouts/Base.astro";
-import { getCollection } from 'astro:content';
-// 1. Generate a new path for every collection entry
-export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
-  return blogEntries.map(entry => ({
-    params: { slug: entry.slug }, props: { entry },
-  }));
+import { getEntry } from "astro:content";
+
+const { slug } = Astro.params;
+if (!slug) {
+  throw new Error("Not found");
 }
-// 2. When it's time to render, you can get the entry directly from the prop
-const { entry } = Astro.props;
+
+const entry = await getEntry("blog", slug);
+
+if (entry === undefined) {
+  return Astro.redirect("/404");
+}
+
 const { Content } = await entry.render();
 
 let formattedDate = new Intl.DateTimeFormat("en-US", {
@@ -18,12 +21,15 @@ let formattedDate = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
 }).format(new Date(entry.data.date));
 ---
-<BaseLayout title={entry.data.title} description={entry.data.description}> 
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
   <main
-    class="flex-1 prose dark:prose-invert prose-headings:text-4xl mb-8 max-w-none prose-xl"
+    class="prose prose-xl mb-8 max-w-none flex-1 dark:prose-invert prose-headings:text-4xl"
   >
-    <div class="text-left space-y-1">
-      <h1 class="text-6xl font-semibold leading-none mb-1">{entry.data.title}</h1>
+    <div class="space-y-1 text-left">
+      <h1 class="mb-1 text-6xl font-semibold leading-none">
+        {entry.data.title}
+      </h1>
       <p class="text-light text-base">{formattedDate}</p>
     </div>
     <Content />
