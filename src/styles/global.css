@@ -80,7 +80,7 @@
   }
 
   .text-accent {
-    @apply text-accent-10 dark:text-accent-dark-10;
+    @apply text-accent-11 dark:text-accent-dark-10;
   }
 
   .full-width {

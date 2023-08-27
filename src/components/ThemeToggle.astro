@@ -2,7 +2,11 @@
 
 ---
 
-<button id="themeToggle" class="text-light hover:text">
+<button
+  id="themeToggle"
+  class="text-light hover:text"
+  aria-label="Toggle theme"
+>
   <svg
     id="sun"
     class="hidden w-5 dark:block"
@@ -72,7 +76,7 @@ const handleToggleClick = () => {
   localStorage.setItem("theme", isDark ? "dark" : "light");
 };
 
-document
-  .getElementById("themeToggle")
-  .addEventListener("click", handleToggleClick);
+  document
+    .getElementById("themeToggle")
+    .addEventListener("click", handleToggleClick);
 </script>
