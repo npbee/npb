@@ -12,7 +12,7 @@ let { title, description } = Astro.props as Props;
 let url = Astro.url;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="dark">
   <!-- Global Metadata -->
   <meta charset="utf-8" />
@@ -67,11 +67,9 @@ let url = Astro.url;
     sizes="16x16"
   />
 
-  <link rel="stylesheet" href="/style.css" />
-
-  <body class="text">
+  <body class="text flex h-full flex-col">
     <Header />
-    <div class="container mx-auto mb-48 px-8">
+    <div class="container mx-auto mb-48 max-w-2xl flex-1 px-8">
       <slot />
     </div>
     <Footer />

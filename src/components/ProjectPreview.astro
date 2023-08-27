@@ -8,18 +8,18 @@ let { Content } = await project.render();
 ---
 
 <article class="">
-  <h3 class="text-2xl font-semibold leading-loose md:text-3xl">
+  <h3 class="text-xl font-semibold leading-loose">
     <a
-      class="text flex gap-3 no-underline hover:underline"
+      class="text flex gap-2 font-semibold no-underline hover:text-accent-10 hover:underline dark:hover:text-accent-dark-10"
       href={link}
       target="_blank"
       rel="noreferrer nofollow"
     >
       {title}
-      <span class="text-light flex w-6"><ExternalWindowIcon /></span></a
+      <span class="text-light flex w-3"><ExternalWindowIcon /></span></a
     >
   </h3>
-  <div class="prose ml-0 text-lg dark:prose-invert">
+  <div class="prose dark:prose-invert">
     <Content />
   </div>
 </article>

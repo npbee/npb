@@ -1,0 +1,15 @@
+---
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props as Props;
+const pathname = new URL(Astro.request.url).pathname;
+---
+
+<a
+  class={pathname.includes(href)
+    ? "text-accent-11 dark:text-accent-dark-10 underline"
+    : "text"}
+  href={href}><slot /></a
+>

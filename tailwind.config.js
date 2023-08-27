@@ -5,6 +5,8 @@ const {
   pinkDark,
   violet,
   violetDark,
+  orange,
+  orangeDark,
 } = require("@radix-ui/colors");
 
 function toTailwindColors(radixColors) {
@@ -18,28 +20,15 @@ function toTailwindColors(radixColors) {
 }
 
 module.exports = {
+  darkMode: "class",
   content: ["./src/**/*.astro", "./src/**/*.md"],
   theme: {
     colors: {
       white: "#ffffff",
       gray: toTailwindColors(gray),
-      accent: toTailwindColors(violet),
+      accent: toTailwindColors(orange),
       "gray-dark": toTailwindColors(grayDark),
-      "accent-dark": toTailwindColors(violetDark),
-    },
-    extend: {
-      typography: {
-        DEFAULT: {
-          css: {
-            display: "grid",
-            gridTemplateColumns: "1fr min(65ch, 100%) 1fr",
-            marginInline: "auto",
-            "& > *": {
-              gridColumn: "2",
-            },
-          },
-        },
-      },
+      "accent-dark": toTailwindColors(orangeDark),
     },
   },
   plugins: [require("@tailwindcss/typography")],

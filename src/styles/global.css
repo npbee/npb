@@ -3,18 +3,37 @@
 @tailwind utilities;
 
 @layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
   body {
     @apply bg-white dark:bg-gray-dark-2;
-    font-family: avenir-next, avenir, ui-sans-serif, system-ui, -apple-system,
-      BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
-      sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+    font-family:
+      avenir-next,
+      avenir,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      Segoe UI,
+      Roboto,
+      Helvetica Neue,
+      Arial,
+      Noto Sans,
+      sans-serif,
+      Apple Color Emoji,
+      Segoe UI Emoji,
+      Segoe UI Symbol,
       Noto Color Emoji;
   }
 
   @supports (font-variation-settings: normal) {
     @font-face {
       font-family: Inconsolata;
-      src: url("/fonts/Inconsolata/Inconsolata-VariableFont_wdth,wght.ttf")
+      src:
+        url("/fonts/Inconsolata/Inconsolata-VariableFont_wdth,wght.ttf")
           format("truetype supports variations"),
         url("/fonts/Inconsolata/Inconsolata-VariableFont_wdth,wght.ttf")
           format("truetype-variations");
@@ -29,13 +48,13 @@
   }
 
   a {
-    @apply text-accent-12 underline-offset-2 transition-colors dark:text-accent-dark-10;
+    @apply text-accent-12 underline-offset-2 dark:text-accent-dark-10;
     font-weight: 500;
     text-decoration: underline;
   }
 
   a:hover {
-    @apply text-accent-11 dark:text-accent-dark-11;
+    @apply text-accent-10 dark:text-accent-dark-12;
   }
 
   a:active {
@@ -58,6 +77,10 @@
 
   .text-light {
     @apply text-gray-11 dark:text-gray-dark-11;
+  }
+
+  .text-accent {
+    @apply text-accent-10 dark:text-accent-dark-10;
   }
 
   .full-width {

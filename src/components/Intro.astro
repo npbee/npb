@@ -3,23 +3,20 @@ import GithubLink from "../components/GithubLink.astro";
 import TwitterLink from "../components/TwitterLink.astro";
 ---
 
-<div class="intro space-y-8 py-36">
-  <div class="space-y-4">
-    <div class="space-y-2">
-      <h1 class="text-4xl font-semibold md:text-6xl">Hi, I'm Nick —</h1>
-      <h2 class="text-light text-2xl font-medium md:text-4xl">
-        A web developer based out of Portland, Oregon.
-      </h2>
-    </div>
-    <p class="max-w-prose text-lg md:text-2xl">
-      I work at Dropbox as a software engineer building the Forms web
-      application. I help teams build web apps of all shapes and sizes. I love
-      shipping practical, accessible experiences that improve people's lives. <a
-        href="/about">More about me</a
-      >
-    </p>
-  </div>
-  <ul class="flex space-x-8">
+<div class="intro prose max-w-none">
+  <h1 class="text text-xl font-semibold md:text-2xl">Hi, I'm Nick</h1>
+  <p class="text-light lead text-lg font-medium md:text-xl">
+    A web developer based out of Portland, Oregon.
+  </p>
+  <p class="text">
+    I work at <a href="https://dropbox.com">Dropbox</a> as a software engineer
+    building the <a href="https://helloworks.com">Forms</a> web application. I
+    help teams build web apps of all shapes and sizes. I love shipping
+    practical, accessible experiences that help people get things done. <a
+      href="/about">More about me</a
+    >
+  </p>
+  <ul class="not-prose m-0 flex list-none space-x-8 p-0 py-1">
     <li>
       <GithubLink />
     </li>

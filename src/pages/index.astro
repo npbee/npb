@@ -9,7 +9,7 @@ let allBlogPosts = await getCollection("blog");
 let projects = await getCollection("projects");
 
 let sortedPosts = allBlogPosts.sort(
-  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
 );
 ---
 
@@ -17,33 +17,37 @@ let sortedPosts = allBlogPosts.sort(
   title="Nick Ball"
   description="Web developer based in Portland, OR."
 >
-  <Intro />
+  <div class="space-y-16">
+    <Intro />
 
-  <div class="space-y-24">
-    <section class="space-y-4">
-      <PageHeading>Projects</PageHeading>
+    <hr class="h-px w-4 border-none bg-gray-10" />
+
+    <section class="space-y-2">
+      <PageHeading href="/projects"><h2>Projects</h2></PageHeading>
       <div class="space-y-8">
         {projects.map((project) => <ProjectPreview {project} />)}
       </div>
     </section>
 
     <section class="space-y-4">
-      <PageHeading>Posts</PageHeading>
+      <PageHeading href="/posts">Posts</PageHeading>
       <div class="space-y-8">
-        <ul class="space-y-6 md:space-y-6">
+        <ul class="space-y-1">
           {
             sortedPosts.map((post) => (
               <li>
                 <a
-                  class="group flex flex-col no-underline"
+                  class="xno-underline group flex items-center gap-4 text-lg hover:text-accent-12 hover:underline dark:hover:text-accent-dark-12"
                   href={`/posts/${post.slug}`}
                 >
-                  <span class="text text-2xl font-medium transition-colors group-hover:text-accent-11 dark:group-hover:text-accent-dark-11 md:text-2xl">
-                    {post.data.title}
+                  <span class="text-light">
+                    {new Intl.DateTimeFormat("en-US", {
+                      month: "2-digit",
+                      day: "2-digit",
+                      year: "numeric",
+                    }).format(post.data.date)}
                   </span>
-                  <span class="text-light text-lg font-normal transition-colors group-hover:text-accent-11 dark:group-hover:text-accent-dark-10">
-                    {post.data.description}
-                  </span>
+                  <span class="text">{post.data.title}</span>
                 </a>
               </li>
             ))

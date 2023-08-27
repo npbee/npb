@@ -1,5 +1,7 @@
-<h2
-  class="w-fit border-b-2 border-accent-11 text-xl font-semibold text-accent-11 dark:text-accent-dark-11"
->
+---
+let { href } = Astro.props;
+---
+
+<a href={href} class="text-accent font-semibold underline">
   <slot />
-</h2>
+</a>

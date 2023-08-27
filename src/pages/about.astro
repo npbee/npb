@@ -6,17 +6,14 @@ import BaseLayout from "../layouts/Base.astro";
   title="Nick Ball | About"
   description="About Nick Ball, Web developer based in Portland, OR"
 >
-  <div class="space-y-4 py-16">
+  <div class="text prose max-w-none dark:prose-invert">
     <img src="/images/me.jpeg" alt="Nick Ball" class="w-24 rounded-full" />
-    <h1 class="text-xl font-semibold md:text-6xl">About me —</h1>
-    <p class="text-light max-w-prose text-2xl font-medium">
+    <h1 class="text text-xl font-semibold md:text-2xl">About me</h1>
+    <p class="text-light text-lg font-medium md:text-xl">
       I help teams build web apps of all shapes and sizes. I love shipping
       practical, accessible experiences that improve people's lives.
     </p>
-  </div>
-  <hr class="my-12 w-12 border-gray-6" />
-  <div class="prose prose-xl mx-0 dark:prose-invert prose-headings:text-4xl">
-    <p>
+    <p class="text">
       I'm a web developer based out of Portland, Oregon. I work at Dropbox as a
       software engineer building the Forms web application. I work heavily with
       technologies like <strong>React</strong>, <strong>GraphQL</strong>,
@@ -47,7 +44,8 @@ import BaseLayout from "../layouts/Base.astro";
         target="_blank"
         rel="noopener noreferrer nofollow"
         class="font-medium">Loudr</a
-      > (acquired by Spotify). I have a B.S. in Management Science from UC San Diego.
+      > (acquired by Spotify). I have a B.S. in Management Science from UC San
+      Diego.
     </p>
   </div>
 </BaseLayout>

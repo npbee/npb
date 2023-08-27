@@ -1,9 +1,17 @@
 ---
 import Logo from "./Logo.astro";
+import NavLink from "./NavLink.astro";
 ---
 
-<header class="p-8 container mx-auto">
-  <a href="/" class="text-gray-10 dark:text-gray-dark-10 hover:text-accent-10">
+<header
+  class="container mx-auto flex max-w-2xl items-center justify-between p-8"
+>
+  <a href="/" class="text hover:text-accent-10 dark:hover:text-accent-dark-10">
     <Logo />
   </a>
+  <ul class="flex gap-4 text-sm text-gray-11">
+    <li><NavLink href="/about">About</NavLink></li>
+    <li><NavLink href="/projects">Projects</NavLink></li>
+    <li><NavLink href="/posts">Posts</NavLink></li>
+  </ul>
 </header>
