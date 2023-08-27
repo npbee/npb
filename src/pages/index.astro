@@ -1,16 +1,13 @@
 ---
 import { getCollection } from "astro:content";
-import ProjectPreview from "../components/ProjectPreview.astro";
 import BaseLayout from "../layouts/Base.astro";
 import Intro from "../components/Intro.astro";
 import PageHeading from "../components/PageHeading.astro";
+import PostList from "../components/PostList.astro";
+import ProjectList from "../components/ProjectList.astro";
 
 let allBlogPosts = await getCollection("blog");
 let projects = await getCollection("projects");
-
-let sortedPosts = allBlogPosts.sort(
-  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
-);
 ---
 
 <BaseLayout
@@ -24,35 +21,13 @@ let sortedPosts = allBlogPosts.sort(
 
     <section class="space-y-2">
       <PageHeading href="/projects"><h2>Projects</h2></PageHeading>
-      <div class="space-y-8">
-        {projects.map((project) => <ProjectPreview {project} />)}
-      </div>
+      <ProjectList projects={projects} />
     </section>
 
     <section class="space-y-4">
       <PageHeading href="/posts">Posts</PageHeading>
       <div class="space-y-8">
-        <ul class="space-y-1">
-          {
-            sortedPosts.map((post) => (
-              <li>
-                <a
-                  class="group flex items-center gap-4 text-lg no-underline hover:text-accent-12 hover:underline dark:hover:text-accent-dark-12"
-                  href={`/posts/${post.slug}`}
-                >
-                  <span class="text-light">
-                    {new Intl.DateTimeFormat("en-US", {
-                      month: "2-digit",
-                      day: "2-digit",
-                      year: "numeric",
-                    }).format(post.data.date)}
-                  </span>
-                  <span class="text">{post.data.title}</span>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+        <PostList posts={allBlogPosts} />
       </div>
     </section>
   </div>

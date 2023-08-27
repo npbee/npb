@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import ProjectPreview from "../components/ProjectPreview.astro";
 import BaseLayout from "../layouts/Base.astro";
+import ProjectList from "../components/ProjectList.astro";
 
 let projects = await getCollection("projects");
 ---
@@ -12,8 +12,6 @@ let projects = await getCollection("projects");
 >
   <main class="space-y-4">
     <h1 class="text-light font-semibold">Projects</h1>
-    <div class="space-y-8">
-      {projects.map((project) => <ProjectPreview {project} />)}
-    </div>
+    <ProjectList projects={projects} />
   </main>
 </BaseLayout>

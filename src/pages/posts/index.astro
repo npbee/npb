@@ -1,12 +1,9 @@
 ---
 import BaseLayout from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
+import PostList from "../../components/PostList.astro";
 
 let allBlogPosts = await getCollection("blog");
-
-let sortedPosts = allBlogPosts.sort(
-  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
-);
 ---
 
 <BaseLayout
@@ -15,28 +12,6 @@ let sortedPosts = allBlogPosts.sort(
 >
   <main class="space-y-4">
     <h1 class="text-light font-semibold">Posts</h1>
-    <ul class="space-y-1">
-      {
-        sortedPosts.map((post) => (
-          <li>
-            <a
-              class="group flex items-center gap-4 text-lg no-underline"
-              href={`/posts/${post.slug}`}
-            >
-              <span class="text-light group-hover:text-accent-10 dark:group-hover:text-accent-dark-10">
-                {new Intl.DateTimeFormat("en-US", {
-                  month: "2-digit",
-                  day: "2-digit",
-                  year: "numeric",
-                }).format(post.data.date)}
-              </span>
-              <span class="text group-hover:text-accent-10 dark:group-hover:text-accent-dark-10">
-                {post.data.title}
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <PostList posts={allBlogPosts} />
   </main>
 </BaseLayout>

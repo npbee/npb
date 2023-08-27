@@ -1,0 +1,37 @@
+---
+import { Post } from "../content/config";
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props as Props;
+
+let sortedPosts = posts.sort(
+  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
+);
+---
+
+<ul class="space-y-4 md:space-y-1">
+  {
+    sortedPosts.map((post) => (
+      <li>
+        <a
+          class="group flex flex-col text-lg no-underline md:flex-row md:items-center md:gap-4"
+          href={`/posts/${post.slug}`}
+        >
+          <span class="text-light text-sm group-hover:text-accent-10 dark:group-hover:text-accent-dark-10 md:text-base">
+            {new Intl.DateTimeFormat("en-US", {
+              month: "2-digit",
+              day: "2-digit",
+              year: "numeric",
+            }).format(post.data.date)}
+          </span>
+          <span class="text group-hover:text-accent-10 dark:group-hover:text-accent-dark-10">
+            {post.data.title}
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-white dark:bg-gray-dark-2;
+    @apply bg-gray-1 dark:bg-gray-dark-2;
     font-family:
       avenir-next,
       avenir,
@@ -80,7 +80,7 @@
   }
 
   .text-accent {
-    @apply text-accent-11 dark:text-accent-dark-10;
+    @apply text-accent-10 dark:text-accent-dark-10;
   }
 
   .full-width {

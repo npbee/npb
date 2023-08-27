@@ -1,0 +1,14 @@
+---
+import { Project } from "../content/config";
+import ProjectPreview from "./ProjectPreview.astro";
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props as Props;
+---
+
+<div class="space-y-8">
+  {projects.map((project) => <ProjectPreview {project} />)}
+</div>
