@@ -10,6 +10,6 @@ const pathname = new URL(Astro.request.url).pathname;
 <a
   class={pathname.includes(href)
     ? "text-accent-11 dark:text-accent-dark-10 underline"
-    : "text"}
+    : "text no-underline"}
   href={href}><slot /></a
 >

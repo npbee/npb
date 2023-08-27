@@ -8,9 +8,7 @@ export default defineConfig({
   adapter: vercel({ analytics: true }),
   integrations: [
     tailwind({
-      config: {
-        applyBaseStyles: false,
-      },
+      applyBaseStyles: false,
     }),
   ],
 });
