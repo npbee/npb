@@ -14,58 +14,81 @@ let url = Astro.url;
 
 <!doctype html>
 <html lang="en" class="dark">
-  <!-- Global Metadata -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
+  <head>
+    <!-- Global Metadata -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
 
-  <!-- Primary Meta Tags -->
-  <title>{title}</title>
-  <meta name="title" content={title} />
-  <meta name="description" content={description} />
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
 
-  <!-- Google / Search Engine Tags -->
-  <meta itemprop="image" content="https://npbee.me/images/me.jpeg" />
-  <meta itemprop="name" content={title} />
-  <meta itemprop="description" content={description} />
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="image" content="https://npbee.me/images/me.jpeg" />
+    <meta itemprop="name" content={title} />
+    <meta itemprop="description" content={description} />
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://npbee.me/images/me.jpeg" />
-  <meta property="og:url" content={url} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://npbee.me/images/me.jpeg" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://npbee.me/images/me.jpeg" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:creator" content="_nickball" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://npbee.me/images/me.jpeg" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:creator" content="_nickball" />
 
-  <link
-    rel="icon"
-    type="image/png"
-    href="/favicon/favicon-32x32.png"
-    sizes="32x32"
-  />
-  <link
-    rel="icon"
-    type="image/png"
-    href="/favicon/android-chrome-192x192.png"
-    sizes="192x192"
-  />
-  <link
-    rel="icon"
-    type="image/png"
-    href="/favicon/favicon-96x96.png"
-    sizes="96x96"
-  />
-  <link
-    rel="icon"
-    type="image/png"
-    href="/favicon/favicon-16x16.png"
-    sizes="16x16"
-  />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/favicon/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/favicon/android-chrome-192x192.png"
+      sizes="192x192"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/favicon/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <style>
+      @supports (font-variation-settings: normal) {
+        @font-face {
+          font-family: Inconsolata;
+          src:
+            url("/fonts/Inconsolata/Inconsolata-VariableFont_wdth,wght.woff2")
+              format("woff2"),
+            url("/fonts/Inconsolata/Inconsolata-VariableFont_wdth,wght.ttf")
+              format("truetype supports variations"),
+            url("/fonts/Inconsolata/Inconsolata-VariableFont_wdth,wght.ttf")
+              format("truetype-variations");
+          font-weight: 400 600;
+          font-display: fallback;
+          font-style: normal;
+        }
+
+        body {
+          font-family: Inconsolata, monospace;
+        }
+      }
+    </style>
+  </head>
 
   <body class="text flex h-full flex-col">
     <Header />
