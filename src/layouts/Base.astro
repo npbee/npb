@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ViewTransitions } from 'astro:transitions';
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
@@ -74,6 +75,7 @@ let url = Astro.url;
       href="/favicon/favicon-16x16.png"
       sizes="16x16"
     />
+    <ViewTransitions />
   </head>
 
   <body class="text flex h-full flex-col">
