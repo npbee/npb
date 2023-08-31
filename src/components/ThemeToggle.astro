@@ -50,7 +50,7 @@
   }
 </style>
 <script is:inline>
-const theme = (() => {
+window.npbtheme = (() => {
   if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
     return localStorage.getItem("theme");
   }
@@ -60,13 +60,13 @@ const theme = (() => {
   return "light";
 })();
 
-if (theme === "light") {
+if (window.npbtheme === "light") {
   document.documentElement.classList.remove("dark");
 } else {
   document.documentElement.classList.add("dark");
 }
 
-window.localStorage.setItem("theme", theme);
+window.localStorage.setItem("theme", window.npbtheme);
 
 const handleToggleClick = () => {
   const element = document.documentElement;
@@ -76,7 +76,7 @@ const handleToggleClick = () => {
   localStorage.setItem("theme", isDark ? "dark" : "light");
 };
 
-  document
-    .getElementById("themeToggle")
-    .addEventListener("click", handleToggleClick);
+document
+  .getElementById("themeToggle")
+  .addEventListener("click", handleToggleClick);
 </script>
