@@ -7,6 +7,8 @@ const {
   violetDark,
   orange,
   orangeDark,
+  green,
+  greenDark,
 } = require("@radix-ui/colors");
 
 function toTailwindColors(radixColors) {
@@ -27,6 +29,8 @@ module.exports = {
       white: "#ffffff",
       gray: toTailwindColors(gray),
       accent: toTailwindColors(orange),
+      green: toTailwindColors(green),
+      greenDark: toTailwindColors(greenDark),
       "gray-dark": toTailwindColors(grayDark),
       "accent-dark": toTailwindColors(orangeDark),
     },
