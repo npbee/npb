@@ -6,9 +6,16 @@ import Footer from "../components/Footer.astro";
 export interface Props {
   title: string;
   description: string;
+  ogImageUrl?: string;
 }
 
-let { title, description } = Astro.props as Props;
+const defaultOgImageUrl = new URL("/og-image.png", Astro.url);
+
+let {
+  title,
+  description,
+  ogImageUrl = defaultOgImageUrl,
+} = Astro.props as Props;
 let url = Astro.url;
 ---
 
@@ -31,7 +38,7 @@ let url = Astro.url;
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://npbee.me/images/me.jpeg" />
+    <meta property="og:image" content={ogImageUrl} />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
