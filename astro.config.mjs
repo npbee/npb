@@ -6,6 +6,7 @@ import vercel from "@astrojs/vercel/serverless";
 export default defineConfig({
   output: "server",
   adapter: vercel({ analytics: true, edgeMiddleware: true }),
+  site: "https://npbee.me",
   integrations: [
     tailwind({
       applyBaseStyles: false,
