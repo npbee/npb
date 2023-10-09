@@ -6,20 +6,19 @@ import TwitterLink from "../components/TwitterLink.astro";
 <div class="intro prose max-w-none">
   <h1 class="text text-2xl font-semibold md:text-2xl">Hi, I'm Nick</h1>
   <p class="text-light lead text-xl font-medium md:text-xl">
-    A web developer based out of Portland, Oregon.
+    Software developer based out of Portland, Oregon.
   </p>
   <p class="text">
     I work at <a href="https://dropbox.com">Dropbox</a> as a software engineer
     building the <a href="https://helloworks.com">Forms</a> web application. I
-    help teams build web apps of all shapes and sizes. I love shipping
-    practical, accessible experiences that help people get things done. <a
-      href="/about">More about me</a
-    >
+    love building delightful, accessible experiences that help people get things
+    done.
+    <a href="/about">More about me</a>
+    <ul class="not-prose m-0 flex list-none space-x-8 p-0 py-1">
+      <li>
+        <GithubLink />
+      </li>
+      <li><TwitterLink /></li>
+    </ul>
   </p>
-  <ul class="not-prose m-0 flex list-none space-x-8 p-0 py-1">
-    <li>
-      <GithubLink />
-    </li>
-    <li><TwitterLink /></li>
-  </ul>
 </div>

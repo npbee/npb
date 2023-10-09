@@ -12,23 +12,26 @@ let sortedPosts = posts.sort(
 );
 ---
 
-<ul class="space-y-4 md:space-y-1">
+<ul class="space-y-6">
   {
     sortedPosts.map((post) => (
       <li>
         <a
-          class="group flex flex-col text-lg no-underline md:flex-row md:items-center md:gap-4"
+          class="group flex flex-col text-lg no-underline"
           href={`/posts/${post.slug}`}
         >
-          <span class="text-light text-sm group-hover:text-accent-10 dark:group-hover:text-accent-dark-10 md:text-base">
+          <span class="text-light text-sm">
             {new Intl.DateTimeFormat("en-US", {
               month: "2-digit",
               day: "2-digit",
               year: "numeric",
             }).format(post.data.date)}
           </span>
-          <span class="text group-hover:text-accent-10 dark:group-hover:text-accent-dark-10">
+          <span class="text font-semibold group-hover:text-accent-10 dark:group-hover:text-accent-dark-10">
             {post.data.title}
+          </span>
+          <span class="prose font-normal dark:prose-invert">
+            {post.data.description}
           </span>
         </a>
       </li>
