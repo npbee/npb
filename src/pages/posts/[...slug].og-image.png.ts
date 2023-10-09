@@ -13,10 +13,11 @@ export async function getStaticPaths() {
 }
 
 export const GET: APIRoute = async function get({ url, params, props }) {
-  const image = await generateOgImage(url, {
+  const image = await generateOgImage({
     title: props.data.title,
     description: props.data.description,
-    date: props.data.date
+    date: props.data.date,
+    image: props.data.ogImage
   })
 
   return new Response(image, {

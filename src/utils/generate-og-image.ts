@@ -7,18 +7,22 @@ const pattern = fs.readFile("./public/images/light-wool.png");
 
 export const prerender = true;
 
-export async function generateOgImage(url: URL, props: { title: string, description: string, date?: Date }) {
+export async function generateOgImage(props: { title: string, description: string, date?: Date, image?: string }) {
   const regularRontData = await fs.readFile("./public/fonts/Inconsolata/static/Inconsolata-Regular.ttf");
   const semiboldFontData = await fs.readFile("./public/fonts/Inconsolata/static/Inconsolata-SemiBold.ttf");
   const base64Pattern = (await pattern).toString("base64");
   const logo = await fs.readFile('public/images/logo.png').then(f => f.toString('base64'))
-  const { title, description, date } = props;
+  const { title, description, date, image } = props;
   const dateString = date
     ? new Intl.DateTimeFormat("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
     }).format(new Date(date))
+    : null;
+
+  const secondaryImage = image
+    ? await fs.readFile(`./public/images/${image}`).then(f => f.toString('base64'))
     : null;
 
   const svg = await satori(
@@ -48,7 +52,7 @@ export async function generateOgImage(url: URL, props: { title: string, descript
                     style: {
                       display: 'flex',
                       justifyContent: "space-between",
-                      alignItems: 'center'
+                      alignItems: 'flex-start'
                     },
                     children: [
                       {
@@ -71,6 +75,14 @@ export async function generateOgImage(url: URL, props: { title: string, descript
                       gap: 8
                     },
                     children: [
+                      (secondaryImage ? {
+                        type: 'img',
+                        props: {
+                          src: `data:image/png;base64,${secondaryImage}`,
+                          width: 80,
+                          height: 80,
+                        }
+                      } : null),
                       {
                         type: "h1",
                         props: {
@@ -91,7 +103,7 @@ export async function generateOgImage(url: URL, props: { title: string, descript
                           style: {
                             color: gray.gray11,
                             fontSize: "2.25rem",
-                            lineHeight: "1",
+                            lineHeight: 1.5,
                             fontFamily: "InconsolataSemibold",
                           },
                         },

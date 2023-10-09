@@ -4,7 +4,7 @@ import { generateOgImage } from "../utils/generate-og-image";
 export const prerender = true;
 
 export const GET: APIRoute = async function get({ url }) {
-  const image = await generateOgImage(url, {
+  const image = await generateOgImage({
     title: 'Nick Ball',
     description: 'Web developer based in Portland, Oregon'
   })
