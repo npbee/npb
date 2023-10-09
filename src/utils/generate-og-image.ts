@@ -3,26 +3,17 @@ import satori from "satori";
 import sharp from "sharp";
 import { gray } from "@radix-ui/colors";
 
-const pattern = fs.readFile("./public/images/light-wool.png");
-
 export const prerender = true;
 
 export async function generateOgImage(props: { title: string, description: string, date?: Date, image?: string }) {
-  const regularRontData = await fs.readFile("./public/fonts/Inconsolata/static/Inconsolata-Regular.ttf");
-  const semiboldFontData = await fs.readFile("./public/fonts/Inconsolata/static/Inconsolata-SemiBold.ttf");
-  const base64Pattern = (await pattern).toString("base64");
-  const logo = await fs.readFile('public/images/logo.png').then(f => f.toString('base64'))
   const { title, description, date, image } = props;
-  const dateString = date
-    ? new Intl.DateTimeFormat("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }).format(new Date(date))
-    : null;
-
+  const regularRontData = await loadFont("Inconsolata-Regular.ttf");
+  const semiboldFontData = await loadFont("Inconsolata-SemiBold.ttf");
+  const base64Pattern = await loadImage('./public/images/light-wool.png');
+  const logo = await loadImage('public/images/logo.png');
+  const dateString = date ? formatDate(date) : null;
   const secondaryImage = image
-    ? await fs.readFile(`./public/images/${image}`).then(f => f.toString('base64'))
+    ? await loadImage(`./public/images/${image}`)
     : null;
 
   const svg = await satori(
@@ -58,7 +49,7 @@ export async function generateOgImage(props: { title: string, description: strin
                       {
                         type: 'img',
                         props: {
-                          src: `data:image/png;base64,${logo}`,
+                          src: logo,
                           width: 40,
                           height: 40,
                         }
@@ -78,7 +69,7 @@ export async function generateOgImage(props: { title: string, description: strin
                       (secondaryImage ? {
                         type: 'img',
                         props: {
-                          src: `data:image/png;base64,${secondaryImage}`,
+                          src: secondaryImage,
                           width: 80,
                           height: 80,
                         }
@@ -132,7 +123,7 @@ export async function generateOgImage(props: { title: string, description: strin
           display: "flex",
           flexDirection: "column",
           alignItems: 'center',
-          backgroundImage: `url('data:image/png;base64,${base64Pattern}')`,
+          backgroundImage: `url('${base64Pattern}')`,
           backgroundColor: 'white',
           backgroundRepeat: "repeat",
           padding: 48,
@@ -163,4 +154,22 @@ export async function generateOgImage(props: { title: string, description: strin
   const png = await sharp(Buffer.from(svg)).png().toBuffer();
 
   return png;
+}
+
+async function loadImage(path: string) {
+  const file = await fs.readFile(path)
+  const base64 = file.toString('base64');
+  return `data:image/png;base64,${base64}`;
+}
+
+function formatDate(date: Date) {
+  return Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(date))
+}
+
+async function loadFont(fontPath: string) {
+  return fs.readFile(`./public/fonts/Inconsolata/static/${fontPath}`);
 }
