@@ -2,6 +2,7 @@
 title: Testing an API endpoint with Deno
 date: 2023-10-08
 description: A method for testing an HTTP endpoint using Deno without testing implementation details.
+ogImage: deno.png
 ---
 
 [Deno](https://deno.com/) has become one of my favorite tools for web development. It’s refreshing to have all of the essential features readily available without needing to reach for third-party libraries. Recently, I’ve been working on an API-first version of [Waveformr](https://waveformr.com/) and landed on a way to test the endpoints that I’d like to share.

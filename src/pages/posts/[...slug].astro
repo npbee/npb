@@ -20,9 +20,15 @@ let formattedDate = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
   year: "numeric",
 }).format(new Date(entry.data.date));
+
+const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.description}>
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  ogImageUrl={ogImageUrl}
+>
   <main
     class="prose max-w-none flex-1 dark:prose-invert prose-headings:text-2xl"
   >
