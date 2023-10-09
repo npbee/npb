@@ -11,7 +11,7 @@ export async function generateOgImage(url: URL, props: { title: string, descript
   const regularRontData = await fs.readFile("./public/fonts/Inconsolata/static/Inconsolata-Regular.ttf");
   const semiboldFontData = await fs.readFile("./public/fonts/Inconsolata/static/Inconsolata-SemiBold.ttf");
   const base64Pattern = (await pattern).toString("base64");
-  const logoUrl = new URL('/images/logo.png', url).toString()
+  const logo = await fs.readFile('public/images/logo.png').then(f => f.toString('base64'))
   const { title, description, date } = props;
   const dateString = date
     ? new Intl.DateTimeFormat("en-US", {
@@ -54,7 +54,7 @@ export async function generateOgImage(url: URL, props: { title: string, descript
                       {
                         type: 'img',
                         props: {
-                          src: logoUrl,
+                          src: `data:image/png;base64,${logo}`,
                           width: 40,
                           height: 40,
                         }
