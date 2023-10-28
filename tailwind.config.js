@@ -34,6 +34,16 @@ module.exports = {
       "gray-dark": toTailwindColors(grayDark),
       "accent-dark": toTailwindColors(orangeDark),
     },
+    extend: {
+      typography: () => ({
+        gray: {
+          css: {
+            "--tw-prose-body": gray.gray12,
+            "--tw-prose-headings": gray.gray12,
+          },
+        },
+      }),
+    },
   },
   plugins: [require("@tailwindcss/typography")],
 };
