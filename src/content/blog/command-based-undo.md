@@ -433,13 +433,13 @@ Another challenging aspect of side effects is that it starts to tie your undo im
 
 One way to think about performing an undo is that you’re going backwards in time. If you then make an edit at that point in time, you’re _changing_ the past. Trying to perform a redo at that point in time would be redoing an event against a different timeline and no longer makes sense.
 
-![TODO alt text](/posts/command-based-undo/branching-undo.png)
+![A visualization of a "branching" undo pattern. A blue square points backwards to a pink square and says "undo". The pink square points to a green square and then an orange square. The green square is annotated as a "history change". The squares are arranged to resemble tree branches. The pink and green squares are annotated as being contained in the "undo stack".](/posts/command-based-undo/branching-undo.png)
 
 When thinking about it this way, the only sensible thing to do with the redo stack is to clear it. You’d be redoing operations done on a past version of the state.
 
 There is another way to think about undo, which is to think about it always going _forward_. An undo operation is a forward action that happens to be the inverse of a previous action. If you think about the history as linear and always moving backwards and forwards, then it makes sense that you should always be able to go back to a previous version of what you were looking at, even if you got there via an undo or redo.
 
-![TODO alt text](/posts/command-based-undo/non-branching-undo.png)
+![A visualization of "non-branching" undo. A pink square points to a blue square, then a pink square, then a green square, and then an orange square. The squares are arranged in a single row. Below that, the same squares are arranged with red dots indicating the path that was followed to reach the orange square.](/posts/command-based-undo/non-branching-undo.png)
 
 The "trick" as prescribed by the [GURQ](https://github.com/zaboople/klonk/blob/master/TheGURQ.md) here is to replay the redo stack at the time of the history change back on to the undo stack _twice_: once forwards and once inverted. How this inversion happens depends on the undo implementation. For a real-life example of this, check out emacs.
 
