@@ -38,7 +38,10 @@ $effect(() => {
 // https://www.tpgi.com/evolving-custom-sliders/
 </script>
 
-<div class="rounded-lg bg-gray-12 p-4 shadow-2xl" style="--played: {played}">
+<div
+  class="rounded-lg bg-gray-12 p-4 shadow-2xl"
+  style="--played: {played}; --seek-hint: {seekHint * 100}%"
+>
   <audio
     src={trackUrl}
     bind:this={audio}
@@ -88,11 +91,22 @@ $effect(() => {
     </button>
   </div>
   <div class="waveforms relative w-full">
-    <img alt="" src={waveformUrl(`&stroke=cbd5e1`)} class="h-full" />
     <img
       alt=""
-      src={waveformUrl(`&stroke=linear-gradient(red, blue)`)}
-      class="absolute left-0 top-0 h-auto w-full"
+      src={waveformUrl(`&stroke=blue`)}
+      class="base h-full"
+      style={`clip-path: polygon(calc(var(--played)) 0%, 100% 0%, 100% 100%, calc(var(--played)) 100%)`}
+    />
+    <img
+      alt=""
+      src={waveformUrl(`&stroke=red`)}
+      class="seek-hint-fill absolute left-0 top-0 h-auto w-full"
+      style={`clip-path: polygon(0% 0%, var(--seek-hint) 0%, var(--seek-hint) 100%, 0% 100%)`}
+    />
+    <img
+      alt=""
+      src={waveformUrl(`&stroke=green`)}
+      class="played-fill absolute left-0 top-0 h-auto w-full"
       style={`clip-path: polygon(0% 0%, var(--played) 0%, var(--played) 100%, 0% 100%)`}
     />
 
@@ -108,7 +122,7 @@ $effect(() => {
     >
       <div
         class="progress bg-orange-500 absolute h-full w-[2px] -translate-x-1/2 rounded opacity-0 group-hover:opacity-50"
-        style={`left: ${seekHint * 100}%`}
+        style={`left: var(--seek-hint)`}
         aria-hidden="true"
       />
       <div
