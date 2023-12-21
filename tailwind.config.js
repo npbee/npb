@@ -23,7 +23,7 @@ function toTailwindColors(radixColors) {
 
 module.exports = {
   darkMode: "class",
-  content: ["./src/**/*.astro", "./src/**/*.md"],
+  content: ["./src/**/*.astro", "./src/**/*.md", "./src/**/*.svelte"],
   theme: {
     colors: {
       white: "#ffffff",

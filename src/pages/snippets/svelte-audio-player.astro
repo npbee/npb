@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/Base.astro";
+import AudioPlayer from './svelte-audio-player.svelte';
+---
+
+<BaseLayout
+  size="wide"
+  title="Snippets | Nick Ball"
+  description="Svelte Audio Player by Nick Ball, Software developer based in Portland, OR."
+>
+  <main class="space-y-4">
+    <h1 class="text-light font-semibold">Svelte Audio Player</h1>
+    <AudioPlayer client:load />
+  </main>
+</BaseLayout>

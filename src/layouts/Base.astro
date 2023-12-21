@@ -7,6 +7,7 @@ export interface Props {
   title: string;
   description: string;
   ogImageUrl?: string;
+  size: "default" | "wide";
 }
 
 const defaultOgImageUrl = new URL("/og-image.png", Astro.url);
@@ -15,6 +16,7 @@ let {
   title,
   description,
   ogImageUrl = defaultOgImageUrl,
+  size = "default",
 } = Astro.props as Props;
 let url = Astro.url;
 ---
@@ -85,7 +87,7 @@ let url = Astro.url;
 
   <body class="text flex h-full flex-col">
     <Header />
-    <div class="container mx-auto mb-48 max-w-2xl flex-1 px-8">
+    <div class={`container mx-auto mb-48 ${size === 'default' ? 'max-w-2xl' : ''} flex-1 px-8`} >
       <slot />
     </div>
     <Footer />
