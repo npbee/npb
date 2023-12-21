@@ -6,6 +6,7 @@ let currentState = $state<"idle" | "playing" | "paused">("idle");
 let duration = $state<number>(0);
 let currentTime = $state<number>(0);
 let seeking = $state<boolean>(false);
+let seekHint = $state<number>(0);
 
 let audio: HTMLAudioElement;
 
@@ -26,9 +27,15 @@ let played = $derived(
   duration === 0 ? `0%` : `${(currentTime / duration) * 100}%`,
 );
 
+function round(value: number, decimals: number) {
+  return Number(Math.round(Number(value + "e" + decimals)) + "e-" + decimals);
+}
+
 $effect(() => {
   audio.load();
 });
+
+// https://www.tpgi.com/evolving-custom-sliders/
 </script>
 
 <div class="rounded-lg bg-gray-12 p-4 shadow-2xl" style="--played: {played}">
@@ -81,23 +88,42 @@ $effect(() => {
     </button>
   </div>
   <div class="waveforms relative w-full">
-    <img alt="" src={waveformUrl(`&height=60&stroke=cbd5e1`)} class="h-full" />
+    <img alt="" src={waveformUrl(`&stroke=cbd5e1`)} class="h-full" />
     <img
       alt=""
-      src={waveformUrl(`&stroke=linear-gradient(red, blue)&height=60`)}
+      src={waveformUrl(`&stroke=linear-gradient(red, blue)`)}
       class="absolute left-0 top-0 h-auto w-full"
       style={`clip-path: polygon(0% 0%, var(--played) 0%, var(--played) 100%, 0% 100%)`}
     />
 
-    <div class="scrubber absolute top-0 h-full w-full">
+    <div
+      class="scrubber [&:has(:focus-visible)>.playhead]:ring-blue-500 group absolute top-0 h-full w-full [&:has(:focus-visible)>.playhead]:ring-2"
+      on:mouseleave={() => {
+        seekHint = 0;
+      }}
+      on:mousemove={evt => {
+          let rect = evt.currentTarget.getBoundingClientRect();
+          seekHint = (evt.clientX - rect.left) / rect.width;
+        }}
+    >
+      <div
+        class="progress bg-orange-500 absolute h-full w-[2px] -translate-x-1/2 rounded opacity-0 group-hover:opacity-50"
+        style={`left: ${seekHint * 100}%`}
+        aria-hidden="true"
+      />
+      <div
+        class="playhead bg-orange-500 group-focus-visible:ring-blue-500 absolute h-full w-[2px] -translate-x-1/2 rounded opacity-100 group-focus-visible:ring-2"
+        style={`left: ${played}`}
+        aria-hidden="true"
+      />
       <input
-        class="h-full w-full"
+        class="bg-transparent h-full w-full appearance-none opacity-0"
         data-plyr="seek"
         type="range"
         min="0"
         max={duration}
         step="1"
-        value={seeking ? null : currentTime}
+        value={seeking && !audio.paused ? null : currentTime}
         autocomplete="off"
         role="slider"
         aria-label="Seek"
@@ -105,14 +131,17 @@ $effect(() => {
         aria-valuemax={duration}
         aria-valuenow={currentTime}
         aria-valuetext={`${currentTime} of ${duration}`}
-        style="--value: 0%;"
         on:pointerdown={() => {
           seeking = true;
         }}
         on:change={evt => {
-          audio.currentTime = evt.currentTarget.valueAsNumber;
+          if (seeking) {
+            audio.currentTime = seekHint * duration;
+          } else {
+            audio.currentTime = evt.currentTarget.valueAsNumber;
+          }
+
           seeking = false;
-          // audio.play();
         }}
       />
     </div>

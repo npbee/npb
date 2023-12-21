@@ -25,16 +25,16 @@ module.exports = {
   darkMode: "class",
   content: ["./src/**/*.astro", "./src/**/*.md", "./src/**/*.svelte"],
   theme: {
-    colors: {
-      white: "#ffffff",
-      gray: toTailwindColors(gray),
-      accent: toTailwindColors(orange),
-      green: toTailwindColors(green),
-      greenDark: toTailwindColors(greenDark),
-      "gray-dark": toTailwindColors(grayDark),
-      "accent-dark": toTailwindColors(orangeDark),
-    },
     extend: {
+      colors: {
+        white: "#ffffff",
+        gray: toTailwindColors(gray),
+        accent: toTailwindColors(orange),
+        green: toTailwindColors(green),
+        greenDark: toTailwindColors(greenDark),
+        "gray-dark": toTailwindColors(grayDark),
+        "accent-dark": toTailwindColors(orangeDark),
+      },
       typography: () => ({
         gray: {
           css: {
