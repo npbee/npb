@@ -21,26 +21,28 @@ function togglePlay() {
 }
 
 const waveformUrl = (params: string) =>
-  `https://api.waveformr.com/render?url=${trackUrl}&type=bars${params}`;
+  `http://localhost:8000/render?url=${trackUrl}&type=bars${params}`;
+// `https://api.waveformr.com/render?url=${trackUrl}&type=bars${params}`;
 
-let played = $derived(
-  duration === 0 ? `0%` : `${(currentTime / duration) * 100}%`,
-);
+let playedNum = $derived(duration === 0 ? 0 : currentTime / duration);
 
-function round(value: number, decimals: number) {
-  return Number(Math.round(Number(value + "e" + decimals)) + "e-" + decimals);
+let played = $derived(`${playedNum * 100}%`);
+
+let seekHigher = $derived(seekHint > playedNum);
+
+function clipRect(opts: { start: string; end: string }) {
+  const { start, end } = opts;
+  return `polygon(${start} 0%, ${end} 0%, ${end} 100%, ${start} 100%)`;
 }
 
 $effect(() => {
   audio.load();
 });
-
-// https://www.tpgi.com/evolving-custom-sliders/
 </script>
 
 <div
   class="rounded-lg bg-gray-12 p-4 shadow-2xl"
-  style="--played: {played}; --seek-hint: {seekHint * 100}%"
+  style="--played: {played}; --seek-hint: {seekHint * 100}%;"
 >
   <audio
     src={trackUrl}
@@ -93,21 +95,21 @@ $effect(() => {
   <div class="waveforms relative w-full">
     <img
       alt=""
-      src={waveformUrl(`&stroke=blue`)}
+      src={waveformUrl(`&stroke=c5c1bd`)}
       class="base h-full"
-      style={`clip-path: polygon(calc(var(--played)) 0%, 100% 0%, 100% 100%, calc(var(--played)) 100%)`}
+      style={`clip-path: ${clipRect({ start: 'max(var(--played), var(--seek-hint))', end: '100%'})}`}
     />
     <img
       alt=""
-      src={waveformUrl(`&stroke=red`)}
-      class="seek-hint-fill absolute left-0 top-0 h-auto w-full"
-      style={`clip-path: polygon(0% 0%, var(--seek-hint) 0%, var(--seek-hint) 100%, 0% 100%)`}
-    />
-    <img
-      alt=""
-      src={waveformUrl(`&stroke=green`)}
+      src={waveformUrl(`&stroke=linear-gradient(c74815,c62513)`)}
       class="played-fill absolute left-0 top-0 h-auto w-full"
-      style={`clip-path: polygon(0% 0%, var(--played) 0%, var(--played) 100%, 0% 100%)`}
+      style:clip-path={seekHigher ? clipRect({start: '0%', end: 'var(--played)'}) : clipRect({ start: 'var(--seek-hint)', end: 'var(--played)' })}
+    />
+    <img
+      alt=""
+      src={waveformUrl(`&stroke=fe996c`)}
+      class="seek-hint-fill absolute left-0 top-0 h-auto w-full"
+      style:clip-path={seekHigher ? clipRect({ start: 'var(--played)', end: 'var(--seek-hint)'}) : clipRect({ start: '0%', end: 'var(--seek-hint)' })}
     />
 
     <div
@@ -131,7 +133,7 @@ $effect(() => {
         aria-hidden="true"
       />
       <input
-        class="bg-transparent h-full w-full appearance-none opacity-0"
+        class="bg-transparent h-full w-full cursor-pointer appearance-none opacity-0"
         data-plyr="seek"
         type="range"
         min="0"
