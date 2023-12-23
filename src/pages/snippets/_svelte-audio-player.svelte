@@ -26,7 +26,6 @@ const waveformUrl = (params: string) =>
 
 let playedNum = $derived(duration === 0 ? 0 : currentTime / duration);
 let played = $derived(`${playedNum * 100}%`);
-let seekHigher = $derived(seekHint > playedNum - 0.01);
 
 function clipRect(opts: { start: string; end: string }) {
   const { start, end } = opts;
@@ -144,14 +143,19 @@ $effect(() => {
       alt=""
       src={waveformUrl(`&stroke=linear-gradient(c74815,c62513)`)}
       class="played-fill absolute left-0 top-0 h-auto w-full"
-      style:clip-path={(seekHigher || seeking) ? clipRect({start: '0%', end: 'var(--played)'}) : clipRect({ start: 'var(--seek-hint)', end: 'var(--played)' })}
+      style:clip-path={seeking || seekHint === 0
+        ? clipRect({start: '0%', end: 'var(--played)'}) 
+        : clipRect({ start: '0%', end: 'min(var(--played), var(--seek-hint))' })}
     />
     <img
       alt=""
       src={waveformUrl(`&stroke=fe996c`)}
       class="seek-hint-fill absolute left-0 top-0 h-auto w-full"
-      style:opacity={seeking ? 0 : 1}
-      style:clip-path={seekHigher ? clipRect({ start: 'var(--played)', end: 'var(--seek-hint)'}) : clipRect({ start: '0%', end: 'var(--seek-hint)' })}
+      style:opacity={seeking || seekHint === 0 ? 0 : 1}
+      style:clip-path={clipRect({ 
+        start: 'min(var(--played), var(--seek-hint))', 
+        end: 'max(var(--played), var(--seek-hint))'
+      })}
     />
 
     <div
@@ -189,15 +193,18 @@ $effect(() => {
         aria-valuemax={duration}
         aria-valuenow={currentTime}
         aria-valuetext={`${currentTime} of ${duration}`}
-        on:pointerdown={() => {
-          seeking = true;
+        on:pointermove={(evt) => {
+          if (evt.buttons === 1) {
+            seeking = true;
+          }
         }}
         on:pointerup={() => {
           seeking = false;
         }}
         on:input={evt => {
+          let hintVal = seekHint * duration;
           let num = evt.currentTarget.valueAsNumber;
-          audio.currentTime = num;
+          audio.currentTime = hintVal === 0 ? num : hintVal;
         }}
       />
     </div>
