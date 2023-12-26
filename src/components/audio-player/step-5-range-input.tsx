@@ -7,8 +7,7 @@ import {
   LoadingSpinner,
   PauseIcon,
   PlayIcon,
-  RangeInput,
-  formatTimecode,
+  Scrubber,
   trackUrl,
   useLazyValue,
 } from "./shared";
@@ -61,7 +60,7 @@ export function Step5() {
         </IconButton>
         <AudioTime currentTime={currentTime} duration={duration} />
       </Controls>
-      <RangeInput
+      <Scrubber
         min={0}
         max={duration}
         value={currentTime}

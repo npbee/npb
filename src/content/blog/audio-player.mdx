@@ -1,5 +1,5 @@
 ---
-title: Build a not boring, accessible audio player with React
+title: Build thoughtful audio player with React
 date: 2023-12-23
 description: A walkthrough of building an accessible audio player with React that includes waveforms, CSS clip-path, Tailwind, and more!
 ---
@@ -119,9 +119,9 @@ export function AudioTime(props: { currentTime: number; duration: number }) {
 ```
 
 
-## Seeking
+## Scrubbing
 
-Seeking the audio is where things start to get a little more complicated because we being to introduce some accessibility concerns. The gist of seeking an audio track is to allow users to pick a specific time within the range of the track to go to. I’ve built many audio players in the past that use the mouse location to calculate a percentage to apply the audio time. Something like this:
+Scrubbing the audio is where things start to get more complicated. Scrubbing gives users the ability to jump to a specific point in the audio track. I’ve built many audio players in the past that use only the mouse to compute the percentage and apply that to the `audio.currentTime`. Something like this:
 
 ```tsx
 // Note: This is an example of a anti-pattern
@@ -135,7 +135,7 @@ function computePercent(evt) {
 <div onClick={computePercent} />
 ```
 
-This more-or-less works, but does not take accessibility into account. There’s no way to seek with just the keyboard. As far as I can tell, a more accessible way to achieve this is use the `range` input type instead. Using a native input control is generally a good idea for accessibility and it also gives us a lot of the seeking logic for free. 
+This more-or-less works, but there is no way to seek with the keyboard. A more accessible alternative would an `input` element with a `type="range"`. Using a native input control is generally a good idea for accessibility. We get a lot of accessibility functionality for free. However, the `range` input is [notoriously](https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/) difficult to style consistently. There’s also some uniqueness here in that the `value` will be changed not only by the user via mouse/keyboard, but also programmatically as the audio is playing. This presents some challenges that require some goofy workarounds in React as sometimes the `value` updates clash. 
 
 An initial `input` element implementation might look like this this:
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   AudioTime,
   Container,
@@ -7,7 +7,7 @@ import {
   LoadingSpinner,
   PauseIcon,
   PlayIcon,
-  RangeInput,
+  Scrubber,
   trackUrl,
   useLazyValue,
 } from "./shared";
@@ -61,7 +61,7 @@ export function Step6() {
         </IconButton>
         <AudioTime currentTime={currentTime} duration={duration} />
       </Controls>
-      <RangeInput
+      <Scrubber
         min={0}
         max={duration}
         value={currentTime}

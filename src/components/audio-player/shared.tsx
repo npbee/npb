@@ -188,7 +188,7 @@ export function AudioTime(props: { currentTime: number; duration: number }) {
   );
 }
 
-export function RangeInput(props: {
+export function Scrubber(props: {
   value: number;
   max: number;
   min: number;
@@ -196,9 +196,17 @@ export function RangeInput(props: {
 }) {
   const { value, max, min, onChange } = props;
   const [ariaValueNow, setAriaValueNow] = useState(value);
-  const [stepValue, setStepValue] = useState(1);
   const ariaValueText = `Elapsed time ${describeTime(ariaValueNow)}`;
   const descriptionId = useId();
+  const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const input = ref.current;
+    if (!input) {
+      return;
+    }
+    input.value = String(value);
+  }, [value]);
 
   return (
     <div>
@@ -209,8 +217,9 @@ export function RangeInput(props: {
         type="range"
         min={min}
         max={props.max}
-        value={props.value}
-        step={stepValue}
+        defaultValue={value}
+        ref={ref}
+        step={1}
         aria-label="Seek"
         aria-describedby={descriptionId}
         aria-valuemax={max}
@@ -218,12 +227,18 @@ export function RangeInput(props: {
         aria-valuetext={ariaValueText}
         onKeyDown={(event) => {
           if (event.key === "Shift") {
-            setStepValue(10);
+            const input = ref.current;
+            if (input) {
+              input.setAttribute("step", "10");
+            }
           }
         }}
         onKeyUp={(event) => {
           if (event.key === "Shift") {
-            setStepValue(1);
+            const input = ref.current;
+            if (input) {
+              input.setAttribute("step", "1");
+            }
           }
         }}
         className="w-full"
