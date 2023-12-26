@@ -1,0 +1,225 @@
+---
+title: Build a not boring, accessible audio player with React
+date: 2023-12-23
+description: A walkthrough of building an accessible audio player with React that includes waveforms, CSS clip-path, Tailwind, and more!
+---
+
+import {Step1} from '../../components/audio-player/step-1.tsx';
+import Step1Raw from '../../components/audio-player/step-1.tsx?raw';
+import {Step2} from '../../components/audio-player/step-2.tsx';
+import Step2Raw from '../../components/audio-player/step-2.tsx?raw';
+import {Step3} from '../../components/audio-player/step-3-loading.tsx';
+import Step3Raw from '../../components/audio-player/step-3-loading.tsx?raw';
+import {Step4} from '../../components/audio-player/step-4-current-time.tsx';
+import Step4Raw from '../../components/audio-player/step-4-current-time.tsx?raw';
+import {Step5} from '../../components/audio-player/step-5-range-input.tsx';
+import Step5Raw from '../../components/audio-player/step-5-range-input.tsx?raw';
+import {Step6} from '../../components/audio-player/step-6-buffered.tsx';
+import Step6Raw from '../../components/audio-player/step-6-buffered.tsx?raw';
+import {AudioPlayer} from '../../components/audio-player/finished.tsx';
+import { Code } from 'astro:components';
+import { Example } from '../../components/audio-player/example.tsx';
+
+I've written a lot of custom audio players in the past. If you’re going further than adding a “play” button, things can get strangely complicated. 
+
+This journey will have:
+
+* React
+* Tailwind
+* Accessibility
+* Audio waveforms
+* CSS `clip-path`
+* Micro interactions
+
+Let's hit play.
+
+## Finished Example
+
+<AudioPlayer />
+
+
+## Setup
+
+To start, let's set up a basic component with an `audio` tag and some base styles so we can see what we're doing. 
+
+<Example>
+  <Step1 slot="example" />
+  <Code code={Step1Raw} lang="tsx" slot="code" />
+</Example>
+
+It works! We know that we at least have a track URL to work with and the built-in browser audio player gives us a baseline for functionality we might need.
+But, it's boring. We're going for _not_ boring.
+
+Let's start by setting up a play/pause button.
+
+## Playing & Pausing
+
+<Example>
+  <Step2 client:load slot="example" />
+  <Code code={Step2Raw} lang="tsx" slot="code" />
+</Example>
+
+To start, we removed the `controls` parameter from the `audio` element. 
+This lets us hide the native audio player, but we can still attach callbacks to track various pieces of state. We attach the `audio` element to a React `ref` to actually control audio playback. Playing and pausing the audio is done by calling the appropriately named `play` and `pause` methods.
+
+## Loading
+
+In the above we did a basic play -> pause transition, but there are edge cases in there that we didn’t cover.
+Audio may or may not be ready to play the moment that “play” is clicked. On a fast network, you probably won’t see it. On a slow network, you’ll click play but nothing will actually play until the browser has downloaded enough of the audio to start playing. 
+
+That “enough” value is opaque (we don’t know what it is). We won’t know what the value is but we can know _when_ with the `canplay` callback. Using that, we can add a bit of pending UI to make for a nicer experience.
+
+<Example>
+  <Step3 client:load slot="example" />
+  <Code code={Step3Raw} lang="tsx" slot="code" />
+</Example>
+
+We switched to using `onPlaying` instead of `onPlay`. This makes sure we capture the state between when we’ve clicked play and when the audio is actually playing. We’ve also introduced some new state values: `idle` and `loading`. The `idle` state is the initial state where nothing has loaded. Note that we’re explicitly telling the browser not to preload anything for this track with the `preload='none'` attribute. 
+
+The `loading` state here allows to render a spinner when we’re loading so that the user sees something in the case of a slow connection. But if you’re on a reasonably fast connection, that loading state might come and go quite fast. So fast, that showing the spinner might not even be a good experience. We can use an abstraction where we wait for a certain amount of time before we consider the audio “loading”. If we go past that amount, we’ll show the spinner. Otherwise, we won’t. This means that we we’ll still have a good experience for fast connections, with the trade off of a small delay before showing the loading spinner for slower connections. 
+
+> gif of interaction
+
+## Current Time & Duration
+
+Let's show the current time and duration of the audio as we're playing it.
+
+<Example>
+  <Step4 client:load slot="example" />
+  <Code code={Step4Raw} lang="tsx" slot="code" />
+</Example>
+
+The `audio` element give us an `onTimeUpdate` for grabbing the current time,
+and a `onLoadedMetadata` that gives us the duration of the audio file. We can 
+use this info to format these values that both given in seconds into a 
+timecode.
+
+The `AudioTime` component looks like this:
+
+```tsx
+function formatTimecode(seconds: number) {
+  const min = String(Math.floor(seconds / 60) % 60).padStart(2, "0");
+  const sec = String(Math.floor(seconds) % 60).padStart(2, "0");
+
+  return `${min}:${sec}`;
+}
+
+export function AudioTime(props: { currentTime: number; duration: number }) {
+  return (
+    <div
+      className="text-gray-200 flex gap-1 text-sm opacity-100 aria-hidden:opacity-0"
+      aria-hidden={props.duration === 0}
+    >
+      <span>{formatTimecode(props.currentTime)}</span>
+      <span>/</span>
+      <span>{formatTimecode(props.duration)}</span>
+    </div>
+  );
+}
+```
+
+
+## Seeking
+
+Seeking the audio is where things start to get a little more complicated because we being to introduce some accessibility concerns. The gist of seeking an audio track is to allow users to pick a specific time within the range of the track to go to. I’ve built many audio players in the past that use the mouse location to calculate a percentage to apply the audio time. Something like this:
+
+```tsx
+// Note: This is an example of a anti-pattern
+function computePercent(evt) {
+	const rect = evt.currentTarget.getBoundingClientRect();
+	const mouseLeft = evt.clientX;
+	const percent = (evt.clientX - rect.left) / rect.width;
+	audio.currentTime = audio.duration * percent;
+}
+
+<div onClick={computePercent} />
+```
+
+This more-or-less works, but does not take accessibility into account. There’s no way to seek with just the keyboard. As far as I can tell, a more accessible way to achieve this is use the `range` input type instead. Using a native input control is generally a good idea for accessibility and it also gives us a lot of the seeking logic for free. 
+
+An initial `input` element implementation might look like this this:
+
+```tsx
+<input
+  type="range"
+  min={0}
+  max={duration}
+  step={1}
+  value={currentTime}
+  aria-label="Seek"
+  onChange={(event) => {
+    ref.current.currentTime = event.target.valueAsNumber;
+  }}
+/>
+```
+
+While this does work, it doesn't seem to be the best experience for screen readers. Every new `value` that gets set on the input will be announced, which in this case means screen readers will essentially just be counting from 1 to the end of the track, announcing each second! Not very useful if you’re actually trying to hear the audio. As an enhancement, we can use some `aria` attributes to customize what gets announced. Taking a cue from the native `audio` element, we can set this custom `aria` value anytime the value is change via mouse or keyboard, but not when the value changes as the audio is playing. It’s easiest to wrap this in a custom component:
+
+```tsx
+function RangeInput(props: {
+  value: number;
+  max: number;
+  min: number;
+  onChange: (value: number) => void;
+}) {
+  const { value, max, min, onChange } = props;
+  
+  // Fork the `value` so that we can update this value separately
+  const [ariaValueNow, setAriaValueNow] = useState(value);
+  const ariaValueText = `Elapsed time ${describeTime(ariaValueNow)}`;
+
+  return (
+      <input
+        type="range"
+        min={min}
+        max={max}
+        value={value}
+        aria-label="Seek"
+        aria-valuemax={max}
+        aria-valuenow={ariaValueNow}
+        aria-valuetext={ariaValueText}
+        onChange={(event) => {
+          const changeValue = event.target.valueAsNumber;
+          onChange(changeValue);
+          setAriaValueNow(changeValue);
+        }}
+      />
+  );
+}
+```
+
+
+<Example>
+  <Step5 client:load slot="example" />
+  <Code code={Step5Raw} lang="tsx" slot="code" />
+</Example>
+
+## Audio waveforms
+
+Waveforms
+
+## Buffering Amount
+
+There’s another subtle detail we can introduce here that I think will be a nice addition: buffering amount. It can be helpful to see how much audio is ready to play at any given time since it’s downloaded on demand. We can do that with the `buffered` property.
+
+<Example>
+  <Step6 client:load slot="example" />
+  <Code code={Step6Raw} lang="tsx" slot="code" />
+</Example>
+
+
+
+## Hinting
+
+## Faster time updates
+
+requestAnimationFrame
+
+## Responsiveness
+
+## Refactor
+
+- State machine
+- Responsive ness
+- React Aria or Radix for slider
+

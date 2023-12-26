@@ -30,10 +30,13 @@ const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
   ogImageUrl={ogImageUrl}
 >
   <main
-    class="prose prose-gray max-w-none flex-1 dark:prose-invert prose-headings:text-2xl"
+    class="prose prose-gray max-w-none flex-1 dark:prose-invert prose-headings:text-3xl"
   >
     <div class="space-y-1 text-left">
-      <h1 class="mb-0 leading-none">
+      <h1
+        class="text-balance title mb-0 leading-none"
+        style="text-wrap: balance"
+      >
         {entry.data.title}
       </h1>
       <p class="text-light text-sm">{formattedDate}</p>

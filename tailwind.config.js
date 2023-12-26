@@ -23,7 +23,13 @@ function toTailwindColors(radixColors) {
 
 module.exports = {
   darkMode: "class",
-  content: ["./src/**/*.astro", "./src/**/*.md", "./src/**/*.svelte"],
+  content: [
+    "./src/**/*.astro",
+    "./src/**/*.md",
+    "./src/**/*.mdx",
+    "./src/**/*.svelte",
+    "./src/**/*.tsx",
+  ],
   theme: {
     extend: {
       colors: {

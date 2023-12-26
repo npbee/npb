@@ -68,12 +68,6 @@ let url = Astro.url;
     <link
       rel="icon"
       type="image/png"
-      href="/favicon/android-chrome-192x192.png"
-      sizes="192x192"
-    />
-    <link
-      rel="icon"
-      type="image/png"
       href="/favicon/favicon-96x96.png"
       sizes="96x96"
     />
@@ -87,7 +81,11 @@ let url = Astro.url;
 
   <body class="text flex h-full flex-col">
     <Header />
-    <div class={`container mx-auto mb-48 ${size === 'default' ? 'max-w-2xl' : ''} flex-1 px-8`} >
+    <div
+      class={`container mx-auto mb-48 ${
+        size === "default" ? "max-w-2xl" : ""
+      } flex-1 px-8`}
+    >
       <slot />
     </div>
     <Footer />
