@@ -3,11 +3,13 @@ export function Example(props: {
   code: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="">
       <span className="text-gray-500 mb-1 block text-sm font-semibold">
         Example:
       </span>
-      {props.example}
+      <div className="full-bleed">
+        <div className="mx-auto max-w-5xl px-8">{props.example}</div>
+      </div>
       <CodeDetails>{props.code}</CodeDetails>
     </div>
   );
