@@ -7,6 +7,7 @@ export interface Props {
   title: string;
   description: string;
   ogImageUrl?: string;
+  size: "default" | "wide";
 }
 
 const defaultOgImageUrl = new URL("/og-image.png", Astro.url);
@@ -15,6 +16,7 @@ let {
   title,
   description,
   ogImageUrl = defaultOgImageUrl,
+  size = "default",
 } = Astro.props as Props;
 let url = Astro.url;
 ---
@@ -66,12 +68,6 @@ let url = Astro.url;
     <link
       rel="icon"
       type="image/png"
-      href="/favicon/android-chrome-192x192.png"
-      sizes="192x192"
-    />
-    <link
-      rel="icon"
-      type="image/png"
       href="/favicon/favicon-96x96.png"
       sizes="96x96"
     />
@@ -83,9 +79,12 @@ let url = Astro.url;
     />
   </head>
 
-  <body class="text flex h-full flex-col">
+  <body
+    class="text flex h-full flex-col"
+    class:list={["container", "mx-auto", size === "default" ? "max-w-2xl" : ""]}
+  >
     <Header />
-    <div class="container mx-auto mb-48 max-w-2xl flex-1 px-8">
+    <div class={`mb-48 flex-1 px-8`}>
       <slot />
     </div>
     <Footer />

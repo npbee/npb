@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/Base.astro";
+---
+
+<BaseLayout
+  title="Demos | Nick Ball"
+  description="Demos by Nick Ball, Software developer based in Portland, OR."
+>
+  <main class="space-y-4">
+    <h1 class="text-light font-semibold">Demos</h1>
+    <ul class="space-y-6">
+      <li>
+        <a
+          class="group flex flex-col text-lg no-underline"
+          href={`/demos/audio-player`}
+        >
+          <span
+            class="text font-semibold group-hover:text-accent-10 dark:group-hover:text-accent-dark-10"
+          >
+            Audio Player
+          </span>
+          <span class="prose font-normal dark:prose-invert">
+            An audio player built with React and Tailwind CSS.
+          </span>
+        </a>
+      </li>
+    </ul>
+  </main>
+</BaseLayout>

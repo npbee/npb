@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../../layouts/Base.astro";
+import { AudioPlayer } from "../../components/audio-player/player.tsx";
+import AudioPlayerRaw from "../../components/audio-player/player.tsx?raw";
+import { Code } from "astro:components";
+---
+
+<BaseLayout
+  size="wide"
+  title="Snippets | Nick Ball"
+  description="Svelte Audio Player by Nick Ball, Software developer based in Portland, OR."
+>
+  <main class="">
+    <div class="">
+      <h1 class="mb-4 text-3xl font-semibold">Audio Player</h1>
+      <div class="prose-xl">
+        <p>
+          This is an audio player built with React that uses
+          <a href="https://waveformr.com">Waveformr</a> to render audio waveforms
+          as images and <a
+            href="https://react-spectrum.adobe.com/react-aria/index.html"
+            >React Aria Components</a
+          > for accessibility. Check out this <a
+            href="/posts/audio-waveform-scrubber">post</a
+          > for more details on the waveform progress technique.
+        </p>
+      </div>
+    </div>
+    <hr class="my-12 h-[2px] bg-gray-200" />
+    <AudioPlayer client:load />
+    <div class="prose relative mx-auto max-w-none">
+      <button
+        id="copy"
+        class="absolute right-2 top-2 h-6 rounded bg-orange-900 px-2 text-xs text-orange-50 hover:bg-orange-700"
+        >Copy Code</button
+      >
+      <Code code={AudioPlayerRaw} lang="tsx" />
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  let copyButton = document.getElementById("copy");
+
+  copyButton.addEventListener("click", async () => {
+    const pre = document.querySelector("pre");
+    const code = document.querySelector("code");
+    await navigator.clipboard.writeText(code.innerText);
+
+    // visual feedback that task is completed
+    copyButton.innerText = "Copied";
+
+    setTimeout(() => {
+      copyButton.innerText = "Copy";
+    }, 700);
+  });
+</script>
