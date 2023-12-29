@@ -79,13 +79,12 @@ let url = Astro.url;
     />
   </head>
 
-  <body class="text flex h-full flex-col">
+  <body
+    class="text flex h-full flex-col"
+    class:list={["container", "mx-auto", size === "default" ? "max-w-2xl" : ""]}
+  >
     <Header />
-    <div
-      class={`container mx-auto mb-48 ${
-        size === "default" ? "max-w-2xl" : ""
-      } flex-1 px-8`}
-    >
+    <div class={`mb-48 flex-1 px-8`}>
       <slot />
     </div>
     <Footer />

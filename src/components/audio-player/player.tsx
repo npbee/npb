@@ -1,20 +1,10 @@
 import { useEffect, useRef, useState, useTransition } from "react";
+
+// TODO: Inline this
 import invariant from "tiny-invariant";
 import { Slider, SliderThumb, SliderTrack } from "react-aria-components";
 
-export const trackUrl =
-  "https://res.cloudinary.com/dhhjogfy6//video/upload/q_auto/v1575831765/audio/rest.mp3";
-
-const waveformUrl = (params: string) =>
-  `http://localhost:8000/render?url=${trackUrl}&type=bars&stroke-linecap=round${params}`;
-// `https://api.waveformr.com/render?url=${trackUrl}&type=bars${params}`;
-//
-
-// TODO:
-//  - Responsive with srcset
-//  - Faster timeupdate ala svelte
-//  - buffering?
-export function Final() {
+export function AudioPlayer() {
   const ref = useRef<HTMLAudioElement>(null);
   const [state, setState] = useState<"idle" | "loading" | "playing" | "paused">(
     "idle",
@@ -38,6 +28,8 @@ export function Final() {
     }
   }
 
+  // The metadata is sometimes cached by the browser and we don't get a
+  // loadedmetadata event. Check once on mount to see if we have a duration
   useEffect(() => {
     const duration = ref.current?.duration;
     if (typeof duration === "number" && !Number.isNaN(duration)) {
@@ -47,50 +39,58 @@ export function Final() {
 
   return (
     <Container>
-      <div className="flex gap-8">
-        <div className="flex flex-1 flex-col justify-between gap-8">
+      <div className="flex flex-col gap-6 md:flex-row">
+        <div className="hidden w-36 md:block lg:w-64">
+          <Artwork />
+        </div>
+        <div className="flex flex-1 flex-col justify-between gap-4">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
+              <ArtistInfo />
+            </div>
+            <div className="flex items-center gap-4">
+              <AudioTime currentTime={currentTime} duration={duration} />
               <IconButton
                 aria-label={
                   lazyState === "loading"
                     ? "Loading"
                     : state === "playing"
-                    ? "Pause"
-                    : "Play"
+                      ? "Pause"
+                      : "Play"
                 }
                 onClick={togglePlay}
               >
-                {lazyState === "loading" ? (
-                  <LoadingSpinner />
-                ) : state === "playing" ? (
-                  <PauseIcon />
-                ) : (
-                  <PlayIcon />
-                )}
+                <TouchTarget>
+                  {lazyState === "loading" ? (
+                    <LoadingSpinner />
+                  ) : state === "playing" ? (
+                    <PauseIcon />
+                  ) : (
+                    <PlayIcon />
+                  )}
+                </TouchTarget>
               </IconButton>
-              <ArtistInfo />
             </div>
-            <AudioTime currentTime={currentTime} duration={duration} />
           </div>
-          <Scrubber
-            min={0}
-            max={duration}
-            value={currentTime}
-            onPlay={togglePlay}
-            onChange={(newTime) => {
-              const audioElement = ref.current;
-              invariant(audioElement, "Expected audio element to be defined");
+          <div className="relative space-y-1">
+            <Scrubber
+              min={0}
+              max={duration}
+              value={currentTime}
+              onPlay={togglePlay}
+              onChange={(newTime) => {
+                const audioElement = ref.current;
+                invariant(audioElement, "Expected audio element to be defined");
 
-              // Need to set both the state and the audio element's currentTime
-              // here so that the scrubber doesn't jump back to the previous
-              // position when the audio element's time updates.
-              setCurrentTime(newTime);
-              audioElement.currentTime = newTime;
-            }}
-          />
+                // Need to set both the state and the audio element's currentTime
+                // here so that the scrubber doesn't jump back to the previous
+                // position when the audio element's time updates.
+                setCurrentTime(newTime);
+                audioElement.currentTime = newTime;
+              }}
+            />
+          </div>
         </div>
-        <Artwork />
       </div>
       <audio
         src={trackUrl}
@@ -116,7 +116,7 @@ export function Final() {
 
 function Container({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-gray-900 flex flex-col rounded-lg p-4 shadow-2xl">
+    <div className="flex flex-col rounded-lg bg-gray-900 p-4 shadow-2xl md:p-6">
       {children}
     </div>
   );
@@ -252,9 +252,9 @@ function Scrubber(props: {
             onChange(val);
           }}
         >
-          <SliderTrack className="bg-transparent relative h-full">
+          <SliderTrack className="relative h-full bg-transparent">
             <SliderThumb
-              className="bg-blue-500 data-[focus-visible]:ring-blue-600 h-full w-[2px] rounded opacity-0 data-[focus-visible]:opacity-100"
+              className="h-full w-[2px] rounded bg-blue-500 opacity-0 data-[focus-visible]:opacity-100 data-[focus-visible]:ring-blue-600"
               style={{
                 top: "50%",
               }}
@@ -278,7 +278,7 @@ function Scrubber(props: {
       </div>
 
       <div
-        className="bg-blue-600 pointer-events-none absolute left-0 top-0 flex h-full w-[2px] items-center justify-between"
+        className="pointer-events-none absolute left-0 top-0 flex h-full w-[2px] items-center justify-between bg-blue-600"
         style={{
           left: "var(--seek-hint)",
           opacity: hint === 0 ? 0 : 1,
@@ -291,7 +291,7 @@ function Scrubber(props: {
 function AudioTime(props: { currentTime: number; duration: number }) {
   return (
     <div
-      className="text-gray-200 flex gap-1 text-sm opacity-100 aria-hidden:opacity-0"
+      className="flex justify-between gap-1 text-xs text-gray-100 opacity-100 aria-hidden:opacity-0 md:text-sm"
       aria-hidden={props.duration === 0}
     >
       <span>{formatTimecode(props.currentTime)}</span>
@@ -303,11 +303,11 @@ function AudioTime(props: { currentTime: number; duration: number }) {
 
 function Artwork() {
   return (
-    <div className="flex aspect-square  ">
+    <div className="flex items-start">
       <img
         alt="Artist image of The Air on Earth"
         src="/images/taoe.jpg"
-        className="not-prose aspect-square rounded"
+        className="not-prose aspect-square w-full rounded"
       />
     </div>
   );
@@ -326,7 +326,7 @@ function WaveformImg(props: {
   return (
     <img
       alt=""
-      src={waveformUrl(`&stroke=${stroke}`)}
+      src={waveformUrl({ stroke })}
       className={`not-prose ${name}`}
       style={{
         clipPath,
@@ -339,7 +339,7 @@ function IconButton(props: React.ComponentPropsWithRef<"button">) {
   return (
     <button
       {...props}
-      className={`text-gray-200 hover:text-gray-300 active:text-gray-400 focus-visible:ring-orange-600 rounded-full text-4xl focus-visible:outline-none focus-visible:ring-2`}
+      className={`relative rounded-full text-3xl text-orange-500 hover:text-orange-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 active:text-orange-300 md:text-4xl`}
     />
   );
 }
@@ -393,7 +393,7 @@ function ArtistInfo() {
       <a
         target="_blank"
         rel="noopener noreferrer"
-        className="text-gray-300 block text-xs leading-none no-underline hover:underline"
+        className="block text-xs leading-none text-gray-300 no-underline hover:underline md:text-sm"
         href="https://open.spotify.com/artist/4beU4ZRfDapoH3orvpJthM"
       >
         The Air on Earth
@@ -401,7 +401,7 @@ function ArtistInfo() {
       <a
         target="_blank"
         rel="noopener noreferrer"
-        className="text-gray-50 block text-lg font-medium leading-none no-underline hover:underline md:text-xl md:leading-none"
+        className="block text-base font-medium leading-none text-gray-50 no-underline hover:underline md:text-2xl md:leading-none lg:text-4xl lg:leading-none"
         href="https://open.spotify.com/track/5fqgN15DVKhH7TjUkvjVQD"
       >
         Rest
@@ -415,4 +415,30 @@ function formatTimecode(seconds: number) {
   const sec = String(Math.floor(seconds) % 60).padStart(2, "0");
 
   return `${min}:${sec}`;
+}
+
+function TouchTarget({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      {children}
+      <span
+        aria-hidden="true"
+        className="[amedia(pointer:fine)]:hidden absolute left-1/2 top-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2"
+      />
+    </>
+  );
+}
+
+const trackUrl =
+  "https://res.cloudinary.com/dhhjogfy6//video/upload/q_auto/v1575831765/audio/rest.mp3";
+
+function waveformUrl(params: { stroke: string }) {
+  const url = new URL("https://api.waveformr.com/render");
+  url.searchParams.set("url", trackUrl);
+  url.searchParams.set("type", "bars");
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
+
+  return url.toString();
 }

@@ -1,0 +1,12 @@
+---
+import { Code } from "astro:components";
+
+type Props = Parameters<typeof Code>[0];
+---
+
+<details class="my-2 space-y-2 [&>pre]:my-0 [&>pre]:text-sm">
+  <summary class="not-prose cursor-pointer text-sm font-semibold text-gray-500">
+    Code
+  </summary>
+  <Code code={Astro.props.code} lang={Astro.props.lang} />
+</details>

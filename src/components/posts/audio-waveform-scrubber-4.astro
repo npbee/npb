@@ -1,0 +1,47 @@
+---
+const baseWaveformUrl =
+  "https://api.waveformr.com/render?url=https%3A%2F%2Fres.cloudinary.com%2Fdhhjogfy6%2F%2Fvideo%2Fupload%2Fq_auto%2Fv1575831765%2Faudio%2Frest.mp3&type=bars&stroke=c5c1bd";
+
+const progressWaveformUrl =
+  "https://api.waveformr.com/render?url=https%3A%2F%2Fres.cloudinary.com%2Fdhhjogfy6%2F%2Fvideo%2Fupload%2Fq_auto%2Fv1575831765%2Faudio%2Frest.mp3&type=bars&stroke=linear-gradient%28EC7546%2C+ED5645%29";
+---
+
+<div class="scrubber">
+  <img class="base-waveform" alt="" src={baseWaveformUrl} />
+  <img class="progress-waveform" alt="" src={progressWaveformUrl} />
+</div>
+
+<style>
+  .scrubber {
+    --played: 50%;
+    position: relative;
+  }
+
+  .progress-waveform {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /**
+     * This is the magic sauce. We use a clip-path to only show the part of the
+     * progress waveform that has been played.
+     */
+    clip-path: polygon(
+      /* top left ......... */ 0 0,
+      /* top right ........ */ var(--played) 0,
+      /* bottom right ..... */ var(--played) 100%,
+      /* bottom left .....  */ 0 100%
+    );
+  }
+
+  .base-waveform {
+    clip-path: polygon(
+      /* top left ......... */ var(--played) 0,
+      /* top right ........ */ 100% 0,
+      /* bottom right ..... */ 100% 100%,
+      /* bottom left .....  */ var(--played) 100%
+    );
+  }
+</style>

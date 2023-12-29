@@ -1,0 +1,99 @@
+---
+title: Showing audio progress with waveform images
+date: 2023-12-29
+description: Use CSS clip-path to overlay two waveform images and show audio progress.
+---
+import { Code } from 'astro:components';
+import Example from '../../components/posts/audio-waveform-scrubber-example.astro';
+import CodeDetails from '../../components/CodeDetails.astro';
+import Attempt1 from '../../components/posts/audio-waveform-scrubber-1.astro';
+import Attempt1Raw from '../../components/posts/audio-waveform-scrubber-1.astro?raw';
+import Attempt1Color from '../../components/posts/audio-waveform-scrubber-2.astro';
+import Attempt2 from '../../components/posts/audio-waveform-scrubber-3.astro';
+import Attempt2Raw from '../../components/posts/audio-waveform-scrubber-3.astro?raw';
+import Final from '../../components/posts/audio-waveform-scrubber-4.astro';
+import { AudioPlayer } from "../../components/audio-player/player.tsx";
+
+A passion project of mine I've been working on recently is https://waveformr.com/. It’s a service that accepts a URL of an audio file and gives you back an SVG of the waveform. You can use it to display audio waveforms like you would an image. Like this:
+
+![Audio waveform image](https://api.waveformr.com/render?url=https://res.cloudinary.com/dhhjogfy6//video/upload/q_auto/v1575831765/audio/ghost.mp3&stroke=005f73)
+
+<CodeDetails code="https://waveformr.com/edit?url=https://res.cloudinary.com/dhhjogfy6//video/upload/q_auto/v1575831765/audio/ghost.mp3&stroke=005f73" lang="html" />
+
+I’ll write more about this service in the future, but for now I wanted to cover a technique for showing progress on an audio waveform, similar to Soundcloud:
+
+![Soundcloud waveform progress](/posts/soundcloud-waveform.png)
+
+Since we’re rendering the audio waveforms as an image, we have to get more creative to achieve the progress visualization. 
+
+## Enter Clip-path
+
+The secret here is to use CSS [clip-path](https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path). 
+If we have two waveform images, we can overlay them on top of each other and use `clip-path` to get the visual progress that we're looking for.
+Here's the first attempt:
+
+<Example>
+  <Attempt1 />
+</Example>
+<Code code={Attempt1Raw} lang="astro" />
+
+The `polygon` shape tells CSS to "clip" the image to the coordinates we're drawing. 
+In this case, we want to clip the image so that it stops at the point where the current time of the audio is.
+
+![Two rectangles are displayed. The bottom one is clipped to represent the clipped waveform](/posts/clip-path-1.svg)
+
+Assuming we have the current percentage of audio that's played, we can set that as a CSS custom property and use that as a dynamic way to apply our `clip-path`.
+
+## Going further
+
+What we have is pretty solid, but there was one thing that bugged me. It's easier to see with different colors.
+
+<Example>
+  <Attempt1Color />
+</Example>
+
+Here's a zoomed-in version:
+
+![A zoomed in image of two waveforms. One is bleeding through behind the other](/posts/clip-path-2.png)
+
+It's subtle, but the "base" waveform is bleeding through behind the progress waveform.
+This makes sense because we're layering the progress waveform right over the top of the base waveform. 
+We can adjust this so that there is no overlap by using another `clip-path`.
+
+<Example>
+  <Attempt2 />
+</Example>
+<Code code={Attempt2Raw} lang="astro" />
+
+We're applying the inverse shape to the base waveform so that the two are clipped in a way that avoids overlapping.
+
+![Diagram showing two rectangles that are clipped to avoid overlapping](/posts/clip-path-3.svg)
+
+Here are the two side-by-side for comparison:
+
+<Example>
+  <Attempt1Color />
+  <Attempt2 />
+</Example>
+
+## The end result
+
+Here's the end result using some prettier colors:
+
+<Example>
+  <Final />
+</Example>
+
+Note that this technique is purely for _visual_ progress. 
+For using in a real audio player, make sure to think about accessibility. 
+
+Here's a real-life demo using this technique:
+
+<div className="full-bleed not-prose mb-8">
+  <div className="px-4 md:max-w-6xl mx-auto">
+    <AudioPlayer client:load />
+  </div>
+</div>
+
+Code for this is [here](/demos/audio-player).
+
