@@ -7,6 +7,10 @@
     {
       "source": "/posts/2018/rich-text-2018",
       "destination": "posts/rich-text-2018"
+    },
+    {
+      "source": "/posts/2016/ux-case-study-google-inbox/",
+      "destination": "/posts/ux-case-study-google-inbox/"
     }
   ]
 }
