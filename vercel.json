@@ -1,12 +1,12 @@
 {
   "redirects": [
     {
-      "from": "/posts/2019/eleventy-datocms-netlify",
-      "to": "/posts/eleventy-datocms-netlify"
+      "source": "/posts/2019/eleventy-datocms-netlify",
+      "destination": "/posts/eleventy-datocms-netlify"
     },
     {
-      "from": "/posts/2018/rich-text-2018",
-      "to": "posts/rich-text-2018"
+      "source": "/posts/2018/rich-text-2018",
+      "destination": "posts/rich-text-2018"
     }
   ]
 }
