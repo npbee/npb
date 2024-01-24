@@ -11,6 +11,10 @@
     {
       "source": "/posts/2016/ux-case-study-google-inbox/",
       "destination": "/posts/ux-case-study-google-inbox/"
+    },
+    {
+      "source": "/posts/2020/sentry-for-single-page-apps",
+      "destination": "/posts/sentry-for-single-page-apps"
     }
   ]
 }
