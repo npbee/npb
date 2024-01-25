@@ -77,6 +77,21 @@ let url = Astro.url;
       href="/favicon/favicon-16x16.png"
       sizes="16x16"
     />
+
+    {
+      import.meta.env.PROD ? (
+        <script
+          async
+          defer
+          data-domain="nickb.dev"
+          src="https://plausible.io/js/plausible.js"
+        />
+      ) : null
+    }
+    <script
+      defer
+      src="https://us.umami.is/script.js"
+      data-website-id="52e31176-fde6-4d26-b38f-e83577f30d7b"></script>
   </head>
 
   <body

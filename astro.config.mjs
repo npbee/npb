@@ -9,11 +9,14 @@ import react from "@astrojs/react";
 export default defineConfig({
   output: "server",
   adapter: vercel({
-    analytics: true,
-    edgeMiddleware: true
+    edgeMiddleware: true,
   }),
   site: "https://npbee.me",
-  integrations: [tailwind({
-    applyBaseStyles: false
-  }), mdx(), react()]
+  integrations: [
+    tailwind({
+      applyBaseStyles: false,
+    }),
+    mdx(),
+    react(),
+  ],
 });
