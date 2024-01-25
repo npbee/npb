@@ -16,5 +16,11 @@
       "source": "/posts/2020/sentry-for-single-page-apps",
       "destination": "/posts/sentry-for-single-page-apps"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/stats/:match*",
+      "destination": "https://analytics.umami.is/:match*"
+    }
   ]
 }

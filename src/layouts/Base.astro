@@ -81,17 +81,12 @@ let url = Astro.url;
     {
       import.meta.env.PROD ? (
         <script
-          async
           defer
-          data-domain="nickb.dev"
-          src="https://plausible.io/js/plausible.js"
+          src="/stats/script.js"
+          data-website-id="52e31176-fde6-4d26-b38f-e83577f30d7b"
         />
       ) : null
     }
-    <script
-      defer
-      src="https://us.umami.is/script.js"
-      data-website-id="52e31176-fde6-4d26-b38f-e83577f30d7b"></script>
   </head>
 
   <body
