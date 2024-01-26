@@ -80,11 +80,13 @@ let url = Astro.url;
 
     {
       import.meta.env.PROD ? (
-        <script
-          defer
-          src="/stats/script.js"
-          data-website-id="52e31176-fde6-4d26-b38f-e83577f30d7b"
-        />
+        <>
+          <script
+            defer
+            src="/script.js"
+            data-website-id="52e31176-fde6-4d26-b38f-e83577f30d7b"
+          />
+        </>
       ) : null
     }
   </head>
