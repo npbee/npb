@@ -9,7 +9,7 @@ const pathname = new URL(Astro.request.url).pathname;
 
 <a
   class={pathname.includes(href)
-    ? "text-accent-11 dark:text-accent-dark-10 underline"
-    : "text no-underline"}
+    ? "text-accent dark:text-accent-dark-10 font-semibold no-underline"
+    : "text-light no-underline"}
   href={href}><slot /></a
 >

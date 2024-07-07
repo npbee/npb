@@ -9,6 +9,6 @@ interface Props {
 const { projects } = Astro.props as Props;
 ---
 
-<div class="space-y-8">
+<div class="grid items-start gap-12 md:grid-cols-3">
   {projects.map((project) => <ProjectPreview {project} />)}
 </div>

@@ -7,7 +7,7 @@ export interface Props {
   title: string;
   description: string;
   ogImageUrl?: string;
-  size: "default" | "wide";
+  size?: "default" | "wide" | "full";
 }
 
 const defaultOgImageUrl = new URL("/og-image.png", Astro.url);
@@ -16,7 +16,7 @@ let {
   title,
   description,
   ogImageUrl = defaultOgImageUrl,
-  size = "default",
+  size = "full",
 } = Astro.props as Props;
 let url = Astro.url;
 ---
@@ -54,10 +54,17 @@ let url = Astro.url;
 
     <link
       rel="preload"
-      href="/fonts/Inconsolata/Inconsolata-VariableFont_wdth,wght.woff2"
+      href="/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf"
       crossorigin="anonymous"
       as="font"
-      type="font/woff2"
+      type="font/ttf"
+    />
+    <link
+      rel="preload"
+      href="/fonts/IBM_Plex_Sans/IBMPlexSans-SemiBold.ttf"
+      crossorigin="anonymous"
+      as="font"
+      type="font/ttf"
     />
     <link
       rel="icon"
@@ -93,7 +100,10 @@ let url = Astro.url;
 
   <body
     class="text flex h-full flex-col"
-    class:list={["container", "mx-auto", size === "default" ? "max-w-2xl" : ""]}
+    class:list={[
+      size === "full" ? "" : "container",
+      size === "default" ? "max-w-2xl" : "",
+    ]}
   >
     <Header />
     <div class={`mb-48 flex-1 px-8`}>

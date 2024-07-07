@@ -28,13 +28,14 @@ const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
   title={entry.data.title}
   description={entry.data.description}
   ogImageUrl={ogImageUrl}
+  size="full"
 >
   <main
-    class="prose prose-gray max-w-none flex-1 dark:prose-invert prose-headings:text-3xl"
+    class="prose prose-gray flex-1 dark:prose-invert prose-headings:text-3xl"
   >
     <div class="space-y-1 text-left">
       <h1
-        class="text-balance title mb-0 leading-none"
+        class="title mb-0 text-balance leading-none"
         style="text-wrap: balance"
       >
         {entry.data.title}

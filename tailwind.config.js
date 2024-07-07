@@ -10,6 +10,7 @@ const {
   green,
   greenDark,
 } = require("@radix-ui/colors");
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
 function toTailwindColors(radixColors) {
   let obj = {};
@@ -49,6 +50,9 @@ module.exports = {
           },
         },
       }),
+      fontFamily: {
+        sans: ["IBMPlexSans", fontFamily.sans],
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],
