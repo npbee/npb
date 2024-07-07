@@ -1,23 +1,12 @@
----
-import GithubLink from "../components/GithubLink.astro";
-import TwitterLink from "../components/TwitterLink.astro";
----
-
-<div class="intro prose max-w-none dark:prose-invert">
-  <h1 class="text text-2xl font-semibold md:text-2xl">Hi, I'm Nick</h1>
-  <p class="text-light lead text-xl font-medium md:text-xl">
-    Software developer based out of Portland, Oregon.
-  </p>
-  <p class="text">
-    I work at <a href="https://dropbox.com">Dropbox</a> as a software engineer building
-    the <a href="https://helloworks.com">Forms</a> web application. I love building
-    delightful, accessible experiences that help people get things done.
-    <a href="/about">More about me</a>
-    <ul class="not-prose m-0 flex list-none space-x-8 p-0 py-1">
-      <li>
-        <GithubLink />
-      </li>
-      <li><TwitterLink /></li>
-    </ul>
-  </p>
+<div class="intro max-w-none space-y-12">
+  <div class="flex flex-col gap-4">
+    <div class="space-y-2">
+      <h1 class="text-xl text-gray-11 dark:text-gray-dark-11">
+        <span class="font-semibold text-gray-12 dark:text-gray-dark-12"
+          >Nick Ball</span
+        > – Software developer based in Portland, Oregon. Currently at Dropbox building
+        the Forms application.
+      </h1>
+    </div>
+  </div>
 </div>

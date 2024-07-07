@@ -1,18 +1,16 @@
 ---
+import Avatar from "../components/Avatar.astro";
 import BaseLayout from "../layouts/Base.astro";
 ---
 
 <BaseLayout
   title="Nick Ball | About"
   description="About Nick Ball, Software developer based in Portland, OR"
+  size="full"
 >
-  <div class="text prose max-w-none dark:prose-invert">
-    <img
-      src="/images/me.jpeg"
-      alt="Nick Ball"
-      class="aspect-square w-24 rounded-full"
-    />
-    <h1 class="text text-xl font-semibold md:text-2xl">About me</h1>
+  <div class="text prose dark:prose-invert">
+    <Avatar />
+    <h1 class="text font-semibold">About me</h1>
     <p class="text">
       I'm a software developer based out of Portland, Oregon. I currently work
       at Dropbox as a software engineer building the Forms web application.
@@ -51,8 +49,7 @@ import BaseLayout from "../layouts/Base.astro";
         target="_blank"
         rel="noopener noreferrer nofollow"
         class="font-medium">Loudr</a
-      > (acquired by Spotify). I have a B.S. in Management Science from UC San
-      Diego.
+      > (acquired by Spotify). I have a B.S. in Management Science from UC San Diego.
     </p>
   </div>
 </BaseLayout>

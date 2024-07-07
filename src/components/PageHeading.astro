@@ -2,6 +2,9 @@
 let { href } = Astro.props;
 ---
 
-<a href={href} class="text-accent font-semibold underline">
+<a
+  href={href}
+  class="font-mono text-xs font-semibold uppercase tracking-wider text-gray-10 no-underline dark:text-gray-dark-11"
+>
   <slot />
 </a>

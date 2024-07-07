@@ -7,8 +7,8 @@ let { title, link } = project.data;
 let { Content } = await project.render();
 ---
 
-<article class="">
-  <h3 class="text-xl font-semibold leading-loose">
+<article class="max-w-prose space-y-1">
+  <h3 class="font-semibold">
     <a
       class="text flex gap-2 font-semibold no-underline hover:text-accent-10 hover:underline dark:hover:text-accent-dark-10"
       href={link}
@@ -19,7 +19,7 @@ let { Content } = await project.render();
       <span class="text-light flex w-3"><ExternalWindowIcon /></span></a
     >
   </h3>
-  <div class="prose dark:prose-invert">
+  <div class="prose text-sm dark:prose-invert">
     <Content />
   </div>
 </article>

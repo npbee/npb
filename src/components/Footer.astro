@@ -2,16 +2,24 @@
 import GithubLink from "./GithubLink.astro";
 import TwitterLink from "./TwitterLink.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import Logo from "./Logo.astro";
 ---
 
 <footer class="full-bleed bg-gray-2 px-8 py-8 dark:bg-gray-dark-1">
-  <div
-    class="container mx-auto flex max-w-2xl items-center justify-between px-8"
-  >
-    <ul class="flex gap-8 text-base">
-      <li><GithubLink /></li>
-      <li><TwitterLink /></li>
-    </ul>
-    <ThemeToggle />
+  <div class="flex items-center justify-between px-8">
+    <a
+      href="/"
+      class="hover:text-accent dark:hover:text-accent text-gray-11 dark:text-gray-dark-11"
+    >
+      <Logo />
+      <span class="sr-only">Go home</span>
+    </a>
+    <div class="flex items-center gap-8">
+      <ul class="flex gap-8 text-base">
+        <li><GithubLink /></li>
+        <li><TwitterLink /></li>
+      </ul>
+      <ThemeToggle />
+    </div>
   </div>
 </footer>

@@ -14,17 +14,35 @@ let projects = await getCollection("projects");
   title="Nick Ball"
   description="Software developer based in Portland, OR."
 >
-  <div class="space-y-16">
-    <Intro />
-
-    <hr class="h-px w-4 border-none bg-gray-10" />
+  <div class="space-y-32 py-24">
+    <div class="max-w-2xl pb-32">
+      <Intro />
+    </div>
 
     <section class="space-y-2">
       <PageHeading href="/projects"><h2>Projects</h2></PageHeading>
       <ProjectList projects={projects} />
     </section>
 
-    <section class="space-y-4">
+    <section class="space-y-2">
+      <PageHeading href="/demos"><h2>Demos</h2></PageHeading>
+
+      <a
+        class="group flex flex-col text-base no-underline"
+        href={`/demos/audio-player`}
+      >
+        <span
+          class="text font-semibold group-hover:text-accent-10 dark:group-hover:text-accent-dark-10"
+        >
+          Audio Player
+        </span>
+        <span class="prose text-sm font-normal dark:prose-invert">
+          An audio player built with React and Tailwind CSS.
+        </span>
+      </a>
+    </section>
+
+    <section class="space-y-2">
       <PageHeading href="/posts">Posts</PageHeading>
       <div class="space-y-8">
         <PostList posts={allBlogPosts} />
