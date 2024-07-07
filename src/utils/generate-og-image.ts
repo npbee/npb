@@ -5,12 +5,21 @@ import { gray } from "@radix-ui/colors";
 
 export const prerender = true;
 
-export async function generateOgImage(props: { title: string, description: string, date?: Date, image?: string }) {
+export async function generateOgImage(props: {
+  title: string;
+  description: string;
+  date?: Date;
+  image?: string;
+}) {
   const { title, description, date, image } = props;
-  const regularRontData = await loadFont("Inconsolata-Regular.ttf");
-  const semiboldFontData = await loadFont("Inconsolata-SemiBold.ttf");
-  const base64Pattern = await loadImage('./public/images/light-wool.png');
-  const logo = await loadImage('public/images/logo.png');
+  const regularRontData = await loadFont(
+    "IBM_Plex_Sans/IBMPlexSans-Regular.ttf",
+  );
+  const semiboldFontData = await loadFont(
+    "IBM_Plex_Sans/IBMPlexSans-SemiBold.ttf",
+  );
+  const base64Pattern = await loadImage("./public/images/light-wool.png");
+  const logo = await loadImage("public/images/logo.png");
   const dateString = date ? formatDate(date) : null;
   const secondaryImage = image
     ? await loadImage(`./public/images/${image}`)
@@ -22,18 +31,18 @@ export async function generateOgImage(props: { title: string, description: strin
       props: {
         children: [
           {
-            type: 'div',
+            type: "div",
             props: {
               style: {
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
                 borderWidth: 4,
                 borderRadius: 8,
                 borderColor: gray.gray8,
                 boxShadow: `8px 8px 0 0 ${gray.gray12}`,
-                width: '100%',
-                height: '100%',
+                width: "100%",
+                height: "100%",
                 padding: 40,
               },
               children: [
@@ -41,39 +50,41 @@ export async function generateOgImage(props: { title: string, description: strin
                   type: "div",
                   props: {
                     style: {
-                      display: 'flex',
+                      display: "flex",
                       justifyContent: "space-between",
-                      alignItems: 'flex-start'
+                      alignItems: "flex-start",
                     },
                     children: [
                       {
-                        type: 'img',
+                        type: "img",
                         props: {
                           src: logo,
                           width: 40,
                           height: 40,
-                        }
+                        },
                       },
-                    ]
-                  }
+                    ],
+                  },
                 },
                 {
-                  type: 'div',
+                  type: "div",
                   props: {
                     style: {
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 8
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 8,
                     },
                     children: [
-                      (secondaryImage ? {
-                        type: 'img',
-                        props: {
-                          src: secondaryImage,
-                          width: 80,
-                          height: 80,
-                        }
-                      } : null),
+                      secondaryImage
+                        ? {
+                            type: "img",
+                            props: {
+                              src: secondaryImage,
+                              width: 80,
+                              height: 80,
+                            },
+                          }
+                        : null,
                       {
                         type: "h1",
                         props: {
@@ -99,22 +110,24 @@ export async function generateOgImage(props: { title: string, description: strin
                           },
                         },
                       },
-                      (dateString ? {
-                        type: "p",
-                        props: {
-                          children: `by Nick Ball on ${dateString}`,
-                          style: {
-                            fontSize: "1.5rem",
-                            fontFamily: "Inconsolata",
-                            color: gray.gray11,
+                      dateString
+                        ? {
+                            type: "p",
+                            props: {
+                              children: `by Nick Ball on ${dateString}`,
+                              style: {
+                                fontSize: "1.5rem",
+                                fontFamily: "Inconsolata",
+                                color: gray.gray11,
+                              },
+                            },
                           }
-                        }
-                      } : null)
-                    ]
-                  }
-                }
-              ]
-            }
+                        : null,
+                    ],
+                  },
+                },
+              ],
+            },
           },
         ],
         style: {
@@ -122,9 +135,9 @@ export async function generateOgImage(props: { title: string, description: strin
           height: 630,
           display: "flex",
           flexDirection: "column",
-          alignItems: 'center',
+          alignItems: "center",
           backgroundImage: `url('${base64Pattern}')`,
-          backgroundColor: 'white',
+          backgroundColor: "white",
           backgroundRepeat: "repeat",
           padding: 48,
         },
@@ -148,7 +161,7 @@ export async function generateOgImage(props: { title: string, description: strin
           style: "normal",
         },
       ],
-    }
+    },
   );
 
   const png = await sharp(Buffer.from(svg)).png().toBuffer();
@@ -157,8 +170,8 @@ export async function generateOgImage(props: { title: string, description: strin
 }
 
 async function loadImage(path: string) {
-  const file = await fs.readFile(path)
-  const base64 = file.toString('base64');
+  const file = await fs.readFile(path);
+  const base64 = file.toString("base64");
   return `data:image/png;base64,${base64}`;
 }
 
@@ -167,9 +180,9 @@ function formatDate(date: Date) {
     month: "short",
     day: "numeric",
     year: "numeric",
-  }).format(new Date(date))
+  }).format(new Date(date));
 }
 
 async function loadFont(fontPath: string) {
-  return fs.readFile(`./public/fonts/Inconsolata/static/${fontPath}`);
+  return fs.readFile(`./public/fonts/${fontPath}`);
 }
