@@ -196,6 +196,10 @@ async function setSessionState(req: Request, ctx: FreshContext) {
 }
 ```
 
+> Edit!
+> Fixed an issue where duplicate Supabase headers weren't handled properly.
+> Thanks, [@nikololay](https://github.com/npbee/fresh-supabase-auth/issues/1)
+
 ## Guard Protected Routes
 
 Now that we have an accurate session state, we can start guarding any routes we want to be logged in. We can set up another middleware for a `/dashboard` route:
