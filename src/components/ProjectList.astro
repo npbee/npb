@@ -10,5 +10,9 @@ const { projects } = Astro.props as Props;
 ---
 
 <div class="grid items-start gap-12 md:grid-cols-3">
-  {projects.map((project) => <ProjectPreview {project} />)}
+  {
+    projects
+      .filter((project) => !project.data.draft)
+      .map((project) => <ProjectPreview {project} />)
+  }
 </div>
