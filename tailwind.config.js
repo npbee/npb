@@ -1,4 +1,4 @@
-import {
+const {
   gray,
   grayDark,
   pink,
@@ -9,8 +9,8 @@ import {
   orangeDark,
   green,
   greenDark,
-} from "@radix-ui/colors";
-import { fontFamily } from "tailwindcss/defaultTheme";
+} = require("@radix-ui/colors");
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
 function toTailwindColors(radixColors) {
   let obj = {};
