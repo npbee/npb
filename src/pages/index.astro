@@ -5,6 +5,7 @@ import Intro from "../components/Intro.astro";
 import PageHeading from "../components/PageHeading.astro";
 import PostList from "../components/PostList.astro";
 import ProjectList from "../components/ProjectList.astro";
+import ExternalWindowIcon from "../components/ExternalWindowIcon.astro";
 
 let allBlogPosts = await getCollection("blog");
 let projects = await getCollection("projects");
@@ -27,19 +28,41 @@ let projects = await getCollection("projects");
     <section class="space-y-2">
       <PageHeading href="/demos"><h2>Demos</h2></PageHeading>
 
-      <a
-        class="group flex flex-col text-base no-underline"
-        href={`/demos/audio-player`}
-      >
-        <span
-          class="text font-semibold group-hover:text-accent-10 dark:group-hover:text-accent-dark-10"
-        >
-          Audio Player
-        </span>
-        <span class="prose text-sm font-normal dark:prose-invert">
-          An audio player built with React and Tailwind CSS.
-        </span>
-      </a>
+      <ul class="grid items-start gap-12 md:grid-cols-3">
+        <li>
+          <a
+            class="group flex flex-col text-base no-underline"
+            href={`/demos/audio-player`}
+          >
+            <span
+              class="text font-semibold group-hover:text-accent-10 dark:group-hover:text-accent-dark-10"
+            >
+              Audio Player
+            </span>
+            <span class="prose text-sm font-normal dark:prose-invert">
+              An audio player built with React and Tailwind CSS.
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="group flex flex-col text-base no-underline"
+            href="https://undo-redo-playground.pages.dev/"
+            target="_blank"
+            rel="noreferrer nofollow"
+          >
+            <span
+              class="text flex gap-2 font-semibold group-hover:text-accent-10 dark:group-hover:text-accent-dark-10"
+            >
+              Undo / Redo playground
+              <span class="text flex w-3"><ExternalWindowIcon /></span></span
+            >
+            <span class="prose text-sm font-normal dark:prose-invert">
+              A Linear-like app for exploring undo/redo techniques.
+            </span>
+          </a>
+        </li>
+      </ul>
     </section>
 
     <section class="space-y-2">
