@@ -181,6 +181,20 @@ async function setSessionState(req: Request, ctx: FreshContext) {
   // Stash this on context for later...
   ctx.state.session = data.session;
 
+  /**
+   * Unlike `supabase.auth.getSession()`, which returns the session _without_
+   * validating the JWT, this function also calls `getUser()` to validate the
+   * JWT before setting the session.
+   */
+  const { error, data: { user } } = await supabase.auth.getUser();
+  if (error) {
+    // JWT validation has failed
+    ctx.state.session = null;
+    ctx.state.user = null;
+  }
+
+  ctx.state.user = user;
+
   // Continue down the middleware chain
   const nextResp = await ctx.next();
 
@@ -253,8 +267,7 @@ export default async function DashboardPage(
   _req: Request,
   ctx: FreshContext<SignedInState>,
 ) {
-  const { session } = ctx.state;
-  const { user } = session;
+  const { user } = ctx.state;
   return (
     <Container>
       <h1 class="text-xl">Dashboard</h1>
