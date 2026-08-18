@@ -6,9 +6,7 @@ import { Slider, SliderThumb, SliderTrack } from "react-aria-components";
 
 export function AudioPlayer() {
   const ref = useRef<HTMLAudioElement>(null);
-  const [state, setState] = useState<"idle" | "loading" | "playing" | "paused">(
-    "idle",
-  );
+  const [state, setState] = useState<"idle" | "loading" | "playing" | "paused">("idle");
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const lazyState = useLazyValue(state, 100);
@@ -52,11 +50,7 @@ export function AudioPlayer() {
               <AudioTime currentTime={currentTime} duration={duration} />
               <IconButton
                 aria-label={
-                  lazyState === "loading"
-                    ? "Loading"
-                    : state === "playing"
-                      ? "Pause"
-                      : "Play"
+                  lazyState === "loading" ? "Loading" : state === "playing" ? "Pause" : "Play"
                 }
                 onClick={togglePlay}
               >
@@ -116,9 +110,7 @@ export function AudioPlayer() {
 
 function Container({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col rounded-lg bg-gray-900 p-4 shadow-2xl md:p-6">
-      {children}
-    </div>
+    <div className="flex flex-col rounded-lg bg-gray-900 p-4 shadow-2xl md:p-6">{children}</div>
   );
 }
 
@@ -225,10 +217,7 @@ function Scrubber(props: {
           clipEnd="var(--played)"
         />
       </div>
-      <div
-        className="absolute left-0 top-0 h-full w-full"
-        style={{ opacity: hint === 0 ? 0 : 1 }}
-      >
+      <div className="absolute left-0 top-0 h-full w-full" style={{ opacity: hint === 0 ? 0 : 1 }}>
         <WaveformImg
           name="seek-hint"
           stroke="linear-gradient(EC7546, ED5645)"
