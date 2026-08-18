@@ -1,10 +1,11 @@
 ---
+import { render } from "astro:content";
 import ExternalWindowIcon from "../components/ExternalWindowIcon.astro";
 
 let { project } = Astro.props;
 let { title, link } = project.data;
 
-let { Content } = await project.render();
+let { Content } = await render(project);
 ---
 
 <article class="max-w-prose space-y-1">

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/Base.astro";
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 
 const { slug } = Astro.params;
 if (!slug) {
@@ -13,7 +13,7 @@ if (entry === undefined) {
   return Astro.redirect("/404");
 }
 
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 let formattedDate = new Intl.DateTimeFormat("en-US", {
   month: "long",

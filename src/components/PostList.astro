@@ -1,5 +1,5 @@
 ---
-import { Post } from "../content/config";
+import type { Post } from "../content.config";
 
 interface Props {
   posts: Post[];
@@ -18,7 +18,7 @@ let sortedPosts = posts.sort(
       <li>
         <a
           class="group flex flex-col no-underline"
-          href={`/posts/${post.slug}`}
+          href={`/posts/${post.id}`}
         >
           <span class="text-light text-xs">
             {new Intl.DateTimeFormat("en-US", {
