@@ -17,12 +17,12 @@ This document describes how things look and read. It is independent of how the s
 
 Two faces, both open source and self-hosted:
 
-- **Space Mono**, 400 and 700. The voice of the site.
+- **JetBrains Mono**, 400, 500 and 700. The voice of the site.
 - **Inter**, 400, 400 italic and 600. Reading text only.
 
 | Mono                                   | Sans                              |
 | -------------------------------------- | --------------------------------- |
-| Name, page titles, post titles         | Post body                         |
+| Wordmark, page titles, post titles     | Post body                         |
 | Navigation, section headers, labels    | Intro and about paragraphs        |
 | Dates, counts, metadata, stack lines   | Project and demo descriptions     |
 | Index lists, numbered lists, spec rows | Captions longer than a line       |
@@ -30,7 +30,7 @@ Two faces, both open source and self-hosted:
 
 The test: if a piece of text runs past two lines at column width, set it in sans. Titles are the exception. A title stays mono even when it wraps.
 
-Space Mono has only two weights. Bold is for names, titles and headers. Everything else is regular. Emphasis inside sans text uses Inter italic or 600, never a switch of face.
+Mono uses three weights, each with one job: 700 for titles and headers, 500 for the wordmark alone, 400 for everything else. Emphasis inside sans text uses Inter italic or 600, never a switch of face.
 
 ### Scale
 
@@ -45,9 +45,9 @@ Sizes assume a 16px root.
 | `--text-body`    | 1.0625rem (17px)        | 1.65        | Sans 400          | Post body, intro paragraphs                  |
 | `--text-h2`      | 1.125rem (18px)         | 1.3         | Mono 700          | Headings inside a post                       |
 | `--text-title`   | 1.75rem (28px)          | 1.2         | Mono 700          | Post titles                                  |
-| `--text-display` | 2rem to 2.5rem, fluid   | 1.15        | Mono 700          | Page titles, the name on the home page       |
+| `--text-display` | 2rem to 2.5rem, fluid   | 1.15        | Mono 700          | Page titles                                  |
 
-Display type is tracked at -0.02em. Labels are tracked at 0.16em. Nothing else is tracked.
+Display type is tracked at -0.02em. Labels are tracked at 0.16em. The wordmark has its own tracking, given below. Nothing else is tracked.
 
 ### Case and figures
 
@@ -67,7 +67,7 @@ Display type is tracked at -0.02em. Labels are tracked at 0.16em. Nothing else i
 | `--ink`        | `#1A1715` | `#F2ECE0` | Text, strong rules                                          |
 | `--muted`      | `#6A655E` | `#A39C91` | Labels, dates, secondary text                               |
 | `--rule`       | `#D5CEBF` | `#3A3531` | Hairlines between items                                     |
-| `--accent`     | `#F0352B` | `#FF4A3F` | Bars, markers, the underscore, the drawing                  |
+| `--accent`     | `#F0352B` | `#FF4A3F` | Bars, markers, the drawing                                  |
 | `--accent-ink` | `#C8281F` | `#FF4A3F` | Accent-colored text: links, counts, heading marks           |
 
 Dark is the same system inverted. No component changes shape between themes.
@@ -94,11 +94,11 @@ Sketches are schematic. Each is shown at mono character widths.
 
 ```
 ──────────────────────────────▀▀▀▀▀───────
-n.b.         about  projects  posts  demos
+nick ball    about  projects  posts  demos
 ──────────────────────────────────────────
 ```
 
-- The mark `n.b.` in bold mono on the left, linking home. Nav links in regular mono on the right, in muted.
+- The wordmark on the left, linking home. Nav links in regular mono on the right, in muted.
 - A hairline above and below.
 - The current page is ink instead of muted, and a bar (`--bar`, 3px, accent) sits on the top rule directly above it, as wide as the word.
 - Hover and focus turn a link ink.
@@ -243,17 +243,47 @@ For short items outside a post. Mono throughout, with muted numerals. A label ab
 - One 8px accent square sits in the top-right cell.
 - The theme switch, if there is one, is a cell like any other: label `THEME`, value `light` or `dark`.
 
-## The mark and the drawing
+## The wordmark and the drawing
 
-**The mark** is `n.b.` in bold lowercase mono. It is text, not an image.
+### The wordmark
 
-**The underscore.** On the home page the name is followed by an accent underscore, as if the line were still being typed: `nick ball_`. It is the system's signature and appears nowhere else.
+The mark is the name, set as live text:
 
-**The drawing** is a disc resting on a line: an accent disc, 5.75rem across, tangent to an ink hairline 12.5rem wide. It sits above the name on the home page, centered, with `--space-8` between the line and the name. It is the only drawing in the system. If another is ever commissioned, it replaces this one.
+- `nick ball`, always lowercase.
+- JetBrains Mono at weight 500 (`--mark-weight`). Nothing else uses this weight.
+- Tracked at 0.07em (`--mark-tracking`).
+- The two words sit 0.84em apart (`--mark-gap`), wider than a typed space.
+- Ink on paper. It carries no accent, symbol or punctuation.
+
+It appears in the site header at `--text-mono` and on the home page at `--text-display`. Because it is text, it scales with the type around it and needs no image file.
+
+```html
+<a class="wordmark" href="/"><span>nick</span> <span>ball</span></a>
+```
+
+```css
+.wordmark {
+  display: inline-flex;
+  gap: var(--mark-gap);
+  font-family: var(--font-mono);
+  font-weight: var(--mark-weight);
+  letter-spacing: var(--mark-tracking);
+  line-height: 1.1;
+  white-space: nowrap;
+  color: var(--ink);
+  text-decoration: none;
+}
+```
+
+**The short form.** Where the full name cannot fit, such as the browser tab icon, the mark shortens to a lowercase `n` in the same face and weight: paper on an ink square, set at about 60% of the square's height.
+
+### The drawing
+
+The drawing is a disc resting on a line: an accent disc, 5.75rem across, tangent to an ink hairline 12.5rem wide. It sits above the wordmark on the home page, centered, with `--space-8` between the line and the wordmark. It is the only drawing in the system. If another is ever commissioned, it replaces this one.
 
 ## Page recipes
 
-- **Home.** Header. Hero, centered: the drawing, the name at display size with the underscore, a muted mono line (`software developer · portland, or`). Then, left-aligned: an intro paragraph in sans, projects and demos as items, the newest posts as an index list, footer.
+- **Home.** Header. Hero, centered: the drawing, the wordmark at display size, a muted mono line (`software developer · portland, or`). Then, left-aligned: an intro paragraph in sans, projects and demos as items, the newest posts as an index list, footer.
 - **Posts.** Header, page title with count, the full index list, footer.
 - **Post.** Header, post header, post body, footer.
 - **About.** Header, page title, paragraphs in sans, spec rows for current and past roles, a numbered list of things built, footer.
@@ -261,14 +291,14 @@ For short items outside a post. Mono throughout, with muted numerals. A label ab
 
 ## Motion
 
-The system is still. The one permitted movement is the home underscore, which may blink once a second in steps, with no easing. It does not blink when the reader has asked for reduced motion.
+The system is still. Nothing moves on its own, and hover and focus changes are instant.
 
 ## Accessibility
 
 - All text meets 4.5:1 against its ground in both themes.
 - The current page is marked with `aria-current` as well as the bar. The bar and color are never the only signal.
 - Focus is a 2px `--accent` outline, offset 2px, on every interactive element.
-- Decorative marks (`##`, the marker square, the drawing, the underscore) are hidden from assistive technology.
+- Decorative marks (`##`, the marker square, the drawing) are hidden from assistive technology.
 - Index rows are single links with the full title as their name.
 - Body text never drops below `--text-body-s`. Labels never drop below `--text-label`.
 
@@ -276,7 +306,8 @@ The system is still. The one permitted movement is the home underscore, which ma
 
 Explored and left out on purpose. Adding any of these is a change to the system, not a use of it.
 
-- A serif face.
+- A serif face, or a second monospace face.
+- An accent, symbol or punctuation attached to the wordmark.
 - Illustrated objects: cassettes, cards, tickets, hardware panels, stamps, seals.
 - A second accent color, tints of the accent, gradients, grain or light leaks.
 - Cards, shadows, rounded corners, pills.
@@ -285,7 +316,7 @@ Explored and left out on purpose. Adding any of these is a change to the system,
 
 ## Where it came from
 
-The system was chosen from a lab of numbered studies. For reference, the studies each part descends from:
+The system was chosen from a lab of numbered studies, and the wordmark was tuned afterwards in a separate mark tool. For reference, the studies each part descends from:
 
 | Part                            | Studies      |
 | ------------------------------- | ------------ |
@@ -297,5 +328,5 @@ The system was chosen from a lab of numbered studies. For reference, the studies
 | Code block                      | 131          |
 | Items, spec rows, numbered list | 49, 140, 141 |
 | Footer title block              | 50, 128      |
-| The underscore                  | 104, 133     |
+| The wordmark                    | mark tool    |
 | The drawing                     | 05, 12, 135  |

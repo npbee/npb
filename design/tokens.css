@@ -10,7 +10,7 @@
   /* --accent is 3.6:1 on paper; text needs 4.5:1 */
   --accent-ink: #c8281f;
 
-  --font-mono: "Space Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas,
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas,
     monospace;
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
@@ -34,6 +34,10 @@
 
   --tracking-display: -0.02em;
   --tracking-label: 0.16em;
+
+  --mark-weight: 500;
+  --mark-tracking: 0.07em;
+  --mark-gap: 0.84em;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
