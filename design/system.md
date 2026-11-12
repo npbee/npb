@@ -67,7 +67,7 @@ Display type is tracked at -0.02em. Labels are tracked at 0.16em. The wordmark h
 | ----------- | --------- | --------- | ----------------------------------------- |
 | `--paper`   | `#F3F3F0` | `#121211` | Page ground                               |
 | `--paper-2` | `#E8E8E2` | `#1D1D1B` | Recessed ground: code blocks, inline code |
-| `--ink`     | `#121212` | `#ECECE8` | Text, strong rules, crop marks            |
+| `--ink`     | `#121212` | `#ECECE8` | Text, strong rules                        |
 | `--muted`   | `#63635C` | `#9B9B94` | Labels, dates, leaders, secondary text    |
 | `--rule`    | `#CDCDC6` | `#34342F` | Hairlines in dividers, unlit lights       |
 
@@ -136,7 +136,7 @@ The screen is dark in both themes. Only its ground changes, from `#080808` to `#
 ## Space and layout
 
 - **Edges and axis.** The running head, page title, index lists and footer share the sheet's left and right edges. Dividers, the post header and spec pairs are built on the center line. Prose is left-aligned inside a centered column.
-- **Widths.** Inner pages sit in a `--sheet` (55rem) with crop marks at its corners. Inside it, the running head, index lists and footer use the full width, so they share a left and a right edge. Spec pairs and the post label use `--column` (40rem). Prose, numbered lists and items are capped at `--measure` (36rem), about 68 characters. The panel and the home page below it use `--panel` (65rem).
+- **Widths.** Inner pages sit in a `--sheet` (55rem). Inside it, the running head, index lists and footer use the full width, so they share a left and a right edge. Spec pairs and the post label use `--column` (40rem). Prose, numbered lists and items are capped at `--measure` (36rem), about 68 characters. The panel and the home page below it use `--panel` (65rem).
 - **Gutter.** At narrow widths everything keeps `--gutter` (1.5rem) on each side.
 - **Spacing** steps on a 4px base: 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4 and 6rem (`--space-1` to `--space-24`). The running head, the page's content and the footer are separated by `--space-12`, with `--space-4` more above the footer so it reads as end matter. Inside the content, blocks are separated by `--space-8`. A divider and its content are separated by `--space-2`.
 - **Rules.** Hairlines are 1px. The rules under the running head and over the running foot, and the rules around a spec pair, are ink. Divider rules are `--rule`.
@@ -150,16 +150,18 @@ Sketches are schematic. Each is shown at mono character widths.
 ### The sheet
 
 ```
-┌                                          ┐
+nick ball              · about  · projects  ● posts  · demos
+────────────────────────────────────────────────────────────
 
-         (running head, content, footer)
+                         (content)
 
-└                                          ┘
+────────────────────────────────────────────────────────────
+github · twitter · linkedin · rss                light / dark
 ```
 
 - Inner pages sit on a sheet `--sheet` wide, centered.
-- Each corner carries a crop mark: an L of two 1px ink lines, `--crop` (14px) long.
-- The sheet has no ground or border of its own. The marks are its only edge.
+- The sheet has no ground, border or marks of its own. The running head's rule and the running foot's rule are its only frame.
+- Decided from a prototype of seven frames (2026-11-11). Rejected for now: corner crop marks (four marks apart from everything else, and redundant once the head and foot have rules), a typographic folio (more text for little information), and five drafting marks on the rules. Those were dimension ticks, registration crosses, rules that overshoot into the margin, ringed targets, and a labeled dimension. The rule marks remain the way to bring the drafting idea back; see Open.
 
 ### Running head
 
@@ -433,7 +435,7 @@ Both are removed under `prefers-reduced-motion`.
 - All text meets 4.5:1 against its ground in both themes. Section fills never set text.
 - The current page is marked with `aria-current` as well as its light and ink color. The light and color are never the only signal.
 - Focus is a 2px `--ink` outline, offset 2px, on every interactive element, including the panel's knobs and keys. It is never the accent: a colored ring clashes with the lights and section colors around it.
-- Decorative marks are hidden from assistive technology: `##`, crop marks, lights, grilles, the ruler, knob notches and key characters.
+- Decorative marks are hidden from assistive technology: `##`, lights, grilles, the ruler, knob notches and key characters.
 - Index rows, items, knobs and keys are each a single link named by their visible text.
 - Body text never drops below `--text-body-s`. Labels never drop below `--text-label`.
 
@@ -459,6 +461,7 @@ Not yet decided. Each should be settled, and written into this document, when th
 - The demos page's items, and whether demos needs its own index layout.
 - The panel's screen on very narrow phones, below about 22rem.
 - The 404 page and the generated social image.
+- Whether the head and foot rules take a drafting mark after all. The two closest candidates were dimension ticks at the rules' ends and ringed registration targets in the margin at both ends of both rules.
 
 ## Where it came from
 
