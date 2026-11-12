@@ -1,0 +1,26 @@
+---
+import "../styles/system.css";
+import Head from "../components/Head.astro";
+
+export interface Props {
+  title: string;
+  description: string;
+  ogImageUrl?: string;
+  // Picks the page's accent; home and anything outside a section use posts
+  section?: "about" | "projects" | "posts" | "demos";
+}
+
+const { title, description, ogImageUrl, section } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-section={section}>
+  <head>
+    <Head {title} {description} {ogImageUrl}>
+      <slot name="head" />
+    </Head>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
