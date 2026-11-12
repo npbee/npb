@@ -11,12 +11,12 @@ export async function GET(context) {
     title: 'Nick Ball',
     description: 'Web development',
     site: context.site,
-    items: blog.map(post => ({
+    items: blog.toSorted((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).map(post => ({
       title: post.data.title,
       pubDate: post.data.date,
       description: post.data.description,
       link: `/posts/${post.id}`,
-      content: sanitizeHtml(parser.render(post.body)),
+      content: sanitizeHtml(parser.render(post.body ?? "")),
     })),
     customData: [
       `<language>en-us</language>`,
