@@ -1,22 +1,57 @@
 /* Design tokens. Usage rules are in system.md. */
 
 :root {
-  --paper: #f7f2e8;
-  --paper-2: #eee7d5;
-  --ink: #1a1715;
-  --muted: #6a655e;
-  --rule: #d5cebf;
-  --accent: #f0352b;
-  /* --accent is 3.6:1 on paper; text needs 4.5:1 */
-  --accent-ink: #c8281f;
+  /* Page */
+  --paper: #f3f3f0;
+  --paper-2: #e8e8e2;
+  --ink: #121212;
+  --muted: #63635c;
+  --rule: #cdcdc6;
 
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas,
-    monospace;
+  /* Sections. The plain value is a fill (knob, light, marker); -ink is the
+     text-safe variant, since the fills fall under 4.5:1 on paper. */
+  --about: #2b6be0;
+  --about-ink: #1f5bc4;
+  --projects: #14995a;
+  --projects-ink: #0d7a45;
+  --posts: #f0352b;
+  --posts-ink: #c8281f;
+  /* A white knob: a fill only, never an accent */
+  --demos: #f3f2ee;
+
+  /* The page's one accent. Posts by default; [data-section] reassigns it. */
+  --accent: var(--posts);
+  --accent-ink: var(--posts-ink);
+
+  /* The panel, home page only */
+  --panel-frame: #3b3b3a;
+  --panel-module: #dcd9d4;
+  --panel-module-hi: #ebe9e5;
+  --panel-module-lo: #c3bfb8;
+  --panel-dish: #e5e2de;
+  --panel-ink: #1f1f1e;
+  --panel-muted: #5a5650;
+  --panel-hole: #2b2b2a;
+  --panel-shade: rgb(40 36 30 / 0.2);
+  --notch-light: #f7f6f2;
+  --notch-dark: #1c1c1b;
+
+  /* The panel's screen. Only --display changes between themes. */
+  --display: #080808;
+  --display-ink: #f1f0ec;
+  --display-muted: #8f8e89;
+  --display-dim: #3e3e3c;
+  --display-blue: #4d8dff;
+  --display-green: #35cf80;
+  --display-red: #ff4a3f;
+
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo,
+    Consolas, monospace;
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --text-label: 0.75rem;
+  --text-label: 0.6875rem;
   --text-meta: 0.8125rem;
-  --text-mono: 0.9375rem;
+  --text-mono: 0.875rem;
   --text-body-s: 0.9375rem;
   --text-body: 1.0625rem;
   --text-h2: 1.125rem;
@@ -49,37 +84,89 @@
   --space-16: 4rem;
   --space-24: 6rem;
 
+  --sheet: 55rem;
   --column: 40rem;
   --measure: 36rem;
+  --panel: 65rem;
   --gutter: 1.5rem;
 
   --hair: 1px;
   --bar: 3px;
   --marker: 0.375rem;
+  --light: 0.375rem;
+  --crop: 0.875rem;
   --focus: 2px;
+
+  --radius-housing: 1.5rem;
+  --radius-module: 0.75rem;
+  --radius-display: 0.375rem;
+}
+
+/* Demos' knob is white, so its pages take ink as their accent */
+[data-section="about"] {
+  --accent: var(--about);
+  --accent-ink: var(--about-ink);
+}
+[data-section="projects"] {
+  --accent: var(--projects);
+  --accent-ink: var(--projects-ink);
+}
+[data-section="demos"] {
+  --accent: var(--ink);
+  --accent-ink: var(--ink);
 }
 
 /* An explicit light choice beats a dark OS setting */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #1a1715;
-    --paper-2: #24201d;
-    --ink: #f2ece0;
-    --muted: #a39c91;
-    --rule: #3a3531;
-    --accent: #ff4a3f;
-    --accent-ink: #ff4a3f;
+    --paper: #121211;
+    --paper-2: #1d1d1b;
+    --ink: #ecece8;
+    --muted: #9b9b94;
+    --rule: #34342f;
+    --about: #3b7bf0;
+    --about-ink: #6d9cff;
+    --projects: #1fae68;
+    --projects-ink: #3fcf86;
+    --posts: #ff4a3f;
+    --posts-ink: #ff6b61;
+    --demos: #ecebe6;
+    --panel-frame: #050505;
+    --panel-module: #282827;
+    --panel-module-hi: #333332;
+    --panel-module-lo: #1a1a19;
+    --panel-dish: #2f2f2e;
+    --panel-ink: #ebe9e5;
+    --panel-muted: #9c978f;
+    --panel-hole: #090909;
+    --panel-shade: rgb(0 0 0 / 0.5);
+    --display: #000000;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --paper: #1a1715;
-  --paper-2: #24201d;
-  --ink: #f2ece0;
-  --muted: #a39c91;
-  --rule: #3a3531;
-  --accent: #ff4a3f;
-  --accent-ink: #ff4a3f;
+  --paper: #121211;
+  --paper-2: #1d1d1b;
+  --ink: #ecece8;
+  --muted: #9b9b94;
+  --rule: #34342f;
+  --about: #3b7bf0;
+  --about-ink: #6d9cff;
+  --projects: #1fae68;
+  --projects-ink: #3fcf86;
+  --posts: #ff4a3f;
+  --posts-ink: #ff6b61;
+  --demos: #ecebe6;
+  --panel-frame: #050505;
+  --panel-module: #282827;
+  --panel-module-hi: #333332;
+  --panel-module-lo: #1a1a19;
+  --panel-dish: #2f2f2e;
+  --panel-ink: #ebe9e5;
+  --panel-muted: #9c978f;
+  --panel-hole: #090909;
+  --panel-shade: rgb(0 0 0 / 0.5);
+  --display: #000000;
   color-scheme: dark;
 }
