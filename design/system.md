@@ -1,6 +1,6 @@
 # Design system
 
-A mono-led system for a text-heavy personal site, with one piece of hardware. The home page is an instrument panel. Every other page is a sheet from a manual: paper, ink, hairlines and one accent, which takes its color from the section.
+A mono-led system for a text-heavy personal site, with one piece of hardware. The home page is an instrument panel. Every other page is a single reading column with the manual's hairlines and one accent, which takes its color from the section. Every color comes from the instrument: in light the pages sit on its aluminum housing, and in dark they become its screen.
 
 This document describes how things look and read. It is independent of how the site is built. The values it names live in [tokens.css](tokens.css) as plain CSS custom properties.
 
@@ -12,7 +12,7 @@ This document describes how things look and read. It is independent of how the s
 4. **Mono for short, sans for long.** Anything a reader scans is monospace. Anything a reader settles into is sans.
 5. **One accent per page, chosen by section.** Each section owns a knob color, and that color is the accent on its pages. The accent appears as link text plus at most two marks.
 6. **Rules, not containers.** Hairlines separate things. Only the panel and code blocks are enclosed.
-7. **Show the count.** Lists say how many items they hold, and sequences are numbered.
+7. **Every mark earns its place.** Counts, labels and numbers appear only where a reader uses them. Page titles carry no counts and posts carry no sequence numbers; a numbered list stays numbered because its order matters.
 
 ## Type
 
@@ -37,16 +37,15 @@ Mono uses three weights, each with one job: 700 for titles and headers, 500 for 
 
 Sizes assume a 16px root.
 
-| Token            | Size                  | Line height | Face and weight | Used for                                      |
-| ---------------- | --------------------- | ----------- | --------------- | --------------------------------------------- |
-| `--text-label`   | 0.6875rem (11px)      | 1.4         | Mono 400        | Uppercase tracked labels, dividers, in muted  |
-| `--text-meta`    | 0.8125rem (13px)      | 1.5         | Mono 400        | Running head, dates, stack lines, page meta   |
-| `--text-mono`    | 0.875rem (14px)       | 1.6         | Mono 400 or 700 | Index rows, numbered lists, spec pairs, items |
-| `--text-body-s`  | 0.9375rem (15px)      | 1.55        | Sans 400        | Descriptions                                  |
-| `--text-body`    | 1.0625rem (17px)      | 1.65        | Sans 400        | Post body, about paragraphs                   |
-| `--text-h2`      | 1.125rem (18px)       | 1.3         | Mono 700        | Headings inside a post                        |
-| `--text-title`   | 1.75rem (28px)        | 1.2         | Mono 700        | Post titles                                   |
-| `--text-display` | 2rem to 2.5rem, fluid | 1.15        | Mono 700        | Page titles, the wordmark on the panel screen |
+| Token            | Size                                | Line height | Face and weight | Used for                                               |
+| ---------------- | ----------------------------------- | ----------- | --------------- | ------------------------------------------------------ |
+| `--text-label`   | 0.6875rem (11px)                    | 1.4         | Mono 400        | Uppercase tracked labels, dividers, in muted           |
+| `--text-meta`    | 0.8125rem (13px)                    | 1.5         | Mono 400        | Running head, dates, stack lines, page meta            |
+| `--text-mono`    | 0.875rem (14px)                     | 1.6         | Mono 400 or 700 | Index rows, numbered lists, spec pairs, items          |
+| `--text-body-s`  | 0.9375rem (15px)                    | 1.55        | Sans 400        | Descriptions                                           |
+| `--text-body`    | 1.125rem (18px)                     | 1.65        | Sans 400        | Post body, about paragraphs                            |
+| `--text-h2`      | 1.25rem (20px)                      | 1.3         | Mono 700        | Headings inside a post                                 |
+| `--text-display` | 1.375rem to 1.5rem, fluid (22–24px) | 1.15        | Mono 700        | Page and post titles, the wordmark on the panel screen |
 
 Display type is tracked at -0.02em. Labels are tracked at 0.16em. The wordmark has its own tracking, given below. Nothing else is tracked.
 
@@ -65,13 +64,15 @@ Display type is tracked at -0.02em. Labels are tracked at 0.16em. The wordmark h
 
 | Token       | Light     | Dark      | Used for                                  |
 | ----------- | --------- | --------- | ----------------------------------------- |
-| `--paper`   | `#F3F3F0` | `#121211` | Page ground                               |
-| `--paper-2` | `#E8E8E2` | `#1D1D1B` | Recessed ground: code blocks, inline code |
-| `--ink`     | `#121212` | `#ECECE8` | Text, strong rules                        |
-| `--muted`   | `#63635C` | `#9B9B94` | Labels, dates, leaders, secondary text    |
-| `--rule`    | `#CDCDC6` | `#34342F` | Hairlines in dividers, unlit lights       |
+| `--paper`   | `#E2E0DC` | `#000000` | Page ground                               |
+| `--paper-2` | `#D6D3CE` | `#141414` | Recessed ground: code blocks, inline code |
+| `--ink`     | `#1E1E1D` | `#F1F0EC` | Text, strong rules                        |
+| `--muted`   | `#56524C` | `#8F8E89` | Labels, dates, leaders, secondary text    |
+| `--rule`    | `#C4C0BA` | `#2A2A28` | Hairlines in dividers, unlit lights       |
 
-Dark is the same system inverted. No component changes shape between themes.
+Light is the instrument's aluminum housing: a warm grey ground, charcoal ink, and code on the slightly darker grey of a module. Dark is its screen: true black, the display's off-white ink and muted grey, and the display's own blue, green and red for the sections. In tokens.css the dark values point at the `--display-*` tokens, so the page and the panel's screen can't drift apart. `--paper` keeps its name for the page ground in both themes. No component changes shape between themes.
+
+Decided from a prototype (2026-11-12). Rejected: the original off-white paper with a dark-paper inverse, a common editorial palette that came from nothing in the reference and gave dark mode no idea of its own; and a white-and-black "instrument" palette, which was clean but tied to the OP-1 only through the knob colors.
 
 ### Sections
 
@@ -79,10 +80,23 @@ Each section owns a color. The plain token is a fill: a knob, a light, a rule. T
 
 | Section  | Fill (light / dark)                | Text (light / dark)                    |
 | -------- | ---------------------------------- | -------------------------------------- |
-| about    | `--about` `#2B6BE0` / `#3B7BF0`    | `--about-ink` `#1F5BC4` / `#6D9CFF`    |
-| projects | `--projects` `#14995A` / `#1FAE68` | `--projects-ink` `#0D7A45` / `#3FCF86` |
-| posts    | `--posts` `#F0352B` / `#FF4A3F`    | `--posts-ink` `#C8281F` / `#FF6B61`    |
-| demos    | `--demos` `#F3F2EE` / `#ECEBE6`    | none, its pages use ink                |
+| about    | `--about` `#2B6BE0` / `#4D8DFF`    | `--about-ink` `#1C55B8` / `#4D8DFF`    |
+| projects | `--projects` `#14995A` / `#35CF80` | `--projects-ink` `#0A6B3C` / `#35CF80` |
+| posts    | `--posts` `#F0352B` / `#FF4A3F`    | `--posts-ink` `#B3241C` / `#FF4A3F`    |
+| demos    | `--demos` `#F3F2EE` / `#F1F0EC`    | none, its pages use ink                |
+
+In dark, fill and text are the same display color: on black, every one is readable as text.
+
+### Ground texture
+
+The page ground carries a faint pixel noise, like the specks in a powder-coated housing or a dim screen.
+
+- One-pixel specks, each fully on or off, about half of them on, in a 200px tile.
+- Painted in `--ink` at `--noise` (5%) opacity, so they darken the housing in light and lighten the screen in dark.
+- Behind everything: it never sits on text, code blocks or the panel, and it never takes clicks.
+- Drawn in CSS from an inline SVG filter, so there's no image to download.
+
+Decided from a prototype (2026-11-12). Rejected: a soft film grain, which disappeared at any useful strength, and a cloudy paper fiber, which brought back the paper the palette had just dropped.
 
 ### The page accent
 
@@ -131,12 +145,13 @@ The screen is dark in both themes. Only its ground changes, from `#080808` to `#
 | `--display-green` | `#35CF80` | The base label                         |
 | `--display-red`   | `#FF4A3F` | The now label, the ruler's center tick |
 
-**Contrast.** Ink on paper is about 17:1 in light and 16:1 in dark. Muted is 5.4:1 on paper and 4.9:1 on `--paper-2` in light, and higher in dark. Every `-ink` section color is at least 4.8:1 on paper in both themes. The fills are not: `--posts` is 3.6:1, `--about` 4.4:1 and `--projects` 3.3:1 on light paper, so they never set text. On the panel, labels are at least 4.6:1 on modules and dishes. On the screen, every readout color is at least 6:1.
+**Contrast.** Ink on the ground is about 12.7:1 in light and 18:1 in dark. Muted is 5.9:1 on the ground and 5.2:1 on `--paper-2` in light, and at least 5.6:1 in dark. Every `-ink` section color is at least 5:1 on the ground in both themes. The light fills are not: `--posts` is 3:1, `--about` 3.7:1 and `--projects` 2.8:1 on the housing, so they never set text, and a lit light is never the only sign of the current page. On the panel, labels are at least 4.6:1 on modules and dishes. On the screen, every readout color is at least 6:1.
 
 ## Space and layout
 
 - **Edges.** Everything on an inner page shares the sheet's left and right edges: the running head, page and post titles, index lists, prose, code and the running foot. Only dividers and spec pairs use the center line.
-- **Widths.** Inner pages are one column, `--measure` (36rem) wide, about 68 characters of body text. The sheet is that column plus its padding, so the nav ends where the text ends. The panel and the home page below it use `--panel` (65rem).
+- **Widths.** Inner pages are one column, `--measure` (40rem) wide, about 68 characters of 18px body text and about 71 of code. The sheet is that column plus its padding, so the nav ends where the text ends. The panel and the home page below it use `--panel` (65rem).
+- Decided from a prototype on a real post (2026-11-12). At 36rem and 17px, half of that post's code blocks scrolled sideways; at 40rem and 18px, under a third do. Rejected: letting code break out past the right edge, which fit more code but broke the shared edge.
 - **Gutter.** At narrow widths everything keeps `--gutter` (1.5rem) on each side.
 - **Spacing** steps on a 4px base: 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4 and 6rem (`--space-1` to `--space-24`). The running head, the page's content and the footer are separated by `--space-12`, with `--space-4` more above the footer so it reads as end matter. Inside the content, blocks are separated by `--space-8`. A divider and its content are separated by `--space-2`.
 - **Rules.** Hairlines are 1px. The rules under the running head and over the running foot, and the rules around a spec pair, are ink. Divider rules are `--rule`.
@@ -221,21 +236,19 @@ posts
 ### Post header
 
 ```
-POST 11 / 15 · 2023.10.23
-
-Command-based
-undo for JS apps
-A brain dump of research into non-trivial
-undo implementations
+Command-based undo
+for JS apps
+A brain dump of research into non-trivial undo implementations
+2023.10.23
 ▬▬▬
 ```
 
-Left-aligned on the sheet's edge, like everything else on the page.
+Left-aligned on the sheet's edge, like everything else on the page. A post opens exactly like the posts index: the title is the first thing under the running head, at the same height, size and tracking as a page title.
 
-- A label row: the position in the sequence, a middle dot, the date. `--text-label`, uppercase, tracked, muted.
-- The title at `--text-title`, bold mono, balanced, at most 26 characters wide.
-- The description in regular mono at `--text-mono`, muted, at most 44 characters wide.
-- A short accent rule, 3rem wide and `--bar` thick, closes the header. The body starts `--space-8` below it.
+- The title is set like a page title: `--text-display`, bold mono, `--tracking-display`, across the full column. If it must wrap, its lines are balanced, and a hyphenated word never breaks at its hyphen.
+- The description follows `--space-3` below, in regular mono at `--text-mono`, muted.
+- The date sits just under the description, `--space-1` below, in `--text-meta`, muted, tabular. Description and date read as one group. No position in the sequence: it told the reader nothing they'd act on.
+- A short accent rule, 3rem wide and `--bar` thick, closes the header `--space-6` below the date. The body starts `--space-8` below the rule.
 
 ### Post body
 
@@ -382,7 +395,7 @@ The mark is the name, set as live text:
 - JetBrains Mono at weight 500 (`--mark-weight`). Nothing else uses this weight.
 - Tracked at 0.07em (`--mark-tracking`).
 - The two words sit 0.84em apart (`--mark-gap`), wider than a typed space.
-- Ink on paper, or `--display-ink` on the panel screen. It carries no accent, symbol or punctuation.
+- Ink on the ground, or `--display-ink` on the panel screen. It carries no accent, symbol or punctuation.
 
 It appears in the running head at `--text-mono` and on the panel screen at `--text-display`. Because it is text, it scales with the type around it and needs no image file.
 
@@ -409,7 +422,7 @@ It appears in the running head at `--text-mono` and on the panel screen at `--te
 }
 ```
 
-**The short form.** Where the full name cannot fit, such as the browser tab icon, the mark shortens to a lowercase `n` in the same face and weight: paper on an ink square, set at about 60% of the square's height.
+**The short form.** Where the full name cannot fit, such as the browser tab icon, the mark shortens to a lowercase `n` in the same face and weight: the ground color on an ink square, set at about 60% of the square's height.
 
 ## Page recipes
 
@@ -449,7 +462,7 @@ Explored and left out on purpose. Adding any of these is a change to the system,
 - A serif face, or a second monospace face.
 - An accent, symbol or punctuation attached to the wordmark.
 - Hardware anywhere but the home panel. Illustrated objects such as cassettes, cards, tickets, stamps or seals.
-- More than one accent on an inner page, tints of an accent, gradients, grain or light leaks.
+- More than one accent on an inner page, tints of an accent, gradients or light leaks. Any texture beyond the ground's pixel noise.
 - Cards, shadows, rounded corners or pills outside the panel.
 - Uppercase headings or centered body text.
 - Icons. Arrows and marks are type characters or plain shapes.

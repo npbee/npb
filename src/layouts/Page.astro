@@ -16,7 +16,7 @@ const { title, description, ogImageUrl, section } = Astro.props;
 <!doctype html>
 <html lang="en" data-section={section}>
   <head>
-    <Head {title} {description} {ogImageUrl}>
+    <Head {title} {description} {ogImageUrl} preloadFonts>
       <slot name="head" />
     </Head>
   </head>

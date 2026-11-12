@@ -5,25 +5,26 @@ interface Props {
   title: string;
   description?: string;
   date: Date;
-  /** Position in the sequence, oldest first */
-  position: number;
-  total: number;
 }
 
-const { title, description, date, position, total } = Astro.props;
-const pad = (n: number) => String(n).padStart(2, "0");
+const { title, description, date } = Astro.props;
+
+// Keep hyphenated words whole; "Type-" at a line end reads as a typo
+const titleParts = title
+  .split(/(\s+)/)
+  .map((part) => ({ part, whole: part.includes("-") }));
 ---
 
 <header class="post-head">
-  <p class="label">
-    <span>
-      post {pad(position)} / {pad(total)}
-    </span>
-    <span aria-hidden="true">·</span>
+  <h1>
+    {titleParts.map(({ part, whole }) =>
+      whole ? <span class="whole">{part}</span> : part,
+    )}
+  </h1>
+  {description && <p class="description">{description}</p>}
+  <p class="date">
     <time datetime={isoDate(date)}>{fullDate(date)}</time>
   </p>
-  <h1>{title}</h1>
-  {description && <p class="description">{description}</p>}
   <span class="rule" aria-hidden="true"></span>
 </header>
 
@@ -34,35 +35,25 @@ const pad = (n: number) => String(n).padStart(2, "0");
     max-width: var(--measure);
     display: grid;
     justify-items: start;
-    gap: var(--space-4);
+    gap: var(--space-3);
   }
 
-  /* Flex, so markup whitespace can't unbalance the dot */
-  .label {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 0.75em;
-    font-family: var(--font-mono);
-    font-size: var(--text-label);
-    line-height: var(--leading-label);
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
+  /* Set exactly like a page title, and first under the running head, so a
+     post opens at the same height and size as the posts index */
   h1 {
-    max-width: 26ch;
-    margin-top: var(--space-2);
     font-family: var(--font-mono);
-    font-size: var(--text-title);
+    font-size: var(--text-display);
     font-weight: 700;
-    line-height: var(--leading-title);
-    letter-spacing: -0.01em;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
     text-wrap: balance;
   }
 
+  .whole {
+    white-space: nowrap;
+  }
+
   .description {
-    max-width: 44ch;
     font-family: var(--font-mono);
     font-size: var(--text-mono);
     line-height: var(--leading-mono);
@@ -70,10 +61,20 @@ const pad = (n: number) => String(n).padStart(2, "0");
     text-wrap: pretty;
   }
 
+  /* Metadata sits close under the description, as one group */
+  .date {
+    margin-top: calc(var(--space-1) - var(--space-3));
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    line-height: var(--leading-meta);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
   .rule {
     width: 3rem;
     height: var(--bar);
-    margin-top: var(--space-2);
+    margin-top: var(--space-3);
     background: var(--accent);
   }
 </style>

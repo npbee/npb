@@ -1,21 +1,22 @@
 /* Design tokens. Usage rules are in system.md. */
 
 :root {
-  /* Page */
-  --paper: #f3f3f0;
-  --paper-2: #e8e8e2;
-  --ink: #121212;
-  --muted: #63635c;
-  --rule: #cdcdc6;
+  /* Page. Light is the instrument's aluminum housing; dark is its screen.
+     --paper keeps its name for the page ground in both. */
+  --paper: #e2e0dc;
+  --paper-2: #d6d3ce;
+  --ink: #1e1e1d;
+  --muted: #56524c;
+  --rule: #c4c0ba;
 
   /* Sections. The plain value is a fill (knob, light, rule); -ink is the
-     text-safe variant, since the fills fall under 4.5:1 on paper. */
+     text-safe variant, since the fills fall under 4.5:1 on the housing. */
   --about: #2b6be0;
-  --about-ink: #1f5bc4;
+  --about-ink: #1c55b8;
   --projects: #14995a;
-  --projects-ink: #0d7a45;
+  --projects-ink: #0a6b3c;
   --posts: #f0352b;
-  --posts-ink: #c8281f;
+  --posts-ink: #b3241c;
   /* A white knob: a fill only, never an accent */
   --demos: #f3f2ee;
 
@@ -53,10 +54,9 @@
   --text-meta: 0.8125rem;
   --text-mono: 0.875rem;
   --text-body-s: 0.9375rem;
-  --text-body: 1.0625rem;
-  --text-h2: 1.125rem;
-  --text-title: 1.75rem;
-  --text-display: clamp(2rem, 8vw, 2.5rem);
+  --text-body: 1.125rem;
+  --text-h2: 1.25rem;
+  --text-display: clamp(1.375rem, 5vw, 1.5rem);
 
   --leading-display: 1.15;
   --leading-title: 1.2;
@@ -85,9 +85,12 @@
   --space-24: 6rem;
 
   /* The reading width, and the width of every inner page */
-  --measure: 36rem;
+  --measure: 40rem;
   --panel: 65rem;
   --gutter: 1.5rem;
+
+  /* Strength of the pixel noise in the page ground, as an opacity */
+  --noise: 0.05;
 
   --hair: 1px;
   --bar: 3px;
@@ -116,18 +119,19 @@
 /* An explicit light choice beats a dark OS setting */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #121211;
-    --paper-2: #1d1d1b;
-    --ink: #ecece8;
-    --muted: #9b9b94;
-    --rule: #34342f;
-    --about: #3b7bf0;
-    --about-ink: #6d9cff;
-    --projects: #1fae68;
-    --projects-ink: #3fcf86;
-    --posts: #ff4a3f;
-    --posts-ink: #ff6b61;
-    --demos: #ecebe6;
+    /* The page becomes the screen: its ink and its colors */
+    --paper: #000000;
+    --paper-2: #141414;
+    --ink: var(--display-ink);
+    --muted: var(--display-muted);
+    --rule: #2a2a28;
+    --about: var(--display-blue);
+    --about-ink: var(--display-blue);
+    --projects: var(--display-green);
+    --projects-ink: var(--display-green);
+    --posts: var(--display-red);
+    --posts-ink: var(--display-red);
+    --demos: var(--display-ink);
     --panel-frame: #050505;
     --panel-module: #282827;
     --panel-module-hi: #333332;
@@ -143,18 +147,18 @@
 }
 
 :root[data-theme="dark"] {
-  --paper: #121211;
-  --paper-2: #1d1d1b;
-  --ink: #ecece8;
-  --muted: #9b9b94;
-  --rule: #34342f;
-  --about: #3b7bf0;
-  --about-ink: #6d9cff;
-  --projects: #1fae68;
-  --projects-ink: #3fcf86;
-  --posts: #ff4a3f;
-  --posts-ink: #ff6b61;
-  --demos: #ecebe6;
+  --paper: #000000;
+  --paper-2: #141414;
+  --ink: var(--display-ink);
+  --muted: var(--display-muted);
+  --rule: #2a2a28;
+  --about: var(--display-blue);
+  --about-ink: var(--display-blue);
+  --projects: var(--display-green);
+  --projects-ink: var(--display-green);
+  --posts: var(--display-red);
+  --posts-ink: var(--display-red);
+  --demos: var(--display-ink);
   --panel-frame: #050505;
   --panel-module: #282827;
   --panel-module-hi: #333332;

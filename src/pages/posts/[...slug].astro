@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry, render } from "astro:content";
+import { getEntry, render } from "astro:content";
 import Page from "../../layouts/Page.astro";
 import Sheet from "../../components/system/Sheet.astro";
 import RunningHead from "../../components/system/RunningHead.astro";
@@ -20,11 +20,6 @@ if (entry === undefined) {
 
 const { Content } = await render(entry);
 
-const oldestFirst = (await getCollection("blog")).toSorted(
-  (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
-);
-const position = oldestFirst.findIndex((post) => post.id === entry.id) + 1;
-
 const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
 ---
 
@@ -41,8 +36,6 @@ const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
         title={entry.data.title}
         description={entry.data.description}
         date={entry.data.date}
-        position={position}
-        total={oldestFirst.length}
       />
       <Prose>
         <Content />

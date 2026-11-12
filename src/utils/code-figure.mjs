@@ -3,6 +3,8 @@
 // CSS counter in the post body, so it stays in post order.
 const LANGUAGE_NAMES = {
   plaintext: "text",
+  ts: "typescript",
+  js: "javascript",
   txt: "text",
   sh: "shell",
   bash: "shell",

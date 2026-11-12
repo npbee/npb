@@ -5,13 +5,30 @@ export interface Props {
   title: string;
   description: string;
   ogImageUrl?: string | URL;
+  /** Preload the faces a page sets above the fold, so text doesn't reflow
+      when they arrive. Only pages that use them should. */
+  preloadFonts?: boolean;
 }
 
 const {
   title,
   description,
   ogImageUrl = new URL("/og-image.png", Astro.url),
+  preloadFonts = false,
 } = Astro.props;
+
+// The wordmark is mono 500; the nav, titles and lists are mono 400 and 700;
+// body text is Inter 400
+const monoPreload = preloadFonts
+  ? [
+      { weight: 400, style: "normal" as const },
+      { weight: 500, style: "normal" as const },
+      { weight: 700, style: "normal" as const },
+    ]
+  : false;
+const sansPreload = preloadFonts
+  ? [{ weight: 400, style: "normal" as const }]
+  : false;
 const url = Astro.url;
 ---
 
@@ -62,9 +79,8 @@ const url = Astro.url;
   sizes="16x16"
 />
 
-<!-- @font-face only; files download when a page first uses the face -->
-<Font cssVariable="--font-jetbrains-mono" />
-<Font cssVariable="--font-inter" />
+<Font cssVariable="--font-jetbrains-mono" preload={monoPreload} />
+<Font cssVariable="--font-inter" preload={sansPreload} />
 
 <slot />
 
