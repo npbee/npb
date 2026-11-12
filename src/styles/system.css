@@ -50,8 +50,10 @@ body {
   color: inherit;
 }
 
+/* Ink, not the accent: a colored ring clashes with the lights and the
+   section colors around it */
 :focus-visible {
-  outline: var(--focus) solid var(--accent);
+  outline: var(--focus) solid var(--ink);
   outline-offset: 2px;
 }
 

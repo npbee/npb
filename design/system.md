@@ -170,10 +170,11 @@ nick ball              · about  · projects  ● posts  · demos
 
 - The wordmark on the left, linking home. Nav links on the right, in muted. Both are `--text-mono` and share a baseline; the wordmark's weight and ink set it apart, not its size.
 - An ink hairline underneath, 10px below the text.
-- Each nav link has a light before it: a `--light` (6px) dot, `--rule` when unlit, centered on the x-height.
+- Each nav link has a light before it: a `--light` (6px) dot, `--rule` when unlit, centered on the x-height, 6px from its label.
+- Links are `--space-6` (24px) apart, four times the light's gap, so each light reads as part of its word. Narrow: `--space-4`, so the nav stays on one line.
 - The current page is ink instead of muted, and its light is lit in its section color with a 3px halo of the same color at 28%.
 - Hover turns a link ink and lights its dot in the section's color, without the halo. Focus shows the focus ring.
-- Each link's hit area is at least 44px tall, made with padding and a matching negative margin so the layout doesn't move.
+- Each link's hit area is at least 44px tall and reaches halfway to its neighbors. It's a pseudo-element, so the layout doesn't move and the focus ring stays tight around the word.
 - Narrow: the wordmark and the nav stack, both left-aligned, `--space-4` apart.
 
 ### Page title
@@ -319,7 +320,7 @@ The footer mirrors the running head. It holds only what does something: the outs
 - An ink hairline above, 10px over the text, spanning the same edges as the running head.
 - Links on the left in muted `--text-mono`, joined by spaced middle dots. Hover turns a link ink.
 - The theme switch on the right: one button, `light / dark`, with the current theme in ink and underlined and the other in muted.
-- Links and the switch have hit areas at least 44px tall, made with padding and a matching negative margin.
+- Links and the switch have hit areas at least 44px tall, made with pseudo-elements that stop short of the separator dots.
 - Narrow: the links and the switch stack, both left-aligned.
 
 ## The panel
@@ -431,7 +432,7 @@ Both are removed under `prefers-reduced-motion`.
 
 - All text meets 4.5:1 against its ground in both themes. Section fills never set text.
 - The current page is marked with `aria-current` as well as its light and ink color. The light and color are never the only signal.
-- Focus is a 2px `--accent` outline, offset 2px, on every interactive element, including the panel's knobs and keys.
+- Focus is a 2px `--ink` outline, offset 2px, on every interactive element, including the panel's knobs and keys. It is never the accent: a colored ring clashes with the lights and section colors around it.
 - Decorative marks are hidden from assistive technology: `##`, crop marks, lights, grilles, the ruler, knob notches and key characters.
 - Index rows, items, knobs and keys are each a single link named by their visible text.
 - Body text never drops below `--text-body-s`. Labels never drop below `--text-label`.

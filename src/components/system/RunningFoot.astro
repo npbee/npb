@@ -66,21 +66,28 @@ const links = [
     margin-inline: 0.5em;
   }
 
-  /* 46px-tall hit areas that don't move anything */
-  a {
-    display: inline-block;
-  }
-
+  /* 46px-tall hit areas on pseudo-elements, so the focus ring still hugs
+     the word; links stop short of the separator dots */
   a,
   .theme {
-    padding-block: 0.75rem;
-    margin-block: -0.75rem;
+    position: relative;
+  }
+
+  a::after,
+  .theme::after {
+    content: "";
+    position: absolute;
+    inset: -0.75rem -0.5em;
+  }
+
+  .theme::after {
+    inset-inline: 0;
   }
 
   .theme {
     display: inline-flex;
     gap: 0.5em;
-    padding-inline: 0;
+    padding: 0;
     border: 0;
     background: none;
     cursor: pointer;
