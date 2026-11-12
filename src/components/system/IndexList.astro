@@ -1,12 +1,11 @@
 ---
 import type { Post } from "../../content.config";
 import { isoDate, monthDay, yearMonth } from "../../utils/dates";
-import Divider from "./Divider.astro";
 
 interface Props {
-  /** Newest first. The first post gets the newest-item marker. */
+  /** Newest first */
   posts: Post[];
-  /** Group under year dividers; ungrouped rows show the year in the date */
+  /** Group under a year column; ungrouped rows show the year in the date */
   group?: boolean;
 }
 
@@ -21,25 +20,20 @@ const groups = group
       return acc;
     }, [])
   : [{ year: null, posts }];
-
-const newest = posts[0]?.id;
 ---
 
-<div class="index">
+<div class:list={["index", { grouped: group }]}>
   {groups.map((g) => (
     <section aria-labelledby={g.year ? `year-${g.year}` : undefined}>
       {g.year && (
-        <Divider as="h2" id={`year-${g.year}`}>
+        <h2 class="year" id={`year-${g.year}`}>
           {g.year}
-        </Divider>
+        </h2>
       )}
       <ul>
         {g.posts.map((post) => (
           <li>
-            <a
-              class:list={["row", { newest: post.id === newest }]}
-              href={`/posts/${post.id}`}
-            >
+            <a class="row" href={`/posts/${post.id}`}>
               <span class="title">{post.data.title}</span>
               <span class="leader" aria-hidden="true" />
               <time datetime={isoDate(post.data.date)}>
@@ -54,47 +48,70 @@ const newest = posts[0]?.id;
 </div>
 
 <style>
+  /* Spans the sheet, so years share the wordmark's edge and dates the nav's */
   .index {
     width: 100%;
-    max-width: var(--column);
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-8);
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+    line-height: var(--leading-mono);
   }
 
   section {
     display: grid;
-    gap: var(--space-2);
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .grouped section {
+    grid-template-columns: 5rem minmax(0, 1fr);
+  }
+
+  /* Same box as a row, so the year sits on its first row's baseline */
+  .year {
+    padding-block: 0.25rem;
+    font-size: inherit;
+    font-weight: 700;
+    line-height: inherit;
+    font-variant-numeric: tabular-nums;
   }
 
   ul {
     display: grid;
-    gap: 0.125rem;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
   .row {
-    position: relative;
     display: flex;
-    /* the leader and date follow a wrapped title's last line */
-    align-items: last baseline;
     gap: var(--space-2);
-    padding-block: 0.1875rem;
-    font-family: var(--font-mono);
-    font-size: var(--text-mono);
-    line-height: var(--leading-mono);
+    /* a wrapped title keeps its leader and date on the last line */
+    align-items: last baseline;
+    padding-block: 0.25rem;
   }
 
   .title {
     min-width: 0;
   }
 
+  /* Spaced dots rather than a dotted border, so a column of leaders reads
+     as a path for the eye, not as more rules. An empty box's baseline is its
+     bottom edge, so the dots sit on the text's baseline. */
   .leader {
     flex: 1;
     min-width: var(--space-4);
-    border-bottom: var(--hair) dotted var(--muted);
-    transform: translateY(-0.25rem);
+    height: 0.125rem;
+    background-image: radial-gradient(
+      circle at 0.0625rem 0.0625rem,
+      var(--muted) 0.0469rem,
+      transparent 0.0625rem
+    );
+    background-size: 0.375rem 0.125rem;
+    background-repeat: repeat-x;
+    /* anchored at the dates, which share a width, so dots line up row to row */
+    background-position: right bottom;
   }
 
   time {
@@ -111,21 +128,14 @@ const newest = posts[0]?.id;
     }
   }
 
-  .newest::before {
-    content: "";
-    position: absolute;
-    left: -1rem;
-    top: 0.72em;
-    width: var(--marker);
-    height: var(--marker);
-    background: var(--accent);
-  }
-
+  /* A year column would squeeze titles on phones, so the year sits above.
+     The leader gives way entirely before it makes a title wrap. */
   @media (max-width: 36rem) {
-    .newest::before {
-      left: -0.625rem;
-      width: 0.3125rem;
-      height: 0.3125rem;
+    .grouped section {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .leader {
+      min-width: 0;
     }
   }
 </style>

@@ -43,7 +43,9 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
+  /* Extra room so the footer reads as end matter, not the list's last row */
   .block {
+    margin-top: var(--space-4);
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

@@ -8,7 +8,7 @@ This document describes how things look and read. It is independent of how the s
 
 1. **One panel.** The home page is a panel of modules: grilles, a screen, four knobs and four keys. It is the only place with fills, rounded corners and depth. No other page imitates hardware.
 2. **Type does the work.** Off the panel, hierarchy comes from face, weight, size and position. There are no cards, shadows, gradients or rounded corners.
-3. **One axis.** Every page is symmetric about a vertical center line. Titles, labels and paired facts sit on it or mirror across it. Prose and lists are left-aligned inside a column centered on it.
+3. **Two edges.** Inner pages hang on the sheet's left and right edges. The wordmark, page title, years and titles start on the left edge; the nav and dates end on the right. Paired facts mirror across the center line, and prose is left-aligned in a column centered on it.
 4. **Mono for short, sans for long.** Anything a reader scans is monospace. Anything a reader settles into is sans.
 5. **One accent per page, chosen by section.** Each section owns a knob color, and that color is the accent on its pages. The accent appears as link text plus at most two marks.
 6. **Rules, not containers.** Hairlines separate things. Only the panel, code blocks and the footer are enclosed.
@@ -75,7 +75,7 @@ Dark is the same system inverted. No component changes shape between themes.
 
 ### Sections
 
-Each section owns a color. The plain token is a fill: a knob, a light, a marker, a rule. The `-ink` token is the same hue darkened or lightened for text.
+Each section owns a color. The plain token is a fill: a knob, a light, a rule. The `-ink` token is the same hue darkened or lightened for text.
 
 | Section  | Fill (light / dark)                | Text (light / dark)                    |
 | -------- | ---------------------------------- | -------------------------------------- |
@@ -97,7 +97,7 @@ Every page has exactly one accent, `--accent` for marks and `--accent-ink` for t
 
 In tokens.css this is a `data-section` attribute on the page's root. Demos' knob is white, so its pages have no hue: links are ink with an underline and marks are ink.
 
-**Using the accent.** It is a signal, not a decoration. On any one view it may appear as link text plus at most two marks, such as the newest-item marker and the footer square. Never use it as a fill behind text, as a section background, or on more than one item in a list. The panel is the one exception: it shows all four section colors at once, because it is where the sections are chosen.
+**Using the accent.** It is a signal, not a decoration. On any one view it may appear as link text plus at most two marks, such as the rule under a post title and the footer square. Never use it as a fill behind text, as a section background, or on more than one item in a list. The panel is the one exception: it shows all four section colors at once, because it is where the sections are chosen.
 
 ### The panel
 
@@ -135,13 +135,13 @@ The screen is dark in both themes. Only its ground changes, from `#080808` to `#
 
 ## Space and layout
 
-- **The axis.** Every page is centered on one vertical line. Titles, dividers, the post header and spec pairs are built on it. Prose and lists are left-aligned inside a centered column.
-- **Widths.** Inner pages sit in a `--sheet` (55rem) with crop marks at its corners. Inside it, the running head and footer use the full width. Index lists, spec pairs and the post label use `--column` (40rem). Prose, numbered lists and items are capped at `--measure` (36rem), about 68 characters. The panel and the home page below it use `--panel` (65rem).
+- **Edges and axis.** The running head, page title, index lists and footer share the sheet's left and right edges. Dividers, the post header and spec pairs are built on the center line. Prose is left-aligned inside a centered column.
+- **Widths.** Inner pages sit in a `--sheet` (55rem) with crop marks at its corners. Inside it, the running head, index lists and footer use the full width, so they share a left and a right edge. Spec pairs and the post label use `--column` (40rem). Prose, numbered lists and items are capped at `--measure` (36rem), about 68 characters. The panel and the home page below it use `--panel` (65rem).
 - **Gutter.** At narrow widths everything keeps `--gutter` (1.5rem) on each side.
-- **Spacing** steps on a 4px base: 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4 and 6rem (`--space-1` to `--space-24`). Blocks inside a sheet are separated by `--space-8`. A divider and its content are separated by `--space-2`.
+- **Spacing** steps on a 4px base: 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4 and 6rem (`--space-1` to `--space-24`). The running head, the page's content and the footer are separated by `--space-12`, with `--space-4` more above the footer so it reads as end matter. Inside the content, blocks are separated by `--space-8`. A divider and its content are separated by `--space-2`.
 - **Rules.** Hairlines are 1px. The rule under the running head, the rules around a spec pair and the footer's lines are ink. Divider rules are `--rule`.
 - **No radius, no shadow, no border on text blocks** outside the panel.
-- **Narrow screens.** Inner pages keep their axis. The running head stacks the wordmark over the nav, both centered. Spec pairs stay mirrored. The footer drops to two columns. The panel has its own narrow layout, given below.
+- **Narrow screens.** Inner pages keep their edges. The running head stacks the wordmark over the nav, both left-aligned. Spec pairs stay mirrored. The footer drops to two columns. The panel has its own narrow layout, given below.
 
 ## Components
 
@@ -168,22 +168,22 @@ nick ball              · about  · projects  ● posts  · demos
 ────────────────────────────────────────────────────────────
 ```
 
-- The wordmark on the left at `--text-mono`, linking home. Nav links on the right at `--text-meta`, in muted.
+- The wordmark on the left, linking home. Nav links on the right, in muted. Both are `--text-mono` and share a baseline; the wordmark's weight and ink set it apart, not its size.
 - An ink hairline underneath, 10px below the text.
-- Each nav link has a light before it: a `--light` (6px) dot, `--rule` when unlit.
+- Each nav link has a light before it: a `--light` (6px) dot, `--rule` when unlit, centered on the x-height.
 - The current page is ink instead of muted, and its light is lit in its section color with a 3px halo of the same color at 28%.
-- Hover and focus turn a link ink.
-- Narrow: the wordmark and the nav stack, both centered, 10px apart.
+- Hover turns a link ink and lights its dot in the section's color, without the halo. Focus shows the focus ring.
+- Each link's hit area is at least 44px tall, made with padding and a matching negative margin so the layout doesn't move.
+- Narrow: the wordmark and the nav stack, both left-aligned, `--space-4` apart.
 
 ### Page title
 
 ```
-                  posts¹⁵
-          2016–2024 · newest first
+posts
 ```
 
-- Centered. Lowercase, `--text-display`, bold mono.
-- Where the page is a list, its count sits raised after the title in `--accent-ink`, regular mono at 15px.
+- Left-aligned on the sheet's left edge, the same edge as the wordmark and the list below. Lowercase, `--text-display`, bold mono.
+- Usually the title stands alone. Where a count helps, it sits raised after the title in `--accent-ink`, regular mono at 15px.
 - An optional meta line follows in muted at `--text-meta`.
 
 ### Divider
@@ -193,22 +193,25 @@ nick ball              · about  · projects  ● posts  · demos
 ```
 
 - A short lowercase label at `--text-label`, tracked, muted, centered between two `--rule` hairlines that fill the width.
-- Used for year groups, `latest` on the home page and named lists such as `things I've built`.
+- Used for `latest` on the home page and named lists such as `things I've built`. Use them sparingly: every divider adds two lines.
 
 ### Index list
 
 ```
-                ───── 2024 ─────
-■ Fresh with a Type-safe Hono API ··········· 02.10
-  Supabase Auth with Deno Fresh ············· 01.05
-                ───── 2023 ─────
-  Showing audio progress with waveform … ···· 12.29
+2024   Fresh with a Type-safe Hono API . . . . . .  02.10
+       Supabase Auth with Deno Fresh . . . . . . .  01.05
+
+2023   Showing audio progress with waveform images  12.29
+       Neovim, Deno, and TypeScript in a monorepo   11.09
 ```
 
-- Grouped by year under dividers.
-- Each row is the title in regular mono at `--text-mono`, a dotted leader in muted, and the date (`mm.dd`) in muted at 12px, tabular.
-- The leader fills the space after the title's last line. Long titles wrap; the leader and date follow the last line.
-- The newest item carries a marker (`--marker`, a 6px accent square) hanging 16px left of the title, 10px on narrow screens. Only one item is ever marked.
+- Spans the sheet: the year column starts on the wordmark's edge and the dates end on the nav's edge.
+- The year in bold mono, in a 5rem column, once per group. The title in regular mono at `--text-mono`. The date (`mm.dd`) right-aligned in muted at 12px, tabular.
+- A leader of spaced muted dots runs from the title to the date, sitting on the text baseline. The dots are 1.5px, 6px apart, and anchored at the date end, so they line up from row to row. Spaced dots read as a path for the eye, where a dotted border reads as another rule.
+- No rules. Year groups are separated by `--space-8` of space; rows inside a group sit close.
+- A long title wraps; its leader and date follow its last line.
+- No item is marked as newest. The list is newest first, so the top row already says it.
+- Narrow: the year moves above its rows, so titles get the full width.
 - The whole row is the link. Hover and focus turn the title `--accent-ink`.
 - A truncated list ends with a centered link in `--accent-ink`, such as `all 15 posts →`.
 
@@ -411,7 +414,7 @@ It appears in the running head at `--text-mono` and on the panel screen at `--te
 | Page     | Section  | Recipe                                                                                                                                                                                 |
 | -------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Home     | posts    | The panel, the `latest` divider and three index rows, `all 15 posts →`, footer. No running head.                                                                                       |
-| Posts    | posts    | Sheet. Running head, page title with count and `2016–2024 · newest first`, the full index list, footer.                                                                                |
+| Posts    | posts    | Sheet. Running head, page title alone, the full index list, footer.                                                                                                                    |
 | Post     | posts    | Sheet. Running head, post header, post body, footer.                                                                                                                                   |
 | About    | about    | Sheet. Running head, page title with `product engineer · portland, or`, a spec pair (currently, previously), paragraphs, a numbered list of things built, a closing paragraph, footer. |
 | Projects | projects | Sheet. Running head, page title with count, items, footer.                                                                                                                             |
@@ -433,7 +436,7 @@ Both are removed under `prefers-reduced-motion`.
 - All text meets 4.5:1 against its ground in both themes. Section fills never set text.
 - The current page is marked with `aria-current` as well as its light and ink color. The light and color are never the only signal.
 - Focus is a 2px `--accent` outline, offset 2px, on every interactive element, including the panel's knobs and keys.
-- Decorative marks are hidden from assistive technology: `##`, the marker square, crop marks, lights, grilles, the ruler, knob notches and key characters.
+- Decorative marks are hidden from assistive technology: `##`, crop marks, lights, grilles, the ruler, knob notches and key characters.
 - Index rows, items, knobs and keys are each a single link named by their visible text.
 - Body text never drops below `--text-body-s`. Labels never drop below `--text-label`.
 
@@ -469,7 +472,7 @@ The system was chosen in two rounds. A lab of numbered studies set the type, the
 | Mono and sans roles             | lab 133–142                |
 | The panel                       | panel 01, 05               |
 | Sheet, running head, the axis   | panel 02, 05               |
-| Index list with leaders         | lab 120, 137; panel 02     |
+| Index list                      | lab 120, 137               |
 | Post header                     | lab 124, 138; panel 05     |
 | Post body and heading marks     | lab 132, 139               |
 | Code block                      | lab 131; panel 05          |

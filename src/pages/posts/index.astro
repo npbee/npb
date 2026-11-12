@@ -10,9 +10,6 @@ import TitleBlock from "../../components/system/TitleBlock.astro";
 const posts = (await getCollection("blog")).toSorted(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
-
-const years = posts.map((post) => post.data.date.getUTCFullYear());
-const range = `${Math.min(...years)}–${Math.max(...years)}`;
 ---
 
 <Page
@@ -23,11 +20,7 @@ const range = `${Math.min(...years)}–${Math.max(...years)}`;
   <Sheet>
     <RunningHead current="posts" />
     <main>
-      <PageTitle
-        title="posts"
-        count={posts.length}
-        meta={`${range} · newest first`}
-      />
+      <PageTitle title="posts" />
       <IndexList posts={posts} />
     </main>
     <TitleBlock />

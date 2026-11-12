@@ -17,17 +17,18 @@ const { title, count, meta } = Astro.props;
 </div>
 
 <style>
+  /* Full width, so the title starts on the sheet's left edge with the list */
   .page-title {
+    width: 100%;
     display: grid;
-    justify-items: center;
+    justify-items: start;
     gap: var(--space-2);
-    text-align: center;
   }
 
   /* Flex, so markup whitespace never opens a gap before the count */
   h1 {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     font-family: var(--font-mono);
     font-size: var(--text-display);

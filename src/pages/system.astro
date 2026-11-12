@@ -135,7 +135,6 @@ const sections = [
             <a href="#" class="link">
               a link
             </a>
-            <i class="marker" />
             <i class="bar" />
             <span class="value" data-value="--accent-ink" />
           </div>
@@ -258,7 +257,7 @@ const sections = [
   }
   .section-row {
     display: grid;
-    grid-template-columns: 1.5rem 6rem auto var(--marker) 3rem minmax(0, 1fr);
+    grid-template-columns: 1.5rem 6rem auto 3rem minmax(0, 1fr);
     gap: var(--space-4);
     align-items: center;
     padding: var(--space-3) 0;
@@ -279,11 +278,6 @@ const sections = [
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
-  }
-  .marker {
-    width: var(--marker);
-    height: var(--marker);
-    background: var(--accent);
   }
   .bar {
     height: var(--bar);
