@@ -1,0 +1,79 @@
+---
+import { fullDate, isoDate } from "../../utils/dates";
+
+interface Props {
+  title: string;
+  description?: string;
+  date: Date;
+  /** Position in the sequence, oldest first */
+  position: number;
+  total: number;
+}
+
+const { title, description, date, position, total } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<header class="post-head">
+  <p class="label">
+    <span>
+      post {pad(position)} / {pad(total)}
+    </span>
+    <span aria-hidden="true">·</span>
+    <time datetime={isoDate(date)}>{fullDate(date)}</time>
+  </p>
+  <h1>{title}</h1>
+  {description && <p class="description">{description}</p>}
+  <span class="rule" aria-hidden="true"></span>
+</header>
+
+<style>
+  /* The body's column, so the header starts on the same left edge as the text */
+  .post-head {
+    width: 100%;
+    max-width: var(--measure);
+    display: grid;
+    justify-items: start;
+    gap: var(--space-4);
+  }
+
+  /* Flex, so markup whitespace can't unbalance the dot */
+  .label {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.75em;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    line-height: var(--leading-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  h1 {
+    max-width: 26ch;
+    margin-top: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-title);
+    font-weight: 700;
+    line-height: var(--leading-title);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .description {
+    max-width: 44ch;
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+    line-height: var(--leading-mono);
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  .rule {
+    width: 3rem;
+    height: var(--bar);
+    margin-top: var(--space-2);
+    background: var(--accent);
+  }
+</style>

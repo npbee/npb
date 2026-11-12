@@ -45,8 +45,8 @@
   --display-green: #35cf80;
   --display-red: #ff4a3f;
 
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo,
-    Consolas, monospace;
+  --font-mono:
+    "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --text-label: 0.6875rem;
@@ -84,8 +84,7 @@
   --space-16: 4rem;
   --space-24: 6rem;
 
-  --sheet: 55rem;
-  --column: 40rem;
+  /* The reading width, and the width of every inner page */
   --measure: 36rem;
   --panel: 65rem;
   --gutter: 1.5rem;

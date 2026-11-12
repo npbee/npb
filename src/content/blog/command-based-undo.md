@@ -156,8 +156,6 @@ In this example, there’s a new thing called an “entry” that represents a c
 
 Beware, though, that there’s an implicit parameter with patches though and that’s the “base” that we’re applying the patches against. You don’t want to apply patches to the wrong base object, otherwise you’ll end up at the wrong result.
 
-<for example>
-
 ## Data Mutation Strategy
 
 When building frontend apps, there’s always the challenge of how the UI state will be synced to the source of truth. In a typical app, you may have a few different flavors:
@@ -312,8 +310,6 @@ function undo() {
 ## Dynamic Redos, a.k.a Undoing an undo
 
 The command-based approach nudges you to define your `exec` and `undo` functions upfront. This intuitively makes sense and can work, but it’s predicated on the fact that the undoable state has not changed since the time that the undo was performed, which may not be the case for multi-player apps. Trying to define both an `undo` and a `redo` upfront may mean that by the time you perform a `redo`, you’re using outdated information.
-
-<example>
 
 Illustrated using the patches idea, the inverse of an undo is a redo so we could define a redo as:
 

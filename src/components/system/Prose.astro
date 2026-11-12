@@ -1,0 +1,251 @@
+---
+// Long-form text: post bodies, and later the about page. Its children come
+// from Markdown, so every rule targets them through :global.
+---
+
+<div class="prose">
+  <slot />
+</div>
+
+<style>
+  .prose {
+    width: 100%;
+    max-width: var(--measure);
+    /* Long code lines scroll inside their block instead of widening this */
+    min-width: 0;
+    /* Bare URLs used as link text would otherwise overflow on phones */
+    overflow-wrap: break-word;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    /* Figures are numbered in post order */
+    counter-reset: figure;
+
+    /* The css-variables Shiki theme, mapped so syntax reads by weight */
+    --astro-code-foreground: var(--ink);
+    --astro-code-background: transparent;
+    --astro-code-token-constant: var(--ink);
+    --astro-code-token-string: var(--ink);
+    --astro-code-token-comment: var(--muted);
+    --astro-code-token-keyword: var(--ink);
+    --astro-code-token-parameter: var(--ink);
+    --astro-code-token-function: var(--ink);
+    --astro-code-token-string-expression: var(--ink);
+    --astro-code-token-punctuation: var(--ink);
+    --astro-code-token-link: var(--ink);
+  }
+
+  /* Block spacing is one line, so the rhythm holds. Written as siblings at
+     any depth, because raw HTML in a post can wrap blocks in a div. */
+  .prose
+    :global(
+      :is(p, ul, ol, blockquote, figure, pre, hr, div, img, h2, h3, h4)
+        + :is(p, ul, ol, blockquote, figure, pre, hr, div, img)
+    ) {
+    margin-top: 1lh;
+  }
+
+  .prose :global(:is(h2, h3, h4)) {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  .prose :global(* + :is(h2, h3, h4)) {
+    margin-top: 2.5rem;
+  }
+
+  /* Same specificity as the block rule above, and later, so it wins */
+  .prose
+    :global(
+      :is(h2, h3, h4) + :is(p, ul, ol, blockquote, figure, pre, hr, div, img)
+    ) {
+    margin-top: var(--space-3);
+  }
+
+  .prose :global(h2) {
+    font-size: var(--text-h2);
+    line-height: var(--leading-h2);
+  }
+
+  .prose :global(:is(h3, h4)) {
+    font-size: var(--text-mono);
+    line-height: var(--leading-mono);
+  }
+
+  .prose :global(h2)::before,
+  .prose :global(h3)::before {
+    margin-right: 0.6em;
+    font-weight: 700;
+    color: var(--accent-ink);
+  }
+
+  .prose :global(h2)::before {
+    content: "##" / "";
+  }
+
+  .prose :global(h3)::before {
+    content: "###" / "";
+  }
+
+  .prose :global(a) {
+    color: var(--accent-ink);
+    text-decoration: underline;
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 0.2em;
+  }
+
+  @media (hover: hover) {
+    .prose :global(a:hover) {
+      text-decoration-thickness: 2px;
+    }
+  }
+
+  .prose :global(strong) {
+    font-weight: 600;
+  }
+
+  .prose :global(em) {
+    font-style: italic;
+  }
+
+  /* Lists keep sans text; markers are muted mono hanging in the margin */
+  .prose :global(:is(ul, ol)) {
+    padding-left: 1.5rem;
+    list-style: none;
+  }
+
+  .prose :global(li) {
+    position: relative;
+  }
+
+  .prose :global(li + li),
+  .prose :global(li > :is(ul, ol)) {
+    margin-top: 0.35em;
+  }
+
+  /* The marker is smaller than the text, so it gets a taller line-height
+     that gives it the same line box and puts it on the text's baseline */
+  .prose :global(ul > li)::before,
+  .prose :global(ol > li)::before {
+    position: absolute;
+    right: calc(100% + 0.5rem);
+    font-family: var(--font-mono);
+    font-size: 0.8125em;
+    line-height: calc(var(--leading-body) / 0.8125);
+    color: var(--muted);
+  }
+
+  .prose :global(ul > li)::before {
+    content: "–";
+  }
+
+  .prose :global(ol) {
+    counter-reset: item;
+  }
+
+  .prose :global(ol > li) {
+    counter-increment: item;
+  }
+
+  .prose :global(ol > li)::before {
+    content: counter(item, decimal-leading-zero);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prose :global(blockquote) {
+    padding-left: var(--space-4);
+    border-left: var(--hair) solid var(--ink);
+    font-style: italic;
+  }
+
+  .prose :global(blockquote > * + *) {
+    margin-top: 1lh;
+  }
+
+  .prose :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .prose :global(figure:not(.code) figcaption) {
+    margin-top: var(--space-2);
+    font-size: var(--text-meta);
+    line-height: var(--leading-meta);
+    color: var(--muted);
+  }
+
+  .prose :global(hr) {
+    height: var(--hair);
+    border: 0;
+    background: var(--rule);
+  }
+
+  /* Inline code */
+  .prose :global(:not(pre) > code) {
+    padding: 0 0.15em;
+    background: var(--paper-2);
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+  }
+
+  /* Code blocks: a captioned figure on the recessed ground */
+  .prose :global(figure.code) {
+    counter-increment: figure;
+    background: var(--paper-2);
+  }
+
+  .prose :global(figure.code figcaption) {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-2) 0.875rem;
+    border-bottom: var(--hair) solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    line-height: var(--leading-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .prose :global(.code-lang)::before {
+    content: "fig. " counter(figure) " · ";
+  }
+
+  .prose :global(figure.code pre) {
+    margin: 0;
+    padding: var(--space-3) var(--space-4) var(--space-3) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.84375rem;
+    line-height: 1.6;
+    tab-size: 2;
+  }
+
+  .prose :global(figure.code code) {
+    counter-reset: line;
+  }
+
+  .prose :global(figure.code .line)::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 3.4em;
+    padding-right: 1.3em;
+    text-align: right;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+  }
+
+  /* Keywords are the one token set apart, by weight */
+  .prose :global(figure.code [style*="--astro-code-token-keyword"]) {
+    font-weight: 700;
+  }
+
+  .prose :global(figure.code pre:focus-visible) {
+    outline-offset: -2px;
+  }
+</style>

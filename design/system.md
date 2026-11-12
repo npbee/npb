@@ -8,7 +8,7 @@ This document describes how things look and read. It is independent of how the s
 
 1. **One panel.** The home page is a panel of modules: grilles, a screen, four knobs and four keys. It is the only place with fills, rounded corners and depth. No other page imitates hardware.
 2. **Type does the work.** Off the panel, hierarchy comes from face, weight, size and position. There are no cards, shadows, gradients or rounded corners.
-3. **Two edges.** Inner pages hang on the sheet's left and right edges. The wordmark, page title, years and titles start on the left edge; the nav and dates end on the right. Paired facts mirror across the center line, and prose is left-aligned in a column centered on it.
+3. **One column, two edges.** Every inner page is a single reading-width column. The wordmark, titles, years and text start on its left edge; the nav, dates and line ends stop at its right. Paired facts mirror across its center line.
 4. **Mono for short, sans for long.** Anything a reader scans is monospace. Anything a reader settles into is sans.
 5. **One accent per page, chosen by section.** Each section owns a knob color, and that color is the accent on its pages. The accent appears as link text plus at most two marks.
 6. **Rules, not containers.** Hairlines separate things. Only the panel and code blocks are enclosed.
@@ -135,8 +135,8 @@ The screen is dark in both themes. Only its ground changes, from `#080808` to `#
 
 ## Space and layout
 
-- **Edges and axis.** The running head, page title, index lists and footer share the sheet's left and right edges. Dividers, the post header and spec pairs are built on the center line. Prose is left-aligned inside a centered column.
-- **Widths.** Inner pages sit in a `--sheet` (55rem). Inside it, the running head, index lists and footer use the full width, so they share a left and a right edge. Spec pairs and the post label use `--column` (40rem). Prose, numbered lists and items are capped at `--measure` (36rem), about 68 characters. The panel and the home page below it use `--panel` (65rem).
+- **Edges.** Everything on an inner page shares the sheet's left and right edges: the running head, page and post titles, index lists, prose, code and the running foot. Only dividers and spec pairs use the center line.
+- **Widths.** Inner pages are one column, `--measure` (36rem) wide, about 68 characters of body text. The sheet is that column plus its padding, so the nav ends where the text ends. The panel and the home page below it use `--panel` (65rem).
 - **Gutter.** At narrow widths everything keeps `--gutter` (1.5rem) on each side.
 - **Spacing** steps on a 4px base: 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4 and 6rem (`--space-1` to `--space-24`). The running head, the page's content and the footer are separated by `--space-12`, with `--space-4` more above the footer so it reads as end matter. Inside the content, blocks are separated by `--space-8`. A divider and its content are separated by `--space-2`.
 - **Rules.** Hairlines are 1px. The rules under the running head and over the running foot, and the rules around a spec pair, are ink. Divider rules are `--rule`.
@@ -159,7 +159,7 @@ nick ball              · about  · projects  ● posts  · demos
 github · twitter · linkedin · rss                light / dark
 ```
 
-- Inner pages sit on a sheet `--sheet` wide, centered.
+- Inner pages sit on a sheet `--measure` wide plus its padding, centered. Every inner page is the reading width; the home panel is the one wider page.
 - The sheet has no ground, border or marks of its own. The running head's rule and the running foot's rule are its only frame.
 - Decided from a prototype of seven frames (2026-11-11). Rejected for now: corner crop marks (four marks apart from everything else, and redundant once the head and foot have rules), a typographic folio (more text for little information), and five drafting marks on the rules. Those were dimension ticks, registration crosses, rules that overshoot into the margin, ringed targets, and a labeled dimension. The rule marks remain the way to bring the drafting idea back; see Open.
 
@@ -221,26 +221,28 @@ posts
 ### Post header
 
 ```
-          POST 11 / 15 │ 2023.10.23
+POST 11 / 15 · 2023.10.23
 
-              Command-based
-            undo for JS apps
-      A brain dump of research into
-     non-trivial undo implementations
-                   ▬▬▬
+Command-based
+undo for JS apps
+A brain dump of research into non-trivial
+undo implementations
+▬▬▬
 ```
 
-- A label row mirrored across the axis: the position in the sequence right-aligned to the left of a short vertical ink rule, the date left-aligned to its right. `--text-label`, uppercase, tracked, muted.
-- The title, centered, at `--text-title`, bold mono, balanced, at most 26 characters wide.
-- The description, centered, in regular mono at `--text-mono`, muted, balanced.
-- A short accent rule, 3rem wide and `--bar` thick, centered, closes the header. The body starts `--space-8` below it.
+Left-aligned on the sheet's edge, like everything else on the page.
+
+- A label row: the position in the sequence, a middle dot, the date. `--text-label`, uppercase, tracked, muted.
+- The title at `--text-title`, bold mono, balanced, at most 26 characters wide.
+- The description in regular mono at `--text-mono`, muted, at most 44 characters wide.
+- A short accent rule, 3rem wide and `--bar` thick, closes the header. The body starts `--space-8` below it.
 
 ### Post body
 
-- Paragraphs are sans at `--text-body`, left-aligned, capped at `--measure`, centered on the axis.
-- **Headings** are bold mono at `--text-h2`, preceded by `##` in `--accent-ink`. Third-level headings use `###` and `--text-mono`. The marks are decorative and hidden from assistive technology.
-- **Links** are `--accent-ink` with a 1px underline, offset 0.2em.
-- **Lists** keep sans text. Ordered lists show zero-padded mono numerals in muted, hanging in a 1.5rem column. Unordered lists use a muted mono `–`.
+- Paragraphs are sans at `--text-body`, left-aligned, filling the sheet's `--measure`. Blocks are one line apart (`1lh`), so the vertical rhythm holds.
+- **Headings** are bold mono at `--text-h2`, preceded by `##` in `--accent-ink`. Third-level headings use `###` and `--text-mono`. The marks are decorative and hidden from assistive technology. A heading has 2.5rem above it and `--space-3` below, so it belongs to what follows.
+- **Links** are `--accent-ink` with a 1px underline, offset 0.2em; hover thickens the underline to 2px. Long bare URLs break anywhere rather than widen the page.
+- **Lists** keep sans text. Ordered lists show zero-padded mono numerals in muted, hanging in a 1.5rem column. Unordered lists use a muted mono `–`. Markers are smaller than the text but sit on its baseline.
 - **Inline code** is mono at 0.86em on `--paper-2` with 0.15em of horizontal padding.
 - **Quotes** are sans italic with a 1px ink rule on the left and 1rem of padding.
 - **Images** fill the measure with no border. A caption sits below in `--text-meta`, muted.
@@ -262,7 +264,8 @@ FIG. 1 · TYPESCRIPT                  7 LINES
 - Ground is `--paper-2`. It fills the measure. No border.
 - A header row carries a label and the line count, both `--text-label`, uppercase, muted, over a `--rule` hairline. The label numbers the block as a figure, in order within the post, then names the language: `FIG. 1 · TYPESCRIPT`.
 - Code is 13.5px mono. Line numbers are muted, right-aligned in a 3.4em column.
-- Syntax is distinguished by weight, not hue: keywords are bold, everything else regular.
+- Syntax is distinguished by weight, not hue: keywords are bold, comments are muted, everything else is regular ink.
+- Plain text blocks are labeled `TEXT`, and shell blocks `SHELL`.
 - A highlighted line is marked with a `--bar` accent bar on the block's left edge. The line's ground does not change.
 - Long lines scroll inside the block.
 
@@ -457,7 +460,7 @@ Explored and left out on purpose. Adding any of these is a change to the system,
 Not yet decided. Each should be settled, and written into this document, when the page that needs it is built.
 
 - How MDX embeds sit in a post, such as the audio player in the waveform post.
-- Images wider than the measure, and whether a figure number applies to images as well as code.
+- Images wider than the measure, which would now have to break out of the sheet, and whether a figure number applies to images as well as code.
 - The demos page's items, and whether demos needs its own index layout.
 - The panel's screen on very narrow phones, below about 22rem.
 - The 404 page and the generated social image.

@@ -3,6 +3,7 @@ import vercel from "@astrojs/vercel";
 import mdx from "@astrojs/mdx";
 
 import react from "@astrojs/react";
+import { codeFigure } from "./src/utils/code-figure.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -39,5 +40,13 @@ export default defineConfig({
       fallbacks: ["system-ui", "-apple-system", "Segoe UI", "sans-serif"],
     },
   ],
+  markdown: {
+    shikiConfig: {
+      // Colors become CSS variables; the post body maps them onto tokens, so
+      // syntax reads by weight in both themes rather than by hue
+      theme: "css-variables",
+      transformers: [codeFigure],
+    },
+  },
   integrations: [mdx(), react()],
 });
