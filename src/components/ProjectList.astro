@@ -13,6 +13,8 @@ const { projects } = Astro.props as Props;
   {
     projects
       .filter((project) => !project.data.draft)
+      // The glob loader's order isn't guaranteed; this keeps waveformr first.
+      .toSorted((a, b) => b.id.localeCompare(a.id))
       .map((project) => <ProjectPreview {project} />)
   }
 </div>

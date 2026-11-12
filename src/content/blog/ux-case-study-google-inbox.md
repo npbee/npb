@@ -102,8 +102,8 @@ The twist is that the header will also switch to absolute positioning once you g
 
 I’ve put together an example implementation on Codepen:
 
-<div className='embed'>
-<div data-height="520" data-theme-id="0" data-slug-hash="bpGrmm" data-default-tab="result" data-user="npbee" data-embed-version="2" data-pen-title="Google Inbox -  Fixed Header" className="codepen">See the Pen <a href="https://codepen.io/npbee/pen/bpGrmm/">Google Inbox -  Fixed Header</a> by Nick Ball (<a href="https://codepen.io/npbee">@npbee</a>) on <a href="https://codepen.io">CodePen</a>.</div>
+<div class='embed'>
+<div data-height="520" data-theme-id="0" data-slug-hash="bpGrmm" data-default-tab="result" data-user="npbee" data-embed-version="2" data-pen-title="Google Inbox -  Fixed Header" class="codepen">See the Pen <a href="https://codepen.io/npbee/pen/bpGrmm/">Google Inbox -  Fixed Header</a> by Nick Ball (<a href="https://codepen.io/npbee">@npbee</a>) on <a href="https://codepen.io">CodePen</a>.</div>
 </div>
 
 ### The Message Open
@@ -129,7 +129,7 @@ I’ll be going into more detail next about the translating, but here’s a samp
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
-<div data-height="520" data-theme-id="0" data-slug-hash="ZWEJRg" data-default-tab="result" data-user="npbee" className='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/ZWEJRg/'>Google Inbox -  Open Message</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</div>
+<div data-height="520" data-theme-id="0" data-slug-hash="ZWEJRg" data-default-tab="result" data-user="npbee" class='codepen'>See the Pen <a href='http://codepen.io/npbee/pen/ZWEJRg/'>Google Inbox -  Open Message</a> by Nick Ball (<a href='http://codepen.io/npbee'>@npbee</a>) on <a href='http://codepen.io'>CodePen</a>.</div>
 
 ## The Message Swap
 
