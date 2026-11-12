@@ -5,7 +5,7 @@ import Sheet from "../../components/system/Sheet.astro";
 import RunningHead from "../../components/system/RunningHead.astro";
 import PageTitle from "../../components/system/PageTitle.astro";
 import IndexList from "../../components/system/IndexList.astro";
-import TitleBlock from "../../components/system/TitleBlock.astro";
+import RunningFoot from "../../components/system/RunningFoot.astro";
 
 const posts = (await getCollection("blog")).toSorted(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -23,7 +23,7 @@ const posts = (await getCollection("blog")).toSorted(
       <PageTitle title="posts" />
       <IndexList posts={posts} />
     </main>
-    <TitleBlock />
+    <RunningFoot />
   </Sheet>
 </Page>
 

@@ -11,7 +11,7 @@ This document describes how things look and read. It is independent of how the s
 3. **Two edges.** Inner pages hang on the sheet's left and right edges. The wordmark, page title, years and titles start on the left edge; the nav and dates end on the right. Paired facts mirror across the center line, and prose is left-aligned in a column centered on it.
 4. **Mono for short, sans for long.** Anything a reader scans is monospace. Anything a reader settles into is sans.
 5. **One accent per page, chosen by section.** Each section owns a knob color, and that color is the accent on its pages. The accent appears as link text plus at most two marks.
-6. **Rules, not containers.** Hairlines separate things. Only the panel, code blocks and the footer are enclosed.
+6. **Rules, not containers.** Hairlines separate things. Only the panel and code blocks are enclosed.
 7. **Show the count.** Lists say how many items they hold, and sequences are numbered.
 
 ## Type
@@ -97,7 +97,7 @@ Every page has exactly one accent, `--accent` for marks and `--accent-ink` for t
 
 In tokens.css this is a `data-section` attribute on the page's root. Demos' knob is white, so its pages have no hue: links are ink with an underline and marks are ink.
 
-**Using the accent.** It is a signal, not a decoration. On any one view it may appear as link text plus at most two marks, such as the rule under a post title and the footer square. Never use it as a fill behind text, as a section background, or on more than one item in a list. The panel is the one exception: it shows all four section colors at once, because it is where the sections are chosen.
+**Using the accent.** It is a signal, not a decoration. On any one view it may appear as link text plus at most two marks, such as the rule under a post title or a highlighted code line. Never use it as a fill behind text, as a section background, or on more than one item in a list. The panel is the one exception: it shows all four section colors at once, because it is where the sections are chosen.
 
 ### The panel
 
@@ -139,9 +139,9 @@ The screen is dark in both themes. Only its ground changes, from `#080808` to `#
 - **Widths.** Inner pages sit in a `--sheet` (55rem) with crop marks at its corners. Inside it, the running head, index lists and footer use the full width, so they share a left and a right edge. Spec pairs and the post label use `--column` (40rem). Prose, numbered lists and items are capped at `--measure` (36rem), about 68 characters. The panel and the home page below it use `--panel` (65rem).
 - **Gutter.** At narrow widths everything keeps `--gutter` (1.5rem) on each side.
 - **Spacing** steps on a 4px base: 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4 and 6rem (`--space-1` to `--space-24`). The running head, the page's content and the footer are separated by `--space-12`, with `--space-4` more above the footer so it reads as end matter. Inside the content, blocks are separated by `--space-8`. A divider and its content are separated by `--space-2`.
-- **Rules.** Hairlines are 1px. The rule under the running head, the rules around a spec pair and the footer's lines are ink. Divider rules are `--rule`.
+- **Rules.** Hairlines are 1px. The rules under the running head and over the running foot, and the rules around a spec pair, are ink. Divider rules are `--rule`.
 - **No radius, no shadow, no border on text blocks** outside the panel.
-- **Narrow screens.** Inner pages keep their edges. The running head stacks the wordmark over the nav, both left-aligned. Spec pairs stay mirrored. The footer drops to two columns. The panel has its own narrow layout, given below.
+- **Narrow screens.** Inner pages keep their edges. The running head stacks the wordmark over the nav, both left-aligned. Spec pairs stay mirrored. The running foot stacks its links over the theme switch. The panel has its own narrow layout, given below.
 
 ## Components
 
@@ -306,25 +306,21 @@ Two facts mirrored across the axis.
 
 For short items outside a post. A divider names the list. Mono throughout at `--text-mono`, with muted numerals in a 2.6rem column.
 
-### Footer
+### Running foot
 
 ```
-┌──────────────┬──────────────────┬──────────────┐
-│ SITE         │ SET IN           │ YEAR       ■ │
-│ npbee.me     │ jetbrains mono + │ 2026         │
-│              │ inter            │              │
-├──────────────┼──────────────────┼──────────────┤
-│ LOCATION     │ FIND ME          │ THEME        │
-│ portland, or │ github · twitter │ light / dark │
-│              │ · linkedin       │ ‾‾‾‾‾        │
-└──────────────┴──────────────────┴──────────────┘
+────────────────────────────────────────────────────────────
+github · twitter · linkedin · rss                light / dark
+                                                 ‾‾‾‾‾
 ```
 
-- Set as a drafting title block: cells divided by 1px ink lines.
-- Each cell is a label over a value in regular mono at `--text-meta`.
-- One 8px square in `--accent` sits in the top-right cell, so the footer carries the page's color.
-- The theme switch is a cell like any other. Its value is one button, `light / dark`, with the current theme in ink and underlined and the other in muted.
-- Narrow: two columns, with `FIND ME` and `THEME` each across both.
+The footer mirrors the running head. It holds only what does something: the outside links and the theme switch. Facts such as location and typefaces belong on the about page.
+
+- An ink hairline above, 10px over the text, spanning the same edges as the running head.
+- Links on the left in muted `--text-mono`, joined by spaced middle dots. Hover turns a link ink.
+- The theme switch on the right: one button, `light / dark`, with the current theme in ink and underlined and the other in muted.
+- Links and the switch have hit areas at least 44px tall, made with padding and a matching negative margin.
+- Narrow: the links and the switch stack, both left-aligned.
 
 ## The panel
 
@@ -477,6 +473,6 @@ The system was chosen in two rounds. A lab of numbered studies set the type, the
 | Post body and heading marks     | lab 132, 139               |
 | Code block                      | lab 131; panel 05          |
 | Items, spec pair, numbered list | lab 49, 140, 141; panel 02 |
-| Footer title block              | lab 50, 128                |
+| Running foot                    | panel 05, then review      |
 | Section accents                 | panel 05                   |
 | The wordmark                    | mark tool                  |
