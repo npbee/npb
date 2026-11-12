@@ -21,18 +21,21 @@
     /* Figures are numbered in post order */
     counter-reset: figure;
 
-    /* The css-variables Shiki theme, mapped so syntax reads by weight */
+    /* The css-variables Shiki theme, mapped onto the code tokens: strings
+       green, functions blue, keywords set apart by weight, everything else
+       ink. Its "constant" token also covers variable names, so it stays ink
+       rather than taking a third hue. */
     --astro-code-foreground: var(--ink);
     --astro-code-background: transparent;
     --astro-code-token-constant: var(--ink);
-    --astro-code-token-string: var(--ink);
+    --astro-code-token-string: var(--code-string);
     --astro-code-token-comment: var(--muted);
     --astro-code-token-keyword: var(--ink);
     --astro-code-token-parameter: var(--ink);
-    --astro-code-token-function: var(--ink);
-    --astro-code-token-string-expression: var(--ink);
+    --astro-code-token-function: var(--code-function);
+    --astro-code-token-string-expression: var(--code-string);
     --astro-code-token-punctuation: var(--ink);
-    --astro-code-token-link: var(--ink);
+    --astro-code-token-link: var(--code-function);
   }
 
   /* Block spacing is one line, so the rhythm holds. Written as siblings at

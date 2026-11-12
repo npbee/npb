@@ -277,7 +277,8 @@ FIG. 1 · TYPESCRIPT                  7 LINES
 - Ground is `--paper-2`. It fills the measure. No border.
 - A header row carries a label and the line count, both `--text-label`, uppercase, muted, over a `--rule` hairline. The label numbers the block as a figure, in order within the post, then names the language: `FIG. 1 · TYPESCRIPT`.
 - Code is 13.5px mono. Line numbers are muted, right-aligned in a 3.4em column.
-- Syntax is distinguished by weight, not hue: keywords are bold, comments are muted, everything else is regular ink.
+- Syntax uses two of the instrument's hues and weight: strings in `--code-string` (green), functions and types in `--code-function` (blue), keywords bold ink, comments muted, everything else regular ink. In light the two hues are darkened to `#0A5F35` and `#1A4FA8` so they clear 5:1 on `--paper-2`; in dark they are the display's own green and blue, so a code block reads like the instrument's screen.
+- No red in code: red is the posts accent, and the highlighter's "constant" group also catches variable names, so it would land on half the identifiers.
 - Plain text blocks are labeled `TEXT`, and shell blocks `SHELL`.
 - A highlighted line is marked with a `--bar` accent bar on the block's left edge. The line's ground does not change.
 - Long lines scroll inside the block.

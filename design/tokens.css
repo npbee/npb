@@ -24,6 +24,11 @@
   --accent: var(--posts);
   --accent-ink: var(--posts-ink);
 
+  /* Syntax in code blocks: two of the knobs. hues, darkened to clear 5:1 on
+     --paper-2. Keywords stay ink (set bold), comments use --muted. */
+  --code-string: #0a5f35;
+  --code-function: #1a4fa8;
+
   /* The panel, home page only */
   --panel-frame: #3b3b3a;
   --panel-module: #dcd9d4;
@@ -132,6 +137,8 @@
     --posts: var(--display-red);
     --posts-ink: var(--display-red);
     --demos: var(--display-ink);
+    --code-string: var(--display-green);
+    --code-function: var(--display-blue);
     --panel-frame: #050505;
     --panel-module: #282827;
     --panel-module-hi: #333332;
@@ -159,6 +166,8 @@
   --posts: var(--display-red);
   --posts-ink: var(--display-red);
   --demos: var(--display-ink);
+  --code-string: var(--display-green);
+  --code-function: var(--display-blue);
   --panel-frame: #050505;
   --panel-module: #282827;
   --panel-module-hi: #333332;
