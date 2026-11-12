@@ -263,7 +263,7 @@ Left-aligned on the sheet's edge, like everything else on the page. A post opens
 ### Code block
 
 ```
-FIG. 1 · TYPESCRIPT                  7 LINES
+TYPESCRIPT                           7 LINES
 ────────────────────────────────────────────
   1  function undo() {
   2    const command = undoStack.pop();
@@ -275,7 +275,7 @@ FIG. 1 · TYPESCRIPT                  7 LINES
 ```
 
 - Ground is `--paper-2`. It fills the measure. No border.
-- A header row carries a label and the line count, both `--text-label`, uppercase, muted, over a `--rule` hairline. The label numbers the block as a figure, in order within the post, then names the language: `FIG. 1 · TYPESCRIPT`.
+- A header row carries the language and the line count, both `--text-label`, uppercase, muted, over a `--rule` hairline. Blocks are not numbered as figures: the numbers told the reader nothing.
 - Code is 13.5px mono. Line numbers are muted, right-aligned in a 3.4em column.
 - Syntax uses two of the instrument's hues and weight: strings in `--code-string` (green), functions and types in `--code-function` (blue), keywords bold ink, comments muted, everything else regular ink. In light the two hues are darkened to `#0A5F35` and `#1A4FA8` so they clear 5:1 on `--paper-2`; in dark they are the display's own green and blue, so a code block reads like the instrument's screen.
 - No red in code: red is the posts accent, and the highlighter's "constant" group also catches variable names, so it would land on half the identifiers.
@@ -474,7 +474,7 @@ Explored and left out on purpose. Adding any of these is a change to the system,
 Not yet decided. Each should be settled, and written into this document, when the page that needs it is built.
 
 - How MDX embeds sit in a post, such as the audio player in the waveform post.
-- Images wider than the measure, which would now have to break out of the sheet, and whether a figure number applies to images as well as code.
+- Images wider than the measure, which would now have to break out of the sheet.
 - The demos page's items, and whether demos needs its own index layout.
 - The panel's screen on very narrow phones, below about 22rem.
 - The 404 page and the generated social image.

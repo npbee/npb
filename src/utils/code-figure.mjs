@@ -1,6 +1,5 @@
 // Shiki transformer: wraps each highlighted block in a figure whose caption
-// names the language and counts the lines. The figure number comes from a
-// CSS counter in the post body, so it stays in post order.
+// names the language and counts the lines.
 const LANGUAGE_NAMES = {
   plaintext: "text",
   ts: "typescript",

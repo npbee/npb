@@ -18,8 +18,6 @@
     font-family: var(--font-sans);
     font-size: var(--text-body);
     line-height: var(--leading-body);
-    /* Figures are numbered in post order */
-    counter-reset: figure;
 
     /* The css-variables Shiki theme, mapped onto the code tokens: strings
        green, functions blue, keywords set apart by weight, everything else
@@ -195,7 +193,6 @@
 
   /* Code blocks: a captioned figure on the recessed ground */
   .prose :global(figure.code) {
-    counter-increment: figure;
     background: var(--paper-2);
   }
 
@@ -211,10 +208,6 @@
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--muted);
-  }
-
-  .prose :global(.code-lang)::before {
-    content: "fig. " counter(figure) " · ";
   }
 
   .prose :global(figure.code pre) {
