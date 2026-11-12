@@ -1,18 +1,44 @@
 ---
-import BaseLayout from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
-import PostList from "../../components/PostList.astro";
+import Page from "../../layouts/Page.astro";
+import Sheet from "../../components/system/Sheet.astro";
+import RunningHead from "../../components/system/RunningHead.astro";
+import PageTitle from "../../components/system/PageTitle.astro";
+import IndexList from "../../components/system/IndexList.astro";
+import TitleBlock from "../../components/system/TitleBlock.astro";
 
-let allBlogPosts = await getCollection("blog");
+const posts = (await getCollection("blog")).toSorted(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const years = posts.map((post) => post.data.date.getUTCFullYear());
+const range = `${Math.min(...years)}–${Math.max(...years)}`;
 ---
 
-<BaseLayout
+<Page
   title="Posts | Nick Ball"
-  description="Posts by Nick Ball, Software developer based in Portland, OR."
-  size="full"
+  description="Posts by Nick Ball, product engineer based in Portland, OR."
+  section="posts"
 >
-  <main class="space-y-4">
-    <h1 class="text-light font-semibold">Posts</h1>
-    <PostList posts={allBlogPosts} />
-  </main>
-</BaseLayout>
+  <Sheet>
+    <RunningHead current="posts" />
+    <main>
+      <PageTitle
+        title="posts"
+        count={posts.length}
+        meta={`${range} · newest first`}
+      />
+      <IndexList posts={posts} />
+    </main>
+    <TitleBlock />
+  </Sheet>
+</Page>
+
+<style>
+  main {
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-8);
+  }
+</style>

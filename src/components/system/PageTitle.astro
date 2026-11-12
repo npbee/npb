@@ -1,0 +1,56 @@
+---
+interface Props {
+  title: string;
+  count?: number;
+  meta?: string;
+}
+
+const { title, count, meta } = Astro.props;
+---
+
+<div class="page-title">
+  <h1>
+    {title}
+    {count !== undefined && <sup>{count}</sup>}
+  </h1>
+  {meta && <p>{meta}</p>}
+</div>
+
+<style>
+  .page-title {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+    text-align: center;
+  }
+
+  /* Flex, so markup whitespace never opens a gap before the count */
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: var(--font-mono);
+    font-size: var(--text-display);
+    font-weight: 700;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    text-wrap: balance;
+  }
+
+  sup {
+    margin: 0.1em 0 0 0.25rem;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+    vertical-align: baseline;
+    color: var(--accent-ink);
+  }
+
+  p {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    line-height: var(--leading-meta);
+    color: var(--muted);
+  }
+</style>

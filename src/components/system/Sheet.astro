@@ -1,0 +1,57 @@
+---
+// The manual sheet every inner page sits on: a centered column whose only
+// edge is a crop mark at each corner.
+---
+
+<div class="sheet">
+  <span class="crop tl" aria-hidden="true"></span>
+  <span class="crop tr" aria-hidden="true"></span>
+  <span class="crop bl" aria-hidden="true"></span>
+  <span class="crop br" aria-hidden="true"></span>
+  <slot />
+</div>
+
+<style>
+  .sheet {
+    --margin: clamp(0.875rem, 4vw, 2.5rem);
+    position: relative;
+    width: min(var(--sheet), 100% - 2 * var(--margin));
+    margin: var(--margin) auto;
+    padding-block: clamp(1.5rem, 6vw, 3.75rem);
+    padding-inline: clamp(1rem, 5vw, 3.5rem);
+    display: grid;
+    justify-items: center;
+    gap: var(--space-8);
+  }
+
+  .crop {
+    position: absolute;
+    width: var(--crop);
+    height: var(--crop);
+    border: 0 solid var(--ink);
+  }
+  .tl {
+    top: 0;
+    left: 0;
+    border-top-width: var(--hair);
+    border-left-width: var(--hair);
+  }
+  .tr {
+    top: 0;
+    right: 0;
+    border-top-width: var(--hair);
+    border-right-width: var(--hair);
+  }
+  .bl {
+    bottom: 0;
+    left: 0;
+    border-bottom-width: var(--hair);
+    border-left-width: var(--hair);
+  }
+  .br {
+    bottom: 0;
+    right: 0;
+    border-bottom-width: var(--hair);
+    border-right-width: var(--hair);
+  }
+</style>

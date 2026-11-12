@@ -1,0 +1,131 @@
+---
+import type { Post } from "../../content.config";
+import { isoDate, monthDay, yearMonth } from "../../utils/dates";
+import Divider from "./Divider.astro";
+
+interface Props {
+  /** Newest first. The first post gets the newest-item marker. */
+  posts: Post[];
+  /** Group under year dividers; ungrouped rows show the year in the date */
+  group?: boolean;
+}
+
+const { posts, group = true } = Astro.props;
+
+const groups = group
+  ? posts.reduce<{ year: number; posts: Post[] }[]>((acc, post) => {
+      const year = post.data.date.getUTCFullYear();
+      const last = acc.at(-1);
+      if (last?.year === year) last.posts.push(post);
+      else acc.push({ year, posts: [post] });
+      return acc;
+    }, [])
+  : [{ year: null, posts }];
+
+const newest = posts[0]?.id;
+---
+
+<div class="index">
+  {groups.map((g) => (
+    <section aria-labelledby={g.year ? `year-${g.year}` : undefined}>
+      {g.year && (
+        <Divider as="h2" id={`year-${g.year}`}>
+          {g.year}
+        </Divider>
+      )}
+      <ul>
+        {g.posts.map((post) => (
+          <li>
+            <a
+              class:list={["row", { newest: post.id === newest }]}
+              href={`/posts/${post.id}`}
+            >
+              <span class="title">{post.data.title}</span>
+              <span class="leader" aria-hidden="true" />
+              <time datetime={isoDate(post.data.date)}>
+                {group ? monthDay(post.data.date) : yearMonth(post.data.date)}
+              </time>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>
+
+<style>
+  .index {
+    width: 100%;
+    max-width: var(--column);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  section {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  ul {
+    display: grid;
+    gap: 0.125rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    position: relative;
+    display: flex;
+    /* the leader and date follow a wrapped title's last line */
+    align-items: last baseline;
+    gap: var(--space-2);
+    padding-block: 0.1875rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+    line-height: var(--leading-mono);
+  }
+
+  .title {
+    min-width: 0;
+  }
+
+  .leader {
+    flex: 1;
+    min-width: var(--space-4);
+    border-bottom: var(--hair) dotted var(--muted);
+    transform: translateY(-0.25rem);
+  }
+
+  time {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* hover only where it exists, so a tap doesn't leave a title colored */
+  @media (hover: hover) {
+    .row:hover .title {
+      color: var(--accent-ink);
+    }
+  }
+
+  .newest::before {
+    content: "";
+    position: absolute;
+    left: -1rem;
+    top: 0.72em;
+    width: var(--marker);
+    height: var(--marker);
+    background: var(--accent);
+  }
+
+  @media (max-width: 36rem) {
+    .newest::before {
+      left: -0.625rem;
+      width: 0.3125rem;
+      height: 0.3125rem;
+    }
+  }
+</style>

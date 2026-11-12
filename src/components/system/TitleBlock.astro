@@ -1,0 +1,141 @@
+---
+// The site footer, set as a drafting title block
+const year = new Date().getFullYear();
+---
+
+<footer class="block">
+  <div class="cell">
+    <span class="label">site</span>
+    <span>npbee.me</span>
+  </div>
+  <div class="cell">
+    <span class="label">set in</span>
+    <span>jetbrains mono + inter</span>
+  </div>
+  <div class="cell square">
+    <span class="label">year</span>
+    <span>{year}</span>
+  </div>
+  <div class="cell">
+    <span class="label">location</span>
+    <span>portland, or</span>
+  </div>
+  <div class="cell wide">
+    <span class="label">find me</span>
+    <span>
+      <a href="https://github.com/npbee">github</a> ·
+      <a href="https://twitter.com/_nickball">twitter</a> ·
+      <a href="https://www.linkedin.com/in/niball">linkedin</a>
+    </span>
+  </div>
+  <div class="cell wide">
+    <span class="label">theme</span>
+    <button
+      type="button"
+      class="theme"
+      aria-label="Switch between light and dark"
+      data-theme-toggle
+    >
+      <span class="option opt-light">light</span> /
+      <span class="option opt-dark">dark</span>
+    </button>
+  </div>
+</footer>
+
+<style>
+  .block {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--hair);
+    background: var(--ink);
+    border: var(--hair) solid var(--ink);
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    line-height: var(--leading-meta);
+  }
+
+  .cell {
+    position: relative;
+    min-width: 0;
+    display: grid;
+    align-content: start;
+    gap: var(--space-1);
+    padding: 0.625rem 0.875rem 0.75rem;
+    background: var(--paper);
+  }
+
+  .label {
+    font-size: var(--text-label);
+    line-height: var(--leading-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .square::after {
+    content: "";
+    position: absolute;
+    top: 0.6875rem;
+    right: 0.75rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--accent);
+  }
+
+  @media (hover: hover) {
+    a:hover {
+      color: var(--accent-ink);
+    }
+    .theme:hover .option {
+      color: var(--ink);
+    }
+  }
+
+  .theme {
+    justify-self: start;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    color: var(--muted);
+    text-align: left;
+  }
+
+  .option {
+    color: var(--muted);
+  }
+
+  :global(:root:not([data-theme="dark"])) .opt-light,
+  :global(:root[data-theme="dark"]) .opt-dark {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 0.2em;
+  }
+
+  @media (max-width: 36rem) {
+    .block {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .wide {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")
+    .forEach((button) =>
+      button.addEventListener("click", () => {
+        const root = document.documentElement;
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        root.classList.toggle("dark", next === "dark");
+        try {
+          localStorage.setItem("theme", next);
+        } catch {}
+      }),
+    );
+</script>

@@ -310,17 +310,18 @@ For short items outside a post. A divider names the list. Mono throughout at `--
 │ SITE         │ SET IN           │ YEAR       ■ │
 │ npbee.me     │ jetbrains mono + │ 2026         │
 │              │ inter            │              │
-├──────────────┼──────────────────┴──────────────┤
-│ LOCATION     │ FIND ME                         │
-│ portland, or │ github · twitter · linkedin     │
-└──────────────┴─────────────────────────────────┘
+├──────────────┼──────────────────┼──────────────┤
+│ LOCATION     │ FIND ME          │ THEME        │
+│ portland, or │ github · twitter │ light / dark │
+│              │ · linkedin       │ ‾‾‾‾‾        │
+└──────────────┴──────────────────┴──────────────┘
 ```
 
 - Set as a drafting title block: cells divided by 1px ink lines.
 - Each cell is a label over a value in regular mono at `--text-meta`.
 - One 8px square in `--accent` sits in the top-right cell, so the footer carries the page's color.
-- Narrow: two columns, with `FIND ME` across both.
-- The theme switch, if there is one, is a cell like any other: label `THEME`, value `light` or `dark`.
+- The theme switch is a cell like any other. Its value is one button, `light / dark`, with the current theme in ink and underlined and the other in muted.
+- Narrow: two columns, with `FIND ME` and `THEME` each across both.
 
 ## The panel
 
