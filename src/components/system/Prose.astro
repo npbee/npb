@@ -89,7 +89,8 @@
     content: "###" / "";
   }
 
-  .prose :global(a) {
+  /* Examples are live UI and style their own links */
+  .prose :global(a:not(.example *)) {
     color: var(--accent-ink);
     text-decoration: underline;
     text-decoration-thickness: var(--hair);
@@ -97,7 +98,7 @@
   }
 
   @media (hover: hover) {
-    .prose :global(a:hover) {
+    .prose :global(a:not(.example *):hover) {
       text-decoration-thickness: 2px;
     }
   }
@@ -170,7 +171,7 @@
     height: auto;
   }
 
-  .prose :global(figure:not(.code) figcaption) {
+  .prose :global(figure:not(.code, .example) figcaption) {
     margin-top: var(--space-2);
     font-size: var(--text-meta);
     line-height: var(--leading-meta);

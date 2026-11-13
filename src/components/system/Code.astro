@@ -1,0 +1,20 @@
+---
+// A code block for MDX posts and pages, matching the ones Markdown fences
+// produce: the same theme and the same captioned figure.
+import { Code as AstroCode } from "astro:components";
+import { codeFigure } from "../../utils/code-figure.mjs";
+
+interface Props {
+  code: string;
+  lang: string;
+}
+
+const { code, lang } = Astro.props;
+---
+
+<AstroCode
+  code={code}
+  lang={lang as any}
+  theme="css-variables"
+  transformers={[codeFigure]}
+/>

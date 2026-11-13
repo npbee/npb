@@ -11,7 +11,7 @@ This document describes how things look and read. It is independent of how the s
 3. **One column, two edges.** Every inner page is a single reading-width column. The wordmark, titles, years and text start on its left edge; the nav, dates and line ends stop at its right. Paired facts mirror across its center line.
 4. **Mono for short, sans for long.** Anything a reader scans is monospace. Anything a reader settles into is sans.
 5. **One accent per page, chosen by section.** Each section owns a knob color, and that color is the accent on its pages. The accent appears as link text plus at most two marks.
-6. **Rules, not containers.** Hairlines separate things. Only the panel and code blocks are enclosed.
+6. **Rules, not containers.** Hairlines separate things. Only the panel, code blocks and examples are enclosed.
 7. **Every mark earns its place.** Counts, labels and numbers appear only where a reader uses them. Page titles carry no counts and posts carry no sequence numbers; a numbered list stays numbered because its order matters.
 
 ## Type
@@ -282,6 +282,28 @@ TYPESCRIPT                           7 LINES
 - Plain text blocks are labeled `TEXT`, and shell blocks `SHELL`.
 - A highlighted line is marked with a `--bar` accent bar on the block's left edge. The line's ground does not change.
 - Long lines scroll inside the block.
+- **Collapsed.** Code a reader may skip starts closed, showing only its header row: `▸ CODE · HTML` on the left, the line count on the right. The row is the toggle; open, the mark turns to `▾`, the row takes its hairline, and the code follows without a second header. Hover turns the row ink.
+
+### Example
+
+```
+EXAMPLE
+────────────────────────────────────────────
+                                            
+   ▁▃▅▇▅▃▁▃▅▇█▇▅▃▁▃▅▇▅▃▁▃▅▇▅▃▁▃▅▇▅▃▁▃▅      
+                                            
+```
+
+Something live inside a post: a rendered demo the reader watches or uses.
+
+- Set like a code block: `--paper-2` ground filling the measure, no border, and a header row with an uppercase `--text-label` in muted over a `--rule` hairline. The label is `example`, or `demo` for something the reader can use.
+- The content sits `--space-6` from the top and bottom and `--space-4` from the sides. Several pieces in one example stack `--space-6` apart.
+- An example and the code that makes it are two blocks, one line apart, like any others.
+- Inside, the post's text styles and block rhythm don't apply: the example styles itself, in the system's faces and tokens.
+- Colors baked into images, such as waveforms, use the system's hex values: grey `#8F8E89`, red `#F0352B`, blue `#2B6BE0`. They read on the housing and the screen alike.
+- Decided from a prototype on the waveform post (2026-11-12). Rejected: an unenclosed example between two hairlines, which left the demo floating among paragraphs, and an example joined to its code as one block, which didn't hold for examples without code.
+
+**The audio player** is the one interactive example. The track title in bold mono at 15px over the artist in muted `--text-meta`, both linking out; on the right, the time (`00:00 / 03:12`, muted, tabular, hidden until the audio loads) over a text button, `▶ play` or `❚❚ pause`, in `--accent-ink`. Below, the full-width waveform: played in red, the rest in grey, and a 1px ink line under the pointer on hover. Before the audio loads, the whole waveform is a play button. No artwork, no spinner: loading shows as `loading` in the button.
 
 ### Item
 
@@ -473,7 +495,6 @@ Explored and left out on purpose. Adding any of these is a change to the system,
 
 Not yet decided. Each should be settled, and written into this document, when the page that needs it is built.
 
-- How MDX embeds sit in a post, such as the audio player in the waveform post.
 - Images wider than the measure, which would now have to break out of the sheet.
 - The demos page's items, and whether demos needs its own index layout.
 - The panel's screen on very narrow phones, below about 22rem.

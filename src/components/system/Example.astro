@@ -1,0 +1,44 @@
+---
+// A live example inside a post: something the reader watches or uses, set
+// on the code block's recessed ground. Several children stack inside one.
+interface Props {
+  label?: string;
+}
+
+const { label = "example" } = Astro.props;
+---
+
+<figure class="example">
+  <figcaption>{label}</figcaption>
+  <div class="stage">
+    <slot />
+  </div>
+</figure>
+
+<style>
+  .example {
+    background: var(--paper-2);
+  }
+
+  figcaption {
+    padding: var(--space-2) 0.875rem;
+    border-bottom: var(--hair) solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    line-height: var(--leading-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .stage {
+    display: grid;
+    gap: var(--space-6);
+    padding: var(--space-6) var(--space-4);
+  }
+
+  /* An example is live UI, not text: the post's block rhythm stays out */
+  :global(.prose) .stage :global(*) {
+    margin-top: 0;
+  }
+</style>
