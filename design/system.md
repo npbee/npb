@@ -258,7 +258,7 @@ Left-aligned on the sheet's edge, like everything else on the page. A post opens
 - **Lists** keep sans text. Ordered lists show zero-padded mono numerals in muted, hanging in a 1.5rem column. Unordered lists use a muted mono `–`. Markers are smaller than the text but sit on its baseline.
 - **Inline code** is mono at 0.86em on `--paper-2` with 0.15em of horizontal padding.
 - **Quotes** are sans italic with a 1px ink rule on the left and 1rem of padding.
-- **Images** fill the measure with no border. A caption sits below in `--text-meta`, muted.
+- **Images** fill the measure with no border, and never break out past it. A caption sits below in `--text-meta`, muted. Wide screenshots and diagrams scale down to the measure; most are 2× files, so they land near their natural size. Decided on the posts with the widest images (2026-11-12), for the same reason code doesn't break out: it would break the shared edge.
 
 ### Code block
 
@@ -495,7 +495,7 @@ Explored and left out on purpose. Adding any of these is a change to the system,
 
 Not yet decided. Each should be settled, and written into this document, when the page that needs it is built.
 
-- Images wider than the measure, which would now have to break out of the sheet.
+- Images with a baked-in white ground, such as the undo diagrams, sit as bright slabs on the housing and glare on the dark screen. Either a treatment for images in dark mode, or re-exporting them on a transparent ground.
 - The demos page's items, and whether demos needs its own index layout.
 - The panel's screen on very narrow phones, below about 22rem.
 - The 404 page and the generated social image.
