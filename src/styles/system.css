@@ -1,5 +1,5 @@
-/* Base styles for pages built to design/system.md. Only layouts/Page.astro
-   imports this, so pages still on Tailwind never load it. */
+/* Base styles for every page, built to design/system.md. Imported by
+   layouts/Page.astro. */
 @import "../../design/tokens.css";
 
 :root {
@@ -109,7 +109,9 @@ body {
   grid-template-columns:
     minmax(0, var(--measure))
     minmax(0, var(--margin));
-  column-gap: clamp(var(--space-8), 6vw, var(--margin-gap));
+  /* The gap as drawn, which .wide needs to reach across it */
+  --gap-drawn: clamp(var(--space-8), 6vw, var(--margin-gap));
+  column-gap: var(--gap-drawn);
   align-content: start;
 }
 
@@ -185,6 +187,14 @@ body {
 
   .row[data-narrow="before"] > .row-margin {
     order: -1;
+  }
+}
+
+/* A figure that runs across the gap and the margin. Only where the margin
+   is at its full width; narrower, it keeps to the column. */
+@media (min-width: 60rem) {
+  .wide {
+    margin-right: calc(-1 * (var(--gap-drawn) + var(--margin)));
   }
 }
 

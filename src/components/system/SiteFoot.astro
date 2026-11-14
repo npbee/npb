@@ -120,7 +120,6 @@ const links = [
         const root = document.documentElement;
         const next = root.dataset.theme === "dark" ? "light" : "dark";
         root.dataset.theme = next;
-        root.classList.toggle("dark", next === "dark");
         try {
           localStorage.setItem("theme", next);
         } catch {}

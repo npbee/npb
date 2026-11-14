@@ -3,12 +3,14 @@
 // on the code block's recessed ground. Several children stack inside one.
 interface Props {
   label?: string;
+  /** Run across the margin too, on screens wide enough to have one */
+  wide?: boolean;
 }
 
-const { label = "example" } = Astro.props;
+const { label = "example", wide = false } = Astro.props;
 ---
 
-<figure class="example">
+<figure class:list={["example", { wide }]}>
   <figcaption>{label}</figcaption>
   <div class="stage">
     <slot />

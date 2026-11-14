@@ -167,8 +167,7 @@ const colors = [
     });
   };
   document.getElementById("theme")?.addEventListener("click", () => {
-    const isDark = root.classList.toggle("dark");
-    const theme = isDark ? "dark" : "light";
+    const theme = root.dataset.theme === "dark" ? "light" : "dark";
     root.dataset.theme = theme;
     try {
       localStorage.setItem("theme", theme);

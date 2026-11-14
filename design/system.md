@@ -225,7 +225,12 @@ typescript                                    7 lines
 - Code is mono at 13px, 1.7 leading. Line numbers muted, right-aligned in a 3.8em column.
 - A highlighted line has a 2px `--accent` bar on the block's left edge.
 - Long lines scroll inside the block.
+- **Copy.** A code block may offer `copy` in its caption, in `--accent-ink`, beside the line count. Script adds it, so there's no dead button without script. On by request (`copy` on `Code`), for code meant to be taken, like a demo's source.
 - **Collapsed.** Code a reader may skip starts closed, showing only its header row with `▸`; open, the mark turns to `▾`.
+
+### Wide figures
+
+An example or a code block can run across the gap and the margin, to the margin's right edge, where a demo or long code needs the room. Only where the margin is at its full width (60rem and up); narrower, it keeps to the column. Use it for the thing a page is about, not for every figure. In code: `wide` on `Example` and `Code`, or the `.wide` class.
 
 ### Example
 

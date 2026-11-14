@@ -7,14 +7,85 @@ import { codeFigure } from "../../utils/code-figure.mjs";
 interface Props {
   code: string;
   lang: string;
+  /** Run across the margin too, on screens wide enough to have one */
+  wide?: boolean;
+  /** Add a copy button to the caption */
+  copy?: boolean;
 }
 
-const { code, lang } = Astro.props;
+const { code, lang, wide = false, copy = false } = Astro.props;
 ---
 
-<AstroCode
-  code={code}
-  lang={lang as any}
-  theme="css-variables"
-  transformers={[codeFigure]}
-/>
+<div class:list={["code-block", { wide }]} data-copyable={copy ? "" : undefined}>
+  <AstroCode
+    code={code}
+    lang={lang as any}
+    theme="css-variables"
+    transformers={[codeFigure]}
+  />
+</div>
+
+<style>
+  /* Sits beside the line count, in the caption's voice */
+  .code-block :global(.code-copy) {
+    position: relative;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: var(--accent-ink);
+    cursor: pointer;
+  }
+
+  /* A 44px-tall target without moving the caption */
+  .code-block :global(.code-copy)::after {
+    content: "";
+    position: absolute;
+    inset: calc((2.75rem - 1lh) / -2) -0.5rem;
+  }
+
+  @media (hover: hover) {
+    .code-block :global(.code-copy:hover) {
+      text-decoration: underline;
+      text-decoration-thickness: var(--hair);
+      text-underline-offset: 3px;
+    }
+  }
+
+  .code-block :global(.code-meta) {
+    display: flex;
+    gap: var(--space-4);
+  }
+</style>
+
+<script>
+  // Copying needs script anyway, so the button is added here rather than
+  // rendered: without script there's no dead control.
+  for (const block of document.querySelectorAll<HTMLElement>(
+    "[data-copyable]",
+  )) {
+    const lines = block.querySelector(".code-lines");
+    const code = block.querySelector<HTMLElement>("pre code");
+    if (!lines || !code) continue;
+
+    const meta = document.createElement("span");
+    meta.className = "code-meta";
+    lines.replaceWith(meta);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "code-copy";
+    button.textContent = "copy";
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(code.innerText);
+        button.textContent = "copied";
+      } catch {
+        button.textContent = "couldn't copy";
+      }
+      setTimeout(() => (button.textContent = "copy"), 1200);
+    });
+
+    meta.append(button, lines);
+  }
+</script>
