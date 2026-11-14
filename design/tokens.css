@@ -48,8 +48,10 @@
   --tracking-name: -0.01em;
 
   --mark-weight: 500;
-  --mark-tracking: 0.07em;
-  --mark-gap: 0.84em;
+  /* Set as plain mono: no tracking, and one character's width between
+     the words */
+  --mark-tracking: 0;
+  --mark-gap: 0.6em;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
