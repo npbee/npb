@@ -45,7 +45,7 @@ const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
         <p slot="margin" class="post-notes">
           <time class="post-date" datetime={isoDate(entry.data.date)}
             >{fullDate(entry.data.date)}</time
-          ><br />{readTime} to read
+          >{" · "}{readTime} to read
         </p>
       </Row>
     </article>
@@ -53,13 +53,24 @@ const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
 </Page>
 
 <style>
-  /* Sticky, so the date and read time stay beside the reader. The offset
-     clears the progress strip and lines up with the title's first line. */
+  /* Pinned beside the progress strip, at its height, so the margin below
+     is free for wide figures. Its ground reaches back across the gap, so
+     figures pass under it as they pass under the strip. Set flush right,
+     to end where the wide figures do. */
   :global(.post) > :global(.row-margin) {
     position: sticky;
-    top: calc(env(safe-area-inset-top, 0px) + 5.25rem);
+    top: env(safe-area-inset-top, 0px);
+    z-index: 1;
     align-self: start;
-    margin-top: 5.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: calc(22px + 1.25rem);
+    max-width: none;
+    margin-left: calc(-1 * var(--gap-drawn));
+    padding-left: var(--gap-drawn);
+    background: var(--ground);
+    white-space: nowrap;
   }
 
   .post-date {
@@ -70,6 +81,10 @@ const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
   @media (max-width: 47.5rem) {
     :global(.post) > :global(.row-margin) {
       position: static;
+      display: block;
+      height: auto;
+      background: none;
+      white-space: normal;
       margin: 0 0 var(--space-6);
       padding-left: 0.875rem;
       border-left: var(--hair) solid var(--rule);

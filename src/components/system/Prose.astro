@@ -147,6 +147,39 @@
     height: auto;
   }
 
+  /* Figures run across the gap and the margin, which the post keeps clear
+     below its pinned notes. Only where the margin is at full width. */
+  @media (min-width: 60rem) {
+    .prose
+      > :global(
+        :is(
+            figure,
+            details,
+            .code-block,
+            img,
+            p:has(> img:only-child),
+            div:has(.codepen, iframe)
+          )
+      ) {
+      margin-right: calc(-1 * (var(--gap-drawn) + var(--margin)));
+    }
+  }
+
+  /* Diagrams drawn on white (opted in with a #diagram fragment) take the
+     page's ground: multiply drops the white in light; in dark, inverting
+     with the hue turned back keeps their colors, and screen drops the
+     resulting black. Some are on off-white, so brightness and contrast
+     push it the last step. */
+  .prose :global(img[src*="#diagram"]) {
+    filter: brightness(1.04);
+    mix-blend-mode: multiply;
+  }
+
+  :global(:root[data-theme="dark"]) .prose :global(img[src*="#diagram"]) {
+    filter: invert(1) hue-rotate(180deg) contrast(1.2);
+    mix-blend-mode: screen;
+  }
+
   .prose :global(figure:not(.code, .example) figcaption) {
     margin-top: var(--space-2);
     font-family: var(--font-mono);

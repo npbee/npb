@@ -200,7 +200,7 @@ Body text …
 - The title, 2.5rem below it, at `--text-title`, weight 500, balanced. Hyphenated words never break at the hyphen.
 - The description, if any, `--space-3` under the title in the body face at `--text-row`, muted. Its placement is still open.
 - The body follows, 2.75rem below.
-- The margin holds the date (ink) over the read time, and below that any note the post wants. It starts level with the title and is sticky, so it stays beside the reader as the post scrolls.
+- The margin holds the date (ink) and read time on one line (`2023.12.29 · 2:04 to read`), pinned level with the progress strip at the top of the viewport and set flush right, to end where wide figures end, on the page's ground reaching back across the gap. Below it the margin stays empty, so figures can run into it and pass under the pinned row as they scroll. Narrow, the notes lead the post as a block note and aren't pinned.
 - Narrow: the margin's notes come first, above the progress strip, as a block note.
 
 ### Post body
@@ -211,7 +211,8 @@ Body text …
 - **Lists** keep the body face. Ordered lists show mono numerals in muted, hanging. Unordered lists use a muted mono `–`.
 - **Inline code** is mono at 0.82em, no ground.
 - **Quotes** are italic with a 1px `--rule` on the left and 1rem of padding.
-- **Images** fill the measure, never break out, and have no border. A caption below in mono at `--text-note`, muted.
+- **Images** fill the measure, and run across the margin with the post's other figures (see Wide figures). No border. A caption below in mono at `--text-note`, muted.
+- **Diagrams** drawn on white opt in with a `#diagram` fragment on their URL and take the page's ground: multiplied in light; inverted, hue turned back 180° and screened in dark. Screenshots don't, since inverting a photo of an interface misrepresents it.
 
 ### Code block
 
@@ -232,7 +233,10 @@ typescript                                    7 lines
 
 ### Wide figures
 
-An example or a code block can run across the gap and the margin, to the margin's right edge, where a demo or long code needs the room. Only where the margin is at its full width (60rem and up); narrower, it keeps to the column. Use it for the thing a page is about, not for every figure. In code: `wide` on `Example` and `Code`, or the `.wide` class.
+A figure can run across the gap and the margin, to the margin's right edge. Only where the margin is at its full width (60rem and up); narrower, it keeps to the column.
+
+- **In a post, every figure is wide**: code blocks, collapsed code, examples, images and embeds. The post keeps its margin clear below the pinned notes for them. Text stays in the column.
+- **Elsewhere**, use it for the thing a page is about, not for every figure: `wide` on `Example` and `Code`, or the `.wide` class.
 
 ### Example
 
@@ -243,7 +247,7 @@ Something live inside a post.
 - Inside, the post's text styles don't apply; the example styles itself from the system's tokens.
 - Colors baked into images, such as waveforms, use the system's hex values.
 
-**The audio player** draws its waveform as the system's waveform does: played in ink, unplayed in grey, the playhead in `--accent`. Its waveforms are images from waveformr, so the colors are fixed hex values, one image per theme. The unplayed grey is a step past `--dim` (`#B4B4AE` light, `#4A4B4A` dark), because `--dim` disappears on `--ground-2`. The track title in the body face at 600 over the artist in muted mono, both linking out; the time (`0:00 / 3:12`, tabular, hidden until the audio loads) over a text button, `play` or `pause`, in `--accent-ink`. Before the audio loads, the whole waveform is a play button.
+**The audio player** draws its waveform as the system's waveform does: played in ink, unplayed in grey, the playhead in `--accent`. Its waveforms are images from waveformr, so the colors are fixed hex values, one image per theme. The unplayed grey is a step past `--dim` (`#AEB1B6` light, `#4A4D53` dark), because `--dim` disappears on `--ground-2`. The track title in the body face at 600 over the artist in muted mono, both linking out; the time (`0:00 / 3:12`, tabular, hidden until the audio loads) over a text button, `play` or `pause`, in `--accent-ink`. Before the audio loads, the whole waveform is a play button.
 
 ### Project row
 
@@ -359,7 +363,6 @@ Each should be settled, and written into this document, when the page that needs
 - What the home waveform is drawn from: a real track, and which one. Until then, peaks are generated.
 - Whether a post's description goes under its title or into the margin.
 - Keyboard scrubbing for the home waveform.
-- Images with a baked-in white ground, such as the undo diagrams, in dark mode.
 - All copy: the intro, margin notes and footer wording. The post's read time currently reads `2:11 to read`, as a placeholder.
 
 ## Where it came from

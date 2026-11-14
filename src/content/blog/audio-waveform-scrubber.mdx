@@ -40,7 +40,7 @@ Here's the first attempt:
 The `polygon` shape tells CSS to "clip" the image to the coordinates we're drawing. 
 In this case, we want to clip the image so that it stops at the point where the current time of the audio is.
 
-![Two rectangles are displayed. The bottom one is clipped to represent the clipped waveform](/posts/clip-path-1.svg)
+![Two rectangles are displayed. The bottom one is clipped to represent the clipped waveform](/posts/clip-path-1.svg#diagram)
 
 Assuming we have the current percentage of audio that's played, we can set that as a CSS custom property and use that as a dynamic way to apply our `clip-path`.
 
@@ -54,7 +54,7 @@ What we have is pretty solid, but there was one thing that bugged me. It's easie
 
 Here's a zoomed-in version:
 
-![A zoomed in image of two waveforms. One is bleeding through behind the other](/posts/clip-path-2.png)
+![A zoomed in image of two waveforms. One is bleeding through behind the other](/posts/clip-path-2.png#diagram)
 
 It's subtle, but the "base" waveform is bleeding through behind the progress waveform.
 This makes sense because we're layering the progress waveform right over the top of the base waveform. 
@@ -67,7 +67,7 @@ We can adjust this so that there is no overlap by using another `clip-path`.
 
 We're applying the inverse shape to the base waveform so that the two are clipped in a way that avoids overlapping.
 
-![Diagram showing two rectangles that are clipped to avoid overlapping](/posts/clip-path-3.svg)
+![Diagram showing two rectangles that are clipped to avoid overlapping](/posts/clip-path-3.svg#diagram)
 
 Here are the two side-by-side for comparison:
 
