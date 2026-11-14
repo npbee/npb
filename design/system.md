@@ -250,6 +250,30 @@ waveformr                                      what it is,
 - The whole name is the link. Hover turns it `--accent-ink`.
 - Narrow: the description follows the name as a note.
 
+### Career list
+
+The about page's work, set like the index list, with a timeline drawn down its left edge.
+
+```
+●╲ risotto · staff engineer                                    2026
+│ ╲▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁━━━━
+│ 08 → now
+○╲ dropbox · senior software engineer                          2019
+│ ╲▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━▁▁▁▁
+│ 02 → 2026.08
+```
+
+- **Rows.** The role (`company · title`, body face, `--text-row`) over a track, over its dates (`mm → yyyy.mm`, or `now`; mono, `--text-note`, muted). The start year sits in the margin, in ink, beside the first role that began that year.
+- **The thread.** A 2px line down a 1.75rem gutter, centered 4px in. Each role has an 8px ring on it, level with the title's first line; the current role's is filled and carries a soft 3px halo of its own color at 18%. The thread starts at the first dot and stops at the last, with no fade.
+- **The track.** A 2px line under each role's title spanning the whole career, from the first role's start to now, in `--rule`. The role's own time is drawn on it in color, on that shared scale, so gaps, overlaps and tenure all show. It's the waveform's played-and-unplayed idea, turned into a career. It follows the title, so a title that wraps pushes it down instead of crossing it.
+- **The joint.** The track leaves the thread at 45° and turns level into the track: square ends, mitered corners. On a one-line title it leaves from the dot itself.
+- **Every line is 2px**: thread, ring, joint, track.
+- **Color.** The accent, as a ramp by age: the current role at full strength, each older one lighter in light mode and dimmer in dark (oklch, relative to `--accent`: L ±0.075–0.08 and C −0.01 per step). It's the one place the accent appears more than twice on a view, because here it is the drawing.
+- **Narrow.** The year moves above its role, indented to the text's edge, and the thread runs through it unbroken.
+- Hidden from assistive technology: the thread, dots, joint and track. Each row's date carries a visually hidden year.
+
+Decided from a prototype on the about page (2026-11-14), over four rounds. Rejected: no decoration (plain, but the page had no shape); a line that stepped right at each promotion (abstract until noticed); a vertical waveform rail (texture more than timeline); curved branches off the thread (too soft for the system); straight elbows, diagonals and circuit-board traces into the dates (decoration without information); tenure lines measured from the thread rather than on a shared scale (hid gaps and overlaps); a dotted guide to each role's start (busier than the track); and a year ruler under the list (made it a chart). The earlier timeline drawing, the instrument's screen, is gone with the instrument.
+
 ### Numbered list
 
 For short items outside a post, such as the things built on the about page. A section label names the list; rows are the body face at `--text-row`, with zero-padded mono numerals in muted hanging in a 2rem column. Numbered because the list is ordered by the author, not because numbering looks tidy; if order stops mattering, the numbers go.
@@ -280,7 +304,7 @@ The name, set as live text in IBM Plex Mono at weight 500, lowercase, in the hea
 | Home     | Head. The waveform with its time in the margin. Name and intro, with notes in the margin. Posts as an index list. Projects as project rows. Footer. |
 | Posts    | Head. Page title. The full index list. Footer.                                                                                 |
 | Post     | Head. Post. Footer.                                                                                                            |
-| About    | Head. Page title. Paragraphs, with notes in the margin. The timeline's text view. The numbered list of things built. Footer.     |
+| About    | Head. Page title. Paragraphs, with a note in the margin. The career list under a `work` label. The numbered list of things built. Footer. |
 | Projects | Head. Page title. Project rows. Footer.                                                                                        |
 | Demos    | Head. Page title. Project rows. Footer.                                                                                        |
 
@@ -318,7 +342,6 @@ Each should be settled, and written into this document, when the page that needs
 - The accent hue.
 - What the home waveform is drawn from: a real track, and which one. Until then, peaks are generated.
 - Whether a post's description goes under its title or into the margin.
-- The timeline on the about page. Its drawing was the instrument's screen; it either gets redrawn in this system's terms or goes, leaving the text view.
 - Keyboard scrubbing for the home waveform.
 - Images with a baked-in white ground, such as the undo diagrams, in dark mode.
 - The 404 page and the generated social image.

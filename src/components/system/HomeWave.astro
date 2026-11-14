@@ -1,0 +1,134 @@
+---
+// The home page's waveform: it drifts slowly until scrubbed. Peaks are
+// generated until it draws from a real track (design/system.md, Open).
+import Row from "./Row.astro";
+import { duration, peaks } from "../../utils/waveform";
+
+// The length of the track the waveform stands for, in seconds
+const TRACK_LENGTH = 214;
+
+const data = JSON.stringify(peaks(600, 7));
+---
+
+<Row class="home-wave">
+  <canvas
+    data-peaks={data}
+    data-length={TRACK_LENGTH}
+    role="img"
+    aria-label="An audio waveform"
+  ></canvas>
+  <p slot="margin" class="readout" aria-hidden="true">
+    <span class="time" data-time>{duration(0)}</span><br />drag to scrub
+  </p>
+</Row>
+
+<style>
+  canvas {
+    display: block;
+    width: 100%;
+    height: 7.5rem;
+    cursor: ew-resize;
+    touch-action: pan-y;
+  }
+
+  .readout {
+    align-self: center;
+  }
+
+  .time {
+    font-size: 0.8125rem;
+    color: var(--ink);
+  }
+
+  @media (max-width: 47.5rem) {
+    .readout {
+      margin-top: var(--space-3);
+    }
+  }
+</style>
+
+<script>
+  import { duration } from "../../utils/waveform";
+
+  const STEP = 4;
+  const PASS_SECONDS = 90;
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>(
+    ".home-wave canvas",
+  )) {
+    const peaks: number[] = JSON.parse(canvas.dataset.peaks!);
+    const length = Number(canvas.dataset.length);
+    const time = canvas
+      .closest(".home-wave")!
+      .querySelector<HTMLElement>("[data-time]")!;
+
+    let p = 0.32;
+    let scrubbing = false;
+
+    const draw = () => {
+      const dpr = devicePixelRatio || 1;
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (!w) return;
+      if (canvas.width !== w * dpr) canvas.width = w * dpr;
+      if (canvas.height !== h * dpr) canvas.height = h * dpr;
+      const g = canvas.getContext("2d")!;
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.clearRect(0, 0, w, h);
+
+      const css = getComputedStyle(canvas);
+      const ink = css.getPropertyValue("--ink").trim();
+      const dim = css.getPropertyValue("--dim").trim();
+      const accent = css.getPropertyValue("--accent").trim();
+      const bars = Math.floor(w / STEP);
+      for (let i = 0; i < bars; i++) {
+        const v = peaks[Math.floor((i / bars) * peaks.length)];
+        const bh = Math.max(1.5, v * h);
+        g.fillStyle = i / bars < p ? ink : dim;
+        g.fillRect(i * STEP, (h - bh) / 2, STEP * 0.45, bh);
+      }
+      g.fillStyle = accent;
+      g.fillRect(Math.round(p * w), 0, 1, h);
+
+      time.textContent = duration(Math.floor(p * length));
+    };
+
+    const scrubTo = (event: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      p = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+      draw();
+    };
+    canvas.addEventListener("pointerdown", (event) => {
+      scrubbing = true;
+      canvas.setPointerCapture(event.pointerId);
+      scrubTo(event);
+    });
+    canvas.addEventListener("pointermove", (event) => {
+      if (scrubbing) scrubTo(event);
+    });
+    const release = () => (scrubbing = false);
+    canvas.addEventListener("pointerup", release);
+    canvas.addEventListener("pointercancel", release);
+
+    let last = performance.now();
+    const frame = (now: number) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      if (!scrubbing && !reduceMotion.matches && !document.hidden) {
+        p = (p + dt / PASS_SECONDS) % 1;
+        draw();
+      }
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+
+    addEventListener("resize", draw);
+    // The theme switch changes the tokens the bars are painted with
+    new MutationObserver(draw).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    draw();
+  }
+</script>

@@ -1,75 +1,130 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/Base.astro";
-import Intro from "../components/Intro.astro";
-import PageHeading from "../components/PageHeading.astro";
-import PostList from "../components/PostList.astro";
-import ProjectList from "../components/ProjectList.astro";
-import ExternalWindowIcon from "../components/ExternalWindowIcon.astro";
+import Page from "../layouts/Page.astro";
+import Shell from "../components/system/Shell.astro";
+import HomeWave from "../components/system/HomeWave.astro";
+import SectionLabel from "../components/system/SectionLabel.astro";
+import IndexList from "../components/system/IndexList.astro";
+import ProjectRow from "../components/system/ProjectRow.astro";
+import { render } from "astro:content";
 
-let allBlogPosts = await getCollection("blog");
-let projects = await getCollection("projects");
+const posts = (await getCollection("blog")).toSorted(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const projects = await Promise.all(
+  (await getCollection("projects"))
+    .filter((project) => !project.data.draft)
+    // The glob loader's order isn't guaranteed; this keeps waveformr first.
+    .toSorted((a, b) => b.id.localeCompare(a.id))
+    .map(async (project) => ({ project, ...(await render(project)) })),
+);
 ---
 
-<BaseLayout
-  title="Nick Ball"
-  description="Software developer based in Portland, OR."
->
-  <div class="space-y-32 py-24">
-    <div class="max-w-2xl pb-32">
-      <Intro />
-    </div>
+<Page title="Nick Ball" description="Software developer based in Portland, OR.">
+  <Shell>
+    <main>
+      <HomeWave />
 
-    <section class="space-y-2">
-      <PageHeading href="/projects"><h2>Projects</h2></PageHeading>
-      <ProjectList projects={projects} />
-    </section>
-
-    <section class="space-y-2">
-      <PageHeading href="/demos"><h2>Demos</h2></PageHeading>
-
-      <ul class="grid items-start gap-12 md:grid-cols-3">
-        <li>
-          <a
-            class="group flex flex-col text-base no-underline"
-            href={`/demos/audio-player`}
-          >
-            <span
-              class="text font-semibold group-hover:text-accent-10 dark:group-hover:text-accent-dark-10"
-            >
-              Audio Player
-            </span>
-            <span class="prose text-sm font-normal dark:prose-invert">
-              An audio player built with React and Tailwind CSS.
-            </span>
-          </a>
-        </li>
-        <li>
-          <a
-            class="group flex flex-col text-base no-underline"
-            href="https://undo-redo-playground.pages.dev/"
+      <header class="intro">
+        <h1>Nick Ball</h1>
+        <p>
+          Software developer based in Portland, Oregon. Currently a Staff
+          Engineer at <a
+            href="https://www.tryrisotto.com/"
             target="_blank"
-            rel="noreferrer nofollow"
-          >
-            <span
-              class="text flex gap-2 font-semibold group-hover:text-accent-10 dark:group-hover:text-accent-dark-10"
-            >
-              Undo / Redo playground
-              <span class="text flex w-3"><ExternalWindowIcon /></span></span
-            >
-            <span class="prose text-sm font-normal dark:prose-invert">
-              A Linear-like app for exploring undo/redo techniques.
-            </span>
-          </a>
-        </li>
-      </ul>
-    </section>
+            rel="noopener nofollow">Risotto</a
+          >.
+        </p>
+      </header>
 
-    <section class="space-y-2">
-      <PageHeading href="/posts">Posts</PageHeading>
-      <div class="space-y-8">
-        <PostList posts={allBlogPosts} />
-      </div>
-    </section>
-  </div>
-</BaseLayout>
+      <section class="rows" aria-labelledby="home-posts">
+        <SectionLabel id="home-posts"><a href="/posts">posts</a></SectionLabel>
+        <IndexList posts={posts} />
+      </section>
+
+      <section class="rows" aria-labelledby="home-projects">
+        <SectionLabel id="home-projects"
+          ><a href="/projects">projects</a></SectionLabel
+        >
+        <ul class="rows plain">
+          {projects.map(({ project, Content }) => (
+            <ProjectRow name={project.data.title} href={project.data.link}>
+              <Content />
+            </ProjectRow>
+          ))}
+        </ul>
+      </section>
+
+      <section class="rows" aria-labelledby="home-demos">
+        <SectionLabel id="home-demos"><a href="/demos">demos</a></SectionLabel>
+        <ul class="rows plain">
+          <ProjectRow name="Audio Player" href="/demos/audio-player">
+            An audio player built with React and Tailwind CSS.
+          </ProjectRow>
+          <ProjectRow
+            name="Undo / Redo playground"
+            href="https://undo-redo-playground.pages.dev/"
+          >
+            A Linear-like app for exploring undo/redo techniques.
+          </ProjectRow>
+        </ul>
+      </section>
+    </main>
+  </Shell>
+</Page>
+
+<style>
+  .intro {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-16);
+  }
+
+  h1 {
+    font-family: var(--font-title);
+    font-size: var(--text-name);
+    font-weight: 500;
+    line-height: var(--leading-title);
+    letter-spacing: var(--tracking-name);
+  }
+
+  .intro p {
+    max-width: 40ch;
+    font-size: var(--text-lead);
+    line-height: var(--leading-lead);
+  }
+
+  .intro a {
+    color: var(--accent-ink);
+    text-decoration: underline;
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 3px;
+  }
+
+  main > :global(section) {
+    margin-top: var(--space-24);
+  }
+
+  .plain {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (hover: hover) {
+    .intro a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    main :global(.section-label a:hover) {
+      color: var(--ink);
+    }
+  }
+
+  @media (max-width: 47.5rem) {
+    main > :global(section) {
+      margin-top: var(--space-16);
+    }
+  }
+</style>

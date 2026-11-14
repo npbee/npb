@@ -1,11 +1,12 @@
 ---
 import Page from "../layouts/Page.astro";
 import Shell from "../components/system/Shell.astro";
+import Row from "../components/system/Row.astro";
 import PageTitle from "../components/system/PageTitle.astro";
 import Prose from "../components/system/Prose.astro";
-import NumberedList from "../components/system/NumberedList.astro";
-import Screen from "../components/timeline/Screen.astro";
+import SectionLabel from "../components/system/SectionLabel.astro";
 import CareerList from "../components/system/CareerList.astro";
+import NumberedList from "../components/system/NumberedList.astro";
 
 const built = [
   "Drag-and-drop heavy interfaces with React",
@@ -23,31 +24,33 @@ const built = [
 >
   <Shell current="about">
     <main>
-      <Screen />
-      <PageTitle title="about" meta="product engineer · portland, or" />
-      <Prose>
-        <p>
-          I'm a software developer based out of Portland, Oregon. I currently
-          work at <a
-            href="https://www.tryrisotto.com/"
-            target="_blank"
-            rel="noopener nofollow"><strong>Risotto</strong></a
-          > as a Staff Engineer.
-        </p>
-        <p>
-          I work heavily with technologies like <strong>React</strong> and <strong
-            >TypeScript</strong
-          >. I also enjoy building with <strong>Svelte</strong> and <strong
-            >Astro</strong
-          > and have experience with <strong>GraphQL</strong>, <strong
-            >Elixir</strong
-          >, and <strong>Phoenix</strong>. I'm particularly interested in
-          component-driven architecture, testing, and developer tooling. I love
-          focusing on small details to get the user experience just right.
-        </p>
-      </Prose>
-      <section class="work" aria-labelledby="work">
-        <h2 class="visually-hidden" id="work">work</h2>
+      <PageTitle title="about" />
+      <Row narrow="before" class="intro">
+        <Prose>
+          <p>
+            I'm a software developer based out of Portland, Oregon. I currently
+            work at <a
+              href="https://www.tryrisotto.com/"
+              target="_blank"
+              rel="noopener nofollow"><strong>Risotto</strong></a
+            > as a Staff Engineer.
+          </p>
+          <p>
+            I work heavily with technologies like <strong>React</strong> and <strong
+              >TypeScript</strong
+            >. I also enjoy building with <strong>Svelte</strong> and <strong
+              >Astro</strong
+            > and have experience with <strong>GraphQL</strong>, <strong
+              >Elixir</strong
+            >, and <strong>Phoenix</strong>. I'm particularly interested in
+            component-driven architecture, testing, and developer tooling. I love
+            focusing on small details to get the user experience just right.
+          </p>
+        </Prose>
+        <p slot="margin" class="intro-note">product engineer<br />portland, or</p>
+      </Row>
+      <section class="rows" aria-labelledby="work">
+        <SectionLabel id="work">work</SectionLabel>
         <CareerList />
       </section>
       <NumberedList title="things I've built" items={built} />
@@ -56,15 +59,25 @@ const built = [
 </Page>
 
 <style>
-  .work {
-    width: 100%;
-    display: grid;
-    gap: var(--space-4);
+  /* Sections, not the title and intro, sit a section's distance apart */
+  main > :global(section) {
+    margin-top: var(--space-24);
   }
 
-  main {
-    width: 100%;
-    display: grid;
-    gap: var(--space-8);
+  /* Level with the first line of the paragraphs */
+  .intro-note {
+    padding-top: 0.3125rem;
+  }
+
+  @media (max-width: 47.5rem) {
+    main > :global(section) {
+      margin-top: var(--space-16);
+    }
+
+    .intro-note {
+      padding: 0 0 0 0.875rem;
+      margin-bottom: var(--space-6);
+      border-left: var(--hair) solid var(--rule);
+    }
   }
 </style>

@@ -1,0 +1,32 @@
+---
+// Names a section of a page: a small lowercase label in the column, with an
+// optional note in the margin saying what the section's marks mean.
+import Row from "./Row.astro";
+
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+const hasNote = Astro.slots.has("note");
+---
+
+<Row class="section-label">
+  <h2 {id}><slot /></h2>
+  {hasNote && <slot name="note" slot="margin" />}
+</Row>
+
+<style>
+  h2 {
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    font-weight: 400;
+    line-height: var(--leading-note);
+    color: var(--muted);
+  }
+
+  :global(.section-label) {
+    margin-bottom: var(--space-2);
+  }
+</style>

@@ -1,7 +1,8 @@
 ---
-// Short items outside a post, named by a divider. Numbers are drawn by CSS
-// counters, so the list stays a plain <ol> for assistive technology.
-import Divider from "./Divider.astro";
+// Short items outside a post, in an order the author chose. Numbers are
+// drawn by CSS counters, so the list stays a plain <ol> for assistive
+// technology.
+import SectionLabel from "./SectionLabel.astro";
 
 interface Props {
   title: string;
@@ -12,38 +13,37 @@ const { title, items } = Astro.props;
 const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 ---
 
-<section class="numbered-list" aria-labelledby={id}>
-  <Divider as="h2" id={id}>{title}</Divider>
+<section class="rows numbered-list" aria-labelledby={id}>
+  <SectionLabel {id}>{title}</SectionLabel>
   <ol>
     {items.map((item) => <li>{item}</li>)}
   </ol>
 </section>
 
 <style>
-  .numbered-list {
-    width: 100%;
-    display: grid;
-    gap: var(--space-2);
-  }
-
   ol {
     margin: 0;
     padding: 0;
     list-style: none;
     counter-reset: item;
-    font-family: var(--font-mono);
-    font-size: var(--text-mono);
-    line-height: var(--leading-mono);
+    display: grid;
+    gap: var(--space-2);
+    font-size: var(--text-row);
+    line-height: var(--leading-row);
   }
 
   li {
     counter-increment: item;
     display: grid;
-    grid-template-columns: 2.6rem 1fr;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    align-items: baseline;
   }
 
   li::before {
     content: counter(item, decimal-leading-zero);
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
     color: var(--muted);
     font-variant-numeric: tabular-nums;
   }
