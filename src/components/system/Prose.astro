@@ -15,25 +15,23 @@
     min-width: 0;
     /* Bare URLs used as link text would otherwise overflow on phones */
     overflow-wrap: break-word;
-    font-family: var(--font-sans);
     font-size: var(--text-body);
     line-height: var(--leading-body);
 
-    /* The css-variables Shiki theme, mapped onto the code tokens: strings
-       green, functions blue, keywords set apart by weight, everything else
-       ink. Its "constant" token also covers variable names, so it stays ink
-       rather than taking a third hue. */
+    /* The css-variables Shiki theme, mapped onto one hue: strings take the
+       accent, keywords are set apart by weight, comments are muted, and
+       everything else is ink */
     --astro-code-foreground: var(--ink);
     --astro-code-background: transparent;
     --astro-code-token-constant: var(--ink);
-    --astro-code-token-string: var(--code-string);
+    --astro-code-token-string: var(--accent-ink);
     --astro-code-token-comment: var(--muted);
     --astro-code-token-keyword: var(--ink);
     --astro-code-token-parameter: var(--ink);
-    --astro-code-token-function: var(--code-function);
-    --astro-code-token-string-expression: var(--code-string);
+    --astro-code-token-function: var(--ink);
+    --astro-code-token-string-expression: var(--accent-ink);
     --astro-code-token-punctuation: var(--ink);
-    --astro-code-token-link: var(--code-function);
+    --astro-code-token-link: var(--accent-ink);
   }
 
   /* Block spacing is one line, so the rhythm holds. Written as siblings at
@@ -43,17 +41,19 @@
       :is(p, ul, ol, blockquote, figure, pre, hr, div, img, h2, h3, h4)
         + :is(p, ul, ol, blockquote, figure, pre, hr, div, img)
     ) {
-    margin-top: 1lh;
+    margin-top: 1.2em;
   }
 
+  /* Headings are the body face at body size; weight sets them apart */
   .prose :global(:is(h2, h3, h4)) {
-    font-family: var(--font-mono);
-    font-weight: 700;
+    font-size: var(--text-body);
+    font-weight: 600;
+    line-height: var(--leading-title);
     text-wrap: balance;
   }
 
   .prose :global(* + :is(h2, h3, h4)) {
-    margin-top: 2.5rem;
+    margin-top: 2.2em;
   }
 
   /* Same specificity as the block rule above, and later, so it wins */
@@ -61,32 +61,7 @@
     :global(
       :is(h2, h3, h4) + :is(p, ul, ol, blockquote, figure, pre, hr, div, img)
     ) {
-    margin-top: var(--space-3);
-  }
-
-  .prose :global(h2) {
-    font-size: var(--text-h2);
-    line-height: var(--leading-h2);
-  }
-
-  .prose :global(:is(h3, h4)) {
-    font-size: var(--text-mono);
-    line-height: var(--leading-mono);
-  }
-
-  .prose :global(h2)::before,
-  .prose :global(h3)::before {
-    margin-right: 0.6em;
-    font-weight: 700;
-    color: var(--accent-ink);
-  }
-
-  .prose :global(h2)::before {
-    content: "##" / "";
-  }
-
-  .prose :global(h3)::before {
-    content: "###" / "";
+    margin-top: 0.5em;
   }
 
   /* Examples are live UI and style their own links */
@@ -94,7 +69,7 @@
     color: var(--accent-ink);
     text-decoration: underline;
     text-decoration-thickness: var(--hair);
-    text-underline-offset: 0.2em;
+    text-underline-offset: 3px;
   }
 
   @media (hover: hover) {
@@ -134,6 +109,7 @@
     right: calc(100% + 0.5rem);
     font-family: var(--font-mono);
     font-size: 0.8125em;
+    font-size-adjust: var(--adjust-mono);
     line-height: calc(var(--leading-body) / 0.8125);
     color: var(--muted);
   }
@@ -157,12 +133,12 @@
 
   .prose :global(blockquote) {
     padding-left: var(--space-4);
-    border-left: var(--hair) solid var(--ink);
+    border-left: var(--hair) solid var(--rule);
     font-style: italic;
   }
 
   .prose :global(blockquote > * + *) {
-    margin-top: 1lh;
+    margin-top: 1.2em;
   }
 
   .prose :global(img) {
@@ -173,8 +149,10 @@
 
   .prose :global(figure:not(.code, .example) figcaption) {
     margin-top: var(--space-2);
-    font-size: var(--text-meta);
-    line-height: var(--leading-meta);
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
     color: var(--muted);
   }
 
@@ -184,40 +162,39 @@
     background: var(--rule);
   }
 
-  /* Inline code */
+  /* Inline code: the face alone sets it apart */
   .prose :global(:not(pre) > code) {
-    padding: 0 0.15em;
-    background: var(--paper-2);
     font-family: var(--font-mono);
-    font-size: 0.86em;
+    font-size: 0.82em;
+    font-size-adjust: var(--adjust-mono);
   }
 
-  /* Code blocks: a captioned figure on the recessed ground */
+  /* Code blocks: a captioned figure on the second ground */
   .prose :global(figure.code) {
-    background: var(--paper-2);
+    background: var(--ground-2);
+    border-radius: var(--radius-block);
   }
 
   .prose :global(figure.code figcaption) {
     display: flex;
     justify-content: space-between;
     gap: var(--space-3);
-    padding: var(--space-2) 0.875rem;
-    border-bottom: var(--hair) solid var(--rule);
+    padding: var(--space-3) 1.25rem 0;
     font-family: var(--font-mono);
-    font-size: var(--text-label);
-    line-height: var(--leading-label);
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
     color: var(--muted);
   }
 
   .prose :global(figure.code pre) {
     margin: 0;
-    padding: var(--space-3) var(--space-4) var(--space-3) 0;
+    padding: var(--space-3) 1.25rem 1.125rem 0;
     overflow-x: auto;
     font-family: var(--font-mono);
-    font-size: 0.84375rem;
-    line-height: 1.6;
+    font-size: 0.8125rem;
+    font-size-adjust: var(--adjust-mono);
+    line-height: 1.7;
     tab-size: 2;
   }
 
@@ -229,8 +206,8 @@
     counter-increment: line;
     content: counter(line);
     display: inline-block;
-    width: 3.4em;
-    padding-right: 1.3em;
+    width: 3.8em;
+    padding-right: 1.4em;
     text-align: right;
     color: var(--muted);
     font-variant-numeric: tabular-nums;

@@ -1,0 +1,96 @@
+---
+// The reader's progress through a post, drawn as a waveform that fills in.
+// It measures the nearest <article>.
+import { peaks, seedFrom } from "../../utils/waveform";
+
+interface Props {
+  seed: string;
+}
+
+const data = JSON.stringify(peaks(400, seedFrom(Astro.props.seed)));
+---
+
+<div class="progress" aria-hidden="true">
+  <canvas data-peaks={data}></canvas>
+</div>
+
+<style>
+  .progress {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 1;
+    padding-block: 0.625rem;
+    background: var(--ground);
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 22px;
+  }
+</style>
+
+<script>
+  const STEP = 3;
+
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>(
+    ".progress canvas",
+  )) {
+    const peaks: number[] = JSON.parse(canvas.dataset.peaks!);
+    const article = canvas.closest("article");
+    if (!article) continue;
+
+    const draw = () => {
+      const rect = article.getBoundingClientRect();
+      const span = rect.height - innerHeight * 0.6;
+      const p = Math.min(
+        1,
+        Math.max(0, (innerHeight * 0.4 - rect.top) / Math.max(1, span)),
+      );
+
+      const dpr = devicePixelRatio || 1;
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (!w) return;
+      if (canvas.width !== w * dpr) canvas.width = w * dpr;
+      if (canvas.height !== h * dpr) canvas.height = h * dpr;
+      const g = canvas.getContext("2d")!;
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.clearRect(0, 0, w, h);
+
+      const css = getComputedStyle(canvas);
+      const ink = css.getPropertyValue("--ink").trim();
+      const dim = css.getPropertyValue("--dim").trim();
+      const accent = css.getPropertyValue("--accent").trim();
+      const bars = Math.floor(w / STEP);
+      for (let i = 0; i < bars; i++) {
+        const v = peaks[Math.floor((i / bars) * peaks.length)];
+        const bh = Math.max(1.5, v * h);
+        g.fillStyle = i / bars < p ? ink : dim;
+        g.fillRect(i * STEP, (h - bh) / 2, STEP * 0.45, bh);
+      }
+      if (p > 0 && p < 1) {
+        g.fillStyle = accent;
+        g.fillRect(Math.round(p * w), 0, 1, h);
+      }
+    };
+
+    let queued = false;
+    const schedule = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        draw();
+      });
+    };
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
+    // The theme switch changes the tokens the bars are painted with
+    new MutationObserver(schedule).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    draw();
+  }
+</script>

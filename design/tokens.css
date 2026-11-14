@@ -1,79 +1,46 @@
 /* Design tokens. Usage rules are in system.md. */
 
 :root {
-  /* Page. Light is the instrument's aluminum housing; dark is its screen.
-     --paper keeps its name for the page ground in both. */
-  --paper: #e2e0dc;
-  --paper-2: #d6d3ce;
-  --ink: #1e1e1d;
-  --muted: #56524c;
-  --rule: #c4c0ba;
+  --ground: #f4f4f2;
+  /* Code blocks and examples */
+  --ground-2: #eaeae7;
+  --ink: #1a1a19;
+  --muted: #67675f;
+  --rule: #e0e0dc;
+  /* Marks only, never text: the unplayed part of a waveform */
+  --dim: #cfcfca;
+  /* 4.9:1 in light, so large marks only; text uses --accent-ink */
+  --accent: #3f6e9c;
+  --accent-ink: #355f88;
 
-  /* Sections. The plain value is a fill (knob, light, rule); -ink is the
-     text-safe variant, since the fills fall under 4.5:1 on the housing. */
-  --about: #2b6be0;
-  --about-ink: #1c55b8;
-  --projects: #14995a;
-  --projects-ink: #0a6b3c;
-  --posts: #f0352b;
-  --posts-ink: #b3241c;
-  /* A white knob: a fill only, never an accent */
-  --demos: #f3f2ee;
-
-  /* The page's one accent. Posts by default; [data-section] reassigns it. */
-  --accent: var(--posts);
-  --accent-ink: var(--posts-ink);
-
-  /* Syntax in code blocks: two of the knobs. hues, darkened to clear 5:1 on
-     --paper-2. Keywords stay ink (set bold), comments use --muted. */
-  --code-string: #0a5f35;
-  --code-function: #1a4fa8;
-
-  /* The panel, home page only */
-  --panel-frame: #3b3b3a;
-  --panel-module: #dcd9d4;
-  --panel-module-hi: #ebe9e5;
-  --panel-module-lo: #c3bfb8;
-  --panel-dish: #e5e2de;
-  --panel-ink: #1f1f1e;
-  --panel-muted: #5a5650;
-  --panel-hole: #2b2b2a;
-  --panel-shade: rgb(40 36 30 / 0.2);
-  --notch-light: #f7f6f2;
-  --notch-dark: #1c1c1b;
-
-  /* The panel's screen. Only --display changes between themes. */
-  --display: #080808;
-  --display-ink: #f1f0ec;
-  --display-muted: #8f8e89;
-  --display-dim: #3e3e3c;
-  --display-blue: #4d8dff;
-  --display-green: #35cf80;
-  --display-red: #ff4a3f;
-
+  /* One mono for the body and the margin; a serif for titles */
+  --font-body:
+    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --font-mono:
-    "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-title: "Newsreader", Georgia, serif;
+  /* Faces are set at a matching x-height, so swapping one keeps the rhythm.
+     The body's mono runs wide per character, so it sits a touch smaller. */
+  --adjust-body: 0.46;
+  --adjust-mono: 0.54;
 
-  --text-label: 0.6875rem;
-  --text-meta: 0.8125rem;
-  --text-mono: 0.875rem;
-  --text-body-s: 0.9375rem;
+  --text-note: 0.6875rem;
+  --text-nav: 0.75rem;
+  --text-row: 1rem;
   --text-body: 1.125rem;
-  --text-h2: 1.25rem;
-  --text-display: clamp(1.375rem, 5vw, 1.5rem);
+  --text-lead: 1.25rem;
+  --text-name: 1.375rem;
+  --text-title: clamp(1.625rem, 4.6vw, 2rem);
 
-  --leading-display: 1.15;
+  --leading-note: 1.65;
+  --leading-nav: 1.4;
+  --leading-row: 1.4;
+  --leading-body: 1.6;
+  --leading-lead: 1.55;
   --leading-title: 1.2;
-  --leading-h2: 1.3;
-  --leading-label: 1.4;
-  --leading-meta: 1.5;
-  --leading-body-s: 1.55;
-  --leading-mono: 1.6;
-  --leading-body: 1.65;
 
-  --tracking-display: -0.02em;
-  --tracking-label: 0.16em;
+  --tracking-title: -0.015em;
+  --tracking-name: -0.01em;
 
   --mark-weight: 500;
   --mark-tracking: 0.07em;
@@ -87,96 +54,45 @@
   --space-8: 2rem;
   --space-12: 3rem;
   --space-16: 4rem;
+  --space-18: 4.5rem;
   --space-24: 6rem;
+  --space-28: 7rem;
 
-  /* The reading width, and the width of every inner page */
+  /* The column, the margin beside it, and the gap between */
   --measure: 40rem;
-  --panel: 65rem;
-  --gutter: 1.5rem;
-
-  /* Strength of the pixel noise in the page ground, as an opacity */
-  --noise: 0.05;
+  --margin: 14rem;
+  --margin-gap: 4rem;
+  --note-width: 13rem;
+  --gutter: 1rem;
 
   --hair: 1px;
-  --bar: 3px;
-  --light: 0.375rem;
   --focus: 2px;
-
-  --radius-housing: 1.5rem;
-  --radius-module: 0.75rem;
-  --radius-display: 0.375rem;
-}
-
-/* Demos' knob is white, so its pages take ink as their accent */
-[data-section="about"] {
-  --accent: var(--about);
-  --accent-ink: var(--about-ink);
-}
-[data-section="projects"] {
-  --accent: var(--projects);
-  --accent-ink: var(--projects-ink);
-}
-[data-section="demos"] {
-  --accent: var(--ink);
-  --accent-ink: var(--ink);
+  --radius-block: 4px;
 }
 
 /* An explicit light choice beats a dark OS setting */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    /* The page becomes the screen: its ink and its colors */
-    --paper: #000000;
-    --paper-2: #141414;
-    --ink: var(--display-ink);
-    --muted: var(--display-muted);
-    --rule: #2a2a28;
-    --about: var(--display-blue);
-    --about-ink: var(--display-blue);
-    --projects: var(--display-green);
-    --projects-ink: var(--display-green);
-    --posts: var(--display-red);
-    --posts-ink: var(--display-red);
-    --demos: var(--display-ink);
-    --code-string: var(--display-green);
-    --code-function: var(--display-blue);
-    --panel-frame: #050505;
-    --panel-module: #282827;
-    --panel-module-hi: #333332;
-    --panel-module-lo: #1a1a19;
-    --panel-dish: #2f2f2e;
-    --panel-ink: #ebe9e5;
-    --panel-muted: #9c978f;
-    --panel-hole: #090909;
-    --panel-shade: rgb(0 0 0 / 0.5);
-    --display: #000000;
+    --ground: #0e0f0f;
+    --ground-2: #1a1b1a;
+    --ink: #e9e8e4;
+    --muted: #8a8a85;
+    --rule: #222322;
+    --dim: #2c2d2c;
+    --accent: #8fb3d9;
+    --accent-ink: #8fb3d9;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --paper: #000000;
-  --paper-2: #141414;
-  --ink: var(--display-ink);
-  --muted: var(--display-muted);
-  --rule: #2a2a28;
-  --about: var(--display-blue);
-  --about-ink: var(--display-blue);
-  --projects: var(--display-green);
-  --projects-ink: var(--display-green);
-  --posts: var(--display-red);
-  --posts-ink: var(--display-red);
-  --demos: var(--display-ink);
-  --code-string: var(--display-green);
-  --code-function: var(--display-blue);
-  --panel-frame: #050505;
-  --panel-module: #282827;
-  --panel-module-hi: #333332;
-  --panel-module-lo: #1a1a19;
-  --panel-dish: #2f2f2e;
-  --panel-ink: #ebe9e5;
-  --panel-muted: #9c978f;
-  --panel-hole: #090909;
-  --panel-shade: rgb(0 0 0 / 0.5);
-  --display: #000000;
+  --ground: #0e0f0f;
+  --ground-2: #1a1b1a;
+  --ink: #e9e8e4;
+  --muted: #8a8a85;
+  --rule: #222322;
+  --dim: #2c2d2c;
+  --accent: #8fb3d9;
+  --accent-ink: #8fb3d9;
   color-scheme: dark;
 }

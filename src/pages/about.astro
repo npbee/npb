@@ -1,69 +1,70 @@
 ---
-import Avatar from "../components/Avatar.astro";
-import BaseLayout from "../layouts/Base.astro";
+import Page from "../layouts/Page.astro";
+import Shell from "../components/system/Shell.astro";
+import PageTitle from "../components/system/PageTitle.astro";
+import Prose from "../components/system/Prose.astro";
+import NumberedList from "../components/system/NumberedList.astro";
+import Screen from "../components/timeline/Screen.astro";
+import CareerList from "../components/system/CareerList.astro";
+
+const built = [
+  "Drag-and-drop heavy interfaces with React",
+  "Rich text editors with Prosemirror",
+  "Component libraries with React and CSS",
+  "Build and test pipelines with Webpack and continuous integration",
+  "Interactive flow charts",
+  "Undo / redo implementations",
+];
 ---
 
-<BaseLayout
-  title="Nick Ball | About"
-  description="About Nick Ball, Software developer based in Portland, OR"
-  size="full"
+<Page
+  title="About | Nick Ball"
+  description="About Nick Ball, product engineer based in Portland, OR."
 >
-  <div class="text prose dark:prose-invert">
-    <Avatar />
-    <h1 class="text font-semibold">About me</h1>
-    <p class="text">
-      I'm a software developer based out of Portland, Oregon. I currently work
-      at <a
-        href="https://www.tryrisotto.com/"
-        target="_blank"
-        rel="noopener nofollow"><strong>Risotto</strong></a
-      > as a Staff Engineer.
-    </p>
+  <Shell current="about">
+    <main>
+      <Screen />
+      <PageTitle title="about" meta="product engineer · portland, or" />
+      <Prose>
+        <p>
+          I'm a software developer based out of Portland, Oregon. I currently
+          work at <a
+            href="https://www.tryrisotto.com/"
+            target="_blank"
+            rel="noopener nofollow"><strong>Risotto</strong></a
+          > as a Staff Engineer.
+        </p>
+        <p>
+          I work heavily with technologies like <strong>React</strong> and <strong
+            >TypeScript</strong
+          >. I also enjoy building with <strong>Svelte</strong> and <strong
+            >Astro</strong
+          > and have experience with <strong>GraphQL</strong>, <strong
+            >Elixir</strong
+          >, and <strong>Phoenix</strong>. I'm particularly interested in
+          component-driven architecture, testing, and developer tooling. I love
+          focusing on small details to get the user experience just right.
+        </p>
+      </Prose>
+      <section class="work" aria-labelledby="work">
+        <h2 class="visually-hidden" id="work">work</h2>
+        <CareerList />
+      </section>
+      <NumberedList title="things I've built" items={built} />
+    </main>
+  </Shell>
+</Page>
 
-    <p>
-      I work heavily with technologies like <strong>React</strong> and <strong
-        >TypeScript</strong
-      >. I also enjoy building with <strong>Svelte</strong> and <strong
-        >Astro</strong
-      > and have experience with <strong>GraphQL</strong>, <strong
-        >Elixir</strong
-      >, and <strong>Phoenix</strong>. I'm particularly interested in
-      component-driven architecture, testing, and developer tooling. I love
-      focusing on small details to get the user experience just right.
-    </p>
-    <p>In the past I've built things such as:</p>
-    <ul class="my-0">
-      <li>Drag-and-drop heavy interfaces with <strong>React</strong></li>
-      <li>Rich text editors with <strong>Prosemirror</strong></li>
-      <li>
-        Component libraries with <strong>React</strong> and <strong>CSS</strong>
-      </li>
-      <li>
-        Build and test pipelines with <strong>Webpack</strong> and <strong
-          >continuous integration</strong
-        >
-      </li>
-      <li>Interactive flow charts</li>
-      <li>Undo / redo implementations</li>
-    </ul>
-    <p>
-      I was previously at <strong>Dropbox</strong>, where I built the <a
-        href="https://reclaim.ai/"
-        target="_blank"
-        rel="noopener nofollow">Reclaim</a
-      > app, and at
-      <a
-        href="https://loudr.fm/"
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-        class="font-medium">Loudr</a
-      > (acquired by Spotify). I have a B.S. in Management Science from UC San Diego.
-    </p>
-    <h2>Find me</h2>
-    <ul>
-      <li><a href="https://github.com/npbee">GitHub</a></li>
-      <li><a href="https://twitter.com/_nickball">Twitter</a></li>
-      <li><a href="www.linkedin.com/in/niball">LinkedIn</a></li>
-    </ul>
-  </div>
-</BaseLayout>
+<style>
+  .work {
+    width: 100%;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  main {
+    width: 100%;
+    display: grid;
+    gap: var(--space-8);
+  }
+</style>

@@ -124,9 +124,9 @@ function Scrubber(props: {
         });
       }}
     >
-      <WaveformImg stroke={baseStroke} clipStart="var(--played)" clipEnd="100%" />
+      <WaveformImg strokes={baseStrokes} clipStart="var(--played)" clipEnd="100%" />
       <div className={styles.layer}>
-        <WaveformImg stroke={playedStroke} clipStart="0%" clipEnd="var(--played)" />
+        <WaveformImg strokes={playedStrokes} clipStart="0%" clipEnd="var(--played)" />
       </div>
       {isLoaded ? (
         <Slider
@@ -159,11 +159,31 @@ function AudioTime(props: { currentTime: number; duration: number }) {
   );
 }
 
-function WaveformImg(props: { clipStart: string; clipEnd: string; stroke: string }) {
-  const { clipStart, clipEnd, stroke } = props;
+// One image per theme; CSS shows the one matching the page's theme
+function WaveformImg(props: {
+  clipStart: string;
+  clipEnd: string;
+  strokes: { light: string; dark: string };
+}) {
+  const { clipStart, clipEnd, strokes } = props;
   const clipPath = `polygon(${clipStart} 0%, ${clipEnd} 0%, ${clipEnd} 100%, ${clipStart} 100%)`;
 
-  return <img alt="" src={waveformUrl({ stroke })} style={{ clipPath }} />;
+  return (
+    <>
+      <img
+        alt=""
+        className={styles.light}
+        src={waveformUrl({ stroke: strokes.light })}
+        style={{ clipPath }}
+      />
+      <img
+        alt=""
+        className={styles.dark}
+        src={waveformUrl({ stroke: strokes.dark })}
+        style={{ clipPath }}
+      />
+    </>
+  );
 }
 
 function formatTimecode(seconds: number) {
@@ -173,10 +193,10 @@ function formatTimecode(seconds: number) {
   return `${min}:${sec}`;
 }
 
-// Waveforms are images, so their colors are fixed hex values: a grey and the
-// posts red that read on the housing and on the black screen alike
-const baseStroke = "8F8E89";
-const playedStroke = "F0352B";
+// Waveforms are images, so their colors are fixed hex values per theme. The
+// unplayed grey is a step past --dim, which vanishes on --ground-2.
+const baseStrokes = { light: "B4B4AE", dark: "4A4B4A" };
+const playedStrokes = { light: "1A1A19", dark: "E9E8E4" };
 
 const trackUrl =
   "https://res.cloudinary.com/dhhjogfy6//video/upload/q_auto/v1575831765/audio/rest.mp3";

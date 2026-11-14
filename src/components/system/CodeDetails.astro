@@ -22,19 +22,19 @@ const lines = code.replace(/\n+$/, "").split("\n").length;
 
 <style>
   .code-details {
-    background: var(--paper-2);
+    background: var(--ground-2);
+    border-radius: var(--radius-block);
   }
 
   summary {
     display: flex;
     justify-content: space-between;
     gap: var(--space-3);
-    padding: var(--space-2) 0.875rem;
+    padding: var(--space-3) 1.25rem;
     font-family: var(--font-mono);
-    font-size: var(--text-label);
-    line-height: var(--leading-label);
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
     color: var(--muted);
     cursor: pointer;
     list-style: none;
@@ -65,7 +65,7 @@ const lines = code.replace(/\n+$/, "").split("\n").length;
   }
 
   [open] summary {
-    border-bottom: var(--hair) solid var(--rule);
+    padding-bottom: 0;
   }
 
   .code-details :global(figure.code figcaption) {

@@ -1,11 +1,13 @@
 ---
 import { getEntry, render } from "astro:content";
 import Page from "../../layouts/Page.astro";
-import Sheet from "../../components/system/Sheet.astro";
-import RunningHead from "../../components/system/RunningHead.astro";
+import Shell from "../../components/system/Shell.astro";
+import Row from "../../components/system/Row.astro";
+import ProgressWave from "../../components/system/ProgressWave.astro";
 import PostHeader from "../../components/system/PostHeader.astro";
 import Prose from "../../components/system/Prose.astro";
-import RunningFoot from "../../components/system/RunningFoot.astro";
+import { fullDate, isoDate } from "../../utils/dates";
+import { duration, readSeconds } from "../../utils/waveform";
 
 const { slug } = Astro.params;
 if (!slug) {
@@ -19,6 +21,7 @@ if (entry === undefined) {
 }
 
 const { Content } = await render(entry);
+const readTime = duration(readSeconds(entry.body ?? ""));
 
 const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
 ---
@@ -27,30 +30,49 @@ const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
   title={entry.data.title}
   description={entry.data.description}
   ogImageUrl={ogImageUrl}
-  section="posts"
 >
-  <Sheet>
-    <RunningHead current="posts" />
+  <Shell current="posts">
     <article>
-      <PostHeader
-        title={entry.data.title}
-        description={entry.data.description}
-        date={entry.data.date}
-      />
-      <Prose>
-        <Content />
-      </Prose>
+      <Row narrow="before" class="post">
+        <ProgressWave seed={slug} />
+        <PostHeader
+          title={entry.data.title}
+          description={entry.data.description}
+        />
+        <Prose>
+          <Content />
+        </Prose>
+        <p slot="margin" class="post-notes">
+          <time class="post-date" datetime={isoDate(entry.data.date)}
+            >{fullDate(entry.data.date)}</time
+          ><br />{readTime} to read
+        </p>
+      </Row>
     </article>
-    <RunningFoot />
-  </Sheet>
+  </Shell>
 </Page>
 
 <style>
-  article {
-    width: 100%;
-    min-width: 0;
-    display: grid;
-    justify-items: center;
-    gap: var(--space-8);
+  /* Sticky, so the date and read time stay beside the reader. The offset
+     clears the progress strip and lines up with the title's first line. */
+  :global(.post) > :global(.row-margin) {
+    position: sticky;
+    top: calc(env(safe-area-inset-top, 0px) + 5.25rem);
+    align-self: start;
+    margin-top: 5.25rem;
+  }
+
+  .post-date {
+    color: var(--ink);
+  }
+
+  /* Narrow: the notes lead the post, set off as a block note */
+  @media (max-width: 47.5rem) {
+    :global(.post) > :global(.row-margin) {
+      position: static;
+      margin: 0 0 var(--space-6);
+      padding-left: 0.875rem;
+      border-left: var(--hair) solid var(--rule);
+    }
   }
 </style>

@@ -1,11 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import Page from "../../layouts/Page.astro";
-import Sheet from "../../components/system/Sheet.astro";
-import RunningHead from "../../components/system/RunningHead.astro";
+import Shell from "../../components/system/Shell.astro";
 import PageTitle from "../../components/system/PageTitle.astro";
 import IndexList from "../../components/system/IndexList.astro";
-import RunningFoot from "../../components/system/RunningFoot.astro";
 
 const posts = (await getCollection("blog")).toSorted(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -15,23 +13,12 @@ const posts = (await getCollection("blog")).toSorted(
 <Page
   title="Posts | Nick Ball"
   description="Posts by Nick Ball, product engineer based in Portland, OR."
-  section="posts"
 >
-  <Sheet>
-    <RunningHead current="posts" />
+  <Shell current="posts">
     <main>
       <PageTitle title="posts" />
       <IndexList posts={posts} />
     </main>
-    <RunningFoot />
-  </Sheet>
+  </Shell>
 </Page>
 
-<style>
-  main {
-    width: 100%;
-    display: grid;
-    justify-items: center;
-    gap: var(--space-8);
-  }
-</style>

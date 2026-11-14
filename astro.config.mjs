@@ -17,10 +17,10 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.fontsource(),
-      name: "JetBrains Mono",
-      cssVariable: "--font-jetbrains-mono",
-      weights: [400, 500, 700],
-      styles: ["normal"],
+      name: "IBM Plex Mono",
+      cssVariable: "--font-plex-mono",
+      weights: [400, 500, 600],
+      styles: ["normal", "italic"],
       subsets: ["latin"],
       fallbacks: [
         "ui-monospace",
@@ -32,18 +32,18 @@ export default defineConfig({
     },
     {
       provider: fontProviders.fontsource(),
-      name: "Inter",
-      cssVariable: "--font-inter",
-      weights: [400, 600],
+      name: "Newsreader",
+      cssVariable: "--font-newsreader",
+      weights: [400, 500],
       styles: ["normal", "italic"],
       subsets: ["latin"],
-      fallbacks: ["system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+      fallbacks: ["Georgia", "serif"],
     },
   ],
   markdown: {
     shikiConfig: {
       // Colors become CSS variables; the post body maps them onto tokens, so
-      // syntax reads by weight in both themes rather than by hue
+      // syntax follows the theme
       theme: "css-variables",
       transformers: [codeFigure],
     },

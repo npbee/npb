@@ -1,57 +1,38 @@
 ---
 interface Props {
   title: string;
-  count?: number;
   meta?: string;
 }
 
-const { title, count, meta } = Astro.props;
+const { title, meta } = Astro.props;
 ---
 
 <div class="page-title">
-  <h1>
-    {title}
-    {count !== undefined && <sup>{count}</sup>}
-  </h1>
+  <h1>{title}</h1>
   {meta && <p>{meta}</p>}
 </div>
 
 <style>
-  /* Full width, so the title starts on the sheet's left edge with the list */
   .page-title {
-    width: 100%;
     display: grid;
-    justify-items: start;
     gap: var(--space-2);
+    margin-bottom: var(--space-8);
   }
 
-  /* Flex, so markup whitespace never opens a gap before the count */
   h1 {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    font-family: var(--font-mono);
-    font-size: var(--text-display);
-    font-weight: 700;
-    line-height: var(--leading-display);
-    letter-spacing: var(--tracking-display);
+    font-family: var(--font-title);
+    font-size: var(--text-title);
+    font-weight: 500;
+    line-height: var(--leading-title);
+    letter-spacing: var(--tracking-title);
     text-wrap: balance;
-  }
-
-  sup {
-    margin: 0.1em 0 0 0.25rem;
-    font-size: 0.9375rem;
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: 0;
-    vertical-align: baseline;
-    color: var(--accent-ink);
   }
 
   p {
     font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    line-height: var(--leading-meta);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
     color: var(--muted);
   }
 </style>

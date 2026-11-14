@@ -1,5 +1,6 @@
 ---
-// The running head's mirror: one rule, links on the left, theme on the right
+import Row from "./Row.astro";
+
 const links = [
   ["github", "https://github.com/npbee"],
   ["twitter", "https://twitter.com/_nickball"],
@@ -8,7 +9,7 @@ const links = [
 ];
 ---
 
-<footer class="foot">
+<Row as="footer" class="site-foot">
   <ul aria-label="Find me">
     {links.map(([name, href]) => (
       <li>
@@ -17,34 +18,25 @@ const links = [
     ))}
   </ul>
   <button
+    slot="margin"
     type="button"
     class="theme"
     aria-label="Switch between light and dark"
     data-theme-toggle
   >
-    <span class="option opt-light">light</span>
-    <span class="slash" aria-hidden="true">
-      /
-    </span>
-    <span class="option opt-dark">dark</span>
+    <span class="opt-light">light</span>
+    <span aria-hidden="true">/</span>
+    <span class="opt-dark">dark</span>
   </button>
-</footer>
+</Row>
 
 <style>
-  .foot {
-    width: 100%;
-    margin-top: var(--space-4);
-    padding-top: 0.625rem;
-    border-top: var(--hair) solid var(--ink);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: var(--space-3) var(--space-6);
-    font-family: var(--font-mono);
-    font-size: var(--text-mono);
-    line-height: var(--leading-mono);
-    color: var(--muted);
+  /* Row renders the element, so its class is reached with :global */
+  /* One rule across the column, the gap and the margin */
+  :global(.site-foot) {
+    margin-top: var(--space-28);
+    padding-top: var(--space-4);
+    border-top: var(--hair) solid var(--rule);
   }
 
   ul {
@@ -53,6 +45,11 @@ const links = [
     margin: 0;
     padding: 0;
     list-style: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
+    color: var(--muted);
   }
 
   /* Flex, so markup whitespace can't push a dot off center */
@@ -66,7 +63,7 @@ const links = [
     margin-inline: 0.5em;
   }
 
-  /* 46px-tall hit areas on pseudo-elements, so the focus ring still hugs
+  /* 44px-tall hit areas on pseudo-elements, so the focus ring still hugs
      the word; links stop short of the separator dots */
   a,
   .theme {
@@ -77,7 +74,7 @@ const links = [
   .theme::after {
     content: "";
     position: absolute;
-    inset: -0.75rem -0.5em;
+    inset: calc((2.75rem - 1lh) / -2) -0.375em;
   }
 
   .theme::after {
@@ -91,28 +88,26 @@ const links = [
     border: 0;
     background: none;
     cursor: pointer;
+    font: inherit;
     color: var(--muted);
   }
 
   :global(:root:not([data-theme="dark"])) .opt-light,
   :global(:root[data-theme="dark"]) .opt-dark {
     color: var(--ink);
-    text-decoration: underline;
-    text-decoration-thickness: var(--hair);
-    text-underline-offset: 0.2em;
   }
 
   @media (hover: hover) {
     a:hover,
-    .theme:hover .option {
+    .theme:hover span {
       color: var(--ink);
     }
   }
 
-  @media (max-width: 36rem) {
-    .foot {
-      flex-direction: column;
-      align-items: flex-start;
+  /* Narrow, the switch follows the links under one rule */
+  @media (max-width: 47.5rem) {
+    :global(.site-foot) :global(.row-margin) {
+      padding-top: var(--space-3);
     }
   }
 </style>

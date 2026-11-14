@@ -6,15 +6,13 @@ export interface Props {
   title: string;
   description: string;
   ogImageUrl?: string;
-  // Picks the page's accent; home and anything outside a section use posts
-  section?: "about" | "projects" | "posts" | "demos";
 }
 
-const { title, description, ogImageUrl, section } = Astro.props;
+const { title, description, ogImageUrl } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" data-section={section}>
+<html lang="en">
   <head>
     <Head {title} {description} {ogImageUrl} preloadFonts>
       <slot name="head" />

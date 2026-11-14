@@ -1,13 +1,10 @@
 ---
-import { fullDate, isoDate } from "../../utils/dates";
-
 interface Props {
   title: string;
   description?: string;
-  date: Date;
 }
 
-const { title, description, date } = Astro.props;
+const { title, description } = Astro.props;
 
 // Keep hyphenated words whole; "Type-" at a line end reads as a typo
 const titleParts = title
@@ -22,30 +19,21 @@ const titleParts = title
     )}
   </h1>
   {description && <p class="description">{description}</p>}
-  <p class="date">
-    <time datetime={isoDate(date)}>{fullDate(date)}</time>
-  </p>
-  <span class="rule" aria-hidden="true"></span>
 </header>
 
 <style>
-  /* The body's column, so the header starts on the same left edge as the text */
   .post-head {
-    width: 100%;
-    max-width: var(--measure);
     display: grid;
-    justify-items: start;
     gap: var(--space-3);
+    margin-block: 2.5rem 2.75rem;
   }
 
-  /* Set exactly like a page title, and first under the running head, so a
-     post opens at the same height and size as the posts index */
   h1 {
-    font-family: var(--font-mono);
-    font-size: var(--text-display);
-    font-weight: 700;
-    line-height: var(--leading-display);
-    letter-spacing: var(--tracking-display);
+    font-family: var(--font-title);
+    font-size: var(--text-title);
+    font-weight: 500;
+    line-height: var(--leading-title);
+    letter-spacing: var(--tracking-title);
     text-wrap: balance;
   }
 
@@ -53,28 +41,11 @@ const titleParts = title
     white-space: nowrap;
   }
 
+  /* Placement is open (system.md): under the title for now */
   .description {
-    font-family: var(--font-mono);
-    font-size: var(--text-mono);
-    line-height: var(--leading-mono);
+    font-size: var(--text-row);
+    line-height: var(--leading-row);
     color: var(--muted);
     text-wrap: pretty;
-  }
-
-  /* Metadata sits close under the description, as one group */
-  .date {
-    margin-top: calc(var(--space-1) - var(--space-3));
-    font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    line-height: var(--leading-meta);
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .rule {
-    width: 3rem;
-    height: var(--bar);
-    margin-top: var(--space-3);
-    background: var(--accent);
   }
 </style>

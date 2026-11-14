@@ -1,141 +1,131 @@
 ---
+// Every post, newest first: title over date and read time, with a
+// waveform as long as the read time. Years sit in the margin.
 import type { Post } from "../../content.config";
-import { isoDate, monthDay, yearMonth } from "../../utils/dates";
+import Row from "./Row.astro";
+import { isoDate, monthDay } from "../../utils/dates";
+import { duration, miniBars, readSeconds } from "../../utils/waveform";
 
 interface Props {
   /** Newest first */
   posts: Post[];
-  /** Group under a year column; ungrouped rows show the year in the date */
-  group?: boolean;
 }
 
-const { posts, group = true } = Astro.props;
+const { posts } = Astro.props;
 
-const groups = group
-  ? posts.reduce<{ year: number; posts: Post[] }[]>((acc, post) => {
-      const year = post.data.date.getUTCFullYear();
-      const last = acc.at(-1);
-      if (last?.year === year) last.posts.push(post);
-      else acc.push({ year, posts: [post] });
-      return acc;
-    }, [])
-  : [{ year: null, posts }];
+const rows = posts.map((post) => ({
+  post,
+  year: post.data.date.getUTCFullYear(),
+  seconds: readSeconds(post.body ?? ""),
+}));
+const longest = Math.max(...rows.map((r) => r.seconds));
 ---
 
-<div class:list={["index", { grouped: group }]}>
-  {groups.map((g) => (
-    <section aria-labelledby={g.year ? `year-${g.year}` : undefined}>
-      {g.year && (
-        <h2 class="year" id={`year-${g.year}`}>
-          {g.year}
-        </h2>
-      )}
-      <ul>
-        {g.posts.map((post) => (
-          <li>
-            <a class="row" href={`/posts/${post.id}`}>
-              <span class="title">{post.data.title}</span>
-              <span class="leader" aria-hidden="true" />
-              <time datetime={isoDate(post.data.date)}>
-                {group ? monthDay(post.data.date) : yearMonth(post.data.date)}
-              </time>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-  ))}
-</div>
+<ul class="rows index">
+  {rows.map(({ post, year, seconds }, i) => {
+    const wave = miniBars(post.id, seconds / longest);
+    const firstOfYear = rows[i - 1]?.year !== year;
+    return (
+      <Row as="li" narrow="before" class:list={{ "year-start": firstOfYear && i > 0 }}>
+        <a class="entry" href={`/posts/${post.id}`}>
+          <span class="title">{post.data.title}</span>
+          <span class="meta">
+            <time datetime={isoDate(post.data.date)}>
+              <span class="visually-hidden">{year}.</span>
+              {monthDay(post.data.date)}
+            </time>
+            {" · "}
+            <span>
+              <span class="visually-hidden">read time </span>
+              {duration(seconds)}
+            </span>
+          </span>
+          <svg
+            viewBox={`0 0 ${wave.width} ${wave.height}`}
+            preserveAspectRatio="xMinYMid meet"
+            aria-hidden="true"
+          >
+            {wave.bars.map((b) => (
+              <rect x={b.x} y={b.y} width="1.6" height={b.h} rx="0.8" />
+            ))}
+          </svg>
+        </a>
+        {firstOfYear && (
+          <span slot="margin" class="year" aria-hidden="true">
+            {year}
+          </span>
+        )}
+      </Row>
+    );
+  })}
+</ul>
 
 <style>
-  /* Spans the sheet, so years share the wordmark's edge and dates the nav's */
   .index {
-    width: 100%;
-    display: grid;
-    gap: var(--space-8);
-    font-family: var(--font-mono);
-    font-size: var(--text-mono);
-    line-height: var(--leading-mono);
-  }
-
-  section {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-  }
-
-  .grouped section {
-    grid-template-columns: 5rem minmax(0, 1fr);
-  }
-
-  /* Same box as a row, so the year sits on its first row's baseline */
-  .year {
-    padding-block: 0.25rem;
-    font-size: inherit;
-    font-weight: 700;
-    line-height: inherit;
-    font-variant-numeric: tabular-nums;
-  }
-
-  ul {
-    display: grid;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .row {
-    display: flex;
-    gap: var(--space-2);
-    /* a wrapped title keeps its leader and date on the last line */
-    align-items: last baseline;
-    padding-block: 0.25rem;
+  .entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 7.5rem;
+    align-items: center;
+    gap: var(--space-1) var(--space-6);
+    padding-block: var(--space-3);
   }
 
   .title {
-    min-width: 0;
+    font-size: var(--text-row);
+    line-height: var(--leading-row);
+    text-wrap: pretty;
   }
 
-  /* Spaced dots rather than a dotted border, so a column of leaders reads
-     as a path for the eye, not as more rules. An empty box's baseline is its
-     bottom edge, so the dots sit on the text's baseline. */
-  .leader {
-    flex: 1;
-    min-width: var(--space-4);
-    height: 0.125rem;
-    background-image: radial-gradient(
-      circle at 0.0625rem 0.0625rem,
-      var(--muted) 0.0469rem,
-      transparent 0.0625rem
-    );
-    background-size: 0.375rem 0.125rem;
-    background-repeat: repeat-x;
-    /* anchored at the dates, which share a width, so dots line up row to row */
-    background-position: right bottom;
-  }
-
-  time {
-    font-size: 0.75rem;
+  .meta {
+    grid-column: 1;
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
     color: var(--muted);
     font-variant-numeric: tabular-nums;
-    white-space: nowrap;
   }
 
-  /* hover only where it exists, so a tap doesn't leave a title colored */
+  svg {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    width: 100%;
+    height: 1.125rem;
+    fill: var(--dim);
+    transition: fill 200ms ease;
+  }
+
   @media (hover: hover) {
-    .row:hover .title {
-      color: var(--accent-ink);
+    .entry:hover svg {
+      fill: var(--accent);
     }
   }
 
-  /* A year column would squeeze titles on phones, so the year sits above.
-     The leader gives way entirely before it makes a title wrap. */
-  @media (max-width: 36rem) {
-    .grouped section {
-      grid-template-columns: minmax(0, 1fr);
+  /* Level with the title's first line, past the row's padding */
+  .year {
+    display: block;
+    padding-top: calc(var(--space-3) + 0.1875rem);
+    color: var(--ink);
+  }
+
+  /* Narrow: the year heads its group, set apart from the rows above */
+  @media (max-width: 47.5rem) {
+    .index :global(.year-start) {
+      margin-top: var(--space-6);
     }
-    .leader {
-      min-width: 0;
+
+    .year {
+      padding-top: 0;
+    }
+
+    .entry {
+      grid-template-columns: minmax(0, 1fr) 4.5rem;
+      gap: var(--space-1) var(--space-4);
     }
   }
 </style>

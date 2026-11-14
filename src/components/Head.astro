@@ -17,17 +17,16 @@ const {
   preloadFonts = false,
 } = Astro.props;
 
-// The wordmark is mono 500; the nav, titles and lists are mono 400 and 700;
-// body text is Inter 400
+// Above the fold: the wordmark (mono 500), the nav, margin and body (mono
+// 400) and titles (Newsreader 500)
 const monoPreload = preloadFonts
   ? [
       { weight: 400, style: "normal" as const },
       { weight: 500, style: "normal" as const },
-      { weight: 700, style: "normal" as const },
     ]
   : false;
-const sansPreload = preloadFonts
-  ? [{ weight: 400, style: "normal" as const }]
+const titlePreload = preloadFonts
+  ? [{ weight: 500, style: "normal" as const }]
   : false;
 const url = Astro.url;
 ---
@@ -79,8 +78,8 @@ const url = Astro.url;
   sizes="16x16"
 />
 
-<Font cssVariable="--font-jetbrains-mono" preload={monoPreload} />
-<Font cssVariable="--font-inter" preload={sansPreload} />
+<Font cssVariable="--font-plex-mono" preload={monoPreload} />
+<Font cssVariable="--font-newsreader" preload={titlePreload} />
 
 <slot />
 
