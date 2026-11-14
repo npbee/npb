@@ -338,7 +338,7 @@ Rejected: a ground `n` on an ink square (quiet, no accent); a ground `n` on a ve
 | Home     | Head. The home mark behind the head and intro. Name and intro, with notes in the margin. Posts as an index list. Projects as project rows. Footer. |
 | Posts    | Head. Page title. The full index list. Footer.                                                                                 |
 | Post     | Head. Post. Footer.                                                                                                            |
-| About    | Head. Page title. Paragraphs, with a note in the margin. The career list under a `work` label. The numbered list of things built. Footer. |
+| About    | Head. Page title. Paragraphs, with a square photo (7rem, untreated) over a note in the margin. The career list under a `work` label. The numbered list of things built. Footer. |
 | Projects | Head. Page title. Project rows. Footer.                                                                                        |
 | Demos    | Head. Page title. Project rows. Footer.                                                                                        |
 

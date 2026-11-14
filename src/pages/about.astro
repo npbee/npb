@@ -7,6 +7,8 @@ import Prose from "../components/system/Prose.astro";
 import SectionLabel from "../components/system/SectionLabel.astro";
 import CareerList from "../components/system/CareerList.astro";
 import NumberedList from "../components/system/NumberedList.astro";
+import { Image } from "astro:assets";
+import avatar from "../assets/avatar.jpeg";
 
 const built = [
   "Drag-and-drop heavy interfaces with React",
@@ -47,7 +49,17 @@ const built = [
             focusing on small details to get the user experience just right.
           </p>
         </Prose>
-        <p slot="margin" class="intro-note">product engineer<br />portland, or</p>
+        <div slot="margin" class="intro-margin">
+          <Image
+            class="photo"
+            src={avatar}
+            alt="Nick Ball"
+            width={224}
+            height={224}
+            loading="eager"
+          />
+          <p class="intro-note">product engineer<br />portland, or</p>
+        </div>
       </Row>
       <section class="rows" aria-labelledby="work">
         <SectionLabel id="work">work</SectionLabel>
@@ -65,13 +77,24 @@ const built = [
   }
 
   /* Level with the first line of the paragraphs */
-  .intro-note {
+  .intro-margin {
     padding-top: 0.3125rem;
+  }
+
+  .photo {
+    display: block;
+    width: 7rem;
+    height: auto;
+    margin-bottom: var(--space-4);
   }
 
   @media (max-width: 47.5rem) {
     main > :global(section) {
       margin-top: var(--space-16);
+    }
+
+    .intro-margin {
+      padding: 0;
     }
 
     .intro-note {
