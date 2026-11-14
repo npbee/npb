@@ -257,20 +257,20 @@ The about page's work, set like the index list, with a timeline drawn down its l
 ```
 ●╲ risotto · staff engineer                                    2026
 │ ╲▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁━━━━
-│ 08 → now
+│ 2026.08 → now
 ○╲ dropbox · senior software engineer                          2019
 │ ╲▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━▁▁▁▁
-│ 02 → 2026.08
+│ 2019.02 → 2026.08
 ```
 
-- **Rows.** The role (`company · title`, body face, `--text-row`) over a track, over its dates (`mm → yyyy.mm`, or `now`; mono, `--text-note`, muted). The start year sits in the margin, in ink, beside the first role that began that year.
+- **Rows.** The role (`company · title`, body face, `--text-row`) over a track, over its dates (`yyyy.mm → yyyy.mm`, or `→ now`; mono, `--text-note`, muted). Both ends carry the year: a bare month read as ambiguous even with the year in the margin. The start year sits in the margin, in ink, beside the first role that began that year.
 - **The thread.** A 2px line down a 1.75rem gutter, centered 4px in. Each role has an 8px ring on it, level with the title's first line; the current role's is filled and carries a soft 3px halo of its own color at 18%. The thread starts at the first dot and stops at the last, with no fade.
 - **The track.** A 2px line under each role's title spanning the whole career, from the first role's start to now, in `--rule`. The role's own time is drawn on it in color, on that shared scale, so gaps, overlaps and tenure all show. It's the waveform's played-and-unplayed idea, turned into a career. It follows the title, so a title that wraps pushes it down instead of crossing it.
 - **The joint.** The track leaves the thread at 45° and turns level into the track: square ends, mitered corners. On a one-line title it leaves from the dot itself.
 - **Every line is 2px**: thread, ring, joint, track.
 - **Color.** The accent, as a ramp by age: the current role at full strength, each older one lighter in light mode and dimmer in dark (oklch, relative to `--accent`: L ±0.075–0.08 and C −0.01 per step). It's the one place the accent appears more than twice on a view, because here it is the drawing.
 - **Narrow.** The year moves above its role, indented to the text's edge, and the thread runs through it unbroken.
-- Hidden from assistive technology: the thread, dots, joint and track. Each row's date carries a visually hidden year.
+- Hidden from assistive technology: the thread, dots, joint and track, and the year in the margin, which the dates already carry.
 
 Decided from a prototype on the about page (2026-11-14), over four rounds. Rejected: no decoration (plain, but the page had no shape); a line that stepped right at each promotion (abstract until noticed); a vertical waveform rail (texture more than timeline); curved branches off the thread (too soft for the system); straight elbows, diagonals and circuit-board traces into the dates (decoration without information); tenure lines measured from the thread rather than on a shared scale (hid gaps and overlaps); a dotted guide to each role's start (busier than the track); and a year ruler under the list (made it a chart). The earlier timeline drawing, the instrument's screen, is gone with the instrument.
 
