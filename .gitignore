@@ -23,3 +23,6 @@ _site
 public/style.css
 .astro
 .vercel
+
+# local Claude Code config
+.claude/
