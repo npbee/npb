@@ -11,10 +11,10 @@ import { fullDate } from "./dates";
 export const prerender = true;
 
 // design/tokens.css, light
-const GROUND = "#f4f4f2";
-const INK = "#1a1a19";
-const MUTED = "#67675f";
-const RULE = "#e0e0dc";
+const GROUND = "#f3f5f6";
+const INK = "#13161c";
+const MUTED = "#5f646b";
+const RULE = "#dbdee1";
 
 const WIDTH = 1200;
 const HEIGHT = 630;

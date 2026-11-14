@@ -30,7 +30,7 @@ const rows = career.roles
 const dotted = (s: string) => s.replace("-", ".");
 ---
 
-<ul class="rows career">
+<ul class="rows career" style={`--last: ${Math.max(1, rows.length - 1)}`}>
   {rows.map((row, i) => (
     <Row as="li" narrow="before">
       <div
@@ -84,13 +84,24 @@ const dotted = (s: string) => s.replace("-", ".");
     list-style: none;
   }
 
-  /* The accent, strongest on the current role and lighter with each older
-     one; in dark it dims instead, toward the ground */
+  /* One blend down the list, from the accent on the newest role to the
+     second accent on the first. Each role's dot takes the blend at its
+     place; its stretch of thread runs from the blend halfway to the role
+     above to halfway to the one below, so the segments meet seamlessly. */
   .entry,
   .year {
-    --ramp: light-dark(
-      oklch(from var(--accent) calc(l + var(--age) * 0.075) calc(c - var(--age) * 0.012) h),
-      oklch(from var(--accent) calc(l - var(--age) * 0.08) calc(c - var(--age) * 0.01) h)
+    --at: calc(var(--age) / var(--last));
+    --half: calc(0.5 / var(--last));
+    --ramp: color-mix(in oklch, var(--accent-2) calc(var(--at) * 100%), var(--accent));
+    --ramp-above: color-mix(
+      in oklch,
+      var(--accent-2) calc(max(0, var(--at) - var(--half)) * 100%),
+      var(--accent)
+    );
+    --ramp-below: color-mix(
+      in oklch,
+      var(--accent-2) calc(min(1, var(--at) + var(--half)) * 100%),
+      var(--accent)
     );
   }
 
@@ -109,16 +120,22 @@ const dotted = (s: string) => s.replace("-", ".");
     top: 0;
     bottom: 0;
     width: var(--line);
-    background: var(--ramp);
+    background: linear-gradient(
+      var(--ramp-above),
+      var(--ramp) var(--dot-y),
+      var(--ramp-below)
+    );
   }
 
   [data-first] .thread {
     top: var(--dot-y);
+    background: linear-gradient(var(--ramp), var(--ramp-below));
   }
 
   [data-last] .thread {
     bottom: auto;
     height: var(--dot-y);
+    background: linear-gradient(var(--ramp-above), var(--ramp));
   }
 
   [data-first][data-last] .thread {
@@ -232,7 +249,7 @@ const dotted = (s: string) => s.replace("-", ".");
       top: 0;
       bottom: 0;
       width: var(--line);
-      background: var(--ramp);
+      background: var(--ramp-above);
     }
 
     .career > :global(li:first-child) .year {

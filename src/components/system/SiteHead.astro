@@ -69,11 +69,11 @@ const sections: Section[] = ["about", "projects", "posts", "demos"];
   }
 
   nav a[aria-current] {
-    color: var(--ink);
+    color: var(--accent-ink);
   }
 
   @media (hover: hover) {
-    nav a:hover {
+    nav a:not([aria-current]):hover {
       color: var(--ink);
     }
   }

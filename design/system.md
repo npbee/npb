@@ -12,7 +12,7 @@ This document describes how things look and read. It is independent of how the s
 2. **One image.** The waveform is the only picture the system draws. There are no illustrations, icons, textures or objects. Posts may carry their own images.
 3. **Type does the work.** Hierarchy comes from face, size, weight and color. There are no cards, shadows, gradients or rounded corners, except where a code block or example needs a ground.
 4. **Mono for the margin.** Margin notes, dates, labels, read times and code are monospace. Reading text is the body face.
-5. **One accent.** A single quiet blue marks links, the playhead and at most one other thing per view. There are no section colors.
+5. **A signal and an echo.** Vermilion marks links, the playhead and at most one other thing per view. Ochre answers it here and there. There are no section colors.
 6. **Every mark earns its place.** Counts, numbers and labels appear only where a reader uses them. A read time is shown because it tells the reader something; a sequence number is not.
 7. **Still by default.** One thing moves: the home waveform drifts slowly. Everything else waits for the reader.
 
@@ -61,26 +61,28 @@ Titles are tracked at -0.015em, the name at -0.01em. Nothing else is tracked. He
 
 ## Color
 
-| Token          | Light     | Dark      | Used for                                         |
-| -------------- | --------- | --------- | ------------------------------------------------ |
-| `--ground`     | `#F4F4F2` | `#0E0F0F` | Page ground                                      |
-| `--ground-2`   | `#EAEAE7` | `#1A1B1A` | Code blocks and examples                         |
-| `--ink`        | `#1A1A19` | `#E9E8E4` | Text, the played part of a waveform              |
-| `--muted`      | `#67675F` | `#8A8A85` | Margin text, dates, secondary text               |
-| `--rule`       | `#E0E0DC` | `#222322` | Hairlines                                        |
-| `--dim`        | `#CFCFCA` | `#2C2D2C` | The unplayed part of a waveform, mini waveforms  |
-| `--accent`     | `#3F6E9C` | `#8FB3D9` | The playhead, hovered mini waveforms             |
-| `--accent-ink` | `#355F88` | `#8FB3D9` | Links and any accent text                        |
+| Token            | Light                     | Dark                      | Used for                                        |
+| ---------------- | ------------------------- | ------------------------- | ----------------------------------------------- |
+| `--ground`       | `oklch(0.968 0.003 250)`  | `oklch(0.17 0.006 260)`   | Page ground                                     |
+| `--ground-2`     | `oklch(0.935 0.005 250)`  | `oklch(0.215 0.008 260)`  | Code blocks and examples                        |
+| `--ink`          | `oklch(0.2 0.012 260)`    | `oklch(0.93 0.004 250)`   | Text, the played part of a waveform             |
+| `--muted`        | `oklch(0.5 0.014 260)`    | `oklch(0.68 0.012 260)`   | Margin text, dates, secondary text              |
+| `--rule`         | `oklch(0.9 0.005 250)`    | `oklch(0.26 0.008 260)`   | Hairlines                                       |
+| `--dim`          | `oklch(0.85 0.007 250)`   | `oklch(0.33 0.01 260)`    | The unplayed part of a waveform, mini waveforms |
+| `--accent`       | `oklch(0.63 0.2 33)`      | `oklch(0.7 0.17 35)`      | Vermilion: the playhead, hovered mini waveforms |
+| `--accent-ink`   | `oklch(0.53 0.18 33)`     | `oklch(0.75 0.14 38)`     | Links and any accent text                       |
+| `--accent-2`     | `oklch(0.74 0.14 78)`     | `oklch(0.8 0.13 80)`      | Ochre, as a mark: the career's past             |
+| `--accent-2-ink` | `oklch(0.52 0.1 72)`      | `oklch(0.82 0.12 80)`     | Ochre as text: code strings                     |
 
-Light is a cool, barely warm grey; dark is near black with a trace of green. Neither is pure. Components keep their shape between themes.
+The neutrals lean cool, light and dark alike, so the vermilion reads warm against them. Neither ground is pure. Components keep their shape between themes.
 
-**Contrast.** Ink is about 15.8:1 on the ground in light and 15.7:1 in dark. Muted is 5.2:1 in light and 5.5:1 in dark, and at least 4.7:1 on `--ground-2`. `--accent-ink` is 6.1:1 in light and 8.8:1 in dark. `--accent` in light is 4.9:1, so it may set large marks but not small text. `--dim` and `--rule` are marks only and never set text.
+**Contrast.** Ink is about 16.5:1 on the ground in light and 15.6:1 in dark. Muted is 5.5:1 in light and 6.6:1 in dark, and at least 4.9:1 on `--ground-2`. `--accent-ink` is 5.3:1 in light and 8.2:1 in dark; `--accent-2-ink` is 5.1:1 and 10.8:1. All of them hold 4.5:1 on `--ground-2`. In light, `--accent` (3.5:1) and `--accent-2` (2.1:1) set marks only, never text. `--dim` and `--rule` are marks only and never set text.
 
-**The accent is open** as a hue. The quiet blue is study 04's. Whatever it becomes, it stays one hue and stays quiet.
+**Using the accents.** Vermilion is the signal: links and the current page in the nav are `--accent-ink`, and beyond links one view may use `--accent` for the waveform's playhead and one hover state. Ochre is its echo, used in two places: code strings, and the older end of the career list. Neither is a fill behind text, a background or a tint. The one gradient is the career list's, a blend from one accent to the other.
 
-**Using the accent.** Links are `--accent-ink`. Beyond links, one view may use the accent for the waveform's playhead and one hover state. Never as a fill behind text, a background or a tint.
+**Code syntax** uses ink, weight and ochre: keywords bold ink, strings `--accent-2-ink`, comments muted, everything else regular ink. Ochre keeps code apart from the vermilion links around it.
 
-**Code syntax** uses ink, weight and the accent: keywords bold ink, strings `--accent-ink`, comments muted, everything else regular ink. One hue, so code doesn't bring a second palette onto the page.
+Decided from a prototype across the whole site (2026-11-14). Rejected: the study's quiet blue (read as a default); two channels, ultramarine and coral (two accents of equal weight fought); a lilac ground with a chartreuse highlighter (lovely, but the tint barely showed and chartreuse can't set text); a hue per post, like record sleeves (equal-strength hues still looked uneven). For the second accent, cobalt (too graphic against vermilion) and teal (calm, but a cold break from the red).
 
 ## Layout
 
@@ -118,7 +120,7 @@ wordmark                                          about
 ```
 
 - The wordmark in the column, linking home: mono at `--text-nav`, 500.
-- The nav in the margin, stacked, mono at `--text-nav`, muted. The current page is ink and carries `aria-current`.
+- The nav in the margin, stacked, mono at `--text-nav`, muted. The current page is `--accent-ink` and carries `aria-current`; hovering the others turns them ink.
 - Nav rows are 24px tall and each link fills its row, so pointer targets tile without overlapping. The wordmark shares that line height, and so the first link's baseline. Narrow, where the links sit in one row, each target is 44px tall.
 - Hover turns a link ink, with no underline.
 - The head is followed by 5.5rem of space on the home page and 4.5rem elsewhere.
@@ -273,7 +275,7 @@ The about page's work, set like the index list, with a timeline drawn down its l
 - **The track.** A 2px line under each role's title spanning the whole career, from the first role's start to now, in `--rule`. The role's own time is drawn on it in color, on that shared scale, so gaps, overlaps and tenure all show. It's the waveform's played-and-unplayed idea, turned into a career. It follows the title, so a title that wraps pushes it down instead of crossing it.
 - **The joint.** The line leaves the dot's center at 45° and turns level into the track: square ends, mitered corners. The dot sits on top, so the line appears to come out of the ring. A title that wraps drops the track, so the joint then leaves the thread below the dot.
 - **Every line is 2px**: thread, ring, joint, track.
-- **Color.** The accent, as a ramp by age: the current role at full strength, each older one lighter in light mode and dimmer in dark (oklch, relative to `--accent`: L ±0.075–0.08 and C −0.01 per step). It's the one place the accent appears more than twice on a view, because here it is the drawing.
+- **Color.** One blend down the list, mixed in oklch: `--accent` on the newest role to `--accent-2` on the first. Each dot, joint and track takes the blend at its role's place; each stretch of thread runs from halfway to the role above to halfway to the one below, so the segments meet without a seam. It's the one place an accent appears more than twice on a view, because here it is the drawing. Rejected: vermilion now and ochre for the past, lightening with age (the jump between them read as a break, and the oldest roles washed out).
 - **Narrow.** The year moves above its role, indented to the text's edge, and the thread runs through it unbroken.
 - Hidden from assistive technology: the thread, dots, joint and track, and the year in the margin, which the dates already carry.
 
@@ -330,7 +332,7 @@ The home waveform drifts, as above. Hover changes on links are instant; the read
 ## Accessibility
 
 - All text meets 4.5:1 against its ground in both themes. `--dim`, `--rule` and light `--accent` never set small text.
-- The current page is marked with `aria-current` as well as ink.
+- The current page is marked with `aria-current` as well as color.
 - Focus is a 2px outline in the current text color, offset 3px, on every interactive element. Never the accent.
 - Decorative marks are hidden from assistive technology: the read-time and progress waveforms, and list markers.
 - The home waveform, being interactive, has a label and is operable by pointer; keyboard scrubbing is open.
@@ -343,7 +345,7 @@ Left out on purpose. Adding any of these is a change to the system, not a use of
 
 - Hardware: panels, knobs, lights, screens or devices. The instrument system this replaced is in git history.
 - Hand-drawn marks, scribbled underlines or other faux-handmade flourishes.
-- Section colors, more than one accent, tints, gradients or texture.
+- Section colors, a third accent, tints, gradients beyond the career list's, or texture.
 - Cards, shadows or rounded corners beyond code blocks and examples.
 - Uppercase, tracked labels.
 - Illustrations or icons. Arrows and marks are type characters.
@@ -354,7 +356,6 @@ Left out on purpose. Adding any of these is a change to the system, not a use of
 Each should be settled, and written into this document, when the page that needs it is built.
 
 - The wordmark's tracking and word gap in Plex Mono.
-- The accent hue.
 - What the home waveform is drawn from: a real track, and which one. Until then, peaks are generated.
 - Whether a post's description goes under its title or into the margin.
 - Keyboard scrubbing for the home waveform.

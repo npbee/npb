@@ -1,17 +1,22 @@
 /* Design tokens. Usage rules are in system.md. */
 
 :root {
-  --ground: #f4f4f2;
+  /* Neutrals lean cool, so the vermilion reads warmer against them */
+  --ground: oklch(0.968 0.003 250);
   /* Code blocks and examples */
-  --ground-2: #eaeae7;
-  --ink: #1a1a19;
-  --muted: #67675f;
-  --rule: #e0e0dc;
+  --ground-2: oklch(0.935 0.005 250);
+  --ink: oklch(0.2 0.012 260);
+  --muted: oklch(0.5 0.014 260);
+  --rule: oklch(0.9 0.005 250);
   /* Marks only, never text: the unplayed part of a waveform */
-  --dim: #cfcfca;
-  /* 4.9:1 in light, so large marks only; text uses --accent-ink */
-  --accent: #3f6e9c;
-  --accent-ink: #355f88;
+  --dim: oklch(0.85 0.007 250);
+  /* 3.5:1 in light, so marks only; text uses --accent-ink */
+  --accent: oklch(0.63 0.2 33);
+  --accent-ink: oklch(0.53 0.18 33);
+  /* The second voice, used sparingly: code strings and the career's past.
+     Marks only; text uses --accent-2-ink */
+  --accent-2: oklch(0.74 0.14 78);
+  --accent-2-ink: oklch(0.52 0.1 72);
 
   /* One mono for the body and the margin; a serif for titles */
   --font-body:
@@ -73,26 +78,30 @@
 /* An explicit light choice beats a dark OS setting */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ground: #0e0f0f;
-    --ground-2: #1a1b1a;
-    --ink: #e9e8e4;
-    --muted: #8a8a85;
-    --rule: #222322;
-    --dim: #2c2d2c;
-    --accent: #8fb3d9;
-    --accent-ink: #8fb3d9;
+    --ground: oklch(0.17 0.006 260);
+    --ground-2: oklch(0.215 0.008 260);
+    --ink: oklch(0.93 0.004 250);
+    --muted: oklch(0.68 0.012 260);
+    --rule: oklch(0.26 0.008 260);
+    --dim: oklch(0.33 0.01 260);
+    --accent: oklch(0.7 0.17 35);
+    --accent-ink: oklch(0.75 0.14 38);
+    --accent-2: oklch(0.8 0.13 80);
+    --accent-2-ink: oklch(0.82 0.12 80);
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --ground: #0e0f0f;
-  --ground-2: #1a1b1a;
-  --ink: #e9e8e4;
-  --muted: #8a8a85;
-  --rule: #222322;
-  --dim: #2c2d2c;
-  --accent: #8fb3d9;
-  --accent-ink: #8fb3d9;
+  --ground: oklch(0.17 0.006 260);
+  --ground-2: oklch(0.215 0.008 260);
+  --ink: oklch(0.93 0.004 250);
+  --muted: oklch(0.68 0.012 260);
+  --rule: oklch(0.26 0.008 260);
+  --dim: oklch(0.33 0.01 260);
+  --accent: oklch(0.7 0.17 35);
+  --accent-ink: oklch(0.75 0.14 38);
+  --accent-2: oklch(0.8 0.13 80);
+  --accent-2-ink: oklch(0.82 0.12 80);
   color-scheme: dark;
 }

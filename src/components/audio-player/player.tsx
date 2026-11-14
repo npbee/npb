@@ -195,8 +195,8 @@ function formatTimecode(seconds: number) {
 
 // Waveforms are images, so their colors are fixed hex values per theme. The
 // unplayed grey is a step past --dim, which vanishes on --ground-2.
-const baseStrokes = { light: "B4B4AE", dark: "4A4B4A" };
-const playedStrokes = { light: "1A1A19", dark: "E9E8E4" };
+const baseStrokes = { light: "AEB1B6", dark: "4A4D53" };
+const playedStrokes = { light: "13161C", dark: "E6E8EA" };
 
 const trackUrl =
   "https://res.cloudinary.com/dhhjogfy6//video/upload/q_auto/v1575831765/audio/rest.mp3";
