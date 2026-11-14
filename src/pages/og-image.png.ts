@@ -3,7 +3,7 @@ import { generateOgImage } from "../utils/generate-og-image";
 
 export const prerender = true;
 
-// Seed 7 is the home page's waveform (components/system/HomeWave.astro)
+// A fixed seed: the home page's own mark varies on every load
 export const GET: APIRoute = async () =>
   new Response(
     await generateOgImage({

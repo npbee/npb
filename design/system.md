@@ -9,12 +9,12 @@ This document describes how things look and read. It is independent of how the s
 ## Principles
 
 1. **A column and a margin.** Reading happens in the column. The margin holds what a reader scans: where they are, when something was written, how long it is, an aside. Nothing in the margin is needed to read the column.
-2. **One image.** The waveform is the only picture the system draws. There are no illustrations, icons, textures or objects. Posts may carry their own images.
+2. **One image.** The waveform is the only picture the system draws, and the home page's mark is the same track, printed. There are no illustrations, icons, textures or objects. Posts may carry their own images.
 3. **Type does the work.** Hierarchy comes from face, size, weight and color. There are no cards, shadows, gradients or rounded corners, except where a code block or example needs a ground.
 4. **Mono for the margin.** Margin notes, dates, labels, read times and code are monospace. Reading text is the body face.
 5. **A signal and an echo.** Vermilion marks links, the playhead and at most one other thing per view. Ochre answers it here and there. There are no section colors.
 6. **Every mark earns its place.** Counts, numbers and labels appear only where a reader uses them. A read time is shown because it tells the reader something; a sequence number is not.
-7. **Still by default.** One thing moves: the home waveform drifts slowly. Everything else waits for the reader.
+7. **Still by default.** One thing moves: the home page's mark drifts slowly and leans toward the mouse. Everything else waits for the reader.
 
 ## Type
 
@@ -153,15 +153,12 @@ The site's one image, drawn on a canvas from a list of peaks.
 - **Drawn at device resolution** and redrawn on resize and on a theme change, reading its colors from the tokens.
 - **Hidden from assistive technology** unless it is interactive, when it carries a label.
 
-It appears in three sizes:
+It appears in two sizes, and the home page prints it as a mark (below):
 
 | Use                 | Height | Step | Behavior                                                    |
 | ------------------- | ------ | ---- | ----------------------------------------------------------- |
-| Home                | 120px  | 4px  | Drifts, scrubs                                              |
 | Post progress       | 22px   | 3px  | Fills as the post is read                                   |
 | Read time, in lists | 18px   | 3px  | Static, length set by read time                             |
-
-**Home.** Spans the column. The playhead drifts left to right over 90 seconds, then wraps. Pressing and dragging on the waveform scrubs it; releasing lets it drift on from there. The margin beside it shows the playhead's time in ink at 13px over a short instruction in muted. Under `prefers-reduced-motion` it doesn't drift and can still be scrubbed. The time is read against `--track-length` (the length of the source track).
 
 **Post progress.** Spans the column, sticky at the top of the viewport while the post scrolls, on the page's ground with 10px of padding. Its playhead sits at the reader's progress through the post, counted from when the post's top passes 40% of the viewport to when its end does.
 
@@ -198,7 +195,7 @@ Body text …
 
 - The progress waveform at the top of the column, sticky.
 - The title, 2.5rem below it, at `--text-title`, weight 500, balanced. Hyphenated words never break at the hyphen.
-- The description, if any, `--space-3` under the title in the body face at `--text-row`, muted. Its placement is still open.
+- The description, if any, `--space-3` under the title in the body face at `--text-row`, muted. It stays under the title: the margin's top is the pinned date and read time, and a sentence there would crowd it.
 - The body follows, 2.75rem below.
 - The margin holds the date (ink) and read time on one line (`2023.12.29 · 2:04 to read`), pinned level with the progress strip at the top of the viewport and set flush right, to end where wide figures end, on the page's ground reaching back across the gap. Below it the margin stays empty, so figures can run into it and pass under the pinned row as they scroll. Narrow, the notes lead the post as a block note and aren't pinned.
 - Narrow: the margin's notes come first, above the progress strip, as a block note.
@@ -306,15 +303,29 @@ outside links · rss                               light / dark
 
 The 404 page is the waveform of nothing: a page title, `not found`, over a nearly flat line of `--dim` bars with `404` in ink in the margin beside it, then one lead-size line pointing to the posts and the home page. Its wording is placeholder, like all copy.
 
+## Home mark
+
+The home page draws its track as a print in two inks, vermilion for the low voice and ochre for the high, and a different variation on every load. It's tuned in a lab, not by hand.
+
+- **Directions.** *Groove*: the track wrapped in rings, like a record, with low marks falling inside each ring and high marks rising outside. *Bands*: bars along time from an off-center baseline, the high voice narrower and half a step over. *Ridges*: stretches of the track as stacked, leaning rows. *Roll*: a piano roll or graphic score, notes starting where the track peaks.
+- **Print rules.** Two inks only, no near-black. Where they cross they multiply (screen in dark), like an overprint. Flat marks, no gradients. Every mark comes from the track's data.
+- **Placement.** The mark is a full-width layer behind the page, never in front of text. *Free* marks (groove, roll) lie behind the header and intro; they're thin or sparse enough to read through. *Strips* (bands, ridges) are bolder, so they keep to the band between the header and the intro. Either way the slot above the intro holds the space, with its height set in the HTML so nothing moves when the drawing arrives.
+- **Variation.** Each request picks a liked setting, blends it toward another like of the same direction by a random amount, lets a few values wander a little (where there are few likes to blend between), and draws on a fresh seed. Every value stays within the knob's tested range. Picked on the server, drawn on the client.
+- **Motion.** It drifts slowly at the like's speed while on screen. The mouse plays it, each direction in its own way, within about 150px of the pointer and easing in and out: *groove* drags round with the pointer like a hand on a record, its marks leaning into the turn; *bands* jump like a meter catching a peak; *ridges* part around the pointer like wind through grass, rows above pushed up and below pushed down; *roll* treats the pointer as a playhead, and the notes it passes over swell while they sound. Mouse only; touch has no hover. Under `prefers-reduced-motion` it's still and doesn't follow the pointer.
+- **Accessibility.** Decorative, hidden from assistive technology.
+- **Source.** The lab is at `/lab/home-mark` in development only: click for a new seed, tune, and *like* with a note. Likes are kept in `src/data/home-mark-likes.json`, which the home page reads; notes stay out of the page. The render and variation functions are `src/utils/home-mark.ts`. Until a real track is analysed, the two voices are generated from the seed.
+
+Rejected: a single drifting, scrubbable waveform (beautiful, but just a waveform, and symmetric); concentric arcs after Müller-Brockmann's *musica viva* posters (liked least of the directions).
+
 ## Social image
 
 1200 × 630, light theme only, set like a page: the wordmark at top left in Plex Mono 500; the title in Newsreader 500 at 64px over the description in Plex Mono at 24px, muted; for a post, the date (ink) over the read time in a 220px margin on the right; and a waveform along the bottom, 72px tall on a 6px step.
 
-A post's waveform uses the same seed as its progress strip, and is drawn for its share of the longest post's read time, then runs on as a flat `--rule` track, as on the posts index. The home image draws its waveform in full from the home page's seed. Rendered with satori from the Fontsource `.woff` files, since satori can't read `woff2`. A post's `ogImage` front matter is no longer drawn: the waveform is the image.
+A post's waveform uses the same seed as its progress strip, and is drawn for its share of the longest post's read time, then runs on as a flat `--rule` track, as on the posts index. The home image draws its waveform in full from the home page's seed. Rendered with satori from the Fontsource `.woff` files, since satori can't read `woff2`. Posts carry no image of their own: the waveform is the image.
 
 ## The wordmark
 
-The name, set as live text in IBM Plex Mono at weight 500, lowercase, in the head at `--text-nav`. It carries no accent, symbol or punctuation. Its tracking and word gap (0.07em and 0.84em) were tuned for JetBrains Mono and need checking again in Plex.
+The name, set as live text in IBM Plex Mono at weight 500, lowercase, in the head at `--text-nav`. It carries no accent, symbol or punctuation. It's set as plain mono: no tracking, and a word gap of one character (0.6em, Plex Mono's advance), so it sits on the same grid as every other line of mono. Weight alone sets it apart from the nav. Rejected: the 0.07em tracking and 0.84em gap carried over from JetBrains Mono (airy, and off the character grid in Plex).
 
 **The short form,** for the browser tab icon: a lowercase `n` in the same face and weight, the ground color on an ink square, at about 60% of the square's height.
 
@@ -322,7 +333,7 @@ The name, set as live text in IBM Plex Mono at weight 500, lowercase, in the hea
 
 | Page     | Recipe                                                                                                                         |
 | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| Home     | Head. The waveform with its time in the margin. Name and intro, with notes in the margin. Posts as an index list. Projects as project rows. Footer. |
+| Home     | Head. The home mark behind the head and intro. Name and intro, with notes in the margin. Posts as an index list. Projects as project rows. Footer. |
 | Posts    | Head. Page title. The full index list. Footer.                                                                                 |
 | Post     | Head. Post. Footer.                                                                                                            |
 | About    | Head. Page title. Paragraphs, with a note in the margin. The career list under a `work` label. The numbered list of things built. Footer. |
@@ -331,7 +342,7 @@ The name, set as live text in IBM Plex Mono at weight 500, lowercase, in the hea
 
 ## Motion
 
-The home waveform drifts, as above. Hover changes on links are instant; the read-time waveform's color change takes 200ms. Nothing animates on load. Under `prefers-reduced-motion`, nothing moves on its own.
+The home mark drifts, as above. Hover changes on links are instant; the read-time waveform's color change takes 200ms. Nothing animates on load. Under `prefers-reduced-motion`, nothing moves on its own.
 
 ## Accessibility
 
@@ -339,7 +350,6 @@ The home waveform drifts, as above. Hover changes on links are instant; the read
 - The current page is marked with `aria-current` as well as color.
 - Focus is a 2px outline in the current text color, offset 3px, on every interactive element. Never the accent.
 - Decorative marks are hidden from assistive technology: the read-time and progress waveforms, and list markers.
-- The home waveform, being interactive, has a label and is operable by pointer; keyboard scrubbing is open.
 - Index rows and project names are each one link named by their visible text.
 - Nothing in the margin is the only place a fact appears that the reader needs.
 
@@ -359,10 +369,7 @@ Left out on purpose. Adding any of these is a change to the system, not a use of
 
 Each should be settled, and written into this document, when the page that needs it is built.
 
-- The wordmark's tracking and word gap in Plex Mono.
-- What the home waveform is drawn from: a real track, and which one. Until then, peaks are generated.
-- Whether a post's description goes under its title or into the margin.
-- Keyboard scrubbing for the home waveform.
+- What the home mark is drawn from: a real track, and which one, analysed into a low and a high voice. Until then, both are generated.
 - All copy: the intro, margin notes and footer wording. The post's read time currently reads `2:11 to read`, as a placeholder.
 
 ## Where it came from

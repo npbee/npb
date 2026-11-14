@@ -94,7 +94,6 @@ export async function generateOgImage(props: {
             fontFamily: "Plex Mono",
             fontWeight: 500,
             fontSize: 22,
-            letterSpacing: "0.07em",
             color: INK,
           },
           "nick ball",

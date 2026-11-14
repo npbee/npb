@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import Page from "../layouts/Page.astro";
 import Shell from "../components/system/Shell.astro";
-import HomeWave from "../components/system/HomeWave.astro";
+import HomeMark from "../components/system/HomeMark.astro";
 import SectionLabel from "../components/system/SectionLabel.astro";
 import IndexList from "../components/system/IndexList.astro";
 import ProjectRow from "../components/system/ProjectRow.astro";
@@ -24,7 +24,7 @@ const projects = await Promise.all(
 <Page title="Nick Ball" description="Software developer based in Portland, OR.">
   <Shell>
     <main>
-      <HomeWave />
+      <HomeMark />
 
       <header class="intro">
         <h1>Nick Ball</h1>
