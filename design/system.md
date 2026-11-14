@@ -296,6 +296,16 @@ outside links · rss                               light / dark
 - Hit areas at least 44px tall.
 - Narrow: the switch follows the links.
 
+## Not found
+
+The 404 page is the waveform of nothing: a page title, `not found`, over a nearly flat line of `--dim` bars with `404` in ink in the margin beside it, then one lead-size line pointing to the posts and the home page. Its wording is placeholder, like all copy.
+
+## Social image
+
+1200 × 630, light theme only, set like a page: the wordmark at top left in Plex Mono 500; the title in Newsreader 500 at 64px over the description in Plex Mono at 24px, muted; for a post, the date (ink) over the read time in a 220px margin on the right; and a waveform along the bottom, 72px tall on a 6px step.
+
+A post's waveform uses the same seed as its progress strip, and is drawn for its share of the longest post's read time, then runs on as a flat `--rule` track, as on the posts index. The home image draws its waveform in full from the home page's seed. Rendered with satori from the Fontsource `.woff` files, since satori can't read `woff2`. A post's `ogImage` front matter is no longer drawn: the waveform is the image.
+
 ## The wordmark
 
 The name, set as live text in IBM Plex Mono at weight 500, lowercase, in the head at `--text-nav`. It carries no accent, symbol or punctuation. Its tracking and word gap (0.07em and 0.84em) were tuned for JetBrains Mono and need checking again in Plex.
@@ -349,7 +359,6 @@ Each should be settled, and written into this document, when the page that needs
 - Whether a post's description goes under its title or into the margin.
 - Keyboard scrubbing for the home waveform.
 - Images with a baked-in white ground, such as the undo diagrams, in dark mode.
-- The 404 page and the generated social image.
 - All copy: the intro, margin notes and footer wording. The post's read time currently reads `2:11 to read`, as a placeholder.
 
 ## Where it came from

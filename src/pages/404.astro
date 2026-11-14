@@ -1,0 +1,79 @@
+---
+import Page from "../layouts/Page.astro";
+import Shell from "../components/system/Shell.astro";
+import Row from "../components/system/Row.astro";
+import PageTitle from "../components/system/PageTitle.astro";
+
+export const prerender = true;
+
+// A flat line with a little noise in it: the waveform of nothing
+const silence = Array.from({ length: 160 }, (_, i) =>
+  Math.max(1.5, 2 + Math.sin(i * 1.7) * 1.2 + Math.sin(i * 0.31) * 0.8),
+);
+---
+
+<Page title="Not found | Nick Ball" description="This page doesn't exist.">
+  <Shell>
+    <main>
+      <PageTitle title="not found" />
+      <Row class="silence-row">
+        <svg
+          class="silence"
+          viewBox={`0 0 ${silence.length * 4} 40`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {silence.map((h, i) => (
+            <rect x={i * 4} y={(40 - h) / 2} width="1.8" height={h} />
+          ))}
+        </svg>
+        <p slot="margin" class="code">404</p>
+      </Row>
+      <p class="message">
+        Nothing here. Try the <a href="/posts">posts</a> or the
+        <a href="/">home page</a>.
+      </p>
+    </main>
+  </Shell>
+</Page>
+
+<style>
+  .silence {
+    display: block;
+    width: 100%;
+    height: 2.5rem;
+    fill: var(--dim);
+  }
+
+  .code {
+    align-self: center;
+    font-size: 0.8125rem;
+    color: var(--ink);
+  }
+
+  .message {
+    margin-top: var(--space-12);
+    max-width: 40ch;
+    font-size: var(--text-lead);
+    line-height: var(--leading-lead);
+  }
+
+  .message a {
+    color: var(--accent-ink);
+    text-decoration: underline;
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 3px;
+  }
+
+  @media (hover: hover) {
+    .message a:hover {
+      text-decoration-thickness: 2px;
+    }
+  }
+
+  @media (max-width: 47.5rem) {
+    .code {
+      margin-top: var(--space-3);
+    }
+  }
+</style>
