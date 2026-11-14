@@ -327,7 +327,9 @@ A post's waveform uses the same seed as its progress strip, and is drawn for its
 
 The name, set as live text in IBM Plex Mono at weight 500, lowercase, in the head at `--text-nav`. It carries no accent, symbol or punctuation. It's set as plain mono: no tracking, and a word gap of one character (0.6em, Plex Mono's advance), so it sits on the same grid as every other line of mono. Weight alone sets it apart from the nav. Rejected: the 0.07em tracking and 0.84em gap carried over from JetBrains Mono (airy, and off the character grid in Plex).
 
-**The short form,** for the browser tab icon: a lowercase `n` in the same face and weight, the ground color on an ink square, at about 60% of the square's height.
+**The logomark,** for the browser tab and home-screen icons: an `n` laid out as three notes on a piano roll, the roll direction of the home mark. The low voice's stem in `--accent`, the high voice's arch and its fall in `--accent-2`, on `--ground`. The notes sit on a 4-unit grid of a 32-unit square, so each cell is 2px in a 16px tab; 2-unit gaps (a whole pixel) separate them and their corners are rounded by 1 unit. The SVG follows the system's color scheme; the `.ico` and the 180px Apple touch icon are light. Drawn by `src/utils/favicon.ts` from the tokens and served by `favicon.svg`, `favicon.ico` and `apple-touch-icon.png` routes, prerendered.
+
+Rejected: a ground `n` on an ink square (quiet, no accent); a ground `n` on a vermilion tile, and that tile with the `n` overprinted in ochre (the ochre muddies on vermilion); the `n` printed twice out of register (blurs at 16px); a record, and two tiles at different angles (busier than the roll, and further from the letter); the home mark's bands in miniature (reads as an audio icon); the roll as solid joined blocks, on the vermilion tile, or over the roll's lanes (the gaps make it a roll; the lanes vanish at 16px); `nb` and `npb` (too small to read in a tab).
 
 ## Page recipes
 
