@@ -49,8 +49,8 @@ const dotted = (s: string) => s.replace("-", ".");
               aria-hidden="true"
               style={`--from: ${row.from}; --length: ${row.length}`}
             >
-              <svg class="joint" viewBox="0 0 24 14">
-                <path d="M1 1 L13 13 H24" />
+              <svg class="joint" viewBox="0 0 24 17">
+                <path d="M0 0 L16 16 H24" />
               </svg>
             </span>
           </span>
@@ -101,8 +101,10 @@ const dotted = (s: string) => s.replace("-", ".");
 
   /* The thread runs the full height of each entry, so it meets the next
      one; it starts at the first dot and stops at the last */
+  /* Above the joint, so the joint starts under the dot */
   .thread {
     position: absolute;
+    z-index: 1;
     left: calc(var(--thread-x) - var(--line) / 2);
     top: 0;
     bottom: 0;
@@ -178,14 +180,16 @@ const dotted = (s: string) => s.replace("-", ".");
     background: var(--ramp);
   }
 
-  /* Off the thread at 45°, then level into the track. It ends where the
-     track begins, so on a one-line title it leaves from the dot itself. */
+  /* Out of the dot's center at 45°, then level into the track. The dot
+     covers its start. Its height is the gap from the dot's center to the
+     track's on a one-line title; a title that wraps drops the track, so
+     the joint leaves the thread below the dot. */
   .joint {
     position: absolute;
     right: 100%;
     bottom: calc(var(--line) / 2 - 1px);
     width: calc(var(--gutter) - var(--thread-x));
-    height: 14px;
+    height: 17px;
     overflow: visible;
   }
 
