@@ -1,0 +1,127 @@
+---
+// The career as text: roles newest first, grouped by the year they began.
+// Set like the index list so the two read as one family.
+import career from "../../data/career.json";
+
+type Row = (typeof career.roles)[number];
+
+const rows = career.roles.toSorted((a, b) => b.start.localeCompare(a.start));
+
+const groups = rows.reduce<{ year: string; rows: Row[] }[]>((acc, row) => {
+  const year = row.start.slice(0, 4);
+  const last = acc.at(-1);
+  if (last?.year === year) last.rows.push(row);
+  else acc.push({ year, rows: [row] });
+  return acc;
+}, []);
+
+const mm = (s: string) => s.slice(5, 7);
+const dotted = (s: string) => s.replace("-", ".");
+---
+
+<div class="career">
+  {
+    groups.map((g) => (
+      <section aria-labelledby={`career-${g.year}`}>
+        <h3 class="year" id={`career-${g.year}`}>
+          {g.year}
+        </h3>
+        <ul>
+          {g.rows.map((row) => (
+            <li class="row">
+              <span class="what">
+                <b>{row.company}</b> · {row.title}
+              </span>
+              <span class="leader" aria-hidden="true" />
+              <span class="when">
+                <time datetime={row.start}>{mm(row.start)}</time>
+                <span aria-hidden="true"> → </span>
+                <span class="visually-hidden">to</span>
+                {row.end ? <time datetime={row.end}>{dotted(row.end)}</time> : "now"}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  /* The index list's measures: year column, leader, muted dates */
+  /* Most years hold one row, so groups sit closer than the index's */
+  .career {
+    width: 100%;
+    display: grid;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+    line-height: var(--leading-mono);
+  }
+
+  section {
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .year {
+    padding-block: 0.25rem;
+    font-size: inherit;
+    font-weight: 700;
+    line-height: inherit;
+    font-variant-numeric: tabular-nums;
+  }
+
+  ul {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: flex;
+    gap: var(--space-2);
+    align-items: last baseline;
+    padding-block: 0.25rem;
+  }
+
+  .what {
+    min-width: 0;
+  }
+
+  .what b {
+    font-weight: 700;
+  }
+
+  .leader {
+    flex: 1;
+    min-width: var(--space-4);
+    height: 0.125rem;
+    background-image: radial-gradient(
+      circle at 0.0625rem 0.0625rem,
+      var(--muted) 0.0469rem,
+      transparent 0.0625rem
+    );
+    background-size: 0.375rem 0.125rem;
+    background-repeat: repeat-x;
+    background-position: right bottom;
+  }
+
+  .when {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 36rem) {
+    section {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .leader {
+      min-width: 0;
+    }
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+// The career timeline drawn on the instrument's screen. It's a picture of
+// the text view, so it's hidden from assistive technology, and it's left
+// out on phones, where the text view stands alone.
+//
+// Where the window allows, it breaks out of the column to the home panel's
+// width. Each width gets its own drawing, so type stays at true size.
+import { getCollection } from "astro:content";
+import { render, type TimelineConfig } from "./render";
+import career from "../../data/career.json";
+import style from "../../data/timeline-style.json";
+
+const posts = (await getCollection("blog")).map((p) =>
+  p.data.date.toISOString().slice(0, 7),
+);
+const now = new Date().toISOString().slice(0, 10);
+const input = { career, posts, now };
+const config = style as TimelineConfig;
+
+const REM = 16;
+const measure = render(input, config, 40 * REM);
+const panel = render(input, config, 65 * REM);
+---
+
+<div class="screen" aria-hidden="true">
+  <div class="measure" set:html={measure} />
+  <div class="panel" set:html={panel} />
+</div>
+
+<style>
+  .screen {
+    width: 100%;
+  }
+
+  /* In dark the page is the screen's black, so a hairline keeps its edge */
+  .screen :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-display);
+    outline: var(--hair) solid var(--rule);
+  }
+
+  .panel {
+    display: none;
+  }
+
+  @media (max-width: 45rem) {
+    .screen {
+      display: none;
+    }
+  }
+
+  /* The panel's width plus a gutter each side */
+  @media (min-width: 68rem) {
+    .screen {
+      width: var(--panel);
+      margin-inline: calc((100% - var(--panel)) / 2);
+    }
+    .measure {
+      display: none;
+    }
+    .panel {
+      display: block;
+    }
+  }
+</style>

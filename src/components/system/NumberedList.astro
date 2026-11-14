@@ -1,0 +1,50 @@
+---
+// Short items outside a post, named by a divider. Numbers are drawn by CSS
+// counters, so the list stays a plain <ol> for assistive technology.
+import Divider from "./Divider.astro";
+
+interface Props {
+  title: string;
+  items: string[];
+}
+
+const { title, items } = Astro.props;
+const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+---
+
+<section class="numbered-list" aria-labelledby={id}>
+  <Divider as="h2" id={id}>{title}</Divider>
+  <ol>
+    {items.map((item) => <li>{item}</li>)}
+  </ol>
+</section>
+
+<style>
+  .numbered-list {
+    width: 100%;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: item;
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+    line-height: var(--leading-mono);
+  }
+
+  li {
+    counter-increment: item;
+    display: grid;
+    grid-template-columns: 2.6rem 1fr;
+  }
+
+  li::before {
+    content: counter(item, decimal-leading-zero);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+</style>
