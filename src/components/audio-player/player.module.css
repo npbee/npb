@@ -8,7 +8,6 @@
   align-items: end;
   justify-content: space-between;
   gap: var(--space-4);
-  font-family: var(--font-mono);
 }
 
 .track {
@@ -24,21 +23,23 @@
   .track a:hover {
     text-decoration: underline;
     text-decoration-thickness: var(--hair);
-    text-underline-offset: 0.2em;
+    text-underline-offset: 3px;
   }
 }
 
 .title {
-  font-size: 0.9375rem;
-  font-weight: 700;
-  line-height: var(--leading-mono);
+  font-size: var(--text-row);
+  font-weight: 600;
+  line-height: var(--leading-row);
   color: var(--ink);
 }
 
 .artist,
 .time {
-  font-size: var(--text-meta);
-  line-height: var(--leading-meta);
+  font-family: var(--font-mono);
+  font-size: var(--text-note);
+  font-size-adjust: var(--adjust-mono);
+  line-height: var(--leading-note);
   color: var(--muted);
 }
 
@@ -61,9 +62,10 @@
   padding: 0;
   border: 0;
   background: none;
-  font: inherit;
-  font-size: var(--text-mono);
-  line-height: var(--leading-mono);
+  font-family: var(--font-mono);
+  font-size: var(--text-nav);
+  font-size-adjust: var(--adjust-mono);
+  line-height: var(--leading-nav);
   color: var(--accent-ink);
   cursor: pointer;
 }
@@ -77,8 +79,8 @@
 }
 
 .play:focus-visible {
-  outline: var(--focus) solid var(--ink);
-  outline-offset: 2px;
+  outline: var(--focus) solid currentColor;
+  outline-offset: 3px;
 }
 
 .mark {
@@ -116,8 +118,8 @@
 }
 
 .start:focus-visible {
-  outline: var(--focus) solid var(--ink);
-  outline-offset: 2px;
+  outline: var(--focus) solid currentColor;
+  outline-offset: 3px;
 }
 
 .slider,
