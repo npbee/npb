@@ -4,7 +4,10 @@
 // (pages/lab/home-mark); the home page draws a variation of the likes saved
 // there (data/home-mark-likes.json) on every load.
 
+import analysed from "../data/home-mark-track.json";
+
 export type Mode = "groove" | "bands" | "ridges" | "roll";
+
 export type InkLayer = "none" | "low" | "high";
 
 export interface Config {
@@ -173,37 +176,23 @@ function mulberry32(seed: number) {
   };
 }
 
-/** A track's shape, generated until a real one is analysed: sections of
-    differing energy, a low voice on a slow pulse and a high voice on a
-    faster, looser one that enters later. Both 0–1. */
+/** A stretch of the track, a different one for each seed: its low and high
+    voices, from the analysis in data/home-mark-track.json ("Rest", by The
+    Air on Earth), resampled to n points and scaled 0–1 within the stretch. */
+const SPAN = 0.6;
 export function track(seed: number, n = 512) {
-  const rand = mulberry32(seed * 9973 + 1);
-  const sections: { end: number; energy: number; hi: number }[] = [];
-  let at = 0;
-  while (at < 1) {
-    at = Math.min(1, at + 0.08 + rand() * 0.22);
-    sections.push({ end: at, energy: 0.25 + rand() * 0.75, hi: rand() });
-  }
-  const pulse = 8 + Math.floor(rand() * 8);
-  const fast = pulse * (2 + Math.floor(rand() * 2));
-  const low = new Float32Array(n);
-  const high = new Float32Array(n);
-  for (let i = 0; i < n; i++) {
-    const t = i / n;
-    const s = sections.find((x) => t <= x.end) ?? sections[sections.length - 1];
-    const fade = Math.min(1, t * 12, (1 - t) * 10);
-    const beat = (t * pulse * 8) % 1;
-    const tick = (t * fast * 8) % 1;
-    low[i] = s.energy * fade * (0.35 + 0.65 * Math.exp(-beat * 5)) * (0.8 + rand() * 0.2);
-    high[i] =
-      s.energy * s.hi * fade * (t > 0.12 ? 1 : t / 0.12) *
-      (0.35 + 0.65 * Math.exp(-tick * 6)) * (0.6 + rand() * 0.4);
-  }
-  const norm = (a: Float32Array) => {
-    const m = Math.max(...a) || 1;
-    return a.map((v) => v / m);
+  const start = mulberry32(seed * 9973 + 1)() * (1 - SPAN);
+  const stretch = (voice: number[]) => {
+    const from = Math.floor(start * voice.length);
+    const length = Math.floor(SPAN * voice.length);
+    const out = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      out[i] = voice[from + Math.floor((i / n) * length)];
+    }
+    const m = Math.max(...out) || 1;
+    return out.map((v) => v / m);
   };
-  return { low: norm(low), high: norm(high) };
+  return { low: stretch(analysed.low), high: stretch(analysed.high) };
 }
 
 const sample = (a: Float32Array, t: number) =>
