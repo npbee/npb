@@ -9,14 +9,25 @@ import CareerList from "../components/system/CareerList.astro";
 import NumberedList from "../components/system/NumberedList.astro";
 import { Image } from "astro:assets";
 import avatar from "../assets/avatar.jpeg";
+// Markdown, so formatters can't wrap link text into spaces inside the links
+import { Content as Intro } from "../copy/about-intro.md";
 
 const built = [
-  "Drag-and-drop heavy interfaces with React",
-  "Rich text editors with Prosemirror",
-  "Component libraries with React and CSS",
-  "Build and test pipelines with Webpack and continuous integration",
+  "Workflow engines and dynamic form builders",
+  "AI-assisted features",
+  "Rich text editors",
+  "Undo and redo systems",
+  "Drag-and-drop interfaces",
   "Interactive flow charts",
-  "Undo / redo implementations",
+  "Command palettes",
+  "Data tables and dashboards",
+  "Complex layouts and animations",
+  "Design systems",
+  "Type-safe APIs",
+  "Auth flows",
+  "Headless CMS sites",
+  "Audio players and waveform renderers",
+  "Build, test, and release pipelines",
 ];
 ---
 
@@ -29,25 +40,7 @@ const built = [
       <PageTitle title="about" />
       <Row narrow="before" class="intro">
         <Prose>
-          <p>
-            I'm a software developer based out of Portland, Oregon. I currently
-            work at <a
-              href="https://www.tryrisotto.com/"
-              target="_blank"
-              rel="noopener nofollow"><strong>Risotto</strong></a
-            > as a Staff Engineer.
-          </p>
-          <p>
-            I work heavily with technologies like <strong>React</strong> and <strong
-              >TypeScript</strong
-            >. I also enjoy building with <strong>Svelte</strong> and <strong
-              >Astro</strong
-            > and have experience with <strong>GraphQL</strong>, <strong
-              >Elixir</strong
-            >, and <strong>Phoenix</strong>. I'm particularly interested in
-            component-driven architecture, testing, and developer tooling. I love
-            focusing on small details to get the user experience just right.
-          </p>
+          <Intro />
         </Prose>
         <div slot="margin" class="intro-margin">
           <Image
@@ -58,7 +51,11 @@ const built = [
             height={224}
             loading="eager"
           />
-          <p class="intro-note">product engineer<br />portland, or</p>
+          <p class="intro-note">
+            product engineer
+            <br />
+            portland, or
+          </p>
         </div>
       </Row>
       <section class="rows" aria-labelledby="work">

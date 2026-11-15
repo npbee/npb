@@ -7,6 +7,8 @@ import SectionLabel from "../components/system/SectionLabel.astro";
 import IndexList from "../components/system/IndexList.astro";
 import ProjectRow from "../components/system/ProjectRow.astro";
 import { render } from "astro:content";
+// Markdown, so formatters can't wrap link text into spaces inside the links
+import { Content as Intro } from "../copy/home-intro.md";
 
 const posts = (await getCollection("blog")).toSorted(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -28,25 +30,20 @@ const projects = await Promise.all(
 
       <header class="intro">
         <h1>Nick Ball</h1>
-        <p>
-          Software developer based in Portland, Oregon. Currently a Staff
-          Engineer at <a
-            href="https://www.tryrisotto.com/"
-            target="_blank"
-            rel="noopener nofollow">Risotto</a
-          >.
-        </p>
+        <Intro />
       </header>
 
       <section class="rows" aria-labelledby="home-posts">
-        <SectionLabel id="home-posts"><a href="/posts">posts</a></SectionLabel>
+        <SectionLabel id="home-posts">
+          <a href="/posts">posts</a>
+        </SectionLabel>
         <IndexList posts={posts} />
       </section>
 
       <section class="rows" aria-labelledby="home-projects">
-        <SectionLabel id="home-projects"
-          ><a href="/projects">projects</a></SectionLabel
-        >
+        <SectionLabel id="home-projects">
+          <a href="/projects">projects</a>
+        </SectionLabel>
         <ul class="rows plain">
           {projects.map(({ project, Content }) => (
             <ProjectRow name={project.data.title} href={project.data.link}>
@@ -57,7 +54,9 @@ const projects = await Promise.all(
       </section>
 
       <section class="rows" aria-labelledby="home-demos">
-        <SectionLabel id="home-demos"><a href="/demos">demos</a></SectionLabel>
+        <SectionLabel id="home-demos">
+          <a href="/demos">demos</a>
+        </SectionLabel>
         <ul class="rows plain">
           <ProjectRow name="Audio Player" href="/demos/audio-player">
             An audio player built with React and React Aria Components.
@@ -89,13 +88,13 @@ const projects = await Promise.all(
     letter-spacing: var(--tracking-name);
   }
 
-  .intro p {
+  .intro :global(p) {
     max-width: 40ch;
     font-size: var(--text-lead);
     line-height: var(--leading-lead);
   }
 
-  .intro a {
+  .intro :global(a) {
     color: var(--accent-ink);
     text-decoration: underline;
     text-decoration-thickness: var(--hair);
@@ -113,7 +112,7 @@ const projects = await Promise.all(
   }
 
   @media (hover: hover) {
-    .intro a:hover {
+    .intro :global(a:hover) {
       text-decoration-thickness: 2px;
     }
 
