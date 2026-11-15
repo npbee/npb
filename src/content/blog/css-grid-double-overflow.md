@@ -6,9 +6,7 @@ description: A deceptively tricky layout
 
 Here's a deceptively tricky layout I encountered at work recently:
 
-<div class="not-prose full-width flex justify-center">
-<img alt="Sketch of layout" src="/posts/css-grid-double-overflow-sketch.svg" />
-</div>
+<img alt="Sketch of layout" src="/posts/css-grid-double-overflow-sketch.svg#diagram" />
 
 <h3>It has:</h3>
 
@@ -18,7 +16,7 @@ Here's a deceptively tricky layout I encountered at work recently:
 
 Here's how I solved it!
 
-<div class="not-prose full-width w-75">
+<div>
 <p class="codepen" data-height="700" data-default-tab="css,result" data-slug-hash="ExLLRaQ" data-user="npbee" style="height: 600px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/npbee/pen/ExLLRaQ">
   Double Overflowing Columns with CSS Grid</a> by Nick Ball (<a href="https://codepen.io/npbee">@npbee</a>)

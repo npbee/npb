@@ -1,0 +1,263 @@
+---
+// The career as text, set like the posts index: each role over its dates,
+// newest first, with the year it began in the margin. A thread runs down
+// the left with a dot per role, and each role's time is drawn on a track
+// that spans the whole career, like the played part of a waveform.
+import career from "../../data/career.json";
+import Row from "./Row.astro";
+
+const NOW = new Date().toISOString().slice(0, 7);
+
+const months = (start: string, end: string) => {
+  const [sy, sm] = start.split("-").map(Number);
+  const [ey, em] = end.split("-").map(Number);
+  return (ey - sy) * 12 + (em - sm);
+};
+
+const earliest = career.roles.map((r) => r.start).toSorted()[0];
+const span = months(earliest, NOW);
+
+const rows = career.roles
+  .toSorted((a, b) => b.start.localeCompare(a.start))
+  .map((role, i, all) => ({
+    ...role,
+    year: role.start.slice(0, 4),
+    firstOfYear: all[i - 1]?.start.slice(0, 4) !== role.start.slice(0, 4),
+    from: months(earliest, role.start) / span,
+    length: months(role.start, role.end ?? NOW) / span,
+  }));
+
+const dotted = (s: string) => s.replace("-", ".");
+---
+
+<ul class="rows career" style={`--last: ${Math.max(1, rows.length - 1)}`}>
+  {rows.map((row, i) => (
+    <Row as="li" narrow="before">
+      <div
+        class="entry"
+        style={`--age: ${i}`}
+        data-current={row.end === null ? "" : undefined}
+        data-first={i === 0 ? "" : undefined}
+        data-last={i === rows.length - 1 ? "" : undefined}
+      >
+        <span class="thread" aria-hidden="true"></span>
+        <p class="role">
+          <span class="head">
+            <span class="what">{row.company} · {row.title}</span>
+            <span
+              class="track"
+              aria-hidden="true"
+              style={`--from: ${row.from}; --length: ${row.length}`}
+            >
+              <svg class="joint" viewBox="0 0 24 17">
+                <path d="M0 0 L16 16 H24" />
+              </svg>
+            </span>
+          </span>
+          <span class="when">
+            <time datetime={row.start}>{dotted(row.start)}</time>
+            <span aria-hidden="true"> → </span>
+            <span class="visually-hidden">to</span>
+            {row.end ? <time datetime={row.end}>{dotted(row.end)}</time> : "now"}
+          </span>
+        </p>
+      </div>
+      {row.firstOfYear && (
+        <span slot="margin" class="year" style={`--age: ${i}`} aria-hidden="true">
+          {row.year}
+        </span>
+      )}
+    </Row>
+  ))}
+</ul>
+
+<style>
+  .career {
+    --gutter: 1.75rem;
+    /* The thread's center, and its width; every line here shares it */
+    --thread-x: 4px;
+    --line: 2px;
+    /* The center of the title's first line, where each dot sits */
+    --dot-y: calc(var(--space-3) + 0.7rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* One blend down the list, from the accent on the newest role to the
+     second accent on the first. Each role's dot takes the blend at its
+     place; its stretch of thread runs from the blend halfway to the role
+     above to halfway to the one below, so the segments meet seamlessly. */
+  .entry,
+  .year {
+    --at: calc(var(--age) / var(--last));
+    --half: calc(0.5 / var(--last));
+    --ramp: color-mix(in oklch, var(--accent-2) calc(var(--at) * 100%), var(--accent));
+    --ramp-above: color-mix(
+      in oklch,
+      var(--accent-2) calc(max(0, var(--at) - var(--half)) * 100%),
+      var(--accent)
+    );
+    --ramp-below: color-mix(
+      in oklch,
+      var(--accent-2) calc(min(1, var(--at) + var(--half)) * 100%),
+      var(--accent)
+    );
+  }
+
+  .entry {
+    position: relative;
+    padding-left: var(--gutter);
+  }
+
+  /* The thread runs the full height of each entry, so it meets the next
+     one; it starts at the first dot and stops at the last */
+  /* Above the joint, so the joint starts under the dot */
+  .thread {
+    position: absolute;
+    z-index: 1;
+    left: calc(var(--thread-x) - var(--line) / 2);
+    top: 0;
+    bottom: 0;
+    width: var(--line);
+    background: linear-gradient(
+      var(--ramp-above),
+      var(--ramp) var(--dot-y),
+      var(--ramp-below)
+    );
+  }
+
+  [data-first] .thread {
+    top: var(--dot-y);
+    background: linear-gradient(var(--ramp), var(--ramp-below));
+  }
+
+  [data-last] .thread {
+    bottom: auto;
+    height: var(--dot-y);
+    background: linear-gradient(var(--ramp-above), var(--ramp));
+  }
+
+  [data-first][data-last] .thread {
+    display: none;
+  }
+
+  .thread::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: var(--dot-y);
+    width: 8px;
+    height: 8px;
+    translate: -50% -50%;
+    border-radius: 50%;
+    border: var(--line) solid var(--ramp);
+    background: var(--ground);
+  }
+
+  [data-first] .thread::after {
+    top: 0;
+  }
+
+  [data-current] .thread::after {
+    background: var(--ramp);
+    box-shadow: 0 0 0 3px oklch(from var(--ramp) l c h / 0.18);
+  }
+
+  .role {
+    display: grid;
+    gap: var(--space-2);
+    padding-block: var(--space-3);
+  }
+
+  .head {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .what {
+    font-size: var(--text-row);
+    line-height: var(--leading-row);
+  }
+
+  /* The whole career in --rule, this role's time in its color. It follows
+     the title, so a title that wraps pushes it down rather than crossing it. */
+  .track {
+    position: relative;
+    height: var(--line);
+    background: var(--rule);
+  }
+
+  .track::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: calc(100% * var(--from));
+    width: calc(100% * var(--length));
+    background: var(--ramp);
+  }
+
+  /* Out of the dot's center at 45°, then level into the track. The dot
+     covers its start. Its height is the gap from the dot's center to the
+     track's on a one-line title; a title that wraps drops the track, so
+     the joint leaves the thread below the dot. */
+  .joint {
+    position: absolute;
+    right: 100%;
+    bottom: calc(var(--line) / 2 - 1px);
+    width: calc(var(--gutter) - var(--thread-x));
+    height: 17px;
+    overflow: visible;
+  }
+
+  .joint path {
+    fill: none;
+    stroke: var(--ramp);
+    stroke-width: var(--line);
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+  .when {
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Level with the role's first line, past the row's padding */
+  .year {
+    display: block;
+    padding-top: calc(var(--space-3) + 0.1875rem);
+    color: var(--ink);
+  }
+
+  /* Narrow: the year sits above its role, inside the thread's run, so the
+     thread passes through it unbroken */
+  @media (max-width: 47.5rem) {
+    .year {
+      position: relative;
+      padding: var(--space-6) 0 0 var(--gutter);
+    }
+
+    .year::before {
+      content: "";
+      position: absolute;
+      left: calc(var(--thread-x) - var(--line) / 2);
+      top: 0;
+      bottom: 0;
+      width: var(--line);
+      background: var(--ramp-above);
+    }
+
+    .career > :global(li:first-child) .year {
+      padding-top: 0;
+    }
+
+    .career > :global(li:first-child) .year::before {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,22 @@
+---
+// One piece of the column and its margin note, side by side. Narrow, the
+// note folds into the column: after the content, or before it when it
+// labels what follows (a year, a post's date).
+interface Props {
+  as?: "div" | "li" | "header" | "footer" | "section";
+  narrow?: "after" | "before";
+  class?: string;
+}
+
+const { as: Tag = "div", narrow = "after", class: className } = Astro.props;
+const hasMargin = Astro.slots.has("margin");
+---
+
+<Tag class:list={["row", className]} data-narrow={narrow}>
+  <div class="row-main"><slot /></div>
+  {hasMargin && (
+    <div class="row-margin note">
+      <slot name="margin" />
+    </div>
+  )}
+</Tag>

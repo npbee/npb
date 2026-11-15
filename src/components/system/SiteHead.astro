@@ -1,0 +1,101 @@
+---
+import Row from "./Row.astro";
+
+export type Section = "about" | "projects" | "posts" | "demos";
+
+interface Props {
+  current?: Section;
+}
+
+const { current } = Astro.props;
+
+const sections: Section[] = ["posts", "projects", "demos", "about"];
+---
+
+<Row as="header" class="site-head">
+  <a class="wordmark" href="/"><span>nick</span> <span>ball</span></a>
+  <nav slot="margin" aria-label="Sections">
+    <ul>
+      {sections.map((name) => (
+        <li>
+          <a
+            href={`/${name}`}
+            aria-current={name === current ? "page" : undefined}
+          >
+            {name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</Row>
+
+<style>
+  /* Row renders the element, so its class is reached with :global */
+  :global(.site-head) {
+    margin-bottom: var(--space-18);
+    font-size: var(--text-nav);
+    line-height: var(--leading-nav);
+  }
+
+  /* Nav rows are 24px tall, so each link's box is a full-size pointer
+     target and the rows tile without overlapping. The wordmark takes the
+     same line height to share a baseline with the first link. */
+  .wordmark {
+    font-size: var(--text-nav);
+    line-height: 1.5rem;
+  }
+
+  ul {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-nav);
+    line-height: 1.5rem;
+  }
+
+  nav a {
+    position: relative;
+    display: inline-block;
+    color: var(--muted);
+  }
+
+  /* Widens the target sideways only; vertically the rows already tile */
+  nav a::after {
+    content: "";
+    position: absolute;
+    inset: 0 -0.5rem;
+  }
+
+  nav a[aria-current] {
+    color: var(--accent-ink);
+  }
+
+  @media (hover: hover) {
+    nav a:not([aria-current]):hover {
+      color: var(--ink);
+    }
+  }
+
+  @media (max-width: 47.5rem) {
+    :global(.site-head) {
+      margin-bottom: var(--space-16);
+    }
+
+    nav {
+      margin-top: var(--space-2);
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-4);
+    }
+
+    /* One row, so a 44px-tall target can't overlap a neighbor */
+    nav a::after {
+      inset: calc((2.75rem - 1lh) / -2) calc(var(--space-4) / -2);
+    }
+  }
+</style>

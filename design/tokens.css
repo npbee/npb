@@ -1,0 +1,109 @@
+/* Design tokens. Usage rules are in system.md. */
+
+:root {
+  /* Neutrals lean cool, so the vermilion reads warmer against them */
+  --ground: oklch(0.968 0.003 250);
+  /* Code blocks and examples */
+  --ground-2: oklch(0.935 0.005 250);
+  --ink: oklch(0.2 0.012 260);
+  --muted: oklch(0.5 0.014 260);
+  --rule: oklch(0.9 0.005 250);
+  /* Marks only, never text: the unplayed part of a waveform */
+  --dim: oklch(0.85 0.007 250);
+  /* 3.5:1 in light, so marks only; text uses --accent-ink */
+  --accent: oklch(0.63 0.2 33);
+  --accent-ink: oklch(0.53 0.18 33);
+  /* The second voice, used sparingly: code strings and the career's past.
+     Marks only; text uses --accent-2-ink */
+  --accent-2: oklch(0.74 0.14 78);
+  --accent-2-ink: oklch(0.52 0.1 72);
+
+  /* One mono for the body and the margin; a serif for titles */
+  --font-body:
+    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-title: "Newsreader", Georgia, serif;
+  /* Faces are set at a matching x-height, so swapping one keeps the rhythm.
+     The body's mono runs wide per character, so it sits a touch smaller. */
+  --adjust-body: 0.46;
+  --adjust-mono: 0.54;
+
+  --text-note: 0.6875rem;
+  --text-nav: 0.75rem;
+  --text-row: 1rem;
+  --text-body: 1.125rem;
+  --text-lead: 1.25rem;
+  --text-name: 1.375rem;
+  --text-title: clamp(1.625rem, 4.6vw, 2rem);
+
+  --leading-note: 1.65;
+  --leading-nav: 1.4;
+  --leading-row: 1.4;
+  --leading-body: 1.6;
+  --leading-lead: 1.55;
+  --leading-title: 1.2;
+
+  --tracking-title: -0.015em;
+  --tracking-name: -0.01em;
+
+  --mark-weight: 500;
+  /* Set as plain mono: no tracking, and one character's width between
+     the words */
+  --mark-tracking: 0;
+  --mark-gap: 0.6em;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-18: 4.5rem;
+  --space-24: 6rem;
+  --space-28: 7rem;
+
+  /* The column, the margin beside it, and the gap between */
+  --measure: 40rem;
+  --margin: 14rem;
+  --margin-gap: 4rem;
+  --note-width: 13rem;
+  --gutter: 1rem;
+
+  --hair: 1px;
+  --focus: 2px;
+  --radius-block: 4px;
+}
+
+/* An explicit light choice beats a dark OS setting */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: oklch(0.17 0.006 260);
+    --ground-2: oklch(0.215 0.008 260);
+    --ink: oklch(0.93 0.004 250);
+    --muted: oklch(0.68 0.012 260);
+    --rule: oklch(0.26 0.008 260);
+    --dim: oklch(0.33 0.01 260);
+    --accent: oklch(0.7 0.17 35);
+    --accent-ink: oklch(0.75 0.14 38);
+    --accent-2: oklch(0.8 0.13 80);
+    --accent-2-ink: oklch(0.82 0.12 80);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground: oklch(0.17 0.006 260);
+  --ground-2: oklch(0.215 0.008 260);
+  --ink: oklch(0.93 0.004 250);
+  --muted: oklch(0.68 0.012 260);
+  --rule: oklch(0.26 0.008 260);
+  --dim: oklch(0.33 0.01 260);
+  --accent: oklch(0.7 0.17 35);
+  --accent-ink: oklch(0.75 0.14 38);
+  --accent-2: oklch(0.8 0.13 80);
+  --accent-2-ink: oklch(0.82 0.12 80);
+  color-scheme: dark;
+}

@@ -1,0 +1,131 @@
+---
+// Every post, newest first: title over date and read time, with a
+// waveform as long as the read time. Years sit in the margin.
+import type { Post } from "../../content.config";
+import Row from "./Row.astro";
+import { isoDate, monthDay } from "../../utils/dates";
+import { duration, miniBars, readSeconds } from "../../utils/waveform";
+
+interface Props {
+  /** Newest first */
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+
+const rows = posts.map((post) => ({
+  post,
+  year: post.data.date.getUTCFullYear(),
+  seconds: readSeconds(post.body ?? ""),
+}));
+const longest = Math.max(...rows.map((r) => r.seconds));
+---
+
+<ul class="rows index">
+  {rows.map(({ post, year, seconds }, i) => {
+    const wave = miniBars(post.id, seconds / longest);
+    const firstOfYear = rows[i - 1]?.year !== year;
+    return (
+      <Row as="li" narrow="before" class:list={{ "year-start": firstOfYear && i > 0 }}>
+        <a class="entry" href={`/posts/${post.id}`}>
+          <span class="title">{post.data.title}</span>
+          <span class="meta">
+            <time datetime={isoDate(post.data.date)}>
+              <span class="visually-hidden">{year}.</span>
+              {monthDay(post.data.date)}
+            </time>
+            {" · "}
+            <span>
+              <span class="visually-hidden">read time </span>
+              {duration(seconds)}
+            </span>
+          </span>
+          <svg
+            viewBox={`0 0 ${wave.width} ${wave.height}`}
+            preserveAspectRatio="xMinYMid meet"
+            aria-hidden="true"
+          >
+            {wave.bars.map((b) => (
+              <rect x={b.x} y={b.y} width="1.6" height={b.h} rx="0.8" />
+            ))}
+          </svg>
+        </a>
+        {firstOfYear && (
+          <span slot="margin" class="year" aria-hidden="true">
+            {year}
+          </span>
+        )}
+      </Row>
+    );
+  })}
+</ul>
+
+<style>
+  .index {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 7.5rem;
+    align-items: center;
+    gap: var(--space-1) var(--space-6);
+    padding-block: var(--space-3);
+  }
+
+  .title {
+    font-size: var(--text-row);
+    line-height: var(--leading-row);
+    text-wrap: pretty;
+  }
+
+  .meta {
+    grid-column: 1;
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  svg {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    width: 100%;
+    height: 1.125rem;
+    fill: var(--dim);
+    transition: fill 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .entry:hover svg {
+      fill: var(--accent);
+    }
+  }
+
+  /* Level with the title's first line, past the row's padding */
+  .year {
+    display: block;
+    padding-top: calc(var(--space-3) + 0.1875rem);
+    color: var(--ink);
+  }
+
+  /* Narrow: the year heads its group, set apart from the rows above */
+  @media (max-width: 47.5rem) {
+    .index :global(.year-start) {
+      margin-top: var(--space-6);
+    }
+
+    .year {
+      padding-top: 0;
+    }
+
+    .entry {
+      grid-template-columns: minmax(0, 1fr) 4.5rem;
+      gap: var(--space-1) var(--space-4);
+    }
+  }
+</style>

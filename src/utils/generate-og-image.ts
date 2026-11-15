@@ -1,188 +1,175 @@
+// The social image, set like a page of the site: the wordmark, a Newsreader
+// title over a mono description, date and read time in the margin, and a
+// waveform along the bottom. Light theme only; previews have no dark mode.
 import fs from "fs/promises";
+import { createRequire } from "module";
 import satori from "satori";
 import sharp from "sharp";
-import { gray } from "@radix-ui/colors";
+import { duration, peaks } from "./waveform";
+import { fullDate } from "./dates";
 
 export const prerender = true;
+
+// design/tokens.css, light
+const GROUND = "#f3f5f6";
+const INK = "#13161c";
+const MUTED = "#5f646b";
+const RULE = "#dbdee1";
+
+const WIDTH = 1200;
+const HEIGHT = 630;
+const PAD = 72;
+const WAVE_HEIGHT = 72;
+const WAVE_STEP = 6;
+
+const require = createRequire(import.meta.url);
+const font = (pkg: string, file: string) =>
+  fs.readFile(require.resolve(`@fontsource/${pkg}/files/${file}`));
+
+type Node = {
+  type: string;
+  props: { style?: Record<string, unknown>; children?: unknown };
+};
+
+const el = (
+  type: string,
+  style: Record<string, unknown>,
+  children?: unknown,
+): Node => ({ type, props: { style, children } });
 
 export async function generateOgImage(props: {
   title: string;
   description: string;
   date?: Date;
-  image?: string;
+  /** Read time in seconds; with `longest`, sets how much of the waveform is drawn */
+  seconds?: number;
+  longest?: number;
+  /** Seeds the waveform, so a post's image matches its progress strip */
+  seed: number;
 }) {
-  const { title, description, date, image } = props;
-  const regularRontData = await loadFont(
-    "IBM_Plex_Sans/IBMPlexSans-Regular.ttf",
-  );
-  const semiboldFontData = await loadFont(
-    "IBM_Plex_Sans/IBMPlexSans-SemiBold.ttf",
-  );
-  const base64Pattern = await loadImage("./public/images/light-wool.png");
-  const logo = await loadImage("public/images/logo.png");
-  const dateString = date ? formatDate(date) : null;
-  const secondaryImage = image
-    ? await loadImage(`./public/images/${image}`)
-    : null;
+  const { title, description, date, seconds, longest, seed } = props;
+  const [mono400, mono500, serif500] = await Promise.all([
+    font("ibm-plex-mono", "ibm-plex-mono-latin-400-normal.woff"),
+    font("ibm-plex-mono", "ibm-plex-mono-latin-500-normal.woff"),
+    font("newsreader", "newsreader-latin-500-normal.woff"),
+  ]);
+
+  const margin =
+    date && seconds !== undefined
+      ? el(
+          "div",
+          {
+            display: "flex",
+            flexDirection: "column",
+            width: 220,
+            paddingTop: 14,
+            fontFamily: "Plex Mono",
+            fontSize: 22,
+            lineHeight: 1.6,
+            color: MUTED,
+          },
+          [
+            el("span", { color: INK }, fullDate(date)),
+            el("span", {}, duration(seconds)),
+          ],
+        )
+      : null;
 
   const svg = await satori(
-    {
-      type: "div",
-      props: {
-        children: [
-          {
-            type: "div",
-            props: {
-              style: {
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                borderWidth: 4,
-                borderRadius: 8,
-                borderColor: gray.gray8,
-                boxShadow: `8px 8px 0 0 ${gray.gray12}`,
-                width: "100%",
-                height: "100%",
-                padding: 40,
-              },
-              children: [
-                {
-                  type: "div",
-                  props: {
-                    style: {
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "flex-start",
-                    },
-                    children: [
-                      {
-                        type: "img",
-                        props: {
-                          src: logo,
-                          width: 40,
-                          height: 40,
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  type: "div",
-                  props: {
-                    style: {
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 8,
-                    },
-                    children: [
-                      secondaryImage
-                        ? {
-                            type: "img",
-                            props: {
-                              src: secondaryImage,
-                              width: 80,
-                              height: 80,
-                            },
-                          }
-                        : null,
-                      {
-                        type: "h1",
-                        props: {
-                          children: title,
-                          style: {
-                            fontSize: "3.75rem",
-                            fontWeight: 600,
-                            lineHeight: 1,
-                            color: gray.gray12,
-                            fontFamily: "InconsolataSemibold",
-                          },
-                        },
-                      },
-                      {
-                        type: "span",
-                        props: {
-                          children: description,
-                          style: {
-                            color: gray.gray11,
-                            fontSize: "2.25rem",
-                            lineHeight: 1.5,
-                            fontFamily: "InconsolataSemibold",
-                          },
-                        },
-                      },
-                      dateString
-                        ? {
-                            type: "p",
-                            props: {
-                              children: `by Nick Ball on ${dateString}`,
-                              style: {
-                                fontSize: "1.5rem",
-                                fontFamily: "Inconsolata",
-                                color: gray.gray11,
-                              },
-                            },
-                          }
-                        : null,
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-        style: {
-          width: 1200,
-          height: 630,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          backgroundImage: `url('${base64Pattern}')`,
-          backgroundColor: "white",
-          backgroundRepeat: "repeat",
-          padding: 48,
-        },
+    el(
+      "div",
+      {
+        width: WIDTH,
+        height: HEIGHT,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        padding: PAD,
+        backgroundColor: GROUND,
       },
-    },
+      [
+        el(
+          "span",
+          {
+            fontFamily: "Plex Mono",
+            fontWeight: 500,
+            fontSize: 22,
+            color: INK,
+          },
+          "nick ball",
+        ),
+        el("div", { display: "flex", justifyContent: "space-between", gap: 56 }, [
+          el("div", { display: "flex", flexDirection: "column", flex: 1, gap: 20 }, [
+            el(
+              "h1",
+              {
+                margin: 0,
+                fontFamily: "Newsreader",
+                fontWeight: 500,
+                fontSize: 64,
+                lineHeight: 1.12,
+                letterSpacing: "-0.015em",
+                color: INK,
+              },
+              title,
+            ),
+            el(
+              "p",
+              {
+                margin: 0,
+                fontFamily: "Plex Mono",
+                fontSize: 24,
+                lineHeight: 1.5,
+                color: MUTED,
+              },
+              description,
+            ),
+          ]),
+          margin,
+        ]),
+        waveform(seed, seconds && longest ? seconds / longest : 1),
+      ],
+    ) as Parameters<typeof satori>[0],
     {
-      debug: false,
-      width: 1200,
-      height: 630,
+      width: WIDTH,
+      height: HEIGHT,
       fonts: [
-        {
-          name: "Inconsolata",
-          data: regularRontData,
-          weight: 400,
-          style: "normal",
-        },
-        {
-          name: "InconsolataSemibold",
-          data: semiboldFontData,
-          weight: 600,
-          style: "normal",
-        },
+        { name: "Plex Mono", data: mono400, weight: 400, style: "normal" },
+        { name: "Plex Mono", data: mono500, weight: 500, style: "normal" },
+        { name: "Newsreader", data: serif500, weight: 500, style: "normal" },
       ],
     },
   );
 
-  const png = await sharp(Buffer.from(svg)).png().toBuffer();
-
-  return png;
+  return sharp(Buffer.from(svg)).png().toBuffer();
 }
 
-async function loadImage(path: string) {
-  const file = await fs.readFile(path);
-  const base64 = file.toString("base64");
-  return `data:image/png;base64,${base64}`;
-}
+/** Ink bars for `fraction` of the width, then a flat track: a post's share
+    of the longest read, as on the posts index */
+function waveform(seed: number, fraction: number) {
+  const width = WIDTH - PAD * 2;
+  const total = Math.floor(width / WAVE_STEP);
+  const drawn = Math.max(3, Math.round(total * fraction));
+  const values = peaks(drawn, seed);
 
-function formatDate(date: Date) {
-  return Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(date));
-}
-
-async function loadFont(fontPath: string) {
-  return fs.readFile(`./public/fonts/${fontPath}`);
+  return el(
+    "div",
+    {
+      display: "flex",
+      alignItems: "center",
+      height: WAVE_HEIGHT,
+      width,
+    },
+    [
+      ...values.map((v) =>
+        el("div", {
+          width: WAVE_STEP * 0.45,
+          height: Math.max(2, v * WAVE_HEIGHT),
+          marginRight: WAVE_STEP * 0.55,
+          backgroundColor: INK,
+        }),
+      ),
+      el("div", { flex: 1, height: 2, backgroundColor: RULE }),
+    ],
+  );
 }

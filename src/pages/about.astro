@@ -1,69 +1,118 @@
 ---
-import Avatar from "../components/Avatar.astro";
-import BaseLayout from "../layouts/Base.astro";
+import Page from "../layouts/Page.astro";
+import Shell from "../components/system/Shell.astro";
+import Row from "../components/system/Row.astro";
+import PageTitle from "../components/system/PageTitle.astro";
+import Prose from "../components/system/Prose.astro";
+import SectionLabel from "../components/system/SectionLabel.astro";
+import CareerList from "../components/system/CareerList.astro";
+import NumberedList, {
+  type Item,
+} from "../components/system/NumberedList.astro";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import avatar from "../assets/avatar.jpeg";
+// Markdown, so formatters can't wrap link text into spaces inside the links
+import { Content as Intro } from "../copy/about-intro.md";
+
+const posts = new Map(
+  (await getCollection("blog")).map((post) => [post.id, post.data.title]),
+);
+
+// Each item may point at the posts written about it, by slug
+const built: [string, string[]?][] = [
+  ["Workflow engines and dynamic form builders"],
+  ["AI-assisted features"],
+  ["Rich text editors", ["rich-text-2018"]],
+  ["Undo and redo systems", ["command-based-undo"]],
+  ["Drag-and-drop interfaces"],
+  ["Interactive flow charts"],
+  ["Command palettes"],
+  ["Data tables and dashboards"],
+  [
+    "Complex layouts and animations",
+    ["ux-case-study-google-inbox", "css-grid-double-overflow"],
+  ],
+  ["Design systems"],
+  ["Type-safe APIs", ["fresh-hono-rpc"]],
+  ["Auth flows", ["fresh-supabase-auth"]],
+  ["Headless CMS sites", ["eleventy-datocms-netlify"]],
+  ["Audio players and waveform renderers", ["audio-waveform-scrubber"]],
+  [
+    "Build, test, and release pipelines",
+    ["sentry-for-single-page-apps", "in-search-of-mocks"],
+  ],
+];
+
+const items: Item[] = built.map(([text, slugs = []]) => ({
+  text,
+  links: slugs.map((slug) => {
+    const label = posts.get(slug);
+    if (!label) throw new Error(`No post "${slug}" for "${text}"`);
+    return { label, href: `/posts/${slug}` };
+  }),
+}));
 ---
 
-<BaseLayout
-  title="Nick Ball | About"
-  description="About Nick Ball, Software developer based in Portland, OR"
-  size="full"
+<Page
+  title="About | Nick Ball"
+  description="About Nick Ball, product engineer based in Portland, OR."
 >
-  <div class="text prose dark:prose-invert">
-    <Avatar />
-    <h1 class="text font-semibold">About me</h1>
-    <p class="text">
-      I'm a software developer based out of Portland, Oregon. I currently work
-      at <a
-        href="https://www.tryrisotto.com/"
-        target="_blank"
-        rel="noopener nofollow"><strong>Risotto</strong></a
-      > as a Staff Engineer.
-    </p>
+  <Shell current="about">
+    <main>
+      <PageTitle title="about" />
+      <Row narrow="before" class="intro">
+        <Prose>
+          <Intro />
+        </Prose>
+        <div slot="margin" class="intro-margin">
+          <Image
+            class="photo"
+            src={avatar}
+            alt="Nick Ball"
+            width={224}
+            height={224}
+            loading="eager"
+          />
+        </div>
+      </Row>
+      <section class="rows" aria-labelledby="work">
+        <SectionLabel id="work">work</SectionLabel>
+        <CareerList />
+      </section>
+      <NumberedList title="things I've built" {items} />
+    </main>
+  </Shell>
+</Page>
 
-    <p>
-      I work heavily with technologies like <strong>React</strong> and <strong
-        >TypeScript</strong
-      >. I also enjoy building with <strong>Svelte</strong> and <strong
-        >Astro</strong
-      > and have experience with <strong>GraphQL</strong>, <strong
-        >Elixir</strong
-      >, and <strong>Phoenix</strong>. I'm particularly interested in
-      component-driven architecture, testing, and developer tooling. I love
-      focusing on small details to get the user experience just right.
-    </p>
-    <p>In the past I've built things such as:</p>
-    <ul class="my-0">
-      <li>Drag-and-drop heavy interfaces with <strong>React</strong></li>
-      <li>Rich text editors with <strong>Prosemirror</strong></li>
-      <li>
-        Component libraries with <strong>React</strong> and <strong>CSS</strong>
-      </li>
-      <li>
-        Build and test pipelines with <strong>Webpack</strong> and <strong
-          >continuous integration</strong
-        >
-      </li>
-      <li>Interactive flow charts</li>
-      <li>Undo / redo implementations</li>
-    </ul>
-    <p>
-      I was previously at <strong>Dropbox</strong>, where I built the <a
-        href="https://reclaim.ai/"
-        target="_blank"
-        rel="noopener nofollow">Reclaim</a
-      > app, and at
-      <a
-        href="https://loudr.fm/"
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-        class="font-medium">Loudr</a
-      > (acquired by Spotify). I have a B.S. in Management Science from UC San Diego.
-    </p>
-    <h2>Find me</h2>
-    <ul>
-      <li><a href="https://github.com/npbee">GitHub</a></li>
-      <li><a href="https://twitter.com/_nickball">Twitter</a></li>
-      <li><a href="www.linkedin.com/in/niball">LinkedIn</a></li>
-    </ul>
-  </div>
-</BaseLayout>
+<style>
+  /* Sections, not the title and intro, sit a section's distance apart */
+  main > :global(section) {
+    margin-top: var(--space-24);
+  }
+
+  /* Level with the first line of the paragraphs */
+  .intro-margin {
+    padding-top: 0.3125rem;
+  }
+
+  .photo {
+    display: block;
+    width: 7rem;
+    height: auto;
+  }
+
+  @media (max-width: 47.5rem) {
+    main > :global(section) {
+      margin-top: var(--space-16);
+    }
+
+    .intro-margin {
+      padding: 0;
+    }
+
+    .photo {
+      margin-bottom: var(--space-6);
+    }
+  }
+</style>

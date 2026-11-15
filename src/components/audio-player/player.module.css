@@ -1,0 +1,155 @@
+.player {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.top {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.track {
+  display: grid;
+  min-width: 0;
+}
+
+.track a {
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .track a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 3px;
+  }
+}
+
+.title {
+  font-size: var(--text-row);
+  font-weight: 600;
+  line-height: var(--leading-row);
+  color: var(--ink);
+}
+
+.artist,
+.time {
+  font-family: var(--font-mono);
+  font-size: var(--text-note);
+  font-size-adjust: var(--adjust-mono);
+  line-height: var(--leading-note);
+  color: var(--muted);
+}
+
+.controls {
+  display: grid;
+  justify-items: end;
+}
+
+.time {
+  font-variant-numeric: tabular-nums;
+}
+
+.time[aria-hidden="true"] {
+  visibility: hidden;
+}
+
+/* Text button; a pseudo-element gives it a 44px hit area */
+.play {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-nav);
+  font-size-adjust: var(--adjust-mono);
+  line-height: var(--leading-nav);
+  color: var(--accent-ink);
+  cursor: pointer;
+}
+
+.play::after {
+  content: "";
+  position: absolute;
+  inset: 50% -0.5rem auto;
+  height: 2.75rem;
+  translate: 0 -50%;
+}
+
+.play:focus-visible {
+  outline: var(--focus) solid currentColor;
+  outline-offset: 3px;
+}
+
+.mark {
+  display: inline-block;
+  width: 1.5em;
+}
+
+.scrubber {
+  position: relative;
+}
+
+.scrubber img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+.layer img {
+  height: 100%;
+}
+
+/* Before any audio loads, the waveform is one big play button */
+.start {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.start:focus-visible {
+  outline: var(--focus) solid currentColor;
+  outline-offset: 3px;
+}
+
+.slider,
+.track-area {
+  position: absolute;
+  inset: 0;
+}
+
+.thumb {
+  width: 2px;
+  height: 100%;
+  background: var(--ink);
+  opacity: 0;
+}
+
+.thumb[data-focus-visible] {
+  opacity: 1;
+}
+
+.hint {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--hair);
+  background: var(--ink);
+  pointer-events: none;
+}
+
+/* data-theme is always set before first paint (components/Head.astro) */
+:global(:root[data-theme="dark"]) .light,
+:global(:root:not([data-theme="dark"])) .dark {
+  display: none;
+}

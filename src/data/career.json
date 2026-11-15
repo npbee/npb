@@ -1,0 +1,44 @@
+{
+  "roles": [
+    {
+      "company": "loudr",
+      "title": "frontend engineer",
+      "start": "2014-11",
+      "end": "2016-10"
+    },
+    {
+      "company": "hellosign",
+      "title": "frontend engineer",
+      "start": "2016-10",
+      "end": "2017-10"
+    },
+    {
+      "company": "hellosign",
+      "title": "senior frontend engineer",
+      "start": "2017-10",
+      "end": "2019-02"
+    },
+    {
+      "company": "dropbox",
+      "title": "senior software engineer",
+      "start": "2019-02",
+      "end": "2026-08"
+    },
+    {
+      "company": "risotto",
+      "title": "staff engineer",
+      "start": "2026-08",
+      "end": null
+    }
+  ],
+  "events": [
+    {
+      "label": "san francisco, ca",
+      "date": "2014-11"
+    },
+    {
+      "label": "portland, or",
+      "date": "2021-04"
+    }
+  ]
+}

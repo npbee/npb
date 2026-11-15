@@ -1,0 +1,36 @@
+---
+// Dev only: analyses the home mark's track and saves it. Open the page and
+// wait; it reports when the file is written.
+if (!import.meta.env.DEV) return Astro.redirect("/404");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Lab · analyse track</title>
+  </head>
+  <body>
+    <pre class="status">analysing…</pre>
+    <script>
+      import { analyseTrack } from "../../../utils/analyse-track";
+
+      // "Rest" by The Air on Earth, as in the audio player demo
+      const source =
+        "https://res.cloudinary.com/dhhjogfy6//video/upload/q_auto/v1575831765/audio/rest.mp3";
+      const status = document.querySelector(".status")!;
+
+      try {
+        const { low, high } = await analyseTrack(source);
+        const res = await fetch("/lab/home-mark/track", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ source, low, high }),
+        });
+        status.textContent = JSON.stringify(await res.json());
+      } catch (error) {
+        status.textContent = `failed: ${error}`;
+      }
+    </script>
+  </body>
+</html>

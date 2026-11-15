@@ -1,0 +1,18 @@
+---
+// Every page: the head, the page's content, and the footer, on the
+// column-and-margin grid set up in styles/system.css.
+import SiteHead, { type Section } from "./SiteHead.astro";
+import SiteFoot from "./SiteFoot.astro";
+
+interface Props {
+  current?: Section;
+}
+
+const { current } = Astro.props;
+---
+
+<div class="shell">
+  <SiteHead {current} />
+  <slot />
+  <SiteFoot />
+</div>

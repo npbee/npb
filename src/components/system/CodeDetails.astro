@@ -1,0 +1,74 @@
+---
+// A code block that starts collapsed: only its caption row shows, as the
+// disclosure. The figure's own caption is hidden so the row isn't doubled.
+import Code from "./Code.astro";
+
+interface Props {
+  code: string;
+  lang: string;
+}
+
+const { code, lang } = Astro.props;
+const lines = code.replace(/\n+$/, "").split("\n").length;
+---
+
+<details class="code-details">
+  <summary>
+    <span class="label">code · {lang}</span>
+    <span>{lines} {lines === 1 ? "line" : "lines"}</span>
+  </summary>
+  <Code code={code} lang={lang} />
+</details>
+
+<style>
+  .code-details {
+    background: var(--ground-2);
+    border-radius: var(--radius-block);
+  }
+
+  summary {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-3) 1.25rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
+    color: var(--muted);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .label::before {
+    content: "▸" / "";
+    display: inline-block;
+    width: 1.25em;
+  }
+
+  [open] .label::before {
+    content: "▾" / "";
+  }
+
+  @media (hover: hover) {
+    summary:hover {
+      color: var(--ink);
+    }
+  }
+
+  summary:focus-visible {
+    outline-offset: -2px;
+  }
+
+  [open] summary {
+    padding-bottom: 0;
+  }
+
+  .code-details :global(figure.code figcaption) {
+    display: none;
+  }
+</style>

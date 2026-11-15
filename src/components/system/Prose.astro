@@ -1,0 +1,244 @@
+---
+// Long-form text: post bodies, and later the about page. Its children come
+// from Markdown, so every rule targets them through :global.
+---
+
+<div class="prose links">
+  <slot />
+</div>
+
+<style>
+  .prose {
+    width: 100%;
+    max-width: var(--measure);
+    /* Long code lines scroll inside their block instead of widening this */
+    min-width: 0;
+    /* Bare URLs used as link text would otherwise overflow on phones */
+    overflow-wrap: break-word;
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+
+    /* The css-variables Shiki theme, mapped onto one hue: strings take the
+       second accent, keywords are set apart by weight, comments are muted,
+       and everything else is ink */
+    --astro-code-foreground: var(--ink);
+    --astro-code-background: transparent;
+    --astro-code-token-constant: var(--ink);
+    --astro-code-token-string: var(--accent-2-ink);
+    --astro-code-token-comment: var(--muted);
+    --astro-code-token-keyword: var(--ink);
+    --astro-code-token-parameter: var(--ink);
+    --astro-code-token-function: var(--ink);
+    --astro-code-token-string-expression: var(--accent-2-ink);
+    --astro-code-token-punctuation: var(--ink);
+    --astro-code-token-link: var(--accent-ink);
+  }
+
+  /* Block spacing is one line, so the rhythm holds. Written as siblings at
+     any depth, because raw HTML in a post can wrap blocks in a div. */
+  .prose
+    :global(
+      :is(p, ul, ol, blockquote, figure, pre, hr, div, img, h2, h3, h4)
+        + :is(p, ul, ol, blockquote, figure, pre, hr, div, img)
+    ) {
+    margin-top: 1.2em;
+  }
+
+  /* Headings are the body face at body size; weight sets them apart */
+  .prose :global(:is(h2, h3, h4)) {
+    font-size: var(--text-body);
+    font-weight: 600;
+    line-height: var(--leading-title);
+    text-wrap: balance;
+  }
+
+  .prose :global(* + :is(h2, h3, h4)) {
+    margin-top: 2.2em;
+  }
+
+  /* Same specificity as the block rule above, and later, so it wins */
+  .prose
+    :global(
+      :is(h2, h3, h4) + :is(p, ul, ol, blockquote, figure, pre, hr, div, img)
+    ) {
+    margin-top: 0.5em;
+  }
+
+  .prose :global(strong) {
+    font-weight: 600;
+  }
+
+  .prose :global(em) {
+    font-style: italic;
+  }
+
+  /* Lists keep sans text; markers are muted mono hanging in the margin */
+  .prose :global(:is(ul, ol)) {
+    padding-left: 1.5rem;
+    list-style: none;
+  }
+
+  .prose :global(li) {
+    position: relative;
+  }
+
+  .prose :global(li + li),
+  .prose :global(li > :is(ul, ol)) {
+    margin-top: 0.35em;
+  }
+
+  /* The marker is smaller than the text, so it gets a taller line-height
+     that gives it the same line box and puts it on the text's baseline */
+  .prose :global(ul > li)::before,
+  .prose :global(ol > li)::before {
+    position: absolute;
+    right: calc(100% + 0.5rem);
+    font-family: var(--font-mono);
+    font-size: 0.8125em;
+    font-size-adjust: var(--adjust-mono);
+    line-height: calc(var(--leading-body) / 0.8125);
+    color: var(--muted);
+  }
+
+  .prose :global(ul > li)::before {
+    content: "–";
+  }
+
+  .prose :global(ol) {
+    counter-reset: item;
+  }
+
+  .prose :global(ol > li) {
+    counter-increment: item;
+  }
+
+  .prose :global(ol > li)::before {
+    content: counter(item, decimal-leading-zero);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prose :global(blockquote) {
+    padding-left: var(--space-4);
+    border-left: var(--hair) solid var(--rule);
+    font-style: italic;
+  }
+
+  .prose :global(blockquote > * + *) {
+    margin-top: 1.2em;
+  }
+
+  .prose :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Figures run across the gap and the margin, which the post keeps clear
+     below its pinned notes. Only where the margin is at full width. */
+  @media (min-width: 60rem) {
+    .prose
+      > :global(
+        :is(
+            figure,
+            details,
+            .code-block,
+            img,
+            p:has(> img:only-child),
+            div:has(.codepen, iframe)
+          )
+      ) {
+      margin-right: calc(-1 * (var(--gap-drawn) + var(--margin)));
+    }
+  }
+
+  /* Diagrams drawn on white (opted in with a #diagram fragment) take the
+     page's ground: multiply drops the white in light; in dark, inverting
+     with the hue turned back keeps their colors, and screen drops the
+     resulting black. Some are on off-white, so brightness and contrast
+     push it the last step. */
+  .prose :global(img[src*="#diagram"]) {
+    filter: brightness(1.04);
+    mix-blend-mode: multiply;
+  }
+
+  :global(:root[data-theme="dark"]) .prose :global(img[src*="#diagram"]) {
+    filter: invert(1) hue-rotate(180deg) contrast(1.2);
+    mix-blend-mode: screen;
+  }
+
+  .prose :global(figure:not(.code, .example) figcaption) {
+    margin-top: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
+    color: var(--muted);
+  }
+
+  .prose :global(hr) {
+    height: var(--hair);
+    border: 0;
+    background: var(--rule);
+  }
+
+  /* Inline code: the face alone sets it apart */
+  .prose :global(:not(pre) > code) {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    font-size-adjust: var(--adjust-mono);
+  }
+
+  /* Code blocks: a captioned figure on the second ground */
+  .prose :global(figure.code) {
+    background: var(--ground-2);
+    border-radius: var(--radius-block);
+  }
+
+  .prose :global(figure.code figcaption) {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-3) 1.25rem 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
+    color: var(--muted);
+  }
+
+  .prose :global(figure.code pre) {
+    margin: 0;
+    padding: var(--space-3) 1.25rem 1.125rem 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-size-adjust: var(--adjust-mono);
+    line-height: 1.7;
+    tab-size: 2;
+  }
+
+  .prose :global(figure.code code) {
+    counter-reset: line;
+  }
+
+  .prose :global(figure.code .line)::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 3.8em;
+    padding-right: 1.4em;
+    text-align: right;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+  }
+
+  /* Keywords are the one token set apart, by weight */
+  .prose :global(figure.code [style*="--astro-code-token-keyword"]) {
+    font-weight: 700;
+  }
+
+  .prose :global(figure.code pre:focus-visible) {
+    outline-offset: -2px;
+  }
+</style>

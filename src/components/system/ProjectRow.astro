@@ -1,0 +1,55 @@
+---
+// One project or demo: its name in the column over a hairline, linking to
+// it, and its description in the margin.
+import Row from "./Row.astro";
+
+interface Props {
+  name: string;
+  href: string;
+}
+
+const { name, href } = Astro.props;
+---
+
+<Row as="li" class="project-row">
+  <a class="name" href={href}>{name}</a>
+  <div slot="margin" class="description"><slot /></div>
+</Row>
+
+<style>
+  /* One rule across the column, the gap and the margin; the bottom padding
+     keeps a long description clear of the next rule */
+  :global(.project-row) {
+    padding-bottom: var(--space-6);
+    border-top: var(--hair) solid var(--rule);
+  }
+
+  .name {
+    display: block;
+    padding-block: var(--space-3);
+    font-size: var(--text-row);
+    line-height: var(--leading-row);
+  }
+
+  @media (hover: hover) {
+    .name:hover {
+      color: var(--accent-ink);
+    }
+  }
+
+  /* Level with the name's first line, past its padding */
+  .description {
+    padding-top: calc(var(--space-3) + 0.1875rem);
+  }
+
+  .description :global(p + p) {
+    margin-top: 0.5em;
+  }
+
+  /* Narrow: the description follows the name */
+  @media (max-width: 47.5rem) {
+    .description {
+      padding: 0;
+    }
+  }
+</style>

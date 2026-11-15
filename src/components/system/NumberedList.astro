@@ -1,0 +1,87 @@
+---
+// Short items outside a post, in an order the author chose, each with an
+// optional note in the margin. Numbers are drawn by CSS counters, so the
+// list stays a plain <ol> for assistive technology.
+import Row from "./Row.astro";
+import SectionLabel from "./SectionLabel.astro";
+
+export interface Item {
+  text: string;
+  /** Links shown in the margin beside the item, one per line */
+  links?: { label: string; href: string }[];
+}
+
+interface Props {
+  title: string;
+  items: Item[];
+}
+
+const { title, items } = Astro.props;
+const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+---
+
+<section class="rows numbered-list" aria-labelledby={id}>
+  <SectionLabel {id}>{title}</SectionLabel>
+  <ol class="rows">
+    {items.map(({ text, links }) => (
+      <Row as="li" class="numbered-item">
+        {text}
+        {links?.length ? (
+          <ul slot="margin" class="links-note">
+            {links.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </Row>
+    ))}
+  </ol>
+</section>
+
+<style>
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: item;
+    row-gap: var(--space-2);
+    font-size: var(--text-row);
+    line-height: var(--leading-row);
+  }
+
+  /* Row renders the element, so its parts are reached with :global */
+  ol > :global(.numbered-item) {
+    counter-increment: item;
+  }
+
+  ol > :global(.numbered-item) > :global(.row-main) {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  ol > :global(.numbered-item) > :global(.row-main)::before {
+    content: counter(item, decimal-leading-zero);
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Level with the item's first line */
+  .links-note {
+    margin: 0;
+    padding: 0.1875rem 0 0;
+    list-style: none;
+  }
+
+  /* Narrow: the note follows its item, lined up with the item's text */
+  @media (max-width: 47.5rem) {
+    .links-note {
+      padding: 0 0 var(--space-2) 2rem;
+    }
+  }
+</style>

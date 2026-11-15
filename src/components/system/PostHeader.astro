@@ -1,0 +1,51 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+
+// Keep hyphenated words whole; "Type-" at a line end reads as a typo
+const titleParts = title
+  .split(/(\s+)/)
+  .map((part) => ({ part, whole: part.includes("-") }));
+---
+
+<header class="post-head">
+  <h1>
+    {titleParts.map(({ part, whole }) =>
+      whole ? <span class="whole">{part}</span> : part,
+    )}
+  </h1>
+  {description && <p class="description">{description}</p>}
+</header>
+
+<style>
+  .post-head {
+    display: grid;
+    gap: var(--space-3);
+    margin-block: 2.5rem 2.75rem;
+  }
+
+  h1 {
+    font-family: var(--font-title);
+    font-size: var(--text-title);
+    font-weight: 500;
+    line-height: var(--leading-title);
+    letter-spacing: var(--tracking-title);
+    text-wrap: balance;
+  }
+
+  .whole {
+    white-space: nowrap;
+  }
+
+  /* Under the title; the margin's top holds the pinned notes */
+  .description {
+    font-size: var(--text-row);
+    line-height: var(--leading-row);
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+</style>

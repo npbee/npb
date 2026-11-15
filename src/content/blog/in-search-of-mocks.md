@@ -99,7 +99,7 @@ I see them roughly like this:
 - **Network Intercept** - Test intercepts actual network requests and allows for custom response. Real `fetch` is called and the test asserts on custom responses. (Example: Nock, MSW, Mirage)
 - **Network Intercept + Mocked data layer** - Test intercepts network requests, but requests are handled with actual logic mimicking production code and write to an in-memory database. Tests assert on the database. (Example: Mirage JS)
 
-![Mocking layer](/posts/mock-layer.png)
+![Mocking layer](/posts/mock-layer.png#diagram)
 
 ### Dependency Injection / Mocking `fetch`
 

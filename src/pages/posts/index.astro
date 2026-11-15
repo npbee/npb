@@ -1,18 +1,24 @@
 ---
-import BaseLayout from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
-import PostList from "../../components/PostList.astro";
+import Page from "../../layouts/Page.astro";
+import Shell from "../../components/system/Shell.astro";
+import PageTitle from "../../components/system/PageTitle.astro";
+import IndexList from "../../components/system/IndexList.astro";
 
-let allBlogPosts = await getCollection("blog");
+const posts = (await getCollection("blog")).toSorted(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
 ---
 
-<BaseLayout
+<Page
   title="Posts | Nick Ball"
-  description="Posts by Nick Ball, Software developer based in Portland, OR."
-  size="full"
+  description="Posts by Nick Ball, product engineer based in Portland, OR."
 >
-  <main class="space-y-4">
-    <h1 class="text-light font-semibold">Posts</h1>
-    <PostList posts={allBlogPosts} />
-  </main>
-</BaseLayout>
+  <Shell current="posts">
+    <main>
+      <PageTitle title="posts" />
+      <IndexList posts={posts} />
+    </main>
+  </Shell>
+</Page>
+

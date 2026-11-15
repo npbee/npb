@@ -1,0 +1,128 @@
+---
+import Row from "./Row.astro";
+
+const links = [
+  ["github", "https://github.com/npbee"],
+  ["twitter", "https://twitter.com/_nickball"],
+  ["linkedin", "https://www.linkedin.com/in/niball"],
+  ["rss", "/rss.xml"],
+];
+---
+
+<Row as="footer" class="site-foot">
+  <ul aria-label="Find me">
+    {links.map(([name, href]) => (
+      <li>
+        <a href={href}>{name}</a>
+      </li>
+    ))}
+  </ul>
+  <button
+    slot="margin"
+    type="button"
+    class="theme"
+    aria-label="Switch between light and dark"
+    data-theme-toggle
+  >
+    <span class="opt-light">light</span>
+    <span aria-hidden="true">/</span>
+    <span class="opt-dark">dark</span>
+  </button>
+</Row>
+
+<style>
+  /* Row renders the element, so its class is reached with :global */
+  /* One rule across the column, the gap and the margin */
+  :global(.site-foot) {
+    margin-top: var(--space-28);
+    padding-top: var(--space-4);
+    border-top: var(--hair) solid var(--rule);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-note);
+    font-size-adjust: var(--adjust-mono);
+    line-height: var(--leading-note);
+    color: var(--muted);
+  }
+
+  /* Flex, so markup whitespace can't push a dot off center */
+  li {
+    display: flex;
+    align-items: baseline;
+  }
+
+  li + li::before {
+    content: "·" / "";
+    margin-inline: 0.5em;
+  }
+
+  /* 44px-tall hit areas on pseudo-elements, so the focus ring still hugs
+     the word; links stop short of the separator dots */
+  a,
+  .theme {
+    position: relative;
+  }
+
+  a::after,
+  .theme::after {
+    content: "";
+    position: absolute;
+    inset: calc((2.75rem - 1lh) / -2) -0.375em;
+  }
+
+  .theme::after {
+    inset-inline: 0;
+  }
+
+  .theme {
+    display: inline-flex;
+    gap: 0.5em;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font: inherit;
+    color: var(--muted);
+  }
+
+  :global(:root:not([data-theme="dark"])) .opt-light,
+  :global(:root[data-theme="dark"]) .opt-dark {
+    color: var(--ink);
+  }
+
+  @media (hover: hover) {
+    a:hover,
+    .theme:hover span {
+      color: var(--ink);
+    }
+  }
+
+  /* Narrow, the switch follows the links under one rule */
+  @media (max-width: 47.5rem) {
+    :global(.site-foot) :global(.row-margin) {
+      padding-top: var(--space-3);
+    }
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")
+    .forEach((button) =>
+      button.addEventListener("click", () => {
+        const root = document.documentElement;
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem("theme", next);
+        } catch {}
+      }),
+    );
+</script>

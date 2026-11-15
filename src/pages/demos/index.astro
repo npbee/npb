@@ -1,29 +1,35 @@
 ---
-import BaseLayout from "../../layouts/Base.astro";
+import Page from "../../layouts/Page.astro";
+import Shell from "../../components/system/Shell.astro";
+import PageTitle from "../../components/system/PageTitle.astro";
+import ProjectRow from "../../components/system/ProjectRow.astro";
+import { getDemos } from "../../utils/demos";
+
+const demos = await getDemos();
 ---
 
-<BaseLayout
+<Page
   title="Demos | Nick Ball"
-  description="Demos by Nick Ball, Software developer based in Portland, OR."
+  description="Demos by Nick Ball, product engineer based in Portland, OR."
 >
-  <main class="space-y-4">
-    <h1 class="text-light font-semibold">Demos</h1>
-    <ul class="space-y-6">
-      <li>
-        <a
-          class="group flex flex-col text-lg no-underline"
-          href={`/demos/audio-player`}
-        >
-          <span
-            class="text font-semibold group-hover:text-accent-10 dark:group-hover:text-accent-dark-10"
-          >
-            Audio Player
-          </span>
-          <span class="prose font-normal dark:prose-invert">
-            An audio player built with React and Tailwind CSS.
-          </span>
-        </a>
-      </li>
-    </ul>
-  </main>
-</BaseLayout>
+  <Shell current="demos">
+    <main>
+      <PageTitle title="demos" />
+      <ul class="rows demo-list">
+        {demos.map(({ demo, Content }) => (
+          <ProjectRow name={demo.data.title} href={demo.data.link}>
+            <Content />
+          </ProjectRow>
+        ))}
+      </ul>
+    </main>
+  </Shell>
+</Page>
+
+<style>
+  .demo-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

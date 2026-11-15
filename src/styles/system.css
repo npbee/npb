@@ -1,0 +1,203 @@
+/* Base styles for every page, built to design/system.md. Imported by
+   layouts/Page.astro. */
+@import "../../design/tokens.css";
+
+:root {
+  /* Astro's Fonts API defines these with metric-matched fallbacks */
+  --font-mono: var(--font-plex-mono);
+  --font-body: var(--font-plex-mono);
+  --font-title: var(--font-newsreader);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-size-adjust: var(--adjust-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:where(h1, h2, h3, h4, p, figure, blockquote, ol, ul, dl, dd, pre) {
+  margin: 0;
+}
+
+:where(img, svg, video) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+:where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+:where(button) {
+  font: inherit;
+  color: inherit;
+}
+
+/* The current text color, never the accent, so the ring reads as focus
+   rather than as a link */
+:focus-visible {
+  outline: var(--focus) solid currentColor;
+  outline-offset: 3px;
+}
+
+/* The page: a column and a margin, centered as a pair, so the column sits
+   left of center. Direct children span both tracks as subgrids; their own
+   children land in the column unless they're a .row, or a .rows list of
+   them. */
+.shell {
+  max-width: calc(var(--measure) + var(--margin-gap) + var(--margin));
+  box-sizing: content-box;
+  margin-inline: auto;
+  padding-block: var(--space-12) var(--space-16);
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+  display: grid;
+  grid-template-columns:
+    minmax(0, var(--measure))
+    minmax(0, var(--margin));
+  /* The gap as drawn, which .wide needs to reach across it */
+  --gap-drawn: clamp(var(--space-8), 6vw, var(--margin-gap));
+  column-gap: var(--gap-drawn);
+  align-content: start;
+}
+
+.shell > *,
+.row,
+.rows {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-content: start;
+}
+
+.shell > * > *,
+.row-main {
+  grid-column: 1;
+  min-width: 0;
+}
+
+.shell > * > :is(.row, .rows) {
+  grid-column: 1 / -1;
+}
+
+/* A row pairs one piece of the column with its margin note. Both sit on
+   row 1, so the note aligns with the top of what it belongs to. */
+.row-main,
+.row-margin {
+  grid-row: 1;
+}
+
+.row-margin {
+  grid-column: 2;
+  max-width: var(--note-width);
+}
+
+.note {
+  font-family: var(--font-mono);
+  font-size: var(--text-note);
+  font-size-adjust: var(--adjust-mono);
+  line-height: var(--leading-note);
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.note :where(a) {
+  color: var(--accent-ink);
+}
+
+/* Links in running text. Examples are live UI and style their own. */
+.links :where(a:not(.example *)) {
+  color: var(--accent-ink);
+  text-decoration: underline;
+  text-decoration-thickness: var(--hair);
+  text-underline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .links :where(a:not(.example *)):hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+/* Not the nav, which sits in the margin but marks hover with ink alone */
+@media (hover: hover) {
+  .note :where(a:not(nav a)):hover {
+    text-decoration: underline;
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 3px;
+  }
+}
+
+/* Narrow: the margin folds into the column, after what it annotates, or
+   before it where the note labels what follows */
+@media (max-width: 47.5rem) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .row-main,
+  .row-margin {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .row-margin {
+    max-width: none;
+  }
+
+  .row[data-narrow="before"] > .row-margin {
+    order: -1;
+  }
+}
+
+/* A figure that runs across the gap and the margin. Only where the margin
+   is at its full width; narrower, it keeps to the column. */
+@media (min-width: 60rem) {
+  .wide {
+    margin-right: calc(-1 * (var(--gap-drawn) + var(--margin)));
+  }
+}
+
+.wordmark {
+  display: inline-flex;
+  gap: var(--mark-gap);
+  font-family: var(--font-mono);
+  font-size-adjust: var(--adjust-mono);
+  font-weight: var(--mark-weight);
+  letter-spacing: var(--mark-tracking);
+  line-height: 1.1;
+  white-space: nowrap;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

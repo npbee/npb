@@ -1,0 +1,574 @@
+---
+// Dev only: a generator for the home page's mark. Click the canvas for a
+// new seed, tune the knobs, like what works (with a note on why). Shuffle
+// draws a variation of the likes, as the home page does on every load.
+import Page from "../../../layouts/Page.astro";
+import Shell from "../../../components/system/Shell.astro";
+
+if (!import.meta.env.DEV) return Astro.redirect("/404");
+---
+
+<Page title="Lab · home mark" description="Generator for the home page mark.">
+  <Shell>
+    <main>
+      <div class="lab-slot"></div>
+      <header class="intro">
+        <h1>Nick Ball</h1>
+        <p>
+          Software developer based in Portland, Oregon. Currently a Staff
+          Engineer at <a href="https://www.tryrisotto.com/">Risotto</a>.
+        </p>
+      </header>
+    </main>
+  </Shell>
+  <canvas class="lab-canvas" title="Click for a new seed (or press n)"></canvas>
+
+  <aside class="lab-panel" aria-label="Lab controls">
+    <div class="tabs" role="tablist"></div>
+    <div class="seed-row">
+      <span>seed <b class="seed"></b></span>
+      <button type="button" class="reroll">new</button>
+    </div>
+    <div class="knobs"></div>
+    <div class="actions">
+      <button type="button" class="reset">reset mode</button>
+      <button type="button" class="shuffle" title="Mix two likes of one mode (s)">shuffle likes</button>
+    </div>
+    <label class="note-field">
+      <span>note</span>
+      <textarea class="note" rows="3" placeholder="What works here, what to keep, what to avoid"></textarea>
+    </label>
+    <div class="actions">
+      <button type="button" class="save">like</button>
+      <button type="button" class="update" hidden>update note</button>
+    </div>
+    <p class="status" aria-live="polite"></p>
+    <div class="rail"></div>
+  </aside>
+</Page>
+
+<style>
+  /* The canvas is placed by script: over its slot, or as a layer behind
+     the whole page */
+  :global(body) {
+    position: relative;
+    overflow-x: clip;
+  }
+
+  :global(.shell) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .lab-canvas {
+    position: absolute;
+    display: block;
+    cursor: pointer;
+  }
+
+  .lab-canvas[data-overlap] {
+    z-index: 0;
+  }
+
+  .lab-canvas:not([data-overlap]) {
+    z-index: 2;
+  }
+
+  .lab-slot {
+    width: 100%;
+  }
+
+  /* Across the gap and the margin, as a wide figure */
+  @media (min-width: 60rem) {
+    .lab-slot {
+      width: calc(100% + var(--gap-drawn) + var(--margin));
+    }
+  }
+
+  .intro {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-12);
+    max-width: 34rem;
+  }
+
+  .intro h1 {
+    font-family: var(--font-title);
+    font-size: var(--text-name);
+    font-weight: 500;
+    letter-spacing: var(--tracking-name);
+    line-height: var(--leading-title);
+  }
+
+  .intro p {
+    font-size: var(--text-lead);
+    line-height: var(--leading-lead);
+  }
+
+  .intro a {
+    color: var(--accent-ink);
+    text-decoration: underline;
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 3px;
+  }
+
+  /* Lab chrome: not part of the design */
+  .lab-panel {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: 260px;
+    overflow-y: auto;
+    z-index: 2147483647;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(10, 10, 10, 0.86);
+    backdrop-filter: blur(12px);
+    color: rgba(255, 255, 255, 0.85);
+    font: 12px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size-adjust: none;
+  }
+
+  .lab-panel :global(button) {
+    padding: 4px 10px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .lab-panel :global(button[aria-selected="true"]) {
+    background: rgba(255, 255, 255, 0.85);
+    color: #111;
+  }
+
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .seed-row,
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-block: 10px;
+  }
+
+  .knobs :global(h3) {
+    margin: 14px 0 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: lowercase;
+  }
+
+  .knobs :global(label) {
+    display: grid;
+    grid-template-columns: 82px 1fr 40px;
+    align-items: center;
+    gap: 6px;
+    margin-block: 4px;
+  }
+
+  .knobs :global(input[type="range"]) {
+    width: 100%;
+    accent-color: #fff;
+  }
+
+  .knobs :global(output) {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .knobs :global(select) {
+    font: inherit;
+  }
+
+  .status {
+    min-height: 1.4em;
+    color: rgba(255, 255, 255, 0.6);
+    word-break: break-all;
+  }
+
+  .note-field {
+    display: grid;
+    gap: 4px;
+  }
+
+  .note-field span {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .note {
+    width: 100%;
+    padding: 6px 8px;
+    border: 0;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    color: inherit;
+    font: inherit;
+    resize: vertical;
+  }
+
+  .rail {
+    display: grid;
+    gap: 6px;
+  }
+
+  .rail :global(.like) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2px 6px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .rail :global(.like[data-active]) {
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .rail :global(.like button) {
+    padding: 0;
+    background: none;
+    text-align: left;
+  }
+
+  .rail :global(.like p) {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: pre-wrap;
+  }
+</style>
+
+<script>
+  import {
+    defaults,
+    knobs,
+    placement,
+    render,
+    vary,
+    trackPointer,
+    placementOf,
+    type Config,
+    type Mode,
+  } from "../../../utils/home-mark";
+
+  const MODES: Mode[] = ["groove", "bands", "ridges", "roll"];
+  const canvas = document.querySelector<HTMLCanvasElement>(".lab-canvas")!;
+  const slot = document.querySelector<HTMLElement>(".lab-slot")!;
+  const panel = document.querySelector<HTMLElement>(".lab-panel")!;
+  const status = panel.querySelector<HTMLElement>(".status")!;
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+  const fromHash = (): Config | null => {
+    try {
+      const c = { ...defaults, ...JSON.parse(decodeURIComponent(location.hash.slice(1))) };
+      if (!MODES.includes(c.mode)) c.mode = defaults.mode;
+      return c;
+    } catch {
+      return null;
+    }
+  };
+
+  let config: Config = fromHash() ?? { ...defaults };
+  let start = performance.now();
+
+  const inks = () => {
+    const css = getComputedStyle(canvas);
+    const v = (name: string) => css.getPropertyValue(name).trim();
+    return {
+      ink: v("--ink"),
+      low: v("--accent"),
+      high: v("--accent-2"),
+      dark: document.documentElement.dataset.theme === "dark",
+    };
+  };
+
+  /** Over the slot, or full width behind the page from the slot's top plus
+      layerTop; both in page coordinates */
+  const place = () => {
+    slot.style.height = config.height + "px";
+    const rect = slot.getBoundingClientRect();
+    const top = rect.top + scrollY;
+    const width = document.documentElement.clientWidth;
+    // As on the home page: a strip fills its slot's band, full width
+    const box = !config.overlap
+      ? { left: rect.left + scrollX, top, width: rect.width, height: config.height }
+      : placementOf(config.mode) === "strip"
+        ? { left: 0, top, width, height: config.height }
+        : { left: 0, top: top + config.layerTop, width, height: config.layerHeight };
+    Object.assign(canvas.style, {
+      left: box.left + "px",
+      top: box.top + "px",
+      width: box.width + "px",
+      height: box.height + "px",
+      opacity: String(config.opacity),
+    });
+    canvas.toggleAttribute("data-overlap", config.overlap);
+    return box;
+  };
+
+  const draw = (now = performance.now()) => {
+    const dpr = devicePixelRatio || 1;
+    const { width: w, height: h } = place();
+    if (canvas.width !== w * dpr) canvas.width = w * dpr;
+    if (canvas.height !== h * dpr) canvas.height = h * dpr;
+    const g = canvas.getContext("2d")!;
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const time = reduceMotion.matches ? 0 : (now - start) / 1000;
+    render(g, w, h, config, inks(), time, lens);
+  };
+
+  const pointer = trackPointer(canvas);
+  let lens: ReturnType<typeof pointer>;
+  let bent = false;
+  const loop = (now: number) => {
+    if (!reduceMotion.matches && !document.hidden) {
+      lens = pointer();
+      if (config.drift > 0 || lens || bent) draw(now);
+      bent = !!lens;
+    }
+    requestAnimationFrame(loop);
+  };
+
+  const sync = () => {
+    history.replaceState(null, "", "#" + encodeURIComponent(JSON.stringify(config)));
+    panel.querySelector(".seed")!.textContent = String(config.seed);
+    draw();
+  };
+
+  const buildTabs = () => {
+    const tabs = panel.querySelector(".tabs")!;
+    tabs.replaceChildren(
+      ...MODES.map((mode) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.role = "tab";
+        b.textContent = mode;
+        b.setAttribute("aria-selected", String(mode === config.mode));
+        b.onclick = () => {
+          config = { ...config, mode };
+          build();
+        };
+        return b;
+      }),
+    );
+  };
+
+  const slider = (k: (typeof knobs.shared)[number]) => {
+    const label = document.createElement("label");
+    const name = document.createElement("span");
+    name.textContent = k.label;
+    const input = document.createElement("input");
+    input.type = "range";
+    input.min = String(k.min);
+    input.max = String(k.max);
+    input.step = String(k.step);
+    input.value = String(config[k.key]);
+    const out = document.createElement("output");
+    out.textContent = String(config[k.key]);
+    input.oninput = () => {
+      (config as any)[k.key] = Number(input.value);
+      out.textContent = input.value;
+      sync();
+    };
+    label.append(name, input, out);
+    return label;
+  };
+
+  const buildKnobs = () => {
+    const box = panel.querySelector(".knobs")!;
+    const heading = (text: string) => {
+      const h = document.createElement("h3");
+      h.textContent = text;
+      return h;
+    };
+
+    const ink = document.createElement("label");
+    ink.innerHTML = `<span>near-black</span>`;
+    const select = document.createElement("select");
+    for (const v of ["none", "low", "high"]) select.add(new Option(v, v));
+    select.value = config.inkLayer;
+    select.onchange = () => {
+      config.inkLayer = select.value as Config["inkLayer"];
+      sync();
+    };
+    ink.append(select, document.createElement("span"));
+
+    const swap = document.createElement("label");
+    swap.innerHTML = `<span>swap inks</span>`;
+    const box2 = document.createElement("input");
+    box2.type = "checkbox";
+    box2.checked = config.swap;
+    box2.onchange = () => {
+      config.swap = box2.checked;
+      sync();
+    };
+    swap.append(box2, document.createElement("span"));
+
+    const overlap = document.createElement("label");
+    overlap.innerHTML = `<span>behind page</span>`;
+    const box3 = document.createElement("input");
+    box3.type = "checkbox";
+    box3.checked = config.overlap;
+    box3.onchange = () => {
+      config.overlap = box3.checked;
+      sync();
+    };
+    overlap.append(box3, document.createElement("span"));
+
+    box.replaceChildren(
+      heading("placement"),
+      overlap,
+      ...placement.map(slider),
+      heading("shared"),
+      ...knobs.shared.map(slider),
+      ink,
+      swap,
+      heading(config.mode),
+      ...knobs[config.mode].map(slider),
+    );
+  };
+
+  const build = () => {
+    buildTabs();
+    buildKnobs();
+    sync();
+  };
+
+  type Like = { id: string; note: string; savedAt: string; config: Config };
+  let likes: Like[] = [];
+  let active: string | null = null;
+  const note = panel.querySelector<HTMLTextAreaElement>(".note")!;
+  const update = panel.querySelector<HTMLButtonElement>(".update")!;
+
+  const setActive = (id: string | null) => {
+    active = id;
+    update.hidden = !id;
+    renderRail();
+  };
+
+  const renderRail = () => {
+    const rail = panel.querySelector(".rail")!;
+    rail.replaceChildren(
+      ...likes
+        .map((like, i) => {
+          const row = document.createElement("div");
+          row.className = "like";
+          row.toggleAttribute("data-active", like.id === active);
+          const apply = document.createElement("button");
+          apply.type = "button";
+          apply.textContent = `${i + 1}. ${like.config.mode} · ${like.config.seed}`;
+          apply.onclick = () => {
+            config = { ...defaults, ...like.config };
+            note.value = like.note;
+            build();
+            setActive(like.id);
+            status.textContent = `applied like ${i + 1}`;
+          };
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.textContent = "×";
+          remove.ariaLabel = `Remove like ${i + 1}`;
+          remove.onclick = async () => {
+            const res = await fetch(`/lab/home-mark/save?id=${like.id}`, { method: "DELETE" });
+            likes = (await res.json()).likes;
+            if (active === like.id) setActive(null);
+            else renderRail();
+          };
+          const text = document.createElement("p");
+          text.textContent = like.note;
+          row.append(apply, remove);
+          if (like.note) row.append(text);
+          return row;
+        })
+        .reverse(),
+    );
+  };
+
+  const send = async (method: string, body: unknown) => {
+    const res = await fetch("/lab/home-mark/save", {
+      method,
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const json = await res.json();
+    likes = json.likes;
+    return json;
+  };
+
+  /** The same variation the home page draws on each load */
+  const shuffle = () => {
+    if (!likes.length) {
+      status.textContent = "like a few first";
+      return;
+    }
+    const v = vary(likes);
+    config = v.config;
+    note.value = "";
+    build();
+    setActive(null);
+    const n = (c: Config) => likes.findIndex((l) => l.config.seed === c.seed && l.config.mode === c.mode) + 1;
+    const [a, b] = v.from;
+    status.textContent = n(a) === n(b) ? `from like ${n(a)}, wandered` : `between likes ${n(a)} and ${n(b)} (${Math.round(v.t * 100)}%)`;
+  };
+
+  canvas.addEventListener("click", () => {
+    config = { ...config, seed: Math.floor(Math.random() * 1e6) };
+    sync();
+  });
+  panel.querySelector<HTMLButtonElement>(".reroll")!.onclick = () => canvas.click();
+  // Behind the page, the canvas is mostly covered, so n rerolls too
+  addEventListener("keydown", (e) => {
+    if ((e.target as HTMLElement).closest("input, select, textarea")) return;
+    if (e.key === "n") canvas.click();
+    if (e.key === "s") shuffle();
+  });
+  panel.querySelector<HTMLButtonElement>(".shuffle")!.onclick = shuffle;
+
+  panel.querySelector<HTMLButtonElement>(".reset")!.onclick = () => {
+    const keep = { mode: config.mode, seed: config.seed };
+    config = { ...defaults, ...keep };
+    build();
+  };
+
+  panel.querySelector<HTMLButtonElement>(".save")!.onclick = async () => {
+    const body = await send("POST", { note: note.value.trim(), config });
+    setActive(likes[likes.length - 1].id);
+    status.textContent = `liked (${likes.length} in ${body.path})`;
+  };
+
+  update.onclick = async () => {
+    await send("PATCH", { id: active, note: note.value.trim() });
+    renderRail();
+    status.textContent = "note updated";
+  };
+
+  fetch("/lab/home-mark/save")
+    .then((r) => r.json())
+    .then((body) => {
+      likes = body.likes;
+      renderRail();
+    })
+    .catch(() => {});
+
+  addEventListener("resize", () => draw());
+  new MutationObserver(() => draw()).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+
+  build();
+  requestAnimationFrame(loop);
+</script>

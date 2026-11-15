@@ -1,0 +1,117 @@
+---
+// The home page's mark: a track drawn in vermilion and ochre, a different
+// variation of the lab's likes on every load (utils/home-mark.ts). It holds
+// a slot above the intro; the drawing is a full-width layer behind the page,
+// either free behind the header and intro or fitted to the slot as a strip.
+import likes from "../../data/home-mark-likes.json";
+import { vary, type Config } from "../../utils/home-mark";
+
+// Picked on the server, per request, so the slot has its height in the
+// HTML and the intro never moves when the drawing arrives
+const config = likes.length ? vary(likes as { config: Partial<Config> }[]).config : null;
+---
+
+<div
+  class="home-mark"
+  data-config={config && JSON.stringify(config)}
+  style={config ? `height: ${config.height}px` : undefined}
+>
+  <canvas aria-hidden="true"></canvas>
+</div>
+
+<style>
+  /* The canvas is placed in page coordinates, so the body anchors it */
+  :global(body:has(.home-mark)) {
+    position: relative;
+  }
+
+
+  canvas {
+    position: absolute;
+    left: 0;
+    /* Behind everything; the page ground is painted on the root */
+    z-index: -1;
+    display: block;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  import {
+    placementOf,
+    render,
+    trackPointer,
+    type Config,
+    type Pointer,
+  } from "../../utils/home-mark";
+
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+  for (const slot of document.querySelectorAll<HTMLElement>(".home-mark")) {
+    const canvas = slot.querySelector("canvas")!;
+    if (!slot.dataset.config) continue;
+    const config: Config = JSON.parse(slot.dataset.config);
+    const strip = placementOf(config.mode) === "strip";
+    canvas.style.opacity = String(config.opacity);
+
+    const pointer = reduceMotion.matches ? () => undefined : trackPointer(canvas);
+    let lens: Pointer | undefined;
+
+    const draw = (now = performance.now()) => {
+      const rect = slot.getBoundingClientRect();
+      const top = rect.top + scrollY + (strip ? 0 : config.layerTop);
+      const w = document.documentElement.clientWidth;
+      const h = strip ? config.height : config.layerHeight;
+      canvas.style.top = top + "px";
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+
+      const dpr = devicePixelRatio || 1;
+      if (canvas.width !== Math.round(w * dpr)) canvas.width = Math.round(w * dpr);
+      if (canvas.height !== Math.round(h * dpr)) canvas.height = Math.round(h * dpr);
+      const g = canvas.getContext("2d")!;
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const css = getComputedStyle(canvas);
+      const v = (name: string) => css.getPropertyValue(name).trim();
+      render(
+        g,
+        w,
+        h,
+        config,
+        {
+          ink: v("--ink"),
+          low: v("--accent"),
+          high: v("--accent-2"),
+          dark: document.documentElement.dataset.theme === "dark",
+        },
+        reduceMotion.matches ? 0 : now / 1000,
+        lens,
+      );
+    };
+
+    // Drift only while it's on screen
+    let visible = true;
+    new IntersectionObserver(([entry]) => (visible = entry.isIntersecting)).observe(
+      canvas,
+    );
+    // Redraws while it drifts, and while the mouse bends it or lets go
+    let bent = false;
+    const frame = (now: number) => {
+      if (visible && !document.hidden && !reduceMotion.matches) {
+        lens = pointer();
+        if (config.drift > 0 || lens || bent) draw(now);
+        bent = !!lens;
+      }
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+
+    addEventListener("resize", () => draw());
+    // The theme switch changes the inks
+    new MutationObserver(() => draw()).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    draw();
+  }
+</script>

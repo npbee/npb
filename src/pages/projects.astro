@@ -1,17 +1,41 @@
 ---
-import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/Base.astro";
-import ProjectList from "../components/ProjectList.astro";
+import { getCollection, render } from "astro:content";
+import Page from "../layouts/Page.astro";
+import Shell from "../components/system/Shell.astro";
+import PageTitle from "../components/system/PageTitle.astro";
+import ProjectRow from "../components/system/ProjectRow.astro";
 
-let projects = await getCollection("projects");
+const projects = await Promise.all(
+  (await getCollection("projects"))
+    .filter((project) => !project.data.draft)
+    // The glob loader's order isn't guaranteed; this keeps waveformr first.
+    .toSorted((a, b) => b.id.localeCompare(a.id))
+    .map(async (project) => ({ project, ...(await render(project)) })),
+);
 ---
 
-<BaseLayout
-  title="Posts | Nick Ball"
-  description="Projects by Nick Ball, Software developer based in Portland, OR."
+<Page
+  title="Projects | Nick Ball"
+  description="Projects by Nick Ball, product engineer based in Portland, OR."
 >
-  <main class="space-y-4">
-    <h1 class="text-light font-semibold">Projects</h1>
-    <ProjectList projects={projects} />
-  </main>
-</BaseLayout>
+  <Shell current="projects">
+    <main>
+      <PageTitle title="projects" />
+      <ul class="rows project-list">
+        {projects.map(({ project, Content }) => (
+          <ProjectRow name={project.data.title} href={project.data.link}>
+            <Content />
+          </ProjectRow>
+        ))}
+      </ul>
+    </main>
+  </Shell>
+</Page>
+
+<style>
+  .project-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

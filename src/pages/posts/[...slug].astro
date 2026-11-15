@@ -1,6 +1,13 @@
 ---
-import BaseLayout from "../../layouts/Base.astro";
 import { getEntry, render } from "astro:content";
+import Page from "../../layouts/Page.astro";
+import Shell from "../../components/system/Shell.astro";
+import Row from "../../components/system/Row.astro";
+import ProgressWave from "../../components/system/ProgressWave.astro";
+import PostHeader from "../../components/system/PostHeader.astro";
+import Prose from "../../components/system/Prose.astro";
+import { fullDate, isoDate } from "../../utils/dates";
+import { duration, readSeconds } from "../../utils/waveform";
 
 const { slug } = Astro.params;
 if (!slug) {
@@ -14,34 +21,73 @@ if (entry === undefined) {
 }
 
 const { Content } = await render(entry);
-
-let formattedDate = new Intl.DateTimeFormat("en-US", {
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-}).format(new Date(entry.data.date));
+const readTime = duration(readSeconds(entry.body ?? ""));
 
 const ogImageUrl = new URL(slug + ".og-image.png", Astro.url).toString();
 ---
 
-<BaseLayout
+<Page
   title={entry.data.title}
   description={entry.data.description}
   ogImageUrl={ogImageUrl}
-  size="full"
 >
-  <main
-    class="prose prose-lg prose-gray flex-1 dark:prose-invert prose-headings:text-3xl"
-  >
-    <div class="space-y-1 text-left">
-      <h1
-        class="title mb-0 text-balance leading-none"
-        style="text-wrap: balance"
-      >
-        {entry.data.title}
-      </h1>
-      <p class="text-light text-sm">{formattedDate}</p>
-    </div>
-    <Content />
-  </main>
-</BaseLayout>
+  <Shell current="posts">
+    <article>
+      <Row narrow="before" class="post">
+        <ProgressWave seed={slug} />
+        <PostHeader
+          title={entry.data.title}
+          description={entry.data.description}
+        />
+        <Prose>
+          <Content />
+        </Prose>
+        <p slot="margin" class="post-notes">
+          <time class="post-date" datetime={isoDate(entry.data.date)}
+            >{fullDate(entry.data.date)}</time
+          >{" · "}{readTime} to read
+        </p>
+      </Row>
+    </article>
+  </Shell>
+</Page>
+
+<style>
+  /* Pinned beside the progress strip, at its height, so the margin below
+     is free for wide figures. Its ground reaches back across the gap, so
+     figures pass under it as they pass under the strip. Set flush right,
+     to end where the wide figures do. */
+  :global(.post) > :global(.row-margin) {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 1;
+    align-self: start;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: calc(22px + 1.25rem);
+    max-width: none;
+    margin-left: calc(-1 * var(--gap-drawn));
+    padding-left: var(--gap-drawn);
+    background: var(--ground);
+    white-space: nowrap;
+  }
+
+  .post-date {
+    color: var(--ink);
+  }
+
+  /* Narrow: the notes lead the post, set off as a block note */
+  @media (max-width: 47.5rem) {
+    :global(.post) > :global(.row-margin) {
+      position: static;
+      display: block;
+      height: auto;
+      background: none;
+      white-space: normal;
+      margin: 0 0 var(--space-6);
+      padding-left: 0.875rem;
+      border-left: var(--hair) solid var(--rule);
+    }
+  }
+</style>
