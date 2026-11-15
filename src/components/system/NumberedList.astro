@@ -7,8 +7,8 @@ import SectionLabel from "./SectionLabel.astro";
 
 export interface Item {
   text: string;
-  /** Links shown in the margin beside the item, one per line */
-  links?: { label: string; href: string }[];
+  /** Links shown on one line in the margin beside the item */
+  links?: { label: string; title?: string; href: string }[];
 }
 
 interface Props {
@@ -30,7 +30,9 @@ const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
           <ul slot="margin" class="links-note">
             {links.map((link) => (
               <li>
-                <a href={link.href}>{link.label}</a>
+                <a href={link.href} title={link.title}>
+                  {link.label}
+                </a>
               </li>
             ))}
           </ul>
@@ -72,10 +74,23 @@ const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   }
 
   /* Level with the item's first line */
+  /* One line, so a note never makes its row taller than the others */
   .links-note {
     margin: 0;
     padding: 0.1875rem 0 0;
     list-style: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .links-note > li {
+    display: inline;
+  }
+
+  .links-note > li + li::before {
+    content: " · ";
+    color: var(--muted);
   }
 
   /* Narrow: the note follows its item, lined up with the item's text */

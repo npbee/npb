@@ -19,37 +19,48 @@ const posts = new Map(
   (await getCollection("blog")).map((post) => [post.id, post.data.title]),
 );
 
-// Each item may point at the posts written about it, by slug
-const built: [string, string[]?][] = [
+// Each item may point at the posts written about it, by slug, with a short
+// label: an item's posts share one line in the margin so every row is the
+// same height. The post's full title is the link's tooltip.
+const built: [string, [slug: string, label: string][]?][] = [
   ["Workflow engines and dynamic form builders"],
   ["AI-assisted features"],
-  ["Rich text editors", ["rich-text-2018"]],
-  ["Undo and redo systems", ["command-based-undo"]],
+  ["Rich text editors", [["rich-text-2018", "Rich text on the web"]]],
+  ["Undo and redo systems", [["command-based-undo", "Command-based undo"]]],
   ["Drag-and-drop interfaces"],
   ["Interactive flow charts"],
   ["Command palettes"],
   ["Data tables and dashboards"],
   [
     "Complex layouts and animations",
-    ["ux-case-study-google-inbox", "css-grid-double-overflow"],
+    [
+      ["ux-case-study-google-inbox", "Google Inbox"],
+      ["css-grid-double-overflow", "Grid overflow"],
+    ],
   ],
   ["Design systems"],
-  ["Type-safe APIs", ["fresh-hono-rpc"]],
-  ["Auth flows", ["fresh-supabase-auth"]],
-  ["Headless CMS sites", ["eleventy-datocms-netlify"]],
-  ["Audio players and waveform renderers", ["audio-waveform-scrubber"]],
+  ["Type-safe APIs", [["fresh-hono-rpc", "Fresh + Hono RPC"]]],
+  ["Auth flows", [["fresh-supabase-auth", "Supabase auth in Fresh"]]],
+  ["Headless CMS sites", [["eleventy-datocms-netlify", "Eleventy + DatoCMS"]]],
+  [
+    "Audio players and waveform renderers",
+    [["audio-waveform-scrubber", "Waveform progress"]],
+  ],
   [
     "Build, test, and release pipelines",
-    ["sentry-for-single-page-apps", "in-search-of-mocks"],
+    [
+      ["sentry-for-single-page-apps", "Sentry for SPAs"],
+      ["in-search-of-mocks", "Mocks"],
+    ],
   ],
 ];
 
-const items: Item[] = built.map(([text, slugs = []]) => ({
+const items: Item[] = built.map(([text, refs = []]) => ({
   text,
-  links: slugs.map((slug) => {
-    const label = posts.get(slug);
-    if (!label) throw new Error(`No post "${slug}" for "${text}"`);
-    return { label, href: `/posts/${slug}` };
+  links: refs.map(([slug, label]) => {
+    const title = posts.get(slug);
+    if (!title) throw new Error(`No post "${slug}" for "${text}"`);
+    return { label, title, href: `/posts/${slug}` };
   }),
 }));
 ---

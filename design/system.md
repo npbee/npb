@@ -285,7 +285,7 @@ Decided from a prototype on the about page (2026-11-14), over four rounds. Rejec
 
 ### Numbered list
 
-For short items outside a post, such as the things built on the about page. A section label names the list; rows are the body face at `--text-row`, with zero-padded mono numerals in muted hanging in a 2rem column. An item may carry a margin note of links, one per line: on the about page, the posts written about that kind of work, by their titles, so the list points at evidence. Narrow, the note follows its item, indented to the item's text. Numbered because the list is ordered by the author, not because numbering looks tidy; if order stops mattering, the numbers go.
+For short items outside a post, such as the things built on the about page. A section label names the list; rows are the body face at `--text-row`, with zero-padded mono numerals in muted hanging in a 2rem column. An item may carry a margin note of links on a single line, joined with ` · `: on the about page, the posts written about that kind of work, by short labels (the full title on hover), so the list points at evidence. The note never wraps, so every row is the same height. Narrow, the note follows its item, indented to the item's text. Numbered because the list is ordered by the author, not because numbering looks tidy; if order stops mattering, the numbers go.
 
 ### Footer
 
