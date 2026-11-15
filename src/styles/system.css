@@ -80,7 +80,9 @@ body {
   align-content: start;
 }
 
-.shell > *,
+/* Not scripts: a production build inlines small ones here, and display
+   would print their source */
+.shell > :not(script),
 .row,
 .rows {
   grid-column: 1 / -1;
