@@ -285,7 +285,7 @@ Decided from a prototype on the about page (2026-11-14), over four rounds. Rejec
 
 ### Numbered list
 
-For short items outside a post, such as the things built on the about page. A section label names the list; rows are the body face at `--text-row`, with zero-padded mono numerals in muted hanging in a 2rem column. Numbered because the list is ordered by the author, not because numbering looks tidy; if order stops mattering, the numbers go.
+For short items outside a post, such as the things built on the about page. A section label names the list; rows are the body face at `--text-row`, with zero-padded mono numerals in muted hanging in a 2rem column. An item may carry a margin note of links, one per line: on the about page, the posts written about that kind of work, by their titles, so the list points at evidence. Narrow, the note follows its item, indented to the item's text. Numbered because the list is ordered by the author, not because numbering looks tidy; if order stops mattering, the numbers go.
 
 ### Footer
 
@@ -309,12 +309,13 @@ The 404 page is the waveform of nothing: a page title, `not found`, over a nearl
 The home page draws its track as a print in two inks, vermilion for the low voice and ochre for the high, and a different variation on every load. It's tuned in a lab, not by hand.
 
 - **Directions.** *Groove*: the track wrapped in rings, like a record, with low marks falling inside each ring and high marks rising outside. *Bands*: bars along time from an off-center baseline, the high voice narrower and half a step over. *Ridges*: stretches of the track as stacked, leaning rows. *Roll*: a piano roll or graphic score, notes starting where the track peaks.
-- **Print rules.** Two inks only, no near-black. Where they cross they multiply (screen in dark), like an overprint. Flat marks, no gradients. Every mark comes from the track's data.
+- **Print rules.** Two inks only, no near-black. Where they cross they multiply (screen in dark), like an overprint. Flat marks, no gradients. Every mark comes from the track's data: a real recording, below.
 - **Placement.** The mark is a full-width layer behind the page, never in front of text. *Free* marks (groove, roll) lie behind the header and intro; they're thin or sparse enough to read through. *Strips* (bands, ridges) are bolder, so they keep to the band between the header and the intro. Either way the slot above the intro holds the space, with its height set in the HTML so nothing moves when the drawing arrives.
 - **Variation.** Each request picks a liked setting, blends it toward another like of the same direction by a random amount, lets a few values wander a little (where there are few likes to blend between), and draws on a fresh seed. Every value stays within the knob's tested range. Picked on the server, drawn on the client.
 - **Motion.** It drifts slowly at the like's speed while on screen. The mouse plays it, each direction in its own way, within about 150px of the pointer and easing in and out: *groove* drags round with the pointer like a hand on a record, its marks leaning into the turn; *bands* jump like a meter catching a peak; *ridges* part around the pointer like wind through grass, rows above pushed up and below pushed down; *roll* treats the pointer as a playhead, and the notes it passes over swell while they sound. Mouse only; touch has no hover. Under `prefers-reduced-motion` it's still and doesn't follow the pointer.
 - **Accessibility.** Decorative, hidden from assistive technology.
-- **Source.** The lab is at `/lab/home-mark` in development only: click for a new seed, tune, and *like* with a note. Likes are kept in `src/data/home-mark-likes.json`, which the home page reads; notes stay out of the page. The render and variation functions are `src/utils/home-mark.ts`. Until a real track is analysed, the two voices are generated from the seed.
+- **Source.** The lab is at `/lab/home-mark` in development only: click for a new seed, tune, and *like* with a note. Likes are kept in `src/data/home-mark-likes.json`, which the home page reads; notes stay out of the page. The render and variation functions are `src/utils/home-mark.ts`.
+- **The track.** "Rest" by The Air on Earth, the song in the audio player demo. It's split into two voices by loudness: the low voice below 200Hz (kick and bass), the high voice above 3kHz (hats and air), as RMS over 2048 windows, scaled to the 99th percentile. Each seed draws a different stretch, 60% of the song, scaled within itself. The analysis runs in the browser at `/lab/home-mark/analyse` (development only), which writes `src/data/home-mark-track.json`.
 
 Rejected: a single drifting, scrubbable waveform (beautiful, but just a waveform, and symmetric); concentric arcs after Müller-Brockmann's *musica viva* posters (liked least of the directions).
 
@@ -372,7 +373,6 @@ Left out on purpose. Adding any of these is a change to the system, not a use of
 
 Each should be settled, and written into this document, when the page that needs it is built.
 
-- What the home mark is drawn from: a real track, and which one, analysed into a low and a high voice. Until then, both are generated.
 - All copy: the intro, margin notes and footer wording. The post's read time currently reads `2:11 to read`, as a placeholder.
 
 ## Where it came from
