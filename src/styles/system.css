@@ -36,6 +36,12 @@ body {
   margin: 0;
 }
 
+/* Keeps a lone word off the last line of a paragraph. The longhand, since
+   the text-wrap shorthand would also undo an inherited nowrap. */
+:where(p, li, dd, figcaption, blockquote) {
+  text-wrap-style: pretty;
+}
+
 :where(img, svg, video) {
   display: block;
   max-width: 100%;

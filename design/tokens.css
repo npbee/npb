@@ -29,7 +29,8 @@
   --adjust-body: 0.46;
   --adjust-mono: 0.54;
 
-  --text-note: 0.6875rem;
+  /* Shares the nav's size; weight, color and place keep the roles apart */
+  --text-note: 0.75rem;
   --text-nav: 0.75rem;
   --text-row: 1rem;
   --text-body: 1.125rem;

@@ -39,13 +39,17 @@ Sizes assume a 16px root.
 
 | Token            | Size                         | Line height | Role and weight | Used for                                      |
 | ---------------- | ---------------------------- | ----------- | --------------- | --------------------------------------------- |
-| `--text-note`    | 0.6875rem (11px)             | 1.65        | Mono 400        | Margin notes, dates, read times, labels       |
+| `--text-note`    | 0.75rem (12px)               | 1.65        | Mono 400        | Margin notes, dates, read times, labels       |
 | `--text-nav`     | 0.75rem (12px)               | 1.4         | Mono 400 or 500 | Wordmark, nav                                 |
 | `--text-row`     | 1rem (16px)                  | 1.4         | Body 400        | List titles, project names                    |
 | `--text-body`    | 1.125rem (18px)              | 1.6         | Body 400        | Post body, page paragraphs                    |
 | `--text-lead`    | 1.25rem (20px)               | 1.55        | Body 400        | The home intro                                |
 | `--text-name`    | 1.375rem (22px)              | 1.2         | Title 500       | The name on the home page                     |
 | `--text-title`   | 1.625rem to 2rem, fluid      | 1.2         | Title 500       | Page and post titles                          |
+
+Notes and nav share 12px. Nav stacks at the top of the margin and notes sit beside what they describe, so place keeps them apart, not size.
+
+Headings wrap balanced; paragraphs, list items and captions wrap `pretty`, so a lone word doesn't end a block.
 
 Titles are tracked at -0.015em, the name at -0.01em. Nothing else is tracked. Headings inside a post are the body face at 600, the same size as the body, with 2.2em above and 0.5em below.
 

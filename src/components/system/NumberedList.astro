@@ -84,6 +84,12 @@ const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     text-overflow: ellipsis;
   }
 
+  /* The whole margin track, not the note width: two labels on one line
+     need it */
+  ol > :global(.numbered-item) > :global(.row-margin) {
+    max-width: none;
+  }
+
   .links-note > li {
     display: inline;
   }
