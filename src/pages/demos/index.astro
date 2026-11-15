@@ -3,25 +3,24 @@ import Page from "../../layouts/Page.astro";
 import Shell from "../../components/system/Shell.astro";
 import PageTitle from "../../components/system/PageTitle.astro";
 import ProjectRow from "../../components/system/ProjectRow.astro";
+import { getDemos } from "../../utils/demos";
+
+const demos = await getDemos();
 ---
 
 <Page
   title="Demos | Nick Ball"
-  description="Demos by Nick Ball, Software developer based in Portland, OR."
+  description="Demos by Nick Ball, product engineer based in Portland, OR."
 >
   <Shell current="demos">
     <main>
       <PageTitle title="demos" />
       <ul class="rows demo-list">
-        <ProjectRow name="Audio Player" href="/demos/audio-player">
-          An audio player built with React and React Aria Components.
-        </ProjectRow>
-        <ProjectRow
-          name="Undo / Redo playground"
-          href="https://undo-redo-playground.pages.dev/"
-        >
-          A Linear-like app for exploring undo/redo techniques.
-        </ProjectRow>
+        {demos.map(({ demo, Content }) => (
+          <ProjectRow name={demo.data.title} href={demo.data.link}>
+            <Content />
+          </ProjectRow>
+        ))}
       </ul>
     </main>
   </Shell>

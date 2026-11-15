@@ -25,7 +25,17 @@ const projectsCollection = defineCollection({
 
 export type Project = CollectionEntry<"projects">;
 
+const demosCollection = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/demos" }),
+  schema: z.object({
+    title: z.string(),
+    // A path on this site or a full URL
+    link: z.string(),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
   projects: projectsCollection,
+  demos: demosCollection,
 };

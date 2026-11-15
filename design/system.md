@@ -89,9 +89,9 @@ Decided from a prototype across the whole site (2026-11-14). Rejected: the study
 ```
             column (--measure)                     margin
 ┌──────────────────────────────────────────┐    ┌──────────────┐
-│ wordmark                                 │    │ about        │
+│ wordmark                                 │    │ posts        │
 │                                          │    │ projects     │
-│                                          │    │ posts        │
+│                                          │    │ demos        │
 │ ▁▃▅▇▅▃▁▃▅▇█▇▅▃▁▃▅▇▅▃▁ waveform ▃▅▇▅▃▁▃▅ │    │ 1:08         │
 │                                          │    │ drag to scrub│
 │ name                                     │    │              │
@@ -114,13 +114,14 @@ Decided from a prototype across the whole site (2026-11-14). Rejected: the study
 ### Head
 
 ```
-wordmark                                          about
+wordmark                                          posts
                                                   projects
-                                                  posts
+                                                  demos
+                                                  about
 ```
 
 - The wordmark in the column, linking home: mono at `--text-nav`, 500.
-- The nav in the margin, stacked, mono at `--text-nav`, muted. The current page is `--accent-ink` and carries `aria-current`; hovering the others turns them ink.
+- The nav in the margin, stacked, mono at `--text-nav`, muted, in the home page's order (posts, projects, demos) with about last. The current page is `--accent-ink` and carries `aria-current`; hovering the others turns them ink.
 - Nav rows are 24px tall and each link fills its row, so pointer targets tile without overlapping. The wordmark shares that line height, and so the first link's baseline. Narrow, where the links sit in one row, each target is 44px tall.
 - Hover turns a link ink, with no underline.
 - The head is followed by 5.5rem of space on the home page and 4.5rem elsewhere.
@@ -204,7 +205,7 @@ Body text …
 
 - Paragraphs in the body face at `--text-body`, filling the measure, 1.2em apart.
 - **Headings** in the body face at 600, at body size. No marks.
-- **Links** are `--accent-ink` with a 1px underline offset 3px; hover thickens it to 2px. Long bare URLs break anywhere rather than widen the page.
+- **Links** are `--accent-ink` with a 1px underline offset 3px; hover thickens it to 2px. The same `.links` style sets links in any running text outside a post: the home intro, the about intro, the not-found line. Long bare URLs break anywhere rather than widen the page.
 - **Lists** keep the body face. Ordered lists show mono numerals in muted, hanging. Unordered lists use a muted mono `–`.
 - **Inline code** is mono at 0.82em, no ground.
 - **Quotes** are italic with a 1px `--rule` on the left and 1rem of padding.
@@ -338,9 +339,9 @@ Rejected: a ground `n` on an ink square (quiet, no accent); a ground `n` on a ve
 | Home     | Head. The home mark behind the head and intro. Name and intro, with notes in the margin. Posts as an index list. Projects as project rows. Footer. |
 | Posts    | Head. Page title. The full index list. Footer.                                                                                 |
 | Post     | Head. Post. Footer.                                                                                                            |
-| About    | Head. Page title. Paragraphs, with a square photo (7rem, untreated) over a note in the margin. The career list under a `work` label. The numbered list of things built. Footer. |
+| About    | Head. Page title. Paragraphs, with a square photo (7rem, untreated) in the margin, and no note: the first sentence already says what one would. The career list under a `work` label. The numbered list of things built. Footer. |
 | Projects | Head. Page title. Project rows. Footer.                                                                                        |
-| Demos    | Head. Page title. Project rows. Footer.                                                                                        |
+| Demos    | Head. Page title. Project rows, from the demos collection; names lowercase, like project names. Footer.                                                                                        |
 
 ## Motion
 

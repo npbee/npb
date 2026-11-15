@@ -7,6 +7,7 @@ import SectionLabel from "../components/system/SectionLabel.astro";
 import IndexList from "../components/system/IndexList.astro";
 import ProjectRow from "../components/system/ProjectRow.astro";
 import { render } from "astro:content";
+import { getDemos } from "../utils/demos";
 // Markdown, so formatters can't wrap link text into spaces inside the links
 import { Content as Intro } from "../copy/home-intro.md";
 
@@ -21,14 +22,16 @@ const projects = await Promise.all(
     .toSorted((a, b) => b.id.localeCompare(a.id))
     .map(async (project) => ({ project, ...(await render(project)) })),
 );
+
+const demos = await getDemos();
 ---
 
-<Page title="Nick Ball" description="Software developer based in Portland, OR.">
+<Page title="Nick Ball" description="Product engineer based in Portland, OR.">
   <Shell>
     <main>
       <HomeMark />
 
-      <header class="intro">
+      <header class="intro links">
         <h1>Nick Ball</h1>
         <Intro />
       </header>
@@ -58,15 +61,11 @@ const projects = await Promise.all(
           <a href="/demos">demos</a>
         </SectionLabel>
         <ul class="rows plain">
-          <ProjectRow name="Audio Player" href="/demos/audio-player">
-            An audio player built with React and React Aria Components.
-          </ProjectRow>
-          <ProjectRow
-            name="Undo / Redo playground"
-            href="https://undo-redo-playground.pages.dev/"
-          >
-            A Linear-like app for exploring undo/redo techniques.
-          </ProjectRow>
+          {demos.map(({ demo, Content }) => (
+            <ProjectRow name={demo.data.title} href={demo.data.link}>
+              <Content />
+            </ProjectRow>
+          ))}
         </ul>
       </section>
     </main>
@@ -94,13 +93,6 @@ const projects = await Promise.all(
     line-height: var(--leading-lead);
   }
 
-  .intro :global(a) {
-    color: var(--accent-ink);
-    text-decoration: underline;
-    text-decoration-thickness: var(--hair);
-    text-underline-offset: 3px;
-  }
-
   main > :global(section) {
     margin-top: var(--space-24);
   }
@@ -112,10 +104,6 @@ const projects = await Promise.all(
   }
 
   @media (hover: hover) {
-    .intro :global(a:hover) {
-      text-decoration-thickness: 2px;
-    }
-
     main :global(.section-label a:hover) {
       color: var(--ink);
     }

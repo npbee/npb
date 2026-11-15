@@ -124,6 +124,20 @@ body {
   color: var(--accent-ink);
 }
 
+/* Links in running text. Examples are live UI and style their own. */
+.links :where(a:not(.example *)) {
+  color: var(--accent-ink);
+  text-decoration: underline;
+  text-decoration-thickness: var(--hair);
+  text-underline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .links :where(a:not(.example *)):hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
 /* Not the nav, which sits in the margin but marks hover with ink alone */
 @media (hover: hover) {
   .note :where(a:not(nav a)):hover {

@@ -29,7 +29,7 @@ const silence = Array.from({ length: 160 }, (_, i) =>
         </svg>
         <p slot="margin" class="code">404</p>
       </Row>
-      <p class="message">
+      <p class="message links">
         Nothing here. Try the <a href="/posts">posts</a> or the
         <a href="/">home page</a>.
       </p>
@@ -56,19 +56,6 @@ const silence = Array.from({ length: 160 }, (_, i) =>
     max-width: 40ch;
     font-size: var(--text-lead);
     line-height: var(--leading-lead);
-  }
-
-  .message a {
-    color: var(--accent-ink);
-    text-decoration: underline;
-    text-decoration-thickness: var(--hair);
-    text-underline-offset: 3px;
-  }
-
-  @media (hover: hover) {
-    .message a:hover {
-      text-decoration-thickness: 2px;
-    }
   }
 
   @media (max-width: 47.5rem) {

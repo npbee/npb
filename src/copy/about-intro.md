@@ -7,5 +7,5 @@ I work across the whole stack, but I'm happiest close to the interface. I care
 most about the details that make software feel considered: how it looks, how it
 moves, and whether it's simple to use.
 
-Outside of work I make music and build little tools like
+Outside of work I make [music](https://theaironearth.com) and build little tools like
 [Waveformr](https://waveformr.com/).
