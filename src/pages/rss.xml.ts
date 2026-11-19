@@ -1,9 +1,18 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
-import sanitizeHtml from "sanitize-html";
 import MarkdownIt from "markdown-it";
 
+// html: false (the default) escapes raw HTML in posts, so the output is safe
+// to embed without a separate sanitizer
 const parser = new MarkdownIt();
+
+// Feed readers resolve relative image paths against their own origin
+const renderImage = parser.renderer.rules.image!;
+parser.renderer.rules.image = (tokens, idx, options, env, self) => {
+  const token = tokens[idx];
+  token.attrSet("src", new URL(token.attrGet("src") ?? "", env.site).href);
+  return renderImage(tokens, idx, options, env, self);
+};
 
 export async function GET(context) {
   const blog = await getCollection('blog');
@@ -16,7 +25,7 @@ export async function GET(context) {
       pubDate: post.data.date,
       description: post.data.description,
       link: `/posts/${post.id}`,
-      content: sanitizeHtml(parser.render(post.body ?? "")),
+      content: parser.render(post.body ?? "", { site: context.site }),
     })),
     customData: [
       `<language>en-us</language>`,
