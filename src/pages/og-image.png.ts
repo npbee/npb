@@ -8,7 +8,7 @@ export const GET: APIRoute = async () =>
   new Response(
     await generateOgImage({
       title: "Nick Ball",
-      description: "Software developer based in Portland, Oregon",
+      description: "Product engineer based in Portland, OR.",
       seed: 7,
     }),
     { headers: { "Content-Type": "image/png" } },
